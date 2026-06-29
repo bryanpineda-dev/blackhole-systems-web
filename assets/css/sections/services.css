@@ -1,0 +1,276 @@
+/* ==========================================================================
+   SERVICES GRID
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.6 SERVICES GRID
+   -------------------------------------------------------------------------- */
+/* --- COMET SYSTEM --- */
+#capabilities{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--white-alpha-03);
+}
+
+.comet-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Behind the service cards. */
+    pointer-events: none;
+}
+
+.comet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--comet-length, 120px);
+    height: var(--comet-thickness, 1.4px);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(var(--primary-blue-rgb), 0.08) 18%,
+        rgba(var(--primary-blue-rgb), 0.65) 68%,
+        var(--primary-white) 100%
+    );
+    border-radius: var(--border-radius-pill);
+    box-shadow: 0 0 var(--comet-glow, 12px) rgba(var(--primary-blue-rgb), 0.5);
+    opacity: 0;
+    transform-origin: 100% 50%;
+    animation: cometVectorFlight var(--comet-duration, 3s) linear forwards;
+    will-change: transform, opacity;
+}
+
+.comet::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: var(--comet-head, 4px);
+    height: var(--comet-head, 4px);
+    border-radius: var(--border-radius-circle);
+    background: var(--primary-white);
+    box-shadow:
+        0 0 8px var(--primary-white),
+        0 0 calc(var(--comet-glow, 12px) * 1.2) rgba(var(--primary-blue-rgb), 0.85);
+    transform: translate(50%, -50%);
+}
+
+.capabilities-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: var(--space-lg); 
+    margin-top: var(--space-xl);
+}
+
+.capability-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: var(--space-xl);
+    min-height: 400px;
+    backdrop-filter: var(--glass-blur-md);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+
+.capability-card.reveal-item {
+    transition:
+        opacity var(--motion-duration-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms),
+        transform var(--motion-duration-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms),
+        filter var(--motion-duration-fast) ease var(--reveal-delay, 0ms),
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+/* Large decorative watermark behind the card content. */
+.card-watermark {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 10rem;
+    color: var(--white-alpha-03); /* Keeps the watermark extremely subtle. */
+    pointer-events: none; /* Keeps clicks focused on the card content. */
+    z-index: 0;
+    transform: rotate(-15deg);
+}
+
+.card-header-alt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    position: relative;
+    z-index: 1;
+}
+
+.glowing-icon-lg {
+    font-size: 2.2rem;
+    color: var(--primary-blue);
+    filter: drop-shadow(0 0 10px var(--blue-alpha-50));
+}
+
+.capability-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0; /* Aligns the title with the icon. */
+}
+
+.card-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+/* Benefit bullet list. */
+.card-bullets {
+    list-style: none;
+    padding: 0;
+    margin-top: auto; /* Pushes the bullets toward the bottom of the card. */
+    margin-bottom: var(--space-xs);
+    position: relative;
+    z-index: 1;
+}
+
+.card-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--primary-white);
+    margin-bottom: 12px;
+    font-weight: 400;
+}
+
+.card-bullets li i {
+    color: var(--primary-blue);
+    font-size: 0.7rem;
+}
+
+/* Card action area. */
+.card-action-area {
+    margin-top: auto; /* Pushes the full action block to the bottom. */
+    width: 100%;
+    padding-top: var(--space-md);
+}
+
+/* 1. HUD divider line. */
+.action-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, var(--glass-border-light), transparent);
+    margin-bottom: var(--space-lg);
+}
+
+/* 2. Button container. */
+.btn-morph-wrapper {
+    display: flex;
+    justify-content: flex-start; 
+}
+
+/* 3. Base button state. */
+.btn-morph {
+    display: flex;
+    align-items: center;
+    width: 46px; /* Starts at icon-only width. */
+    height: 46px;
+    background: var(--white-alpha-05);
+    backdrop-filter: var(--glass-blur-md);
+    border: 1px solid var(--glass-border-ultra-light);
+    border-radius: 30px; /* Capsule shape. */
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                background 0.3s ease, 
+                border-color 0.3s ease;
+    text-decoration: none;
+    position: relative;
+}
+
+/* 4. Fixed icon block. */
+.btn-icon-box {
+    min-width: 44px; /* Stays aligned with the initial button width. */
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-alpha-40);
+    font-size: 1.1rem;
+}
+
+/* 5. Hidden button label. */
+.btn-text {
+    opacity: 0;
+    color: var(--primary-white);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding-right: 20px;
+    transition: opacity 0.3s ease;
+}
+
+/* Card hover expands the inner action button. */
+.capability-card:hover .btn-morph {
+    width: 180px; /* Wide enough for the label. */
+    background: transparent; 
+    backdrop-filter: var(--glass-blur-md);
+    border: 1px solid var(--glass-border-ultra-light);
+    border-radius: var(--border-radius-pill); 
+    box-shadow: var(--glass-shadow-mid);
+    letter-spacing: 1px; 
+    font-size: 14px;
+    overflow: hidden; 
+    color: var(--white-alpha-50);
+}
+
+.capability-card .btn-morph:hover{
+    border-color: var(--primary-white); 
+    transform: translateY(1px);
+}
+
+.capability-card .btn-morph::after{
+    content: '';
+    position: absolute;
+    inset: 0; 
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-glass-rim);
+    -webkit-mask: 
+        linear-gradient(var(--primary-white) 0 0) content-box, 
+        linear-gradient(var(--primary-white) 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.capability-card:hover .btn-text {
+    opacity: 1;
+    transition-delay: 0.5s; /* Waits for the button expansion to start. */
+}
+
+.capability-card:hover .btn-icon-box {
+    color: var(--primary-blue); /* Highlights the icon when activated. */
+}    
+
+/* Tactical responsiveness. */
+@media (max-width: 1024px) {
+    .capabilities-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .capabilities-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .capability-card {
+        min-height: auto;
+    }
+}
+

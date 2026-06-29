@@ -1,0 +1,153 @@
+/* ==========================================================================
+   RESPONSIVE.CSS | VIEWPORT-SPECIFIC OVERRIDES
+   --------------------------------------------------------------------------
+   Keep responsive rules here so section files can focus on default desktop
+   composition. Import this file last to preserve override priority.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    :root {
+        --section-pad: 110px;
+    }
+
+    .container { width: 95%; }
+    .hero-title { font-size: 3.5rem; }
+    .split-layout { grid-template-columns: 1fr; gap: 60px; }
+    .about-visuals { height: 400px; }
+    .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-capsule { display: none; }
+    .about-planets-right { padding-top: 50px; }
+    .orbit-container { font-size: 0.7em; margin: 0 auto; }
+
+    .footer-shell {
+        grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
+    }
+
+    .footer-nav {
+        grid-column: 1;
+    }
+
+    .footer-contact {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-pad: 92px;
+    }
+
+    .container {
+        width: 100%;
+        padding-inline: 18px;
+    }
+
+    .hero-title { font-size: 2.8rem; }
+    .hero-section { height: auto; min-height: 100vh; padding: 100px 0; }
+    .section-heading { font-size: 2.15rem; }
+    .section-sub,
+    .body-text { font-size: 1rem; }
+    .section-header.centered { margin-bottom: 54px; }
+    .capabilities-grid { grid-template-columns: 1fr; }
+    .header-action { display: none; }
+    .about-content-left { padding-right: 0; text-align: center; }
+    .about-planets-right { padding-top: 20px; }
+    .orbit-container { font-size: 0.55em; margin: 0 auto; }
+    .glass-coin { width: 60px; height: 60px; }
+    .glass-coin i { font-size: 1.5rem; }
+    .tech-coins-wrapper { margin-top: var(--space-xl); }
+    .card-python, .card-php, .card-js {
+        position: relative;
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 100%;
+        margin-bottom: var(--space-md);
+    }
+    .about-visuals { height: auto; margin-bottom: var(--space-xl); }
+
+    .footer-shell {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .footer-brand,
+    .footer-nav,
+    .footer-contact {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --section-pad: 78px;
+    }
+
+    .container {
+        padding-inline: 16px;
+    }
+
+    .hero-title {
+        font-size: 2.35rem;
+    }
+
+    .section-heading {
+        font-size: 1.9rem;
+    }
+
+    .reveal-item[data-reveal="fade-left"],
+    .reveal-hidden[data-reveal="fade-left"],
+    .reveal-item[data-reveal="fade-right"],
+    .reveal-hidden[data-reveal="fade-right"] {
+        transform: translate3d(0, var(--motion-distance-sm), 0);
+    }
+
+    .split-layout > *,
+    .contact-launch-layout > *,
+    .capabilities-grid > *,
+    .projects-command-center > *,
+    .deploy-grid > * {
+        min-width: 0;
+    }
+
+    .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .hero-actions .container-btn,
+    .hero-actions .container-btn .btn-glass {
+        width: 100%;
+    }
+
+    .glass-form {
+        padding: var(--space-md);
+    }
+
+    .form-header strong {
+        display: block;
+        margin-top: 6px;
+    }
+
+    .workflow-actions {
+        justify-content: flex-start;
+    }
+
+    .footer-signal {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .footer-contact a {
+        word-break: break-word;
+    }
+
+    .social-links {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blackhole Systems - UX/UI Design, Front-End Engineering, Automation, APIs, and Custom Software Systems.">
+    <title>Blackhole Systems | Custom Software Beyond the Website</title>
+
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="https://kit.fontawesome.com/c86704639a.js" crossorigin="anonymous"></script>
+    <noscript>
+        <style>
+            .page-loader { display: none !important; }
+            body { overflow: auto !important; }
+        </style>
+    </noscript>
+</head>
+<body class="is-loading">
+    <!-- Page loader: short brand boot sequence shown while key assets initialize. -->
+    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="Loading Blackhole Systems">
+        <div class="loader-shell">
+            <div class="loader-mark" aria-hidden="true">
+                <img src="assets/images/logo_bhws_w-icon.png" alt="">
+            </div>
+            <div class="loader-brand">Blackhole Systems // Digital Engineering</div>
+            <div class="loader-progress" aria-hidden="true">
+                <span></span>
+            </div>
+            <div class="loader-status">Initializing interface...</div>
+        </div>
+    </div>
+
+    <!-- Custom cursor layer. Decorative only; behavior is controlled from assets/js/app.js. -->
+    <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+    <!-- Site Header / Primary Navigation -->
+    <header class="site-header" id="main-header">
+        <div class="container header-container">
+            
+            <a href="#hero" class="logo" aria-label="Blackhole Systems home">
+                <div class="logo-wrapper">
+                    <img src="assets/images/logo_bhws_w.png" alt="Blackhole Systems Logo" class="logo-full">
+                    <img src="assets/images/logo_bhws_w-icon.png" alt="" class="logo-icon" aria-hidden="true">
+                </div>
+            </a>
+            
+            <nav class="nav-capsule" aria-label="Primary navigation">
+                <ul class="main-nav-list">
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#mission" class="nav-link">Workflow</a></li>
+                    <li><a href="#capabilities" class="nav-link">Services</a></li>
+                    <li><a href="#deployments" class="nav-link">Projects</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-action">
+                <div class="container-btn">
+                    <div class="btn-glass">
+                        <a href="#contact">
+                            <span>Start Project</span>
+                            <i class="ri-arrow-right-line u-icon-space-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero: primary brand promise and first conversion path. -->
+        <section id="hero" class="hero-section">
+            
+            <div class="hero-backdrop">
+                <video autoplay muted loop playsinline class="hero-video" poster="assets/images/blackhole-hero-poster.jpg">
+                    <source src="assets/images/blackhole-hero-optimized.mp4" type="video/mp4">
+                    <source src="assets/images/blackhole-hero-optimized.webm" type="video/webm">
+                </video>
+                <div class="video-overlay" aria-hidden="true"></div>
+                <div class="star-field" id="star-field" aria-hidden="true"></div>
+            </div>
+            
+            <div class="hero-content-wrapper">
+                
+                <div class="orbit-center-content">
+                    <div class="status-badge pulse-kicker">
+                        <span class="status-dot"></span> Blackhole Systems // Digital Engineering
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Custom Software <br>
+                        Beyond the Website
+                    </h1>
+                    
+                    <p class="hero-description">
+                        We build custom digital systems with the right technology for each project: high-end interfaces, web platforms, dashboards, automations, integrations, and software that works beautifully.
+                    </p>
+
+                    <div class="hero-actions">
+                        <div class="container-btn">
+                            <div class="btn-glass">
+                                <a href="#contact">
+                                    Start Project
+                                </a>
+                            </div>
+                            <div class="btn-glass">
+                                <a href="#capabilities">
+                                    <i class="ri-terminal-line u-icon-space-right"></i> View Services
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About: positioning statement and builder philosophy. -->
+        <section id="about" class="section-padding">
+            <div class="container split-layout about-section-container">
+                
+                <div class="about-content-left">
+                    <span class="section-tag">:: BUILDER_DNA</span>
+                    
+                    <h2 class="section-heading">Design-first software for real business operations.</h2>
+                    
+                    <div class="hud-text-block">
+                        <p class="body-text lead-text">
+                            <strong>Blackhole Systems</strong> blends UX/UI design, front-end engineering, and software development to turn complex ideas into premium digital products.
+                        </p>
+                        <p class="body-text sub-text">
+                            From public websites to internal dashboards, booking flows, e-commerce platforms, automations, and API integrations, the technology adapts to the mission, not the other way around.
+                        </p>
+                    </div>
+
+                    <ul class="sci-fi-bullets">
+                        <li>
+                            <div class="bullet-icon" aria-hidden="true"><i class="ri-artboard-2-line"></i></div>
+                            <span><strong>High-End Interfaces:</strong><br> UX/UI concepts translated into clean, responsive, production-ready front-end experiences.</span>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" aria-hidden="true"><i class="ri-terminal-window-line"></i></div>
+                            <span><strong>Custom Digital Systems:</strong><br> Dashboards, portals, booking tools, e-commerce, and business-specific software built from the ground up.</span>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" aria-hidden="true"><i class="ri-node-tree"></i></div>
+                            <span><strong>Automation & Integrations:</strong><br> APIs, workflows, AI tools, scripts, and connected systems designed around real operations.</span>
+                        </li>
+                    </ul>
+
+                    <div class="about-capability-chips" aria-label="Core capabilities">
+                        <span>UX/UI</span>
+                        <span>Front-End</span>
+                        <span>Back-End</span>
+                        <span>APIs</span>
+                        <span>Automation</span>
+                        <span>E-Commerce</span>
+                    </div>
+                </div>
+
+                <div class="about-planets-right">
+                    <div class="ambient-orb orb-1" aria-hidden="true"></div>
+                    <div class="ambient-orb orb-2" aria-hidden="true"></div>
+                    
+                    <div class="orbit-container" aria-hidden="true">
+                        <div class="planet"></div>
+                        <div class="moon"></div>
+                        <div class="moon2"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Workflow: visual proof of process, stack flexibility, and engineering mindset. -->
+        <section id="mission" class="section-padding blueprint-grid">
+            <div class="container">
+                
+                <div class="split-layout">
+                    
+                    <div class="about-visuals">
+                        <div class="code-ecosystem">
+                            
+                            <div class="code-card card-python">
+                                <div class="card-header">
+                                    <i class="fa-brands fa-python glowing-icon"></i> automation_worker.py
+                                </div>
+                                <code>
+                                    <span class="k">@workflow.task</span>(trigger=<span class="s">'daily_report'</span>)<br>
+                                    <span class="k">def</span> <span class="f">process_client_data</span>(source):<br>
+                                    &nbsp;&nbsp;records = source.fetch_pending()<br>
+                                    &nbsp;&nbsp;report = dashboard.sync(records)<br>
+                                    &nbsp;&nbsp;<span class="k">return</span> report.status(<span class="s">"ready"</span>)
+                                </code>
+                            </div>
+
+                            <div class="code-card card-js">
+                                <div class="card-header">
+                                    <i class="fa-brands fa-react glowing-icon"></i> client_portal.jsx
+                                </div>
+                                <code>
+                                    <span class="k">export const</span> <span class="f">Portal</span> = ({ client }) => {<br>
+                                    &nbsp;&nbsp;<span class="k">const</span> [tasks, setTasks] = useState([]);<br><br>
+                                    &nbsp;&nbsp;useEffect(() => {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;api.tasks(client.id).then(setTasks);<br>
+                                    &nbsp;&nbsp;}, [client]);<br><br>
+                                    &nbsp;&nbsp;<span class="k">return</span> &lt;Dashboard data={tasks} /&gt;;<br>
+                                    }
+                                </code>
+                            </div>
+
+                            <div class="code-card card-php">
+                                <div class="card-header">
+                                    <i class="fa-brands fa-php glowing-icon"></i> booking_api.php
+                                </div>
+                                <code>
+                                    <span class="k">Route</span>::post(<span class="s">'/booking/sync'</span>, <span class="f">function</span>($request) {<br>
+                                    &nbsp;&nbsp;$booking = Booking::validate($request);<br>
+                                    &nbsp;&nbsp;CRM::sync($booking);<br>
+                                    &nbsp;&nbsp;<span class="k">return</span> response()-&gt;json([<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="s">'methods'</span> => <span class="s">'POST'</span>,<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="s">'status'</span> => <span class="s">'confirmed'</span><br>
+                                    &nbsp;&nbsp;]);<br>
+                                    });
+                                </code>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="about-content">
+                        <span class="section-tag">:: ENGINEERING_WORKFLOW</span>
+                        <h2 class="section-heading">From business idea to deployed digital system.</h2>
+                        
+                        <div class="hud-text-block-color">
+                            <p class="body-text lead-text">
+                        Every build starts with the business problem, then moves through <strong>UX/UI structure</strong>, front-end execution, backend logic, integrations, automation, and performance tuning.
+                            </p>
+                        </div>
+                        
+                        <p class="body-text">
+                        The result is not a template or a generic website. It is a <strong>custom digital system</strong> designed around the client's workflow, customers, data, and growth path.
+                        </p>
+
+                        <div class="container-btn workflow-actions">
+                            <div class="btn-glass">
+                                <a href="#contact">
+                                    <span>Start Project</span>
+                                    <i class="ri-arrow-right-line u-icon-space-left"></i>
+                                </a>
+                            </div>
+                            <div class="btn-glass">
+                                <a href="#capabilities">
+                                    <span>Explore Services</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="tech-coins-wrapper" aria-label="Technology stack">
+                    <div class="tech-coins-track">
+                        <div class="glass-coin"><i class="fa-brands fa-python"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-react"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-wordpress"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-php"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-js"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-node-js"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-docker"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-aws"></i></div>
+                        <div class="glass-coin"><i class="fa-solid fa-database"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-figma"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-git-alt"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-linux"></i></div>
+
+                        <div class="glass-coin"><i class="fa-brands fa-python"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-react"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-wordpress"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-php"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-js"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-node-js"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-docker"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-aws"></i></div>
+                        <div class="glass-coin"><i class="fa-solid fa-database"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-figma"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-git-alt"></i></div>
+                        <div class="glass-coin"><i class="fa-brands fa-linux"></i></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Services: commercial service cards mapped to the main client needs. -->
+        <section id="capabilities" class="section-padding">
+            <div class="ambient-orb orb-3" aria-hidden="true"></div>
+            <div class="ambient-orb orb-4" aria-hidden="true"></div>
+            <div id="comet-field" class="comet-field" aria-hidden="true"></div>
+            <div class="container">
+                <div class="section-header centered">
+                    <span class="section-tag">:: SERVICE_MODULES</span>
+                    <h2 class="section-heading">Systems We Can Build</h2>
+                    <p class="section-sub">From premium interfaces to business platforms, automations, integrations, and performance engineering,<br> every build is shaped around the client's workflow, data, and growth path.</p>
+                </div>
+
+                <div class="capabilities-grid">
+    
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-microchip card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-microchip glowing-icon-lg"></i>
+                            <h3>Custom Software Systems</h3>
+                        </div>
+                        <p class="card-desc">Tailored digital systems that organize operations, users, data, and business logic in one place.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Client & Project Portals</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Booking & Reservation Engines</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Internal Operations Dashboards</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Custom Workflow Logic</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-cart-shopping card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-cart-shopping glowing-icon-lg"></i>
+                            <h3>E-Commerce Systems</h3>
+                        </div>
+                        <p class="card-desc">Sales platforms designed to move customers from product discovery to checkout with less friction.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Conversion-Focused Storefronts</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Checkout & Payment Flows</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Inventory & Order Operations</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Sales Reporting Dashboards</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-code card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-code glowing-icon-lg"></i>
+                            <h3>Front-End Engineering</h3>
+                        </div>
+                        <p class="card-desc">Production-ready interfaces that feel fast, responsive, polished, and aligned with the brand.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Responsive Interface Builds</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Motion & Interaction Systems</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Clean, Maintainable Code</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Cross-Device Stability</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-server card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-server glowing-icon-lg"></i>
+                            <h3>Back-End & Databases</h3>
+                        </div>
+                        <p class="card-desc">Secure server logic and data structures built to support real workflows and future growth.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Database Design & Modeling</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Secure Server-Side Logic</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Authentication & Access Logic</li>
+                            <li><i class="fa-solid fa-angle-right"></i> PHP, Node & MySQL Foundations</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-network-wired card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-network-wired glowing-icon-lg"></i>
+                            <h3>API & System Integrations</h3>
+                        </div>
+                        <p class="card-desc">Connected platforms that keep business data moving between tools, dashboards, and teams.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> REST APIs & Webhooks</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Third-Party Platform Sync</li>
+                            <li><i class="fa-solid fa-angle-right"></i> CRM, ERP & Dashboard Connectivity</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Payment, Booking & Data Integrations</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-bezier-curve card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-bezier-curve glowing-icon-lg"></i>
+                            <h3>UX/UI Product Design</h3>
+                        </div>
+                        <p class="card-desc">Digital product design that turns complex workflows into clear, premium user experiences.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> High-Fidelity UI Concepts</li>
+                            <li><i class="fa-solid fa-angle-right"></i> User Flow Architecture</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Design Systems & Components</li>
+                            <li><i class="fa-solid fa-angle-right"></i> UX Reviews & Interface Polish</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-robot card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-robot glowing-icon-lg"></i>
+                            <h3>AI Tools & Chatbots</h3>
+                        </div>
+                        <p class="card-desc">AI assistants and workflow tools connected to real business context, not generic prompts.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> GPT API Integrations</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Lead Qualification Flows</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Custom Knowledge Bases</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Support & Operations Assistants</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-solid fa-bolt card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-solid fa-bolt glowing-icon-lg"></i>
+                            <h3>SEO, Speed & Optimization</h3>
+                        </div>
+                        <p class="card-desc">Technical improvements that make digital products faster, clearer, and easier to discover.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Core Web Vitals Optimization</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Speed & Loading Improvements</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Semantic Code Optimization</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Technical SEO & Accessibility</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card capability-card">
+                        <i class="fa-brands fa-python card-watermark"></i>
+                        <div class="card-header-alt">
+                            <i class="fa-brands fa-python glowing-icon-lg"></i>
+                            <h3>Automation & Scripting</h3>
+                        </div>
+                        <p class="card-desc">Automation scripts and internal utilities that remove repetitive work from daily operations.</p>
+                        <ul class="card-bullets">
+                            <li><i class="fa-solid fa-angle-right"></i> Python Utilities & Scripts</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Data Processing Workflows</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Reporting & Content Pipelines</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Custom Internal Tooling</li>
+                        </ul>
+                        <div class="card-action-area">
+                            <div class="action-divider"></div>
+                            <div class="btn-morph-wrapper">
+                                <a href="#contact" class="btn-morph">
+                                    <div class="btn-icon-box">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <span class="btn-text">Request Service</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects: portfolio/deployment shell. Replace placeholder dossiers with real projects. -->
+        <section id="deployments" class="deploy-section">
+            <div class="deploy-layout">
+                
+                <aside class="command-base">
+                    <div class="command-header">
+                        <span class="sys-title">TERMINAL // BLACKHOLE_SYSTEMS</span>
+                        <div class="status-indicator"><span class="pulse"></span> ONLINE</div>
+                    </div>
+
+                    <nav class="command-filters">
+                        <span class="filter-label">:: EXECUTE_QUERY</span>
+                        <button class="cmd-btn active" data-filter="all">
+                            <span class="index">00</span> <span class="cmd-text">ALL_DEPLOYS</span>
+                        </button>
+                        <button class="cmd-btn" data-filter="web">
+                            <span class="index">01</span> <span class="cmd-text">WEB_ARCH</span>
+                        </button>
+                        <button class="cmd-btn" data-filter="auto">
+                            <span class="index">02</span> <span class="cmd-text">AUTOMATION</span>
+                        </button>
+                        <button class="cmd-btn" data-filter="ui">
+                            <span class="index">03</span> <span class="cmd-text">UI_SENSORS</span>
+                        </button>
+                    </nav>
+
+                    <div class="command-footer">
+                        <div class="data-row"><span>PROJECTS:</span> <strong>+40</strong></div>
+                        <div class="data-row"><span>USERS:</span> <strong>150</strong></div>
+                    </div>
+                </aside>
+
+                <div class="deploy-display">
+                    <div id="grid-pulse" class="tactical-grid-bg" aria-hidden="true"></div>
+                    
+                    <div class="deploy-header">
+                        <span class="section-tag">:: LIVE_SYSTEM</span>
+                        <h2 class="section-heading">Deployment Log</h2>
+                    </div>
+
+                    <div class="dossier-grid">
+                        <article class="dossier-card" data-category="web">
+                            <div class="dossier-top-bar">
+                                <span class="d-id">ID: #BH-772</span>
+                                <span class="d-status success">DEPLOYED</span>
+                            </div>
+                            
+                            <div class="dossier-screen">
+                                <div class="screen-placeholder color-1">
+                                    <i class="ri-plane-fill"></i>
+                                </div>
+                                <div class="screen-glare"></div>
+                            </div>
+                            
+                            <div class="dossier-info">
+                                <h3 class="d-title">Tourism Engine V1</h3>
+                                <p class="d-desc">Full-stack booking platform with automated PDF voucher generation.</p>
+                                
+                                <div class="dossier-footer">
+                                    <div class="d-tags">
+                                        <span class="tech-tag">REACT</span>
+                                        <span class="tech-tag">PHP</span>
+                                        <span class="tech-tag">AWS</span>
+                                    </div>
+
+                                    <div class="d-actions">
+                                        <a href="#" class="btn-terminal-sm view-live">
+                                            <span>LIVE_PREVIEW</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                        <a href="#contact" class="btn-terminal-sm request-demo">
+                                            <span>REQUEST_DEMO</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="dossier-card" data-category="auto">
+                            <div class="dossier-top-bar">
+                                <span class="d-id">ID: #BH-891</span>
+                                <span class="d-status success">DEPLOYED</span>
+                            </div>
+                            
+                            <div class="dossier-screen">
+                                <div class="screen-placeholder color-2">
+                                    <i class="ri-file-code-line"></i>
+                                </div>
+                                <div class="screen-glare"></div>
+                            </div>
+                            
+                            <div class="dossier-info">
+                                <h3 class="d-title">Data Auditor Bot</h3>
+                    <p class="d-desc">Automation workflow for internal data processing, reporting, and operational visibility.</p>
+                                
+                                <div class="dossier-footer">
+                                    <div class="d-tags">
+                                        <span class="tech-tag">REACT</span>
+                                        <span class="tech-tag">PHP</span>
+                                        <span class="tech-tag">AWS</span>
+                                    </div>
+
+                                    <div class="d-actions">
+                                        <a href="#" class="btn-terminal-sm view-live">
+                                            <span>LIVE_PREVIEW</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                        <a href="#contact" class="btn-terminal-sm request-demo">
+                                            <span>REQUEST_DEMO</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="dossier-card" data-category="ui">
+                            <div class="dossier-top-bar">
+                                <span class="d-id">ID: #BH-404</span>
+                                <span class="d-status pending">PROTOTYPE</span>
+                            </div>
+                            
+                            <div class="dossier-screen">
+                                <div class="screen-placeholder color-3">
+                                    <i class="ri-dashboard-3-line"></i>
+                                </div>
+                                <div class="screen-glare"></div>
+                            </div>
+                            
+                            <div class="dossier-info">
+                                <h3 class="d-title">Fintech Dashboard</h3>
+                                <p class="d-desc">High-fidelity dark mode interface engineered for banking applications.</p>
+                                
+                                <div class="dossier-footer">
+                                    <div class="d-tags">
+                                        <span class="tech-tag">REACT</span>
+                                        <span class="tech-tag">PHP</span>
+                                        <span class="tech-tag">AWS</span>
+                                    </div>
+
+                                    <div class="d-actions">
+                                        <a href="#" class="btn-terminal-sm view-live">
+                                            <span>LIVE_PREVIEW</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                        <a href="#contact" class="btn-terminal-sm request-demo">
+                                            <span>REQUEST_DEMO</span>
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials: trust layer after deployments; replace placeholder transmissions with verified client feedback. -->
+        <section id="reviews" class="section-padding">
+            <div class="signal-field" aria-hidden="true">
+                <span class="signal-particle particle-a"></span>
+                <span class="signal-particle particle-b"></span>
+                <span class="signal-particle particle-c"></span>
+                <span class="signal-particle particle-d"></span>
+                <span class="signal-particle particle-e"></span>
+                <span class="signal-particle particle-f"></span>
+                <span class="signal-particle particle-g"></span>
+                <span class="signal-particle particle-h"></span>
+            </div>
+            <div class="container">
+                <div class="section-header centered reviews-header">
+                    <span class="section-tag u-text-center">:: CLIENT_TRANSMISSIONS</span>
+                    <h2 class="section-heading centered">Verified Signals From Real Builds</h2>
+                    <p class="section-sub">Client feedback focused on what matters after launch: smoother operations, clearer interfaces, faster workflows, and systems that feel built around the business.</p>
+                </div>
+
+                <div class="reviews-console" aria-hidden="true">
+                    <span>RECEIVING_FEEDBACK_STREAM</span>
+                    <span>SIGNAL_INTEGRITY: 100%</span>
+                    <span>STATUS: VERIFIED</span>
+                </div>
+
+                <div class="reviews-slider" data-review-slider>
+                    <div class="reviews-viewport">
+                        <div class="reviews-track">
+                            <div class="review-card">
+                                <div class="review-card-main">
+                                    <div class="review-status-row">
+                                        <span class="signal-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> SIGNAL VERIFIED</span>
+                                        <span class="review-index">TX-01</span>
+                                    </div>
+                                    <div class="review-waveform" aria-hidden="true">
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <p class="review-quote">"The custom system helped us organize daily operations, reduce manual work, and deliver a smoother experience for our clients."</p>
+                                </div>
+                                <div class="review-card-side">
+                                    <div class="transmission-outcome">
+                                        <span>System Type</span>
+                                        <strong>Booking Workflow + Client Dashboard</strong>
+                                    </div>
+                                    <div class="reviewer-meta">
+                                        <span class="reviewer-icon"><i class="ri-user-3-line" aria-hidden="true"></i></span>
+                                        <div>
+                                            <span class="reviewer-name">Tourism Business Owner</span>
+                                            <span class="reviewer-role">Operations-focused platform</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-card-main">
+                                    <div class="review-status-row">
+                                        <span class="signal-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> SIGNAL VERIFIED</span>
+                                        <span class="review-index">TX-02</span>
+                                    </div>
+                                    <div class="review-waveform" aria-hidden="true">
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <p class="review-quote">"The interface felt premium from day one. Clean structure, strong performance, and a final product that matched the brand."</p>
+                                </div>
+                                <div class="review-card-side">
+                                    <div class="transmission-outcome">
+                                        <span>System Type</span>
+                                        <strong>Premium Interface + Front-End Build</strong>
+                                    </div>
+                                    <div class="reviewer-meta">
+                                        <span class="reviewer-icon"><i class="ri-user-3-line" aria-hidden="true"></i></span>
+                                        <div>
+                                            <span class="reviewer-name">Startup Founder</span>
+                                            <span class="reviewer-role">Brand-aligned product experience</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-card-main">
+                                    <div class="review-status-row">
+                                        <span class="signal-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> SIGNAL VERIFIED</span>
+                                        <span class="review-index">TX-03</span>
+                                    </div>
+                                    <div class="review-waveform" aria-hidden="true">
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <p class="review-quote">"The automation removed repetitive steps from our workflow and gave the team a clearer way to handle data and reports."</p>
+                                </div>
+                                <div class="review-card-side">
+                                    <div class="transmission-outcome">
+                                        <span>System Type</span>
+                                        <strong>Automation Pipeline + Reporting Tools</strong>
+                                    </div>
+                                    <div class="reviewer-meta">
+                                        <span class="reviewer-icon"><i class="ri-user-3-line" aria-hidden="true"></i></span>
+                                        <div>
+                                            <span class="reviewer-name">Operations Lead</span>
+                                            <span class="reviewer-role">Workflow automation project</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reviews-controls" aria-label="Client transmission controls">
+                        <button class="review-control" type="button" data-review-prev aria-label="Previous transmission">
+                            <i class="ri-arrow-left-line" aria-hidden="true"></i>
+                        </button>
+                        <div class="review-dots" role="tablist" aria-label="Client transmissions">
+                            <button class="review-dot is-active" type="button" data-review-dot="0" aria-label="Show transmission 1" aria-selected="true"></button>
+                            <button class="review-dot" type="button" data-review-dot="1" aria-label="Show transmission 2" aria-selected="false"></button>
+                            <button class="review-dot" type="button" data-review-dot="2" aria-label="Show transmission 3" aria-selected="false"></button>
+                        </div>
+                        <button class="review-control" type="button" data-review-next aria-label="Next transmission">
+                            <i class="ri-arrow-right-line" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact: project launch console for new builds and discovery calls. -->
+        <section id="contact" class="section-padding contact-launch-section">
+            <div class="launch-globe-field" aria-hidden="true">
+                <canvas class="contact-globe-canvas" data-contact-globe></canvas>
+            </div>
+
+            <div class="container contact-launch-layout">
+                <div class="contact-info launch-console">
+                    <span class="section-tag">:: START_PROJECT</span>
+                    <h2 class="section-heading">Start the System Build</h2>
+                    <p class="body-text">Send the idea, workflow, or problem you want to solve. I will help shape the right technology, structure, and execution path.</p>
+
+                    <div class="launch-status-grid">
+                        <div class="launch-status-item">
+                            <span>System</span>
+                            <strong>Ready</strong>
+                        </div>
+                        <div class="launch-status-item">
+                            <span>Response</span>
+                            <strong>24-48H</strong>
+                        </div>
+                        <div class="launch-status-item">
+                            <span>Remote</span>
+                            <strong>Available</strong>
+                        </div>
+                        <div class="launch-status-item">
+                            <span>Base</span>
+                            <strong>Cartago, CR</strong>
+                        </div>
+                    </div>
+
+                    <div class="launch-brief-panel">
+                        <span class="launch-panel-label">Brief Signal</span>
+                        <ul class="launch-checklist">
+                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Business problem or workflow</li>
+                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> System, website, automation, or integration idea</li>
+                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> References, deadline, or expected outcome</li>
+                        </ul>
+                    </div>
+
+                    <div class="launch-contact-links">
+                        <a href="mailto:pinedabryan98@gmail.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> pinedabryan98@gmail.com</a>
+                        <a href="https://wa.me/50670824483"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-4483</a>
+                    </div>
+                </div>
+
+                <div class="contact-form-container launch-form-panel">
+                    <form class="glass-form sci-fi-form" aria-label="Project inquiry form">
+                        <div class="form-header">
+                            <span>PROJECT_BRIEF_CHANNEL</span>
+                            <strong>Transmission Form</strong>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email / WhatsApp</label>
+                                <input type="text" id="email" name="email" autocomplete="email" placeholder="name@domain.com or WhatsApp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectType">Project Type</label>
+                                <select id="projectType" name="projectType">
+                                    <option value="">Select a build type</option>
+                                    <option>Custom Software System</option>
+                                    <option>Website / Front-End Build</option>
+                                    <option>E-Commerce Platform</option>
+                                    <option>Automation or Integration</option>
+                                    <option>UX/UI Product Design</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">Budget Range</label>
+                                <select id="budget" name="budget">
+                                    <option value="">Optional range</option>
+                                    <option>Discovery first</option>
+                                    <option>Small build</option>
+                                    <option>Mid-size system</option>
+                                    <option>Long-term project</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Project Brief</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me what you want to build, automate, redesign, or connect..." required></textarea>
+                        </div>
+                        
+                        <div class="container-btn u-center-actions">
+                            <div class="btn-glass">
+                                <a href="#" id="formSubmitBtn">
+                                    Transmit Project Brief
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer: final brand handoff with navigation, contact channels, and social links. -->
+    <footer class="site-footer">
+        <div class="container footer-shell">
+            <div class="footer-brand">
+                <a href="#hero" class="footer-logo" aria-label="Blackhole Systems home">
+                    <img src="assets/images/logo_bhws_w-icon.png" alt="" aria-hidden="true">
+                    <span>Blackhole Systems</span>
+                </a>
+                <p>Digital engineering for premium interfaces, custom systems, automations, and connected business workflows.</p>
+                <div class="footer-signal">
+                    <span>System Stable</span>
+                    <span>Remote Builds Available</span>
+                </div>
+            </div>
+
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <span class="footer-label">Explore</span>
+                <a href="#about">About</a>
+                <a href="#mission">Workflow</a>
+                <a href="#capabilities">Services</a>
+                <a href="#deployments">Projects</a>
+            </nav>
+
+            <div class="footer-contact">
+                <span class="footer-label">Start Project</span>
+                <a href="mailto:pinedabryan98@gmail.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> pinedabryan98@gmail.com</a>
+                <a href="https://wa.me/50670824483"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-4483</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Blackhole Systems. Digital Engineering.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn profile"><i class="ri-linkedin-fill" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="GitHub profile"><i class="ri-github-fill" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram profile"><i class="ri-instagram-line" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript modules: feature files register into the BlackholeSystems namespace, then app.js boots them. -->
+    <script src="assets/js/modules/loader.js" defer></script>
+    <script src="assets/js/modules/reveal.js" defer></script>
+    <script src="assets/js/modules/projects.js" defer></script>
+    <script src="assets/js/modules/cards.js" defer></script>
+    <script src="assets/js/modules/form.js" defer></script>
+    <script src="assets/js/modules/header.js" defer></script>
+    <script src="assets/js/modules/hero-effects.js" defer></script>
+    <script src="assets/js/modules/background-effects.js" defer></script>
+    <script src="assets/js/modules/reviews-slider.js" defer></script>
+    <script src="assets/js/modules/contact-globe.js" defer></script>
+    <script src="assets/js/modules/cursor.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>

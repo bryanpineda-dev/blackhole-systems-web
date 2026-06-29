@@ -1,0 +1,144 @@
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.1 HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.site-header { 
+    position: fixed; 
+    top: 20px; left: 0; 
+    width: 100%; 
+    z-index: var(--z-header); 
+    transition: all 0.4s ease; 
+    background: transparent; 
+}
+
+.site-header.in-footer-zone {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-14px);
+}
+
+.header-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: var(--header-height); 
+}
+
+.logo { 
+    flex: 1; 
+    display: flex; 
+    align-items: center; 
+}
+
+.logo-wrapper { 
+    position: relative; 
+    height: var(--header-height); 
+    width: 250px; 
+    display: flex; 
+    align-items: center; 
+}
+
+.logo-full, .logo-icon { 
+    position: absolute; 
+    left: 0; 
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+}
+
+.logo-full { height: 45px; opacity: 1; transform: translateY(0); }
+.logo-icon { height: 40px; opacity: 0; transform: translateY(-10px); }
+
+.site-header.scrolled .logo-full { opacity: 0; transform: translateY(10px); }
+.site-header.scrolled .logo-icon { opacity: 1; transform: translateY(0); }
+
+/* Base logo state keeps the return animation smooth. */
+.logo-wrapper {
+    position: relative;
+    height: var(--header-height);
+    width: 250px;
+    display: flex;
+    align-items: center;
+    /* Transition here handles the smooth fade-in when leaving the projects zone. */
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stealth state fades the logo out inside the projects zone. */
+.site-header.in-deploy-zone .logo-wrapper {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+    pointer-events: none;
+}
+
+/* Nav Capsule Glassmorphism */
+.nav-capsule {
+    background: var(--void-alpha-65); 
+    backdrop-filter: var(--glass-blur-lg);
+    border: 1px solid var(--glass-border-ultra-light);
+    border-radius: var(--border-radius-pill); 
+    box-shadow: var(--glass-shadow-mid);
+    padding: 0 var(--space-lg); 
+    height: 55px; 
+    display: flex; 
+    align-items: center;
+    position: relative;
+}
+
+/* Nav capsule rim light. */
+.nav-capsule::after {
+    content: '';
+    position: absolute;
+    inset: 0; 
+    border-radius: inherit;
+    padding: 0.6px;
+    background: var(--gradient-glass-rim);
+    -webkit-mask: 
+        linear-gradient(var(--primary-white) 0 0) content-box, 
+        linear-gradient(var(--primary-white) 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: var(--z-above);
+    transition: opacity 0.3s ease;
+}
+
+.main-nav-list { 
+    display: flex; 
+    gap: var(--space-lg); 
+    margin: 0; padding: 0; 
+    list-style: none; 
+}
+
+.nav-link { 
+    font-size: 0.9rem; 
+    font-weight: 400; 
+    letter-spacing: 1px; 
+    color: var(--text-muted); 
+    position: relative; 
+    padding: 5px 0; 
+    transition: color 0.3s ease; 
+}
+
+.nav-link::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0px; left: 50%; 
+    width: 0; height: 2px; 
+    background: var(--primary-white); 
+    transition: 0.3s ease; 
+    transform: translateX(-50%); 
+}
+
+.nav-link:hover { color: var(--text-main); }
+.nav-link:hover::after { width: 100%; }
+
+.header-action { 
+    flex: 1; 
+    display: flex; 
+    justify-content: flex-end; 
+}
+

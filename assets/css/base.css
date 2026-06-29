@@ -1,0 +1,103 @@
+/* ==========================================================================
+   2. BASE.CSS | RESET, TYPOGRAPHY & LAYOUT UTILITIES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   2.1 CSS RESET & NORMALIZE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--bg-void);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-weight: 300; 
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Custom Text Selection */
+::selection {
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+}
+
+/* Custom Scrollbar (Para Chrome/Safari/Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--blue-alpha-15);
+    border-radius: var(--border-radius-pill);
+    border: 2px solid var(--bg-void);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-blue);
+}
+
+/* --------------------------------------------------------------------------
+   2.2 GLOBAL TYPOGRAPHY & ELEMENTS
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    font-weight: 400; 
+    letter-spacing: -0.5px; 
+}
+
+a { 
+    text-decoration: none; 
+    color: inherit; 
+    transition: all 0.3s ease; 
+}
+
+ul { 
+    list-style: none; 
+}
+
+img { 
+    max-width: 100%; 
+    display: block; 
+}
+
+/* --------------------------------------------------------------------------
+   2.3 LAYOUT UTILITIES & GRIDS
+   -------------------------------------------------------------------------- */
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md); /* Global horizontal spacing token. */
+    position: relative;
+}
+
+.section-padding { 
+    padding: var(--section-pad) 0; /* Global section spacing token. */
+}
+
+.split-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; /* Se mantiene valor estático por requerimiento estructural exacto */
+    align-items: center; 
+}
+
+.section-header.centered { 
+    text-align: center; 
+    margin: 0 auto 80px; 
+    max-width: 700px; 
+}

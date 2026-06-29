@@ -1,0 +1,23 @@
+/* ==========================================================================
+   UTILITIES.CSS | SMALL REUSABLE HELPERS
+   --------------------------------------------------------------------------
+   Use this file for tiny layout or spacing helpers that are shared across
+   sections. Section-specific composition still belongs in sections.css.
+   ========================================================================== */
+
+.u-text-center {
+    text-align: center;
+}
+
+.u-icon-space-left {
+    margin-left: 8px;
+}
+
+.u-icon-space-right {
+    margin-right: 8px;
+}
+
+.u-center-actions {
+    justify-content: center;
+    width: 100%;
+}

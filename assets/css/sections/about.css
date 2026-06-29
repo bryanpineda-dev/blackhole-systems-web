@@ -1,0 +1,107 @@
+/* ==========================================================================
+   ABOUT & PLANETS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.3 ABOUT & PLANETS SECTION
+   -------------------------------------------------------------------------- */
+#about { position: relative; overflow: hidden; }
+.about-section-container { align-items: center; }
+.about-content-left { padding-right: var(--space-xl); }
+
+/* Sci-Fi Bullets */
+.sci-fi-bullets {
+    position: relative;
+    list-style: none;
+    margin-top: var(--space-md);
+}
+
+.sci-fi-bullets li {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.sci-fi-bullets li:last-child {
+    margin-bottom: 0;
+}
+
+.sci-fi-bullets li strong {
+    color: var(--text-main);
+    font-family: var(--font-display);
+    font-weight: 400;
+}
+.bullet-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    margin: 0;
+    padding: 0;
+    background:
+        radial-gradient(circle at 50% 0%, var(--blue-alpha-20), transparent 68%),
+        var(--panel-alpha-50);
+    border: 1px solid var(--blue-alpha-20);
+    border-radius: var(--border-radius-circle);
+    color: var(--primary-blue);
+    font-size: 1.45rem;
+    line-height: 1;
+    flex-shrink: 0;
+    box-shadow:
+        inset 0 0 14px var(--blue-alpha-10),
+        0 0 18px var(--blue-alpha-05);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    z-index: 1;
+}
+
+.sci-fi-bullets li:hover .bullet-icon {
+    border-color: var(--blue-alpha-50);
+    box-shadow:
+        inset 0 0 18px var(--blue-alpha-20),
+        0 0 24px var(--blue-alpha-15);
+    transform: translateY(-1px);
+}
+.bullet-icon i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.about-capability-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--space-md);
+}
+
+.about-capability-chips span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 11px;
+    border: 1px solid var(--white-alpha-08);
+    border-radius: var(--border-radius-pill);
+    background: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
+    color: var(--text-muted);
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+/* Orbit & Planets Layout */
+.about-planets-right { display: flex; justify-content: center; align-items: center; position: relative; height: auto; width: 100%; }
+
+.orbit-container { position: relative; z-index: 1; width: 21em; height: 21em; font-size: 1rem; }
+.planet { width: 21em; height: 21em; background: url("../../images/planet1.jpg"); background-size: contain; box-shadow: inset -6em -6em 6em var(--black-alpha-100), inset 2em 0em 2em var(--black-alpha-100), -0.1em -0.1em 0.5em var(--white-alpha-40); position: relative; z-index: 2; isolation: isolate; opacity: 0; transform: scale(0); will-change: transform, opacity; animation: popInPlanet 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards, rotatePlanet 20s linear infinite; }
+.moon { position: absolute; width: 5.5em; height: 5.5em; background: url("../../images/planet2.jpg"); background-size: contain; box-shadow: inset -1.5em -1.5em 1.5em var(--primary-black), inset 1.5em 0em 1.5em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40); position: absolute; left: -11em; top: 55%; opacity: 0; transform: scale(0) translateY(-50%); will-change: transform, left, z-index, opacity; z-index: 5; animation: popInMoon1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards, rotatePlanet 3s linear infinite, orbit 20s infinite ease-in-out; }
+.moon2 { position: absolute; width: 3.5em; height: 3.5em; background: linear-gradient(135deg, rgba(var(--primary-blue-rgb), 0.38), rgba(var(--primary-blue-rgb), 0.10)), url("../../images/planet3.jpg"); background-blend-mode: color, normal; background-size: contain; box-shadow: inset -1em -1em 1em var(--primary-black), inset 1em 0em 1em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40); position: absolute; left: -11em; top: 20%; opacity: 0; transform: scale(0) translateY(-40%); will-change: transform, left, z-index, opacity; z-index: 5; animation: popInMoon2 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.6s forwards, rotatePlanet 2s linear infinite, orbit 10s infinite ease-in-out; }
+.planet, .moon, .moon2 { border-radius: var(--border-radius-circle); background-repeat: repeat; background-size: 200% 100%; }
+

@@ -1,0 +1,129 @@
+/* ==========================================================================
+   ENGINEERING WORKFLOW
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.4 ENGINEERING WORKFLOW
+   -------------------------------------------------------------------------- */
+.blueprint-grid {
+    position: relative;
+    background-color: var(--bg-void);
+    background-image: 
+        linear-gradient(var(--blue-alpha-15) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue-alpha-15) 1px, transparent 1px);
+    background-size: 40px 40px; 
+    background-position: center center;
+    animation: scanline 4s linear infinite;
+}
+
+.blueprint-grid::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, transparent 10%, var(--bg-void) 75%);
+    pointer-events: none; z-index: 0;
+}
+
+.blueprint-grid .container { position: relative; z-index: var(--z-base); }
+
+.about-visuals { position: relative; height: 650px; width: 100%; }
+.code-ecosystem { width: 100%; height: 100%; position: relative; }
+
+/* Code Cards Instance Specifics */
+.code-card {
+    position: absolute; 
+    padding: var(--space-md) !important; 
+    background: var(--panel-alpha-85);
+    border: 1px solid var(--glass-border-light); 
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-code);
+    box-shadow: var(--glass-shadow-deep);
+    backdrop-filter: var(--glass-blur-sm);
+    transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.code-card code {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+    font-size: 0.62rem;
+    line-height: 1.55;
+}
+
+.code-card:hover {
+    background: var(--panel-alpha-98); 
+    box-shadow: 0 20px 40px var(--blue-alpha-15), 0 0 20px var(--blue-alpha-20);
+    border-color: var(--primary-blue);
+}
+
+.card-header { 
+    display: flex; align-items: center; gap: 8px; padding-bottom: 10px; margin-bottom: 10px; 
+    border-bottom: 1px solid var(--glass-border-light); color: var(--text-muted); 
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.k { color: var(--syntax-keyword); } 
+.f { color: var(--syntax-function); } 
+.s { color: var(--syntax-string); } 
+
+.glowing-icon { font-size: 1.1rem; color: var(--primary-blue); animation: pulse-glow 2s infinite alternate; }
+
+.card-python { top: 5%; left: 8%; width: 220px; border-left: 3px solid var(--primary-blue); animation: float 6s ease-in-out infinite; z-index: 1; }
+.card-js { top: 15%; left: 65%; width: 230px; border-left: 3px solid var(--primary-blue); animation: float 5s ease-in-out infinite 0.5s; z-index: 2; }
+.card-php { top: 50%; left: 15%; width: 240px; border-left: 3px solid var(--primary-blue); animation: float 7s ease-in-out infinite 1s; z-index: 3; }
+
+/* --------------------------------------------------------------------------
+   5.5 TECH COINS SLIDER
+   -------------------------------------------------------------------------- */
+.tech-coins-wrapper {
+    width: 100%; margin-top: var(--space-md); padding: var(--space-md) 0;
+    overflow: hidden; position: relative;
+    contain: layout paint;
+    -webkit-mask-image: linear-gradient(to right, transparent, var(--primary-black) 10%, var(--primary-black) 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, var(--primary-black) 10%, var(--primary-black) 90%, transparent);
+}
+
+.workflow-actions {
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.workflow-actions .btn-glass {
+    margin: 0 !important;
+}
+
+.tech-coins-track {
+    display: flex;
+    gap: var(--space-lg);
+    width: max-content;
+    padding-top: 10px;
+    animation: scrollCoins 35s linear infinite;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+.glass-coin { 
+    background: var(--white-alpha-01); 
+    border: 1px solid var(--glass-border-light); 
+    border-radius: var(--border-radius-circle); 
+    width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+    box-shadow: inset 0 0 15px var(--black-alpha-50);
+    flex-shrink: 0;
+    contain: layout paint;
+}
+
+.glass-coin i, .glass-coin svg { font-size: 2rem; height: 2rem; color: var(--text-muted); transition: color 0.4s ease, filter 0.4s ease; }
+.glass-coin:hover { background: var(--white-alpha-05); transform: scale(1.1); }
+.glass-coin:hover i, .glass-coin:hover svg { color: var(--primary-white); filter: drop-shadow(0 0 8px var(--white-alpha-80)); }
+
+@media (prefers-reduced-motion: reduce) {
+    .tech-coins-track {
+        animation: none;
+        transform: none;
+        will-change: auto;
+    }
+}
+

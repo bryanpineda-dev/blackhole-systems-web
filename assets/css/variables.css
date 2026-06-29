@@ -1,0 +1,129 @@
+/* ==========================================================================
+   1. VARIABLES.CSS | GLOBAL DESIGN TOKENS
+   --------------------------------------------------------------------------
+   This file is the control panel for the landing page. Keep reusable brand,
+   layout, surface, motion, and layering decisions here before adding new
+   section-specific values.
+   ========================================================================== */
+:root {
+    /* --- CORE SURFACES --- */
+    --bg-void: #020305;       
+    --bg-panel: #090c14;
+    --bg-deep: #010101;
+    --bg-command: #040609;
+    --bg-screen: #0a0e17;
+    
+    /* --- BRAND COLORS --- */
+    --primary-blue-rgb: 0, 98, 255;
+    --primary-blue: rgb(var(--primary-blue-rgb));  
+    --primary-white: #FFFFFF;
+    --primary-black: #000000;  
+    
+    --accent-purple: #7B2CBF; 
+    --accent-green: #10b981;  
+    --accent-amber: #fbbf24;
+    
+    --text-main: #FFFFFF;
+    --text-muted: #94a3b8;    
+
+    /* --- CODE SYNTAX COLORS --- */
+    --syntax-keyword: #c678dd;
+    --syntax-function: #61afef;
+    --syntax-string: #98c379;
+
+    /* --- STANDARDIZED COLOR ALPHAS --- */
+    --blue-alpha-05: rgba(var(--primary-blue-rgb), 0.05);
+    --blue-alpha-10: rgba(var(--primary-blue-rgb), 0.1);
+    --blue-alpha-15: rgba(var(--primary-blue-rgb), 0.15);
+    --blue-alpha-20: rgba(var(--primary-blue-rgb), 0.2);
+    --blue-alpha-50: rgba(var(--primary-blue-rgb), 0.5);
+    --blue-alpha-85: rgba(var(--primary-blue-rgb), 0.85);
+    
+    --white-alpha-01: rgba(255, 255, 255, 0.01);
+    --white-alpha-03: rgba(255, 255, 255, 0.03);
+    --white-alpha-05: rgba(255, 255, 255, 0.05);
+    --white-alpha-08: rgba(255, 255, 255, 0.08);
+    --white-alpha-10: rgba(255, 255, 255, 0.1);
+    --white-alpha-15: rgba(255, 255, 255, 0.15);
+    --white-alpha-20: rgba(255, 255, 255, 0.2);
+    --white-alpha-40: rgba(255, 255, 255, 0.4);
+    --white-alpha-50: rgba(255, 255, 255, 0.5);
+    --white-alpha-60: rgba(255, 255, 255, 0.6);
+    --white-alpha-70: rgba(255, 255, 255, 0.7);
+    --white-alpha-80: rgba(255, 255, 255, 0.8);
+    
+    --black-alpha-50: rgba(0, 0, 0, 0.5);
+    --black-alpha-80: rgba(0, 0, 0, 0.8);
+    --black-alpha-100: rgba(0, 0, 0, 1);
+    
+    --void-alpha-20: rgba(2, 3, 5, 0.2);
+    --void-alpha-60: rgba(2, 3, 5, 0.6);
+    --void-alpha-65: rgba(2, 3, 5, 0.65);
+    
+    --panel-alpha-50: rgba(9, 12, 20, 0.5);
+    --panel-alpha-85: rgba(13, 17, 26, 0.85);
+    --panel-alpha-98: rgba(13, 17, 26, 0.98);
+
+    /* --- GRADIENTS --- */
+    --gradient-metallic: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 30%, #94A3B8 50%, #CBD5E1 70%, #475569 100%);
+    --gradient-glass-rim: radial-gradient(circle at 50% 0%, var(--white-alpha-70) 0%, var(--white-alpha-10) 50%, transparent 100%);
+
+    /* --- GLASSMORPHISM ENGINE --- */
+    --glass-blur-sm: blur(12px);
+    --glass-blur-md: blur(15px);
+    --glass-blur-lg: blur(20px);
+    
+    --glass-border-ultra-light: var(--white-alpha-05);
+    --glass-border-light: var(--white-alpha-08);
+    
+    --glass-shadow-mid: 3px 3px 3px rgba(0, 0, 0, 0.7);
+    --glass-shadow-deep: 0 20px 50px -10px var(--black-alpha-50);
+
+    /* --- MOTION SYSTEM --- */
+    --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-duration-reveal: 760ms;
+    --motion-duration-fast: 360ms;
+    --motion-distance-sm: 16px;
+    --motion-distance-md: 28px;
+    --motion-blur-soft: 6px;
+
+    /* --- TYPOGRAPHY --- */
+    --font-display: 'Outfit', sans-serif; 
+    --font-body: 'Outfit', sans-serif;      
+    --font-code: 'Fira Code', 'Courier New', monospace;
+
+    /* --- LAYOUT & BORDERS --- */
+    --container-width: 1280px;
+    --header-height: 60px;
+    
+    --border-radius-micro: 2px;
+    --border-radius-tech: 4px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 20px;
+    --border-radius-xl: 24px;
+    --border-radius-pill: 30px;
+    --border-radius-circle: 50%;
+
+    /* --- SPACING SYSTEM --- */
+    --space-xxs: 3px;
+    --space-xs: 8px;
+    --space-sm: 15px;
+    --space-md: 20px;
+    --space-lg: 30px;
+    --space-xl: 40px;
+    --space-xxl: 50px;
+    --section-pad: 140px;
+
+    /* --- Z-INDEX MAP --- */
+    --z-base: 1;
+    --z-above: 2;
+    --z-floating: 5;
+    --z-content: 10;
+    --z-overlay: 20;
+    --z-header: 1000;
+    --z-cursor-ring: 9998;
+    --z-cursor-dot: 9999;
+    --z-loader: 10000;
+}

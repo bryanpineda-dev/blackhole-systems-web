@@ -1,0 +1,475 @@
+/* ==========================================================================
+   3. COMPONENTS.CSS | UI BLOCKS & MODULES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   3.1 CUSTOM CURSOR ENGINE
+   -------------------------------------------------------------------------- */
+html.has-custom-cursor body,
+html.has-custom-cursor a,
+html.has-custom-cursor button,
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor .glass-card,
+html.has-custom-cursor .glass-coin,
+html.has-custom-cursor .code-card,
+html.has-custom-cursor .dossier-card,
+html.has-custom-cursor .cmd-btn,
+html.has-custom-cursor .btn-morph,
+html.has-custom-cursor .btn-terminal-sm {
+    cursor: none !important;
+}
+
+.cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background-color: var(--primary-white);
+    border-radius: var(--border-radius-circle);
+    pointer-events: none;
+    z-index: var(--z-cursor-dot);
+    margin: -4px 0 0 -4px;
+    opacity: 0;
+    box-shadow: 0 0 12px var(--white-alpha-80), 0 0 20px var(--blue-alpha-20);
+    transition: opacity 0.2s ease, width 0.22s ease, height 0.22s ease, margin 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 30px; height: 30px;
+    border: 1px solid var(--primary-blue);
+    border-radius: var(--border-radius-circle);
+    pointer-events: none;
+    z-index: var(--z-cursor-ring);
+    margin: -15px 0 0 -15px;
+    opacity: 0;
+    background: transparent;
+    transition: opacity 0.2s ease, width 0.24s ease, height 0.24s ease, margin 0.24s ease, background-color 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+html.cursor-ready .cursor-dot,
+html.cursor-ready .cursor-ring {
+    opacity: 1;
+}
+
+.cursor-ring.hovered {
+    width: 16px; height: 16px;
+    margin: -8px 0 0 -8px;
+    border-color: var(--primary-blue);
+    background-color: var(--primary-blue);
+    box-shadow: 0 0 16px var(--primary-blue), 0 0 30px var(--blue-alpha-50);
+}
+
+.cursor-dot.hovered {
+    width: 16px; height: 16px;
+    margin: -8px 0 0 -8px;
+    opacity: 1;
+    background-color: var(--primary-blue);
+    box-shadow: 0 0 16px var(--primary-blue), 0 0 34px var(--blue-alpha-50);
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3.2 PAGE BOOT LOADER
+   -------------------------------------------------------------------------- */
+body.is-loading {
+    overflow: hidden;
+}
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-loader);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 50% 45%, var(--blue-alpha-15), transparent 26%),
+        var(--bg-void);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.65s ease, visibility 0.65s ease;
+}
+
+.page-loader.is-hiding {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-shell {
+    width: min(360px, 82vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--primary-white);
+}
+
+.loader-mark {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+    border-radius: var(--border-radius-circle);
+}
+
+.loader-mark::before,
+.loader-mark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.loader-mark::before {
+    border: 1px solid var(--blue-alpha-50);
+    box-shadow: 0 0 24px var(--blue-alpha-20), inset 0 0 18px var(--blue-alpha-10);
+    animation: loaderOrbit 1.4s linear infinite;
+}
+
+.loader-mark::after {
+    inset: 12px;
+    background: radial-gradient(circle, var(--blue-alpha-15), transparent 65%);
+    animation: loaderPulse 1.6s ease-in-out infinite;
+}
+
+.loader-mark img {
+    position: relative;
+    z-index: var(--z-base);
+    width: 46px;
+    height: auto;
+    filter: drop-shadow(0 0 14px var(--blue-alpha-50));
+}
+
+.loader-brand {
+    margin-bottom: var(--space-md);
+    font-family: var(--font-code);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--white-alpha-70);
+}
+
+.loader-progress {
+    width: 100%;
+    height: 2px;
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+    background: var(--white-alpha-05);
+    border-radius: var(--border-radius-pill);
+}
+
+.loader-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--primary-blue), var(--primary-white), var(--primary-blue), transparent);
+    transform: translateX(-100%);
+    animation: loaderBar 1.25s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    box-shadow: 0 0 18px var(--blue-alpha-50);
+}
+
+.loader-status {
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-mark::before,
+    .loader-mark::after,
+    .loader-progress span {
+        animation: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3.3 TYPOGRAPHY COMPONENTS
+   -------------------------------------------------------------------------- */
+.section-heading, .hero-title { 
+    font-size: 2.4rem; 
+    margin-bottom: var(--space-sm); 
+    letter-spacing: -1px; 
+    background: var(--gradient-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0px 2px 3px var(--black-alpha-50));
+}
+
+.hero-title { 
+    font-size: 4rem; 
+    font-weight: 500; 
+}
+
+.section-sub { 
+    font-size: 1.1rem; 
+    color: var(--text-muted); 
+    line-height: 1.6; 
+}
+
+.body-text { 
+    margin-bottom: var(--space-sm); 
+    font-size: 1.1rem; 
+    color: var(--text-muted); 
+}
+
+.body-text strong { 
+    color: var(--primary-white); 
+    font-weight: 500; 
+}
+
+/* --- HUD TEXT BLOCKS --- */
+.hud-text-block, .hud-text-block-color {
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.hud-text-block {
+    border-left: 1px solid var(--glass-border-light);
+}
+
+.hud-text-block-color {
+    border-left: 2px solid var(--primary-blue);
+}
+
+.hud-text-block .lead-text {
+    font-size: 1.15rem;
+    color: var(--text-main);
+}
+
+.hud-text-block .sub-text {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+/* --- KICKERS (TERMINAL TYPING) --- */
+.section-tag { 
+    display: inline-block; 
+    color: var(--primary-blue); 
+    font-family: var(--font-code); 
+    font-size: 0.9rem; 
+    margin-bottom: 1rem; 
+    letter-spacing: 2px;
+    text-transform: uppercase; 
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 0;
+    vertical-align: bottom;
+}
+
+.section-tag::after {
+    content: '_';
+    margin-left: 2px;
+    color: var(--primary-blue);
+    animation: blink-caret 0.8s step-end infinite;
+}
+
+.reveal-active .section-tag,
+.section-tag.reveal-active {
+    animation: typing 1.15s steps(30, end) forwards;
+    animation-delay: 0.15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section-tag {
+        max-width: none;
+    }
+
+    .section-tag::after {
+        animation: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3.3 INTERACTIVE ELEMENTS (GLASS BUTTONS)
+   -------------------------------------------------------------------------- */
+.container-btn { 
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: flex-start; 
+}
+
+.container-btn .btn-glass {
+    width: auto; 
+    min-width: 160px; 
+    padding: 0 10px; 
+    height: 50px;
+    margin-right: var(--space-lg) !important; 
+    margin-top: var(--space-lg) !important; 
+    position: relative;
+}
+
+.header-container .container-btn .btn-glass { 
+    margin-top: 0 !important; 
+    margin-right: 0 !important; 
+    box-shadow: none; 
+}
+
+.card .content .container-btn { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.card .content .container-btn .btn-glass { 
+    margin-right: 0 !important; 
+    margin-bottom: 50px; 
+    margin-top: var(--space-md) !important; 
+}
+
+/* Glass Button Base */
+.container-btn .btn-glass a {
+    position: relative; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    background: transparent; 
+    backdrop-filter: var(--glass-blur-md);
+    border: 1px solid var(--glass-border-ultra-light);
+    border-radius: var(--border-radius-pill); 
+    box-shadow: var(--glass-shadow-mid);
+    padding: 0 var(--space-md); 
+    letter-spacing: 1px; 
+    font-size: 14px;
+    overflow: hidden; 
+    color: var(--white-alpha-50); 
+    z-index: var(--z-base); 
+    transition: all 0.3s ease; 
+    white-space: nowrap; 
+}
+
+/* Glass Button Rim Light */
+.container-btn .btn-glass a::after {
+    content: '';
+    position: absolute;
+    inset: 0; 
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-glass-rim);
+    -webkit-mask: 
+        linear-gradient(var(--primary-white) 0 0) content-box, 
+        linear-gradient(var(--primary-white) 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: var(--z-above);
+    transition: opacity 0.3s ease;
+}
+
+/* Glass Button Sweep Animation */
+.container-btn .btn-glass a::before {
+    content: ''; 
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 50%; height: 100%;
+    background: linear-gradient(to left, var(--white-alpha-10), transparent);
+    transform: skewX(45deg) translate(-150%); 
+    transition: 0.6s; 
+    filter: blur(0px);
+}
+
+.container-btn .btn-glass:hover a::before { 
+    transform: skewX(45deg) translate(200%); 
+}
+
+.container-btn .btn-glass::before { 
+    transition: 2000ms; 
+}
+
+.btn-glass:hover { 
+    background: transparent; 
+    transition: all 0.2s; 
+}
+
+/* Glass Button Hover State */
+.container-btn .btn-glass:hover a {
+    border-color: var(--primary-white); 
+    color: var(--primary-white); 
+    text-shadow: 0 0 5px var(--primary-white);
+    box-shadow: 0 0 10px var(--white-alpha-60), inset 0 0 5px var(--white-alpha-20);
+    transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   3.4 UI CARDS & MODULES & ORBS
+   -------------------------------------------------------------------------- */
+
+/* --- BADGES & HALOS --- */
+.pulse-kicker {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 8px 16px;
+    background: var(--white-alpha-01); 
+    backdrop-filter: var(--glass-blur-sm); 
+    border: 1px solid var(--primary-white); 
+    border-radius: var(--border-radius-pill); 
+    color: var(--primary-white); 
+    font-family: var(--font-code); 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    margin-bottom: var(--space-sm); 
+    box-shadow: 0 0 0px var(--white-alpha-50);
+}
+
+.status-dot { 
+    width: 5px; height: 5px; 
+    background: var(--primary-blue); 
+    border-radius: var(--border-radius-circle); 
+    box-shadow: 0 0 10px var(--primary-blue); 
+    animation: blink 1s infinite; 
+}
+
+/* --- BACKGROUND ORBS --- */
+.ambient-orb {
+    position: absolute; filter: blur(70px); z-index: 0; opacity: 0.10; pointer-events: none;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+.orb-1 { width: 300px; height: 300px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
+.orb-2 { width: 200px; height: 200px; background: var(--accent-purple); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
+.orb-3 { width: 400px; height: 400px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
+.orb-4 { width: 300px; height: 300px; background: var(--primary-white); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
+
+/* --- SERVICES CARDS --- */
+.glass-card {
+    position: relative; 
+    background: linear-gradient(180deg, var(--white-alpha-03) 0%, var(--white-alpha-01) 100%);
+    border: 1px solid var(--glass-border-light); 
+    border-radius: var(--border-radius-xl); 
+    padding: var(--space-xxl) var(--space-lg); 
+    text-align: center; 
+    overflow: hidden; 
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+
+.glass-card::before {
+    content: ''; 
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--white-alpha-40), transparent);
+}
+/* --- REVIEW CARDS --- */
+.review-card {
+    background: linear-gradient(180deg, var(--bg-panel) 0%, var(--panel-alpha-50) 100%);
+    border: 1px solid var(--glass-border-light); 
+    padding: var(--space-xl); 
+    border-radius: var(--border-radius-lg);
+}

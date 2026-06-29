@@ -1,0 +1,29 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.idea/
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Dependency/build folders if the project grows into a toolchain later
+node_modules/
+dist/
+build/
+.cache/
+
+# Local environment files
+.env
+.env.*
+
+# Local-only unused media kept outside the first public repository snapshot
+assets/images/bh.webm
+assets/images/blackhole.webm
+assets/images/planet3.png
+assets/images/planet4.png

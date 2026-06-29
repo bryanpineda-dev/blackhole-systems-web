@@ -1,0 +1,15 @@
+/* ==========================================================================
+   SECTIONS.CSS | SECTION MANIFEST
+   --------------------------------------------------------------------------
+   This file preserves section import order. Keep section-specific rules in
+   assets/css/sections/*.css and import responsive overrides from style.css.
+   ========================================================================== */
+
+@import 'sections/header.css';
+@import 'sections/hero.css';
+@import 'sections/about.css';
+@import 'sections/workflow.css';
+@import 'sections/services.css';
+@import 'sections/projects.css';
+@import 'sections/reviews-contact.css';
+@import 'sections/footer.css';

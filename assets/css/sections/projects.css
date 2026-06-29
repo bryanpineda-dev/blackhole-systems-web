@@ -1,0 +1,332 @@
+/* ==========================================================================
+   PROJECTS / DEPLOYMENT LOG
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.7 PROJECTS / DEPLOYMENT LOG
+   -------------------------------------------------------------------------- */
+/* --- DEPLOYMENT CONSOLE LAYOUT --- */
+.deploy-section {
+    width: 100%;
+    background: var(--bg-void);
+    border-top: 1px solid var(--white-alpha-10);
+    border-bottom: 1px solid var(--white-alpha-10);
+    position: relative;
+    /* Overrides global section padding so the command sidebar touches the section edges. */
+    padding: 0; 
+}
+
+.deploy-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: 800px;
+}
+
+/* --- 1. COMMAND BASE (SIDEBAR) --- */
+.command-base {
+    background: var(--bg-command);
+    border-right: 1px solid var(--white-alpha-10);
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh; /* Keeps the command base locked to the full viewport while scrolling. */
+    z-index: var(--z-content);
+}
+
+.command-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--white-alpha-10);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.sys-title {
+    font-family: var(--font-code);
+    color: var(--primary-white);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.status-indicator {
+    font-family: var(--font-code);
+    font-size: 0.7rem;
+    color: var(--accent-green);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pulse {
+    width: 6px; height: 6px;
+    background: var(--accent-green);
+    border-radius: var(--border-radius-circle);
+    box-shadow: 0 0 8px var(--accent-green);
+    animation: blink 1.5s infinite;
+}
+
+/* Command base filters. */
+.command-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.filter-label {
+    font-family: var(--font-code);
+    color: var(--primary-blue);
+    font-size: 0.75rem;
+    margin-bottom: var(--space-md);
+    letter-spacing: 1px;
+}
+
+.cmd-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    text-align: left;
+    padding: 12px 15px;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    gap: 15px;
+}
+
+.cmd-btn .index { color: var(--white-alpha-40); }
+
+.cmd-btn:hover, .cmd-btn.active {
+    background: var(--blue-alpha-05);
+    border: 1px solid var(--blue-alpha-15);
+    color: var(--primary-white);
+}
+
+.cmd-btn.active .index { color: var(--primary-blue); }
+
+.command-footer {
+    border-top: 1px solid var(--white-alpha-10);
+    padding-top: var(--space-md);
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: var(--white-alpha-50);
+}
+
+.data-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.data-row strong { color: var(--text-muted); font-weight: normal; }
+
+/* --- 2. MAIN DISPLAY & VISIBLE BACKGROUND --- */
+.deploy-display {
+    position: relative;
+    padding: var(--space-xl) var(--space-xxl);
+    background: var(--bg-void);
+    overflow: hidden;
+}
+
+.tactical-grid-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0; /* Stretches the grid across the full container. */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 40px);
+    align-content: start; /* Keeps generated grid cells flowing downward. */
+    pointer-events: none;
+    z-index: 0;
+    /* Radial mask fades the grid toward the section edges. */
+    mask-image: radial-gradient(ellipse at 50% 30%, var(--primary-black) 20%, transparent 80%);
+}
+
+.grid-cell {
+    height: 40px; /* Height is fixed; width comes from grid-template-columns. */
+    border: 0.5px solid var(--white-alpha-05);
+    transition: background 1.5s ease, box-shadow 1.5s ease;
+}
+
+.grid-cell.active {
+    background: var(--blue-alpha-10);
+    box-shadow: inset 0 0 12px var(--blue-alpha-15);
+    transition: background 0.1s ease;
+}
+
+.deploy-header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-xl);
+}
+
+.dossier-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-lg);
+}
+
+/* --- 3. THE DOSSIER CARDS --- */
+.dossier-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--white-alpha-10);
+    border-radius: var(--border-radius-tech);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.dossier-card:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 10px 30px var(--blue-alpha-10);
+    transform: translateY(-4px);
+}
+
+.dossier-top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--white-alpha-10);
+    font-family: var(--font-code);
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.d-id { color: var(--white-alpha-50); }
+.d-status.success { color: var(--accent-green); }
+.d-status.pending { color: var(--accent-amber); }
+
+/* Project preview screen. */
+.dossier-screen {
+    position: relative;
+    height: 200px;
+    background: var(--bg-screen);
+    border-bottom: 1px solid var(--white-alpha-10);
+    overflow: hidden;
+}
+
+.screen-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; color: var(--white-alpha-15);
+}
+
+/* Subtle reflection that disappears on hover, simulating a powered-on screen. */
+.screen-glare {
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, var(--white-alpha-05), transparent);
+    transform: skewX(-20deg);
+    transition: 0.5s ease;
+}
+
+.dossier-card:hover .screen-glare {
+    left: 200%;
+}
+
+.dossier-info {
+    padding: var(--space-md);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.d-title {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--primary-white);
+}
+
+.d-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    line-height: 1.4;
+}
+
+.d-tags {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tech-tag {
+    font-family: var(--font-code);
+    font-size: 0.65rem;
+    color: var(--primary-blue);
+    background: var(--blue-alpha-05);
+    border: 1px solid var(--blue-alpha-15);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-micro);
+}
+
+/* Project card footer. */
+.dossier-footer{
+    margin-top: auto; /* Pushes the actions to the bottom of the info column. */
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--white-alpha-05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+/* Command buttons. */
+.btn-terminal-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    margin: var(--space-xxs);
+    font-family: var(--font-code);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: var(--border-radius-micro);
+    transition: all 0.3s ease;
+    cursor: none !important; /* Respects the custom cursor engine. */
+}
+
+/* View project button style. */
+.view-live {
+    color: var(--text-muted);
+    border: 1px solid var(--glass-border-light);
+    background: var(--white-alpha-01);
+}
+
+.view-live:hover {
+    color: var(--primary-white);
+    background: var(--white-alpha-05);
+    border-color: var(--white-alpha-40);
+}
+
+/* Request demo button style. */
+.request-demo {
+    color: var(--primary-blue);
+    border: 1px solid var(--blue-alpha-50);
+    background: var(--blue-alpha-05);
+}
+
+.request-demo:hover {
+    background: var(--primary-blue);
+    color: var(--primary-white);
+    box-shadow: 0 0 15px var(--blue-alpha-50);
+}
+
+/* --- RESPONSIVE FIX FOR NEW LAYOUT --- */
+@media (max-width: 1024px) {
+    .deploy-layout {
+        grid-template-columns: 1fr; /* Stacks the sidebar above the grid on tablets and mobile. */
+    }
+    .command-base {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--white-alpha-10);
+    }
+    .command-filters { flex-direction: row; flex-wrap: wrap; }
+    .cmd-btn { padding: 8px 12px; }
+}
+

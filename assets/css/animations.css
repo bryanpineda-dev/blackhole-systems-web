@@ -1,0 +1,250 @@
+/* ==========================================================================
+   4. ANIMATIONS.CSS | KEYFRAMES & MOTION ENGINE
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   4.0 SCROLL REVEAL STATES
+   -------------------------------------------------------------------------- */
+.reveal-item,
+.reveal-hidden {
+    opacity: 0;
+    filter: blur(var(--motion-blur-soft));
+    transform: translate3d(0, var(--motion-distance-md), 0);
+    transition:
+        opacity var(--motion-duration-reveal) var(--motion-ease-out),
+        transform var(--motion-duration-reveal) var(--motion-ease-out),
+        filter var(--motion-duration-fast) ease;
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform, filter;
+}
+
+.reveal-item[data-reveal="fade"],
+.reveal-hidden[data-reveal="fade"] {
+    transform: translate3d(0, 0, 0);
+}
+
+.reveal-item[data-reveal="fade-up"],
+.reveal-hidden[data-reveal="fade-up"] {
+    transform: translate3d(0, var(--motion-distance-md), 0);
+}
+
+.reveal-item[data-reveal="fade-down"],
+.reveal-hidden[data-reveal="fade-down"] {
+    transform: translate3d(0, calc(var(--motion-distance-sm) * -1), 0);
+}
+
+.reveal-item[data-reveal="fade-left"],
+.reveal-hidden[data-reveal="fade-left"] {
+    transform: translate3d(var(--motion-distance-md), 0, 0);
+}
+
+.reveal-item[data-reveal="fade-right"],
+.reveal-hidden[data-reveal="fade-right"] {
+    transform: translate3d(calc(var(--motion-distance-md) * -1), 0, 0);
+}
+
+.reveal-item[data-reveal="scale-soft"],
+.reveal-hidden[data-reveal="scale-soft"] {
+    transform: translate3d(0, var(--motion-distance-sm), 0) scale(0.975);
+}
+
+.reveal-item.reveal-active,
+.reveal-item.is-revealed,
+.reveal-hidden.reveal-active,
+.reveal-hidden.is-revealed,
+.reveal-active,
+.is-revealed {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+    will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-item,
+    .reveal-hidden {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4.1 TYPING & TERMINAL EFFECTS
+   -------------------------------------------------------------------------- */
+@keyframes loaderOrbit {
+    0% { transform: rotate(0deg) scale(1); border-top-color: var(--primary-white); }
+    100% { transform: rotate(360deg) scale(1); border-top-color: var(--primary-white); }
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.9); }
+    50% { opacity: 0.75; transform: scale(1.05); }
+}
+
+@keyframes loaderBar {
+    0% { transform: translateX(-100%); }
+    70%, 100% { transform: translateX(100%); }
+}
+
+@keyframes typing {
+    from { max-width: 0; }
+    to { max-width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes blink { 
+    0%, 100% { opacity: 1; } 
+    50% { opacity: 0.4; } 
+}
+
+/* --------------------------------------------------------------------------
+   4.2 ORBITAL & PLANETARY PHYSICS
+   -------------------------------------------------------------------------- */
+@keyframes popInPlanet { 
+    0% { opacity: 0; transform: scale(0); } 
+    100% { opacity: 1; transform: scale(1) translateZ(0); } 
+}
+
+@keyframes popInMoon1 { 
+    0% { opacity: 0; transform: scale(0) translateY(-50%); } 
+    100% { opacity: 1; transform: scale(1) translateY(-50%) translateZ(0); } 
+}
+
+@keyframes popInMoon2 { 
+    0% { opacity: 0; transform: scale(0) translateY(-40%); } 
+    100% { opacity: 1; transform: scale(1) translateY(-40%) translateZ(0); } 
+}
+
+@keyframes rotatePlanet { 
+    to { background-position: -200% 0; } 
+}
+
+@keyframes orbit {
+    49% { z-index: var(--z-floating); }
+    50% { left: 25em; z-index: 0; }
+    99% { z-index: 0; }
+    100% { left: -11em; z-index: var(--z-floating); }
+}
+
+/* --------------------------------------------------------------------------
+   4.3 ORGANIC & ETHEREAL MOVEMENT
+   -------------------------------------------------------------------------- */
+@keyframes float { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(-15px); } 
+}
+
+/* MorphBlob 1: deep movement toward the left side. */
+@keyframes morphBlob1 {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    33% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: translate(-45vw, 150px) rotate(120deg) scale(1.3);
+    }
+    66% {
+        border-radius: 50% 40% 60% 50% / 40% 50% 60% 40%;
+        transform: translate(-30vw, -100px) rotate(240deg) scale(0.9);
+    }
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate(0, 0) rotate(360deg) scale(1);
+    }
+}
+
+/* MorphBlob 2: visual counterweight across the right and center zones. */
+@keyframes morphBlob2 {
+    0% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    33% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate(-20vw, -300px) rotate(-120deg) scale(1.1);
+    }
+    66% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: translate(-55vw, 100px) rotate(-240deg) scale(1.4);
+    }
+    100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: translate(0, 0) rotate(-360deg) scale(1);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4.4 SCROLLERS & DATA STREAMS
+   -------------------------------------------------------------------------- */
+@keyframes scrollCoins {
+    0% { transform: translate3d(0, 0, 0); }
+    /* Moves exactly half of the full width so the loop restarts without a jump. */
+    100% { transform: translate3d(calc(-50% - 15px), 0, 0); } 
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 40px; }
+}
+
+@keyframes signalParticleFlow {
+    0% { transform: translate3d(0, 0, 0); opacity: 0; }
+    12% { opacity: 0.78; }
+    84% { opacity: 0.42; }
+    100% { transform: translate3d(calc(100vw + 120px), 0, 0); opacity: 0; }
+}
+
+@keyframes waveformPulse {
+    0%, 100% { transform: scaleY(0.7); opacity: 0.42; }
+    50% { transform: scaleY(1); opacity: 0.86; }
+}
+
+@keyframes absorbStar {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   4.5 GLOWS & FILTERS
+   -------------------------------------------------------------------------- */
+@keyframes pulse-glow {
+    0% { text-shadow: 0 0 2px var(--blue-alpha-15); }
+    100% { text-shadow: 0 0 12px var(--blue-alpha-85); }
+}
+
+/* --------------------------------------------------------------------------
+   4.6 FALLING COMETS
+   -------------------------------------------------------------------------- */
+@keyframes cometVectorFlight {
+    0% {
+        transform:
+            translate3d(var(--comet-start-x, -180px), var(--comet-start-y, -180px), 0)
+            rotate(var(--comet-angle, 42deg))
+            scaleX(0.65);
+        opacity: 0;
+    }
+
+    9% {
+        opacity: var(--comet-opacity, 0.7);
+    }
+
+    82% {
+        opacity: var(--comet-opacity, 0.7);
+    }
+
+    100% {
+        transform:
+            translate3d(var(--comet-end-x, 100vw), var(--comet-end-y, 100vh), 0)
+            rotate(var(--comet-angle, 42deg))
+            scaleX(1);
+        opacity: 0;
+    }
+}
