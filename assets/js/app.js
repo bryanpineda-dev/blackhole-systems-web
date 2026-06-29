@@ -23,6 +23,7 @@
         'initGridPulse',
         'initContactGlobe',
         'initHeaderZoneObserver',
+        'initFloatingAssistant',
         'initCustomCursor'
     ];
 

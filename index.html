@@ -977,19 +977,75 @@
             <div class="footer-contact">
                 <span class="footer-label">Start Project</span>
                 <a href="mailto:pinedabryan98@gmail.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> pinedabryan98@gmail.com</a>
-                <a href="https://wa.me/50670824483"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-4483</a>
+                <a href="https://wa.me/50670827504"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-7504</a>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2026 Blackhole Systems. Digital Engineering.</p>
                 <div class="social-links">
-                    <a href="#" aria-label="LinkedIn profile"><i class="ri-linkedin-fill" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="GitHub profile"><i class="ri-github-fill" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="Instagram profile"><i class="ri-instagram-line" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="LinkedIn profile coming soon"><i class="ri-linkedin-fill" aria-hidden="true"></i></a>
+                    <a href="https://github.com/bryanpineda-dev" target="_blank" rel="noopener" aria-label="GitHub profile"><i class="ri-github-fill" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/blackholesys" target="_blank" rel="noopener" aria-label="Instagram profile"><i class="ri-instagram-line" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/blackholesys" target="_blank" rel="noopener" aria-label="Facebook profile"><i class="ri-facebook-fill" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Floating assistant: quick project guidance plus direct WhatsApp access. -->
+    <aside class="floating-assistant" data-floating-assistant aria-live="polite">
+        <div class="floating-assistant-panel" data-assistant-panel aria-hidden="true">
+            <header class="assistant-header">
+                <div class="assistant-brand">
+                    <div class="assistant-avatar" aria-hidden="true">
+                        <i class="ri-bard-fill"></i>
+                    </div>
+                    <div>
+                        <span class="assistant-title">Blackhole Assistant</span>
+                        <span class="assistant-status">Project routing online</span>
+                    </div>
+                </div>
+                <button class="assistant-close" type="button" data-assistant-close aria-label="Close assistant">
+                    <i class="ri-close-line" aria-hidden="true"></i>
+                </button>
+            </header>
+
+            <div class="assistant-messages" data-assistant-messages>
+                <div class="assistant-message bot">
+                    <div class="assistant-bubble">
+                        <strong>Hi, I am the Blackhole project assistant.</strong>
+                        <br><br>
+                        Ask about services, dashboards, automation, integrations, stack, timeline, or how to start a project.
+                    </div>
+                </div>
+            </div>
+
+            <div class="assistant-quick-actions" aria-label="Assistant quick questions">
+                <button type="button" class="assistant-chip" data-assistant-question="services">Services</button>
+                <button type="button" class="assistant-chip" data-assistant-question="dashboards">Dashboards</button>
+                <button type="button" class="assistant-chip" data-assistant-question="automation">Automation</button>
+                <button type="button" class="assistant-chip" data-assistant-question="integrations">Integrations</button>
+                <button type="button" class="assistant-chip" data-assistant-question="budget">Budget</button>
+                <button type="button" class="assistant-chip" data-assistant-question="contact">Contact</button>
+            </div>
+
+            <form class="assistant-form" data-assistant-form autocomplete="off">
+                <input type="text" data-assistant-input aria-label="Ask Blackhole Assistant" placeholder="Ask about your project...">
+                <button class="assistant-send" type="submit" aria-label="Send message">
+                    <i class="ri-arrow-up-line" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="assistant-floating-actions">
+            <button class="assistant-floating-btn assistant-bot-toggle" type="button" data-assistant-toggle aria-label="Open Blackhole assistant" aria-expanded="false">
+                <i class="ri-bard-fill" aria-hidden="true"></i>
+            </button>
+            <a class="assistant-floating-btn assistant-whatsapp" href="https://wa.me/50670827504?text=Hi%20Bryan%2C%20I%20want%20to%20talk%20about%20a%20project%20for%20Blackhole%20Systems." target="_blank" rel="noopener" aria-label="Contact Blackhole Systems on WhatsApp">
+                <i class="ri-whatsapp-fill" aria-hidden="true"></i>
+            </a>
+        </div>
+    </aside>
 
     <!-- JavaScript modules: feature files register into the BlackholeSystems namespace, then app.js boots them. -->
     <script src="assets/js/modules/loader.js" defer></script>
@@ -1002,6 +1058,7 @@
     <script src="assets/js/modules/background-effects.js" defer></script>
     <script src="assets/js/modules/reviews-slider.js" defer></script>
     <script src="assets/js/modules/contact-globe.js" defer></script>
+    <script src="assets/js/modules/floating-assistant.js" defer></script>
     <script src="assets/js/modules/cursor.js" defer></script>
     <script src="assets/js/app.js" defer></script>
 </body>
