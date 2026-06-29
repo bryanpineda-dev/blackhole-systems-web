@@ -17,6 +17,7 @@
         'initCardTilt',
         'initFormHandler',
         'initHeaderScroll',
+        'initHeaderMobileNav',
         'initStarField',
         'initCometField',
         'initGridPulse',

@@ -15,7 +15,109 @@
     .split-layout { grid-template-columns: 1fr; gap: 60px; }
     .about-visuals { height: 400px; }
     .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav-capsule { display: none; }
+
+    body.nav-open {
+        overflow: hidden;
+    }
+
+    body.nav-open::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: calc(var(--z-header) - 2);
+        background: rgba(0, 0, 0, 0.56);
+        backdrop-filter: blur(6px);
+    }
+
+    .site-header {
+        top: 14px;
+    }
+
+    .header-container {
+        position: relative;
+        height: 58px;
+        gap: var(--space-sm);
+    }
+
+    .logo {
+        flex: 0 1 auto;
+    }
+
+    .logo-wrapper {
+        width: 210px;
+    }
+
+    .logo-full {
+        height: 40px;
+    }
+
+    .logo-icon {
+        height: 38px;
+    }
+
+    .mobile-nav-toggle {
+        display: inline-flex;
+        flex: 0 0 46px;
+        position: relative;
+        z-index: calc(var(--z-header) + 2);
+    }
+
+    .nav-capsule {
+        position: fixed;
+        top: 84px;
+        left: 24px;
+        right: 24px;
+        z-index: calc(var(--z-header) + 1);
+        display: flex;
+        height: auto;
+        padding: 14px;
+        border-radius: var(--border-radius-lg);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate3d(0, -10px, 0) scale(0.98);
+        transition:
+            opacity 0.24s ease,
+            visibility 0.24s ease,
+            transform 0.24s var(--motion-ease-smooth);
+    }
+
+    .site-header.menu-open .nav-capsule {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .main-nav-list {
+        width: 100%;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .mobile-only-nav {
+        display: block;
+    }
+
+    .nav-link {
+        display: flex;
+        width: 100%;
+        min-height: 46px;
+        align-items: center;
+        padding: 0 14px;
+        border-radius: var(--border-radius-sm);
+        font-size: 0.82rem;
+        letter-spacing: 1.3px;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    .nav-link:hover {
+        background: var(--white-alpha-05);
+    }
+
     .about-planets-right { padding-top: 50px; }
     .orbit-container { font-size: 0.7em; margin: 0 auto; }
 
@@ -43,15 +145,141 @@
         padding-inline: 18px;
     }
 
-    .hero-title { font-size: 2.8rem; }
-    .hero-section { height: auto; min-height: 100vh; padding: 100px 0; }
+    .site-header {
+        top: 12px;
+    }
+
+    .header-container {
+        height: 54px;
+    }
+
+    .logo-wrapper {
+        width: 190px;
+    }
+
+    .logo-full {
+        height: 36px;
+    }
+
+    .site-header.scrolled .logo-wrapper,
+    .site-header.in-deploy-zone .logo-wrapper {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px) scale(0.96);
+    }
+
+    .nav-capsule {
+        top: 78px;
+        left: 18px;
+        right: 18px;
+    }
+
+    .header-action {
+        display: none;
+    }
+
+    .hero-section {
+        height: auto;
+        min-height: 100svh;
+        padding: clamp(118px, 16vh, 148px) 0 clamp(64px, 10vh, 96px);
+    }
+
+    .hero-content-wrapper {
+        height: auto;
+        min-height: calc(100svh - 210px);
+        padding-top: 0;
+        align-items: center;
+    }
+
+    .orbit-center-content {
+        width: 100%;
+        max-width: 620px;
+        padding: 0 18px;
+        transform: none;
+        background: radial-gradient(circle, var(--void-alpha-60) 0%, var(--void-alpha-20) 48%, transparent 72%);
+    }
+
+    .pulse-kicker {
+        width: fit-content;
+        max-width: min(100%, 560px);
+        justify-content: center;
+        gap: 10px;
+        margin-inline: auto;
+        padding: 10px 18px;
+        line-height: 1.35;
+        text-align: center;
+    }
+
+    .status-dot {
+        flex: 0 0 6px;
+        width: 6px;
+        height: 6px;
+    }
+
+    .status-copy {
+        display: block;
+        min-width: 0;
+        max-width: 27ch;
+    }
+
+    .hero-title {
+        font-size: clamp(2.6rem, 13vw, 4.2rem);
+        line-height: 1.04;
+        margin-bottom: var(--space-md);
+    }
+
+    .hero-description {
+        max-width: 34ch;
+        font-size: clamp(1rem, 4.5vw, 1.18rem);
+        line-height: 1.65;
+        margin-bottom: var(--space-lg);
+    }
+
     .section-heading { font-size: 2.15rem; }
     .section-sub,
     .body-text { font-size: 1rem; }
     .section-header.centered { margin-bottom: 54px; }
     .capabilities-grid { grid-template-columns: 1fr; }
-    .header-action { display: none; }
-    .about-content-left { padding-right: 0; text-align: center; }
+
+    .about-section-container {
+        gap: 48px;
+    }
+
+    .about-content-left {
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .hud-text-block,
+    .hud-text-block-color {
+        padding-left: var(--space-sm);
+        text-align: left;
+    }
+
+    .sci-fi-bullets {
+        margin-top: var(--space-lg);
+    }
+
+    .sci-fi-bullets li {
+        align-items: flex-start;
+        gap: 16px;
+        text-align: left;
+    }
+
+    .sci-fi-bullets li span {
+        min-width: 0;
+    }
+
+    .bullet-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.55rem;
+    }
+
+    .about-capability-chips {
+        justify-content: flex-start;
+    }
+
     .about-planets-right { padding-top: 20px; }
     .orbit-container { font-size: 0.55em; margin: 0 auto; }
     .glass-coin { width: 60px; height: 60px; }
@@ -64,6 +292,141 @@
         margin-bottom: var(--space-md);
     }
     .about-visuals { height: auto; margin-bottom: var(--space-xl); }
+
+    .deploy-layout {
+        min-height: 0;
+    }
+
+    .command-base {
+        padding: 36px 18px 30px;
+        gap: 0;
+    }
+
+    .command-header {
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 26px;
+    }
+
+    .sys-title {
+        max-width: 220px;
+        font-size: 0.72rem;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .status-indicator {
+        flex-shrink: 0;
+        font-size: 0.66rem;
+    }
+
+    .command-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        flex-grow: 0;
+    }
+
+    .filter-label {
+        grid-column: 1 / -1;
+        margin-bottom: 2px;
+        font-size: 0.72rem;
+    }
+
+    .cmd-btn {
+        min-width: 0;
+        min-height: 46px;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 11px;
+        font-size: 0.68rem;
+        letter-spacing: 0.8px;
+    }
+
+    .cmd-text {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .command-footer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 26px;
+        padding-top: 18px;
+        font-size: 0.72rem;
+    }
+
+    .data-row {
+        min-height: 42px;
+        align-items: center;
+        margin: 0;
+        padding: 0 12px;
+        border: 1px solid var(--white-alpha-05);
+        background: var(--white-alpha-01);
+    }
+
+    .deploy-display {
+        padding: 70px 18px 84px;
+    }
+
+    .tactical-grid-bg {
+        opacity: 0.52;
+        mask-image: linear-gradient(to bottom, var(--primary-black) 0%, transparent 72%);
+    }
+
+    .deploy-header {
+        margin-bottom: 30px;
+    }
+
+    .deploy-header .section-heading {
+        font-size: clamp(2.35rem, 12vw, 3.25rem);
+        line-height: 1.05;
+    }
+
+    .dossier-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .dossier-card {
+        min-width: 0;
+    }
+
+    .dossier-top-bar {
+        gap: 14px;
+        padding: 12px 14px;
+        font-size: 0.62rem;
+    }
+
+    .dossier-screen {
+        height: clamp(150px, 44vw, 205px);
+    }
+
+    .dossier-info {
+        padding: 18px;
+    }
+
+    .dossier-footer {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .d-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .btn-terminal-sm {
+        width: 100%;
+        min-height: 40px;
+        justify-content: center;
+        margin: 0;
+    }
 
     .footer-shell {
         grid-template-columns: 1fr;
@@ -92,12 +455,38 @@
         padding-inline: 16px;
     }
 
+    .logo-wrapper {
+        width: 172px;
+    }
+
+    .logo-full {
+        height: 32px;
+    }
+
+    .mobile-nav-toggle {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+    }
+
     .hero-title {
-        font-size: 2.35rem;
+        font-size: clamp(2.45rem, 12.4vw, 3.35rem);
+    }
+
+    .pulse-kicker {
+        padding: 10px 14px;
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-actions .container-btn .btn-glass {
+        min-width: 0;
+        height: 54px;
     }
 
     .section-heading {
-        font-size: 1.9rem;
+        font-size: clamp(2rem, 10vw, 2.45rem);
+        line-height: 1.08;
     }
 
     .reveal-item[data-reveal="fade-left"],
@@ -136,6 +525,30 @@
 
     .workflow-actions {
         justify-content: flex-start;
+    }
+
+    .command-base {
+        padding-inline: 16px;
+    }
+
+    .command-header {
+        flex-direction: column;
+    }
+
+    .command-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cmd-btn {
+        padding-inline: 10px;
+    }
+
+    .deploy-display {
+        padding-inline: 16px;
+    }
+
+    .dossier-top-bar {
+        flex-wrap: wrap;
     }
 
     .footer-signal {

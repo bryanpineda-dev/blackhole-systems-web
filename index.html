@@ -54,12 +54,13 @@
                 </div>
             </a>
             
-            <nav class="nav-capsule" aria-label="Primary navigation">
+            <nav class="nav-capsule" id="primary-navigation" aria-label="Primary navigation">
                 <ul class="main-nav-list">
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#mission" class="nav-link">Workflow</a></li>
                     <li><a href="#capabilities" class="nav-link">Services</a></li>
                     <li><a href="#deployments" class="nav-link">Projects</a></li>
+                    <li class="mobile-only-nav"><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
 
@@ -73,6 +74,12 @@
                     </div>
                 </div>
             </div>
+
+            <button class="mobile-nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
         </div>
     </header>
@@ -94,7 +101,8 @@
                 
                 <div class="orbit-center-content">
                     <div class="status-badge pulse-kicker">
-                        <span class="status-dot"></span> Blackhole Systems // Digital Engineering
+                        <span class="status-dot"></span>
+                        <span class="status-copy">Blackhole Systems // Digital Engineering</span>
                     </div>
                     
                     <h1 class="hero-title">
