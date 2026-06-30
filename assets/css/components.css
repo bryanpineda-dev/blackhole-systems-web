@@ -90,12 +90,41 @@ body.is-loading {
     display: flex;
     align-items: center;
     justify-content: center;
-    background:
-        radial-gradient(circle at 50% 45%, var(--blue-alpha-15), transparent 26%),
-        var(--bg-void);
+    overflow: hidden;
+    background: var(--bg-void);
     opacity: 1;
     visibility: visible;
     transition: opacity 0.65s ease, visibility 0.65s ease;
+}
+
+.page-loader::before,
+.page-loader::after {
+    content: '';
+    position: absolute;
+    border-radius: var(--border-radius-circle);
+    pointer-events: none;
+    filter: blur(22px);
+    will-change: transform;
+}
+
+.page-loader::before {
+    width: min(440px, 72vw);
+    height: min(440px, 72vw);
+    top: 12%;
+    left: 8%;
+    background: radial-gradient(circle at 35% 35%, var(--blue-alpha-50), transparent 62%);
+    opacity: 0.34;
+    animation: loaderOrbFloatA 6s var(--motion-ease-smooth) infinite alternate;
+}
+
+.page-loader::after {
+    width: min(360px, 62vw);
+    height: min(360px, 62vw);
+    right: 10%;
+    bottom: 10%;
+    background: radial-gradient(circle at 58% 42%, var(--purple-alpha-25), transparent 64%);
+    opacity: 0.42;
+    animation: loaderOrbFloatB 7.5s var(--motion-ease-smooth) infinite alternate;
 }
 
 .page-loader.is-hiding {
@@ -104,6 +133,8 @@ body.is-loading {
 }
 
 .loader-shell {
+    position: relative;
+    z-index: var(--z-base);
     width: min(360px, 82vw);
     display: flex;
     flex-direction: column;
@@ -139,9 +170,19 @@ body.is-loading {
 }
 
 .loader-mark::after {
-    inset: 12px;
-    background: radial-gradient(circle, var(--blue-alpha-15), transparent 65%);
-    animation: loaderPulse 1.6s ease-in-out infinite;
+    inset: auto;
+    top: 6px;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    margin-left: -4.5px;
+    background: var(--primary-blue);
+    box-shadow:
+        0 0 14px var(--blue-alpha-85),
+        30px 38px 0 -2px var(--accent-purple),
+        -30px 38px 0 -3px var(--primary-white);
+    transform-origin: 4.5px 40px;
+    animation: loaderMarkOrbit 2.8s linear infinite;
 }
 
 .loader-mark img {
@@ -190,6 +231,8 @@ body.is-loading {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .page-loader::before,
+    .page-loader::after,
     .loader-mark::before,
     .loader-mark::after,
     .loader-progress span {

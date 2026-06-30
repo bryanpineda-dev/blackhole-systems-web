@@ -78,9 +78,21 @@
     100% { transform: rotate(360deg) scale(1); border-top-color: var(--primary-white); }
 }
 
-@keyframes loaderPulse {
-    0%, 100% { opacity: 0.35; transform: scale(0.9); }
-    50% { opacity: 0.75; transform: scale(1.05); }
+@keyframes loaderOrbFloatA {
+    0% { transform: translate3d(-6%, -4%, 0) scale(0.92); }
+    50% { transform: translate3d(8%, 4%, 0) scale(1.05); }
+    100% { transform: translate3d(14%, -2%, 0) scale(0.98); }
+}
+
+@keyframes loaderOrbFloatB {
+    0% { transform: translate3d(8%, 5%, 0) scale(0.96); }
+    50% { transform: translate3d(-6%, -8%, 0) scale(1.08); }
+    100% { transform: translate3d(-12%, 2%, 0) scale(1); }
+}
+
+@keyframes loaderMarkOrbit {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes loaderBar {

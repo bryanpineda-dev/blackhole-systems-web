@@ -19,7 +19,8 @@
     --primary-white: #FFFFFF;
     --primary-black: #000000;  
     
-    --accent-purple: #7B2CBF; 
+    --accent-purple-rgb: 123, 44, 191;
+    --accent-purple: rgb(var(--accent-purple-rgb));
     --accent-green: #10b981;  
     --accent-amber: #fbbf24;
     
@@ -38,6 +39,11 @@
     --blue-alpha-20: rgba(var(--primary-blue-rgb), 0.2);
     --blue-alpha-50: rgba(var(--primary-blue-rgb), 0.5);
     --blue-alpha-85: rgba(var(--primary-blue-rgb), 0.85);
+
+    --purple-alpha-05: rgba(var(--accent-purple-rgb), 0.05);
+    --purple-alpha-10: rgba(var(--accent-purple-rgb), 0.1);
+    --purple-alpha-15: rgba(var(--accent-purple-rgb), 0.15);
+    --purple-alpha-25: rgba(var(--accent-purple-rgb), 0.25);
     
     --white-alpha-01: rgba(255, 255, 255, 0.01);
     --white-alpha-03: rgba(255, 255, 255, 0.03);
@@ -123,6 +129,7 @@
     --z-content: 10;
     --z-overlay: 20;
     --z-header: 1000;
+    --z-modal: 9000;
     --z-cursor-ring: 9998;
     --z-cursor-dot: 9999;
     --z-loader: 10000;

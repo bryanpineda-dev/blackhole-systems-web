@@ -14,9 +14,23 @@
     position: relative;
     /* Overrides global section padding so the command sidebar touches the section edges. */
     padding: 0; 
+    scroll-margin-top: var(--header-height);
+}
+
+.deploy-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 88% 12%, var(--purple-alpha-10), transparent 28%),
+        radial-gradient(circle at 58% 92%, var(--blue-alpha-10), transparent 32%);
+    opacity: 0.8;
+    pointer-events: none;
 }
 
 .deploy-layout {
+    position: relative;
+    z-index: var(--z-base);
     display: grid;
     grid-template-columns: 320px 1fr;
     min-height: 800px;
@@ -31,7 +45,8 @@
     flex-direction: column;
     position: sticky;
     top: 0;
-    height: 100vh; /* Keeps the command base locked to the full viewport while scrolling. */
+    align-self: start;
+    min-height: 100vh; /* Keeps the command base locked to the full viewport while scrolling. */
     z-index: var(--z-content);
 }
 
@@ -72,8 +87,8 @@
 .command-filters {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    flex-grow: 1;
+    gap: 8px;
+    flex-grow: 0;
 }
 
 .filter-label {
@@ -88,17 +103,39 @@
     background: transparent;
     border: 1px solid transparent;
     text-align: left;
-    padding: 12px 15px;
+    padding: 11px 13px;
     font-family: var(--font-code);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    border-radius: var(--border-radius-tech);
 }
 
-.cmd-btn .index { color: var(--white-alpha-40); }
+.cmd-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--white-alpha-08);
+    border-radius: var(--border-radius-circle);
+    background: var(--white-alpha-03);
+    color: var(--primary-blue);
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.cmd-icon i {
+    font-size: 1.18rem;
+}
+
+.cmd-text {
+    min-width: 0;
+}
 
 .cmd-btn:hover, .cmd-btn.active {
     background: var(--blue-alpha-05);
@@ -106,18 +143,76 @@
     color: var(--primary-white);
 }
 
-.cmd-btn.active .index { color: var(--primary-blue); }
+.cmd-btn:hover .cmd-icon,
+.cmd-btn.active .cmd-icon {
+    border-color: var(--purple-alpha-25);
+    background:
+        radial-gradient(circle at 70% 20%, var(--purple-alpha-15), transparent 60%),
+        var(--blue-alpha-05);
+    color: var(--primary-white);
+}
 
 .command-footer {
     border-top: 1px solid var(--white-alpha-10);
-    padding-top: var(--space-md);
-    font-family: var(--font-code);
-    font-size: 0.75rem;
-    color: var(--white-alpha-50);
+    padding-top: var(--space-lg);
+    margin-top: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
 }
 
-.data-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-.data-row strong { color: var(--text-muted); font-weight: normal; }
+.command-stat {
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 13px;
+    border: 1px solid var(--white-alpha-08);
+    border-radius: var(--border-radius-sm);
+    background:
+        radial-gradient(circle at 100% 0%, var(--purple-alpha-10), transparent 52%),
+        var(--white-alpha-03);
+}
+
+.command-stat-icon {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--blue-alpha-20);
+    border-radius: var(--border-radius-circle);
+    background: var(--blue-alpha-05);
+    color: var(--primary-blue);
+}
+
+.command-stat-icon i {
+    font-size: 1.1rem;
+}
+
+.command-stat-copy span,
+.command-stat-copy strong {
+    display: block;
+}
+
+.command-stat-copy span {
+    margin-bottom: 4px;
+    color: var(--white-alpha-50);
+    font-family: var(--font-code);
+    font-size: 0.66rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.command-stat-copy strong {
+    color: var(--primary-white);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
 
 /* --- 2. MAIN DISPLAY & VISIBLE BACKGROUND --- */
 .deploy-display {
@@ -157,6 +252,14 @@
     margin-bottom: var(--space-xl);
 }
 
+.deploy-intro {
+    max-width: 720px;
+    margin-top: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
 .dossier-grid {
     position: relative;
     z-index: 1;
@@ -173,6 +276,10 @@
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
+}
+
+.dossier-card[hidden] {
+    display: none;
 }
 
 .dossier-card:hover {
@@ -194,6 +301,7 @@
 .d-id { color: var(--white-alpha-50); }
 .d-status.success { color: var(--accent-green); }
 .d-status.pending { color: var(--accent-amber); }
+.d-status.private { color: var(--text-muted); }
 
 /* Project preview screen. */
 .dossier-screen {
@@ -206,8 +314,30 @@
 
 .screen-placeholder {
     width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 3.5rem; color: var(--white-alpha-15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--white-alpha-15);
+    background:
+        radial-gradient(circle at 72% 22%, var(--purple-alpha-15), transparent 30%),
+        radial-gradient(circle at 50% 40%, var(--blue-alpha-15), transparent 42%),
+        linear-gradient(135deg, transparent, var(--white-alpha-03));
+}
+
+.screen-placeholder i {
+    font-size: 3.35rem;
+}
+
+.screen-placeholder span {
+    max-width: 80%;
+    color: var(--white-alpha-40);
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 /* Subtle reflection that disappears on hover, simulating a powered-on screen. */
@@ -231,10 +361,30 @@
     flex-direction: column;
 }
 
+.dossier-title-row {
+    margin-bottom: 8px;
+}
+
 .d-title {
     font-size: 1.2rem;
     margin-bottom: 5px;
     color: var(--primary-white);
+}
+
+.d-type,
+.d-association {
+    display: block;
+    color: var(--text-muted);
+    font-family: var(--font-code);
+    font-size: 0.66rem;
+    line-height: 1.5;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.d-association {
+    margin: 0 0 var(--space-md);
+    color: var(--blue-alpha-85);
 }
 
 .d-desc {
@@ -245,7 +395,7 @@
 }
 
 .d-tags {
-    margin-top: auto;
+    margin: var(--space-sm) 0 var(--space-md);
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -253,40 +403,54 @@
 
 .tech-tag {
     font-family: var(--font-code);
-    font-size: 0.65rem;
-    color: var(--primary-blue);
-    background: var(--blue-alpha-05);
-    border: 1px solid var(--blue-alpha-15);
-    padding: 4px 8px;
+    font-size: 0.72rem;
+    color: var(--primary-white);
+    background: var(--purple-alpha-10);
+    border: 1px solid var(--purple-alpha-25);
+    padding: 5px 9px;
     border-radius: var(--border-radius-micro);
 }
 
 /* Project card footer. */
 .dossier-footer{
     margin-top: auto; /* Pushes the actions to the bottom of the info column. */
-    padding-top: var(--space-md);
+    padding-top: var(--space-sm);
     border-top: 1px solid var(--white-alpha-05);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: stretch;
     gap: var(--space-md);
+}
+
+.d-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
 }
 
 /* Command buttons. */
 .btn-terminal-sm {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    margin: var(--space-xxs);
+    justify-content: center;
+    gap: 10px;
+    min-height: 38px;
+    padding: 8px 13px;
+    width: 100%;
+    margin: 0;
     font-family: var(--font-code);
-    font-size: 0.7rem;
+    font-size: 0.74rem;
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
     border-radius: var(--border-radius-micro);
     transition: all 0.3s ease;
     cursor: none !important; /* Respects the custom cursor engine. */
+}
+
+.btn-terminal-sm i {
+    font-size: 1rem;
 }
 
 /* View project button style. */
@@ -315,6 +479,279 @@
     box-shadow: 0 0 15px var(--blue-alpha-50);
 }
 
+/* --- PROJECT DETAIL MODAL --- */
+body.project-modal-open {
+    overflow: hidden;
+}
+
+.project-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.24s ease, visibility 0.24s ease;
+}
+
+.project-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.project-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--black-alpha-80);
+    backdrop-filter: blur(10px);
+}
+
+.project-modal-panel {
+    position: relative;
+    z-index: var(--z-base);
+    width: min(1040px, 100%);
+    height: min(760px, calc(100svh - 48px));
+    max-height: calc(100svh - 48px);
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--blue-alpha-20);
+    border-radius: var(--border-radius-md);
+    background:
+        radial-gradient(circle at 100% 0%, var(--purple-alpha-15), transparent 34%),
+        radial-gradient(circle at 0% 0%, var(--blue-alpha-15), transparent 38%),
+        var(--bg-panel);
+    box-shadow:
+        0 30px 90px var(--black-alpha-80),
+        0 0 40px var(--blue-alpha-15),
+        0 0 52px var(--purple-alpha-10);
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.28s var(--motion-ease-smooth);
+}
+
+.project-modal.is-open .project-modal-panel {
+    transform: translateY(0) scale(1);
+}
+
+.project-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: var(--z-content);
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--white-alpha-10);
+    border-radius: var(--border-radius-circle);
+    background: var(--black-alpha-50);
+    color: var(--text-muted);
+    backdrop-filter: var(--glass-blur-sm);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.project-modal-close:hover,
+.project-modal-close:focus-visible {
+    border-color: var(--primary-blue);
+    background: var(--blue-alpha-10);
+    color: var(--primary-white);
+}
+
+.project-modal-screen {
+    min-height: 0;
+    height: 100%;
+    background: var(--bg-screen);
+    border-right: 1px solid var(--white-alpha-10);
+}
+
+.modal-screen-placeholder {
+    min-height: 100%;
+    aspect-ratio: auto;
+}
+
+.modal-screen-placeholder i {
+    font-size: clamp(4rem, 10vw, 7rem);
+}
+
+.project-modal-content {
+    min-width: 0;
+    min-height: 0;
+    max-height: 100%;
+    padding: var(--space-xl);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--primary-blue) transparent;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+}
+
+.project-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.project-modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.project-modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-blue), var(--accent-purple));
+    border-radius: var(--border-radius-pill);
+}
+
+.project-modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-blue);
+}
+
+.project-modal-kicker {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-sm);
+    color: var(--text-muted);
+    font-family: var(--font-code);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+}
+
+.project-modal-kicker span {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid var(--white-alpha-08);
+    background: var(--white-alpha-03);
+}
+
+.project-modal-kicker .success { color: var(--accent-green); }
+.project-modal-kicker .pending { color: var(--accent-amber); }
+.project-modal-kicker .private { color: var(--text-muted); }
+
+.project-modal-content h3 {
+    margin: 0 0 var(--space-sm);
+    color: transparent;
+    background: var(--gradient-metallic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    filter: drop-shadow(0 0 18px var(--blue-alpha-15));
+}
+
+.project-modal-content p {
+    margin-bottom: var(--space-md);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.project-modal-meta {
+    display: grid;
+    gap: 0;
+    margin-bottom: var(--space-md);
+    border-top: 1px solid var(--white-alpha-08);
+    border-bottom: 1px solid var(--white-alpha-08);
+}
+
+.project-modal-meta-item {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: var(--space-sm);
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--white-alpha-05);
+}
+
+.project-modal-meta-item:last-child {
+    border-bottom: 0;
+}
+
+.project-modal-meta-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--blue-alpha-20);
+    border-radius: var(--border-radius-circle);
+    background:
+        radial-gradient(circle at 70% 20%, var(--purple-alpha-15), transparent 60%),
+        var(--blue-alpha-05);
+    color: var(--primary-blue);
+    box-shadow: inset 0 0 18px var(--blue-alpha-05);
+}
+
+.project-modal-meta-copy {
+    min-width: 0;
+}
+
+.project-modal-meta-copy span,
+.project-modal-section > span {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--primary-blue);
+    font-family: var(--font-code);
+    font-size: 0.67rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.project-modal-meta strong {
+    display: block;
+    color: var(--primary-white);
+    font-size: 0.9rem;
+    line-height: 1.35;
+}
+
+.project-modal-section {
+    margin-bottom: var(--space-md);
+}
+
+.project-modal-section ul {
+    display: grid;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.project-modal-section li {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.project-modal-section li i {
+    margin-top: 2px;
+    color: var(--primary-blue);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.project-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--space-md);
+}
+
+.project-modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 /* --- RESPONSIVE FIX FOR NEW LAYOUT --- */
 @media (max-width: 1024px) {
     .deploy-layout {
@@ -323,10 +760,58 @@
     .command-base {
         position: relative;
         height: auto;
+        min-height: 0;
         border-right: none;
         border-bottom: 1px solid var(--white-alpha-10);
     }
     .command-filters { flex-direction: row; flex-wrap: wrap; }
     .cmd-btn { padding: 8px 12px; }
+
+    .project-modal-panel {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        max-height: calc(100svh - 34px);
+    }
+
+    .project-modal-screen {
+        height: auto;
+        min-height: 240px;
+        border-right: none;
+        border-bottom: 1px solid var(--white-alpha-10);
+    }
+
+    .modal-screen-placeholder {
+        min-height: 240px;
+    }
 }
 
+@media (max-width: 640px) {
+    .project-modal {
+        padding: 12px;
+    }
+
+    .project-modal-panel {
+        max-height: calc(100svh - 24px);
+    }
+
+    .project-modal-screen {
+        min-height: 180px;
+    }
+
+    .modal-screen-placeholder {
+        min-height: 180px;
+    }
+
+    .project-modal-content {
+        padding: var(--space-md);
+    }
+
+    .project-modal-actions,
+    .project-modal-actions .btn-terminal-sm {
+        width: 100%;
+    }
+
+    .project-modal-actions .btn-terminal-sm {
+        justify-content: center;
+    }
+}
