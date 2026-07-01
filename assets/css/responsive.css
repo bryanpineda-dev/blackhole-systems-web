@@ -139,20 +139,6 @@
     .about-planets-right { padding-top: 0; }
     .orbit-container { font-size: 0.7em; margin: 0 auto; }
 
-    .command-footer {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: 26px;
-    }
-
-    .command-stat {
-        min-height: 96px;
-    }
-
-    .command-stat + .command-stat {
-        border-top: 0;
-        border-left: 1px solid var(--white-alpha-08);
-    }
-
     .footer-shell {
         grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
     }
@@ -361,8 +347,13 @@
 
     .filter-label {
         grid-column: 1 / -1;
-        margin-bottom: 2px;
+        margin-bottom: 0;
         font-size: 0.72rem;
+    }
+
+    .filter-count {
+        grid-column: 1 / -1;
+        margin-bottom: 8px;
     }
 
     .cmd-btn {
@@ -386,37 +377,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-
-    .command-footer {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: 26px;
-        padding-top: 0;
-    }
-
-    .command-stat {
-        grid-template-columns: 44px minmax(0, 1fr);
-        gap: 11px;
-        min-height: 92px;
-        padding: 14px;
-    }
-
-    .command-stat-icon {
-        width: 44px;
-        height: 44px;
-    }
-
-    .command-stat-icon i {
-        font-size: 1.55rem;
-    }
-
-    .command-stat-copy span {
-        font-size: 0.66rem;
-    }
-
-    .command-stat-copy strong {
-        font-size: 1.02rem;
     }
 
     .deploy-display {
@@ -599,30 +559,6 @@
     .cmd-icon {
         width: 32px;
         height: 32px;
-    }
-
-    .command-footer {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .command-stat {
-        grid-template-columns: 40px minmax(0, 1fr);
-        gap: 9px;
-        min-height: 86px;
-        padding: 12px;
-    }
-
-    .command-stat-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .command-stat-icon i {
-        font-size: 1.42rem;
-    }
-
-    .command-stat-copy strong {
-        font-size: 0.95rem;
     }
 
     .deploy-display {

@@ -136,22 +136,21 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    width: min(520px, 58%);
-    height: 48%;
+    width: min(460px, 52%);
+    height: 42%;
     background:
-        radial-gradient(circle at 6% 76%, var(--primary-white) 0, var(--primary-white) 1px, transparent 2px),
-        radial-gradient(circle at 10% 88%, var(--white-alpha-80) 0, var(--white-alpha-80) 1.2px, transparent 2.2px),
-        radial-gradient(circle at 15% 66%, var(--white-alpha-60) 0, var(--white-alpha-60) 1px, transparent 2px),
-        radial-gradient(circle at 19% 82%, var(--primary-white) 0, var(--primary-white) 1.1px, transparent 2.1px),
-        radial-gradient(circle at 24% 92%, var(--white-alpha-50) 0, var(--white-alpha-50) 1px, transparent 2px),
-        radial-gradient(circle at 30% 72%, var(--white-alpha-70) 0, var(--white-alpha-70) 1.1px, transparent 2px),
-        radial-gradient(circle at 36% 86%, var(--white-alpha-40) 0, var(--white-alpha-40) 1px, transparent 2px),
-        radial-gradient(circle at 44% 78%, var(--white-alpha-60) 0, var(--white-alpha-60) 1px, transparent 2px),
-        radial-gradient(circle at 52% 91%, var(--white-alpha-40) 0, var(--white-alpha-40) 0.9px, transparent 2px);
-    opacity: 0.56;
+        radial-gradient(circle at 6% 78%, var(--white-alpha-70) 0, var(--white-alpha-70) 0.55px, transparent 1.35px),
+        radial-gradient(circle at 11% 90%, var(--white-alpha-50) 0, var(--white-alpha-50) 0.5px, transparent 1.2px),
+        radial-gradient(circle at 17% 70%, var(--white-alpha-60) 0, var(--white-alpha-60) 0.45px, transparent 1.15px),
+        radial-gradient(circle at 22% 84%, var(--white-alpha-40) 0, var(--white-alpha-40) 0.55px, transparent 1.35px),
+        radial-gradient(circle at 29% 93%, var(--white-alpha-50) 0, var(--white-alpha-50) 0.45px, transparent 1.1px),
+        radial-gradient(circle at 35% 74%, var(--white-alpha-60) 0, var(--white-alpha-60) 0.5px, transparent 1.25px),
+        radial-gradient(circle at 43% 88%, var(--white-alpha-40) 0, var(--white-alpha-40) 0.45px, transparent 1.15px),
+        radial-gradient(circle at 51% 80%, var(--white-alpha-50) 0, var(--white-alpha-50) 0.4px, transparent 1.05px);
+    opacity: 0.34;
     pointer-events: none;
-    filter: drop-shadow(0 0 7px var(--white-alpha-40));
-    animation: reviewStarField 4.8s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 4px var(--white-alpha-40));
+    animation: reviewStarField 6.8s ease-in-out infinite alternate;
     -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 100%);
     mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 100%);
 }

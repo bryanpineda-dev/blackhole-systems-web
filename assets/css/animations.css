@@ -214,9 +214,11 @@
 }
 
 @keyframes reviewStarField {
-    0% { opacity: 0.34; transform: translate3d(0, 0, 0); }
-    45% { opacity: 0.78; }
-    100% { opacity: 0.52; transform: translate3d(5px, -3px, 0); }
+    0% { opacity: 0.12; transform: translate3d(0, 0, 0) scale(0.96); }
+    28% { opacity: 0.38; }
+    54% { opacity: 0.18; transform: translate3d(3px, -2px, 0) scale(1); }
+    78% { opacity: 0.32; }
+    100% { opacity: 0.16; transform: translate3d(5px, -3px, 0) scale(0.98); }
 }
 
 @keyframes waveformPulse {
