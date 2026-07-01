@@ -72,6 +72,7 @@
                 <br>
                 <a href="mailto:pinedabryan98@gmail.com">pinedabryan98@gmail.com</a>
                 <br>
+                <a href="https://www.linkedin.com/company/blackhole-sys/" target="_blank" rel="noopener">LinkedIn</a> ·
                 <a href="https://github.com/bryanpineda-dev" target="_blank" rel="noopener">GitHub</a> ·
                 <a href="https://www.instagram.com/blackholesys" target="_blank" rel="noopener">Instagram</a> ·
                 <a href="https://www.facebook.com/blackholesys" target="_blank" rel="noopener">Facebook</a>
