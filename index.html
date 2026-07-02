@@ -19,23 +19,42 @@
     <script defer src="https://kit.fontawesome.com/c86704639a.js" crossorigin="anonymous"></script>
     <noscript>
         <style>
-            .page-loader { display: none !important; }
-            body { overflow: auto !important; }
+            .page-loader { display: none; }
+            body { overflow: auto; }
         </style>
     </noscript>
 </head>
 <body class="is-loading">
     <!-- Page loader: short brand boot sequence shown while key assets initialize. -->
-    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="Loading Blackhole Systems">
+    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="Initializing Blackhole Systems">
+        <span class="loader-stars stellar-pulse-stars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
         <div class="loader-shell">
             <div class="loader-mark" aria-hidden="true">
                 <img src="assets/images/logo_bhws_w-icon.png" alt="">
             </div>
-            <div class="loader-brand">Blackhole Systems // Digital Engineering</div>
             <div class="loader-progress" aria-hidden="true">
                 <span></span>
             </div>
-            <div class="loader-status">Initializing interface...</div>
+            <div class="loader-status">Initializing Blackhole Systems</div>
         </div>
     </div>
 
@@ -179,6 +198,7 @@
                 <div class="about-planets-right">
                     <div class="ambient-orb orb-1" aria-hidden="true"></div>
                     <div class="ambient-orb orb-2" aria-hidden="true"></div>
+                    <div class="ambient-orb orb-5" aria-hidden="true"></div>
                     
                     <div class="orbit-container" aria-hidden="true">
                         <div class="planet"></div>
@@ -927,8 +947,28 @@
 
         <!-- Contact: project launch console for new builds and discovery calls. -->
         <section id="contact" class="section-padding contact-launch-section">
-            <div class="launch-globe-field" aria-hidden="true">
-                <canvas class="contact-globe-canvas" data-contact-globe></canvas>
+            <div class="launch-earth-field" aria-hidden="true">
+                <img class="launch-earth-image" src="assets/images/contact-earth-horizon.jpg" alt="" loading="lazy" decoding="async">
+                <span class="launch-earth-stars stellar-pulse-stars">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
             </div>
 
             <div class="container contact-launch-layout">
@@ -1136,7 +1176,6 @@
     <script src="assets/js/modules/hero-effects.js" defer></script>
     <script src="assets/js/modules/background-effects.js" defer></script>
     <script src="assets/js/modules/reviews-slider.js" defer></script>
-    <script src="assets/js/modules/contact-globe.js" defer></script>
     <script src="assets/js/modules/floating-assistant.js" defer></script>
     <script src="assets/js/modules/cursor.js" defer></script>
     <script src="assets/js/app.js" defer></script>

@@ -30,7 +30,7 @@
 /* Code Cards Instance Specifics */
 .code-card {
     position: absolute; 
-    padding: var(--space-md) !important; 
+    padding: var(--space-md);
     background: var(--panel-alpha-85);
     border: 1px solid var(--glass-border-light); 
     border-radius: var(--border-radius-md);
@@ -90,7 +90,7 @@
 }
 
 .workflow-actions .btn-glass {
-    margin: 0 !important;
+    margin: 0;
 }
 
 .tech-coins-track {

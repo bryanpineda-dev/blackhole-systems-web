@@ -98,7 +98,6 @@
 
 .hero-actions .container-btn .btn-glass {
     min-width: 180px;
-    margin-top: 0 !important;
-    margin-right: 0 !important;
+    margin-top: 0;
 }
 

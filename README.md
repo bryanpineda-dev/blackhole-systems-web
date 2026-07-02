@@ -16,7 +16,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Custom cursor and page loader
 - Scroll reveal motion system
 - Services, workflow, projects, testimonials, and contact sections
-- Canvas-based technology globe background in the contact area
+- Image-based Earth horizon background with CSS star motion in the contact area
 - Mobile-first cleanup for overflow-safe responsive behavior
 
 ## Tech Stack
@@ -24,7 +24,6 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - HTML5
 - CSS3 with modular imports
 - Vanilla JavaScript modules
-- Canvas API for the contact globe
 - Remix Icons and Font Awesome icons
 
 ## Project Structure

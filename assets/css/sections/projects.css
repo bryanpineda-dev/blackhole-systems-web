@@ -421,7 +421,7 @@
     text-transform: uppercase;
     border-radius: var(--border-radius-micro);
     transition: all 0.3s ease;
-    cursor: none !important; /* Respects the custom cursor engine. */
+    cursor: none; /* Respects the custom cursor engine. */
 }
 
 .btn-terminal-sm i {

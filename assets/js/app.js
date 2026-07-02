@@ -21,7 +21,6 @@
         'initStarField',
         'initCometField',
         'initGridPulse',
-        'initContactGlobe',
         'initHeaderZoneObserver',
         'initFloatingAssistant',
         'initCustomCursor'

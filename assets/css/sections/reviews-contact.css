@@ -441,8 +441,9 @@
 
 .contact-launch-section {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
-    padding-bottom: clamp(64px, 8vw, 96px);
+    padding-bottom: clamp(64px, 7vw, 92px);
 }
 
 .contact-launch-section::before {
@@ -450,12 +451,13 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 50% 88%, var(--blue-alpha-10), transparent 42%),
-        linear-gradient(180deg, transparent 0%, var(--white-alpha-01) 48%, transparent 100%);
+        radial-gradient(ellipse at 18% 42%, rgba(var(--primary-blue-rgb), 0.08), transparent 38%),
+        radial-gradient(ellipse at 78% 52%, rgba(var(--accent-purple-rgb), 0.06), transparent 42%),
+        linear-gradient(180deg, transparent 0%, rgba(var(--primary-blue-rgb), 0.018) 52%, transparent 100%);
     pointer-events: none;
 }
 
-.launch-globe-field {
+.launch-earth-field {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -463,20 +465,51 @@
     pointer-events: none;
 }
 
-.contact-globe-canvas {
+.launch-earth-field::before,
+.launch-earth-field::after {
+    content: "";
+    position: absolute;
+    display: block;
+    pointer-events: none;
+}
+
+.launch-earth-field::before {
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.88), transparent 30%, transparent 72%, rgba(0, 0, 0, 0.78)),
+        linear-gradient(180deg, var(--bg-void) 0%, rgba(2, 3, 5, 0.76) 28%, rgba(2, 3, 5, 0.28) 58%, var(--bg-void) 100%);
+    z-index: 3;
+}
+
+.launch-earth-field::after {
+    inset: auto 0 0;
+    height: 44%;
+    background:
+        linear-gradient(180deg, transparent 0%, rgba(2, 3, 5, 0.12) 34%, var(--bg-void) 100%),
+        radial-gradient(ellipse at 50% 78%, rgba(var(--primary-blue-rgb), 0.14), transparent 58%);
+    z-index: 2;
+}
+
+.launch-earth-image {
     position: absolute;
     left: 50%;
-    bottom: clamp(-410px, -28vw, -260px);
+    bottom: clamp(-72px, -6vw, -34px);
     display: block;
-    width: clamp(680px, 72vw, 940px);
-    height: clamp(680px, 72vw, 940px);
-    aspect-ratio: 1;
-    max-width: none;
-    transform: translateX(-50%);
-    opacity: 0.82;
-    filter:
-        drop-shadow(0 0 36px rgba(var(--primary-blue-rgb), 0.16))
-        drop-shadow(0 -24px 90px rgba(var(--primary-blue-rgb), 0.08));
+    width: min(1360px, 116vw);
+    height: clamp(280px, 34vw, 460px);
+    object-fit: cover;
+    object-position: center bottom;
+    opacity: 0.56;
+    filter: brightness(0.66) contrast(1.12) saturate(0.94);
+    mix-blend-mode: screen;
+    transform: translate3d(-50%, 0, 0);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 76%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 76%, transparent 100%);
+    z-index: 1;
+}
+
+.launch-earth-stars {
+    z-index: 4;
 }
 
 .contact-launch-layout {
@@ -671,11 +704,11 @@
         grid-template-columns: 1fr;
     }
 
-    .contact-globe-canvas {
-        bottom: -310px;
-        width: 720px;
-        height: 720px;
-        opacity: 0.26;
+    .launch-earth-image {
+        bottom: -56px;
+        width: 144vw;
+        height: 360px;
+        opacity: 0.48;
     }
 
     .review-card {
@@ -714,11 +747,15 @@
         display: block;
     }
 
-    .contact-globe-canvas {
-        width: 570px;
-        height: 570px;
-        bottom: -300px;
-        opacity: 0.24;
+    .launch-earth-image {
+        bottom: -38px;
+        width: 190vw;
+        height: 300px;
+        opacity: 0.4;
+    }
+
+    .launch-earth-stars span:nth-child(n+13) {
+        display: none;
     }
 
     .review-card {

@@ -17,7 +17,7 @@ html.has-custom-cursor .dossier-card,
 html.has-custom-cursor .cmd-btn,
 html.has-custom-cursor .btn-morph,
 html.has-custom-cursor .btn-terminal-sm {
-    cursor: none !important;
+    cursor: none;
 }
 
 .cursor-dot {
@@ -127,6 +127,50 @@ body.is-loading {
     animation: loaderOrbFloatB 7.5s var(--motion-ease-smooth) infinite alternate;
 }
 
+.stellar-pulse-stars {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+}
+
+.stellar-pulse-stars span {
+    position: absolute;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: var(--border-radius-circle);
+    background: var(--primary-white);
+    box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.86),
+        0 0 18px rgba(var(--primary-blue-rgb), 0.28);
+    opacity: 0;
+    animation: stellarPulse 6.4s ease-in-out infinite;
+}
+
+.stellar-pulse-stars span:nth-child(1) { left: 9%; top: 18%; animation-delay: -0.8s; }
+.stellar-pulse-stars span:nth-child(2) { left: 22%; top: 28%; width: 1px; height: 1px; animation-delay: -3.2s; }
+.stellar-pulse-stars span:nth-child(3) { left: 37%; top: 16%; animation-delay: -5.1s; }
+.stellar-pulse-stars span:nth-child(4) { left: 48%; top: 34%; width: 1px; height: 1px; animation-delay: -1.7s; }
+.stellar-pulse-stars span:nth-child(5) { left: 61%; top: 22%; animation-delay: -4.4s; }
+.stellar-pulse-stars span:nth-child(6) { left: 74%; top: 31%; width: 1px; height: 1px; animation-delay: -2.5s; }
+.stellar-pulse-stars span:nth-child(7) { left: 87%; top: 18%; animation-delay: -6.1s; }
+.stellar-pulse-stars span:nth-child(8) { left: 16%; top: 48%; width: 1px; height: 1px; animation-delay: -4.9s; }
+.stellar-pulse-stars span:nth-child(9) { left: 68%; top: 46%; animation-delay: -0.4s; }
+.stellar-pulse-stars span:nth-child(10) { left: 92%; top: 42%; width: 1px; height: 1px; animation-delay: -3.8s; }
+.stellar-pulse-stars span:nth-child(11) { left: 31%; top: 44%; width: 1.5px; height: 1.5px; animation-delay: -2.1s; }
+.stellar-pulse-stars span:nth-child(12) { left: 42%; top: 25%; animation-delay: -6.4s; }
+.stellar-pulse-stars span:nth-child(13) { left: 54%; top: 14%; width: 1.5px; height: 1.5px; animation-delay: -1.1s; }
+.stellar-pulse-stars span:nth-child(14) { left: 79%; top: 12%; animation-delay: -5.8s; }
+.stellar-pulse-stars span:nth-child(15) { left: 83%; top: 54%; width: 1.5px; height: 1.5px; animation-delay: -2.9s; }
+.stellar-pulse-stars span:nth-child(16) { left: 5%; top: 36%; width: 1.5px; height: 1.5px; animation-delay: -4.2s; }
+.stellar-pulse-stars span:nth-child(17) { left: 57%; top: 38%; animation-delay: -3.4s; }
+.stellar-pulse-stars span:nth-child(18) { left: 96%; top: 24%; width: 1.5px; height: 1.5px; animation-delay: -0.2s; }
+
+.loader-stars {
+    z-index: var(--z-base);
+    opacity: 0.9;
+}
+
 .page-loader.is-hiding {
     opacity: 0;
     visibility: hidden;
@@ -134,7 +178,7 @@ body.is-loading {
 
 .loader-shell {
     position: relative;
-    z-index: var(--z-base);
+    z-index: var(--z-above);
     width: min(360px, 82vw);
     display: flex;
     flex-direction: column;
@@ -193,16 +237,6 @@ body.is-loading {
     filter: drop-shadow(0 0 14px var(--blue-alpha-50));
 }
 
-.loader-brand {
-    margin-bottom: var(--space-md);
-    font-family: var(--font-code);
-    font-size: 0.72rem;
-    line-height: 1.6;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--white-alpha-70);
-}
-
 .loader-progress {
     width: 100%;
     height: 2px;
@@ -233,10 +267,29 @@ body.is-loading {
 @media (prefers-reduced-motion: reduce) {
     .page-loader::before,
     .page-loader::after,
+    .stellar-pulse-stars span,
     .loader-mark::before,
     .loader-mark::after,
     .loader-progress span {
         animation: none;
+    }
+}
+
+@keyframes stellarPulse {
+    0%,
+    100% {
+        opacity: 0.14;
+        transform: scale(0.68);
+    }
+
+    38% {
+        opacity: 0.96;
+        transform: scale(1.2);
+    }
+
+    62% {
+        opacity: 0.34;
+        transform: scale(0.9);
     }
 }
 
@@ -278,16 +331,14 @@ body.is-loading {
 
 /* --- HUD TEXT BLOCKS --- */
 .hud-text-block, .hud-text-block-color {
+    --hud-line-color: var(--glass-border-light);
     padding-left: var(--space-md);
     margin-bottom: var(--space-lg);
-}
-
-.hud-text-block {
-    border-left: 1px solid var(--glass-border-light);
+    border-left: 2px solid var(--hud-line-color);
 }
 
 .hud-text-block-color {
-    border-left: 2px solid var(--primary-blue);
+    --hud-line-color: var(--primary-blue);
 }
 
 .hud-text-block .lead-text {
@@ -345,6 +396,7 @@ body.is-loading {
     display: flex; 
     justify-content: flex-start; 
     align-items: flex-start; 
+    gap: var(--space-lg);
 }
 
 .container-btn .btn-glass {
@@ -352,14 +404,12 @@ body.is-loading {
     min-width: 160px; 
     padding: 0 10px; 
     height: 50px;
-    margin-right: var(--space-lg) !important; 
-    margin-top: var(--space-lg) !important; 
+    margin-top: var(--space-lg);
     position: relative;
 }
 
 .header-container .container-btn .btn-glass { 
-    margin-top: 0 !important; 
-    margin-right: 0 !important; 
+    margin-top: 0;
     box-shadow: none; 
 }
 
@@ -370,9 +420,8 @@ body.is-loading {
 }
 
 .card .content .container-btn .btn-glass { 
-    margin-right: 0 !important; 
     margin-bottom: 50px; 
-    margin-top: var(--space-md) !important; 
+    margin-top: var(--space-md);
 }
 
 /* Glass Button Base */
@@ -485,10 +534,21 @@ body.is-loading {
     position: absolute; filter: blur(70px); z-index: 0; opacity: 0.10; pointer-events: none;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
-.orb-1 { width: 300px; height: 300px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
-.orb-2 { width: 200px; height: 200px; background: var(--accent-purple); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
+.orb-1 { width: 390px; height: 390px; background: var(--primary-blue); top: -2%; right: 0; animation: morphBlob1 25s ease-in-out infinite; }
+.orb-2 { width: 285px; height: 285px; background: var(--accent-purple); bottom: -8%; right: 18%; animation: morphBlob2 30s ease-in-out infinite; }
 .orb-3 { width: 400px; height: 400px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
 .orb-4 { width: 300px; height: 300px; background: var(--primary-white); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
+.orb-5 {
+    width: 320px;
+    height: 320px;
+    background: var(--primary-black);
+    top: 30%;
+    right: 34%;
+    opacity: 0.28;
+    filter: blur(62px);
+    box-shadow: 0 0 120px rgba(0, 0, 0, 0.92);
+    animation: morphBlob2 34s ease-in-out infinite reverse;
+}
 
 /* --- SERVICES CARDS --- */
 .glass-card {
