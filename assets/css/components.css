@@ -425,7 +425,8 @@ body.is-loading {
 }
 
 /* Glass Button Base */
-.container-btn .btn-glass a {
+.container-btn .btn-glass a,
+.container-btn .btn-glass button {
     position: relative; 
     top: 0; left: 0; 
     width: 100%; height: 100%;
@@ -438,17 +439,20 @@ body.is-loading {
     border-radius: var(--border-radius-pill); 
     box-shadow: var(--glass-shadow-mid);
     padding: 0 var(--space-md); 
+    font: inherit;
     letter-spacing: 1px; 
     font-size: 14px;
     overflow: hidden; 
     color: var(--white-alpha-50); 
+    cursor: pointer;
     z-index: var(--z-base); 
     transition: all 0.3s ease; 
     white-space: nowrap; 
 }
 
 /* Glass Button Rim Light */
-.container-btn .btn-glass a::after {
+.container-btn .btn-glass a::after,
+.container-btn .btn-glass button::after {
     content: '';
     position: absolute;
     inset: 0; 
@@ -466,7 +470,8 @@ body.is-loading {
 }
 
 /* Glass Button Sweep Animation */
-.container-btn .btn-glass a::before {
+.container-btn .btn-glass a::before,
+.container-btn .btn-glass button::before {
     content: ''; 
     position: absolute; 
     top: 0; left: 0; 
@@ -477,7 +482,8 @@ body.is-loading {
     filter: blur(0px);
 }
 
-.container-btn .btn-glass:hover a::before { 
+.container-btn .btn-glass:hover a::before,
+.container-btn .btn-glass:hover button::before {
     transform: skewX(45deg) translate(200%); 
 }
 
@@ -491,7 +497,8 @@ body.is-loading {
 }
 
 /* Glass Button Hover State */
-.container-btn .btn-glass:hover a {
+.container-btn .btn-glass:hover a,
+.container-btn .btn-glass:hover button {
     border-color: var(--primary-white); 
     color: var(--primary-white); 
     text-shadow: 0 0 5px var(--primary-white);

@@ -5,13 +5,16 @@
 (function (BH) {
     'use strict';
 
-    BH.initStarField = function initStarField() {
-        const container = document.getElementById('star-field');
-        if (!container) return;
+    const createStarField = (container) => {
+        if (!container || container.dataset.starFieldReady === 'true') return;
 
-        const numStars = 70;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+        container.dataset.starFieldReady = 'true';
+
+        const useViewport = container.dataset.starViewport === 'true';
+        const numStars = Number.parseInt(container.dataset.starCount || '70', 10);
+        const bounds = container.getBoundingClientRect();
+        const width = useViewport ? window.innerWidth : bounds.width || container.offsetWidth || window.innerWidth;
+        const height = useViewport ? window.innerHeight : bounds.height || container.offsetHeight || window.innerHeight;
         const centerX = width / 2;
         const centerY = height / 2;
 
@@ -36,5 +39,12 @@
 
             container.appendChild(star);
         }
+    };
+
+    BH.initStarField = function initStarField() {
+        const containers = document.querySelectorAll('[data-star-field]');
+        if (!containers.length) return;
+
+        containers.forEach(createStarField);
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

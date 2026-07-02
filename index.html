@@ -113,7 +113,7 @@
                     <source src="assets/images/blackhole-hero-optimized.webm" type="video/webm">
                 </video>
                 <div class="video-overlay" aria-hidden="true"></div>
-                <div class="star-field" id="star-field" aria-hidden="true"></div>
+                <div class="star-field" id="star-field" data-star-field data-star-count="70" data-star-viewport="true" aria-hidden="true"></div>
             </div>
             
             <div class="hero-content-wrapper">
@@ -973,59 +973,68 @@
 
             <div class="container contact-launch-layout">
                 <div class="contact-info launch-console">
-                    <span class="section-tag">:: START_PROJECT</span>
-                    <h2 class="section-heading">Start the System Build</h2>
-                    <p class="body-text">Send the idea, workflow, or problem you want to solve. I will help shape the right technology, structure, and execution path.</p>
+                    <span class="section-tag">:: PROJECT_QUOTE</span>
+                    <h2 class="section-heading">Request a Project Quote</h2>
+                    <p class="body-text">Share the project idea, workflow, or business problem. I will translate it into a clear scope, technology direction, and execution path.</p>
 
-                    <div class="launch-status-grid">
-                        <div class="launch-status-item">
-                            <span>System</span>
-                            <strong>Ready</strong>
-                        </div>
-                        <div class="launch-status-item">
-                            <span>Response</span>
-                            <strong>24-48H</strong>
-                        </div>
-                        <div class="launch-status-item">
-                            <span>Remote</span>
-                            <strong>Available</strong>
-                        </div>
-                        <div class="launch-status-item">
-                            <span>Base</span>
-                            <strong>Cartago, CR</strong>
-                        </div>
-                    </div>
-
-                    <div class="launch-brief-panel">
-                        <span class="launch-panel-label">Brief Signal</span>
-                        <ul class="launch-checklist">
-                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Business problem or workflow</li>
-                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> System, website, automation, or integration idea</li>
-                            <li><i class="ri-checkbox-circle-line" aria-hidden="true"></i> References, deadline, or expected outcome</li>
-                        </ul>
-                    </div>
-
-                    <div class="launch-contact-links">
-                        <a href="mailto:pinedabryan98@gmail.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> pinedabryan98@gmail.com</a>
-                        <a href="https://wa.me/50670827504"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-7504</a>
+                    <div class="launch-process-panel">
+                        <span class="launch-panel-label">Quote Path</span>
+                        <ol class="launch-process-list">
+                            <li>
+                                <span>01</span>
+                                <div>
+                                    <strong>Send the idea</strong>
+                                    <p>Describe what you want to build, automate, redesign, or connect.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>02</span>
+                                <div>
+                                    <strong>Map the scope</strong>
+                                    <p>I define the structure, required features, integrations, and technical risks.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>03</span>
+                                <div>
+                                    <strong>Receive a quote</strong>
+                                    <p>You get a practical estimate with priorities, phases, and a realistic build path.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span>04</span>
+                                <div>
+                                    <strong>Build and launch</strong>
+                                    <p>The project moves through interface, backend logic, automation, QA, and release.</p>
+                                </div>
+                            </li>
+                        </ol>
                     </div>
                 </div>
 
                 <div class="contact-form-container launch-form-panel">
-                    <form class="glass-form sci-fi-form" aria-label="Project inquiry form">
+                    <form class="glass-form sci-fi-form" aria-label="Project quote request form">
                         <div class="form-header">
-                            <span>PROJECT_BRIEF_CHANNEL</span>
-                            <strong>Transmission Form</strong>
+                            <span>QUOTE_CHANNEL</span>
+                            <strong>Project Scope Form</strong>
                         </div>
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required>
+                                <label for="firstName">Name</label>
+                                <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Your name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email / WhatsApp</label>
-                                <input type="text" id="email" name="email" autocomplete="email" placeholder="name@domain.com or WhatsApp" required>
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Your last name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" autocomplete="email" placeholder="name@domain.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="whatsapp">WhatsApp</label>
+                                <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" placeholder="+506 0000-0000">
                             </div>
                             <div class="form-group">
                                 <label for="projectType">Project Type</label>
@@ -1039,8 +1048,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="budget">Budget Range</label>
-                                <select id="budget" name="budget">
+                                <label for="optionalRange">Optional Range</label>
+                                <select id="optionalRange" name="optionalRange">
                                     <option value="">Optional range</option>
                                     <option>Discovery first</option>
                                     <option>Small build</option>
@@ -1058,7 +1067,7 @@
                         <div class="container-btn u-center-actions">
                             <div class="btn-glass">
                                 <a href="#" id="formSubmitBtn">
-                                    Transmit Project Brief
+                                    Request Project Quote
                                 </a>
                             </div>
                         </div>
@@ -1070,43 +1079,69 @@
 
     </main>
 
-    <!-- Footer: final brand handoff with navigation, contact channels, and social links. -->
+    <!-- Footer: signal capture, final brand handoff, navigation, and contact channels. -->
     <footer class="site-footer">
+        <div class="container footer-newsletter-shell">
+            <section class="footer-newsletter" aria-labelledby="footer-newsletter-title">
+                <div class="footer-newsletter-stars star-field" id="footer-star-field" data-star-field data-star-count="46" aria-hidden="true"></div>
+                <div class="footer-newsletter-copy">
+                    <span class="footer-kicker">:: SIGNAL_LOG</span>
+                    <h2 id="footer-newsletter-title">Join the Signal Log</h2>
+                    <p>Receive build notes, project insights, launch updates, and digital system ideas from Blackhole Systems.</p>
+                </div>
+                <form class="footer-newsletter-form" data-newsletter-form aria-label="Subscribe to Blackhole Systems updates">
+                    <label class="sr-only" for="newsletterEmail">Email address</label>
+                    <input type="email" id="newsletterEmail" name="newsletterEmail" autocomplete="email" placeholder="name@domain.com" required>
+                    <div class="container-btn footer-newsletter-action">
+                        <div class="btn-glass">
+                            <button type="submit" data-newsletter-submit>Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
         <div class="container footer-shell">
             <div class="footer-brand">
                 <a href="#hero" class="footer-logo" aria-label="Blackhole Systems home">
-                    <img src="assets/images/logo_bhws_w-icon.png" alt="" aria-hidden="true">
-                    <span>Blackhole Systems</span>
+                    <img src="assets/images/logo_bhws_w.png" alt="Blackhole Systems">
                 </a>
                 <p>Digital engineering for premium interfaces, custom systems, automations, and connected business workflows.</p>
-                <div class="footer-signal">
-                    <span>System Stable</span>
-                    <span>Remote Builds Available</span>
-                </div>
-            </div>
-
-            <nav class="footer-nav" aria-label="Footer navigation">
-                <span class="footer-label">Explore</span>
-                <a href="#about">About</a>
-                <a href="#mission">Workflow</a>
-                <a href="#capabilities">Services</a>
-                <a href="#deployments">Projects</a>
-            </nav>
-
-            <div class="footer-contact">
-                <span class="footer-label">Start Project</span>
-                <a href="mailto:pinedabryan98@gmail.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> pinedabryan98@gmail.com</a>
-                <a href="https://wa.me/50670827504"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-7504</a>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 Blackhole Systems. Digital Engineering.</p>
-                <div class="social-links">
+                <div class="social-links footer-social-links">
                     <a href="https://www.linkedin.com/company/blackhole-sys/" target="_blank" rel="noopener" aria-label="LinkedIn company page"><i class="ri-linkedin-fill" aria-hidden="true"></i></a>
                     <a href="https://github.com/bryanpineda-dev" target="_blank" rel="noopener" aria-label="GitHub profile"><i class="ri-github-fill" aria-hidden="true"></i></a>
                     <a href="https://www.instagram.com/blackholesys" target="_blank" rel="noopener" aria-label="Instagram profile"><i class="ri-instagram-line" aria-hidden="true"></i></a>
                     <a href="https://www.facebook.com/blackholesys" target="_blank" rel="noopener" aria-label="Facebook profile"><i class="ri-facebook-fill" aria-hidden="true"></i></a>
                 </div>
+            </div>
+
+            <nav class="footer-nav footer-explore" aria-label="Future Blackhole pages">
+                <span class="footer-label">Explore</span>
+                <a href="#">Blog</a>
+                <a href="#">Store</a>
+                <a href="#">Partnerships</a>
+                <a href="#">FAQs</a>
+            </nav>
+
+            <nav class="footer-nav footer-builds" aria-label="Build categories">
+                <span class="footer-label">Builds</span>
+                <a href="#capabilities">Websites</a>
+                <a href="#capabilities">Dashboards</a>
+                <a href="#capabilities">Automations</a>
+                <a href="#capabilities">E-commerce</a>
+                <a href="#capabilities">APIs</a>
+            </nav>
+
+            <div class="footer-contact">
+                <span class="footer-label">Connect</span>
+                <a href="mailto:info@blackholesys.com"><i class="ri-mail-send-fill" aria-hidden="true"></i> info@blackholesys.com</a>
+                <a href="mailto:bpineda@blackholesys.com"><i class="ri-code-s-slash-line" aria-hidden="true"></i> bpineda@blackholesys.com</a>
+                <a href="https://wa.me/50670827504"><i class="ri-whatsapp-fill" aria-hidden="true"></i> +506 7082-7504</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>BLACKHOLE_SYSTEMS // ONLINE // 2026</p>
+                <span>Digital Engineering</span>
             </div>
         </div>
     </footer>
