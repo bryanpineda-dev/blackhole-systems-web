@@ -97,36 +97,6 @@ body.is-loading {
     transition: opacity 0.65s ease, visibility 0.65s ease;
 }
 
-.page-loader::before,
-.page-loader::after {
-    content: '';
-    position: absolute;
-    border-radius: var(--border-radius-circle);
-    pointer-events: none;
-    filter: blur(22px);
-    will-change: transform;
-}
-
-.page-loader::before {
-    width: min(440px, 72vw);
-    height: min(440px, 72vw);
-    top: 12%;
-    left: 8%;
-    background: radial-gradient(circle at 35% 35%, var(--blue-alpha-50), transparent 62%);
-    opacity: 0.34;
-    animation: loaderOrbFloatA 6s var(--motion-ease-smooth) infinite alternate;
-}
-
-.page-loader::after {
-    width: min(360px, 62vw);
-    height: min(360px, 62vw);
-    right: 10%;
-    bottom: 10%;
-    background: radial-gradient(circle at 58% 42%, var(--purple-alpha-25), transparent 64%);
-    opacity: 0.42;
-    animation: loaderOrbFloatB 7.5s var(--motion-ease-smooth) infinite alternate;
-}
-
 .stellar-pulse-stars {
     position: absolute;
     inset: 0;
@@ -265,8 +235,6 @@ body.is-loading {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .page-loader::before,
-    .page-loader::after,
     .stellar-pulse-stars span,
     .loader-mark::before,
     .loader-mark::after,
@@ -545,17 +513,6 @@ body.is-loading {
 .orb-2 { width: 285px; height: 285px; background: var(--accent-purple); bottom: -8%; right: 18%; animation: morphBlob2 30s ease-in-out infinite; }
 .orb-3 { width: 400px; height: 400px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
 .orb-4 { width: 300px; height: 300px; background: var(--primary-white); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
-.orb-5 {
-    width: 320px;
-    height: 320px;
-    background: var(--primary-black);
-    top: 30%;
-    right: 34%;
-    opacity: 0.28;
-    filter: blur(62px);
-    box-shadow: 0 0 120px rgba(0, 0, 0, 0.92);
-    animation: morphBlob2 34s ease-in-out infinite reverse;
-}
 
 /* --- SERVICES CARDS --- */
 .glass-card {
