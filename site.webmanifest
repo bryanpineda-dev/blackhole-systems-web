@@ -1,0 +1,18 @@
+{
+    "name": "Blackhole Systems",
+    "short_name": "Blackhole",
+    "description": "Custom software, premium websites, dashboards, automations, e-commerce systems, and API integrations.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#03060d",
+    "theme_color": "#0077ff",
+    "icons": [
+        {
+            "src": "assets/images/favicon.png",
+            "sizes": "900x900",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
