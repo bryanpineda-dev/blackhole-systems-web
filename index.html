@@ -1037,11 +1037,13 @@
                 </div>
 
                 <div class="contact-form-container launch-form-panel">
-                    <form class="glass-form sci-fi-form" aria-label="Project quote request form">
+                    <form class="glass-form sci-fi-form" aria-label="Project quote request form" data-lead-endpoint-local="http://127.0.0.1:8020/api/leads" data-lead-endpoint-production="https://admin.blackholesys.com/api/leads" data-lead-channel="blackhole-web-quote">
                         <div class="form-header">
                             <span>QUOTE_CHANNEL</span>
                             <strong>Project Scope Form</strong>
                         </div>
+
+                        <input class="form-honeypot" type="text" name="companyWebsite" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                         <div class="form-grid">
                             <div class="form-group">
@@ -1095,6 +1097,8 @@
                                 </a>
                             </div>
                         </div>
+
+                        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
 
                     </form>
                 </div>
