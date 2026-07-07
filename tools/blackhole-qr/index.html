@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blackhole QR Studio generates free static QR codes in your browser for URLs, text, WhatsApp, and WiFi. No expiration, no account, no watermark.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Blackhole Systems">
+    <meta name="theme-color" content="#03060d">
+    <link rel="canonical" href="https://blackholesys.com/tools/blackhole-qr/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Blackhole Systems">
+    <meta property="og:title" content="Blackhole QR Studio | Free Static QR Generator">
+    <meta property="og:description" content="Generate QR codes in your browser. No expiration, no account, no watermark, and no data stored.">
+    <meta property="og:url" content="https://blackholesys.com/tools/blackhole-qr/">
+    <meta property="og:image" content="https://blackholesys.com/assets/images/blackhole-hero-poster.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blackhole QR Studio | Free Static QR Generator">
+    <meta name="twitter:description" content="Free static QR codes for URL, text, WhatsApp, and WiFi. Generated locally in your browser.">
+    <meta name="twitter:image" content="https://blackholesys.com/assets/images/blackhole-hero-poster.jpg">
+
+    <title>Blackhole QR Studio | Free Static QR Generator</title>
+
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../assets/images/favicon.png">
+    <link rel="preload" href="../../assets/images/logo_bhws_w.png" as="image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/tools/qr-studio.css">
+</head>
+<body class="tool-page qr-tool-page">
+    <div class="qr-page-bg" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <header class="qr-tool-header">
+        <a class="qr-tool-logo" href="../../" aria-label="Back to Blackhole Systems home">
+            <img src="../../assets/images/logo_bhws_w.png" alt="Blackhole Systems" width="2500" height="464" decoding="async">
+        </a>
+
+        <nav class="qr-tool-nav" aria-label="QR Studio navigation">
+            <a href="../../#capabilities">Services</a>
+            <a href="../../#deployments">Projects</a>
+            <div class="container-btn qr-tool-nav-action">
+                <div class="btn-glass">
+                    <a href="../../#contact">
+                        Start Project
+                        <i class="ri-arrow-right-line u-icon-space-left" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="qr-studio">
+        <section class="qr-hero" aria-labelledby="qr-title">
+            <span class="section-tag">:: BLACKHOLE_FREE_TOOL</span>
+            <h1 id="qr-title">Blackhole QR Studio</h1>
+            <p>
+                Generate free static QR codes for URLs, text, WhatsApp, and WiFi. No expiration,
+                no account, no watermark, and no artificial lock behind payments.
+            </p>
+        </section>
+
+        <section class="qr-trust-strip" aria-label="QR trust statement">
+            <div>
+                <i class="ri-shield-check-line" aria-hidden="true"></i>
+                <span>Generated locally in your browser</span>
+            </div>
+            <div>
+                <i class="ri-time-line" aria-hidden="true"></i>
+                <span>Static QRs do not expire</span>
+            </div>
+            <div>
+                <i class="ri-drop-line" aria-hidden="true"></i>
+                <span>No watermark</span>
+            </div>
+        </section>
+
+        <section class="qr-workspace" aria-label="QR generator workspace">
+            <form class="qr-panel qr-builder" data-qr-form>
+                <div class="qr-panel-heading">
+                    <span class="section-tag">:: QR_INPUT</span>
+                    <h2>Build signal</h2>
+                </div>
+
+                <div class="qr-type-tabs" role="tablist" aria-label="QR content type">
+                    <button class="qr-type-tab is-active" type="button" data-qr-type="url" aria-selected="true">
+                        <i class="ri-links-line" aria-hidden="true"></i>
+                        URL
+                    </button>
+                    <button class="qr-type-tab" type="button" data-qr-type="text" aria-selected="false">
+                        <i class="ri-text" aria-hidden="true"></i>
+                        Text
+                    </button>
+                    <button class="qr-type-tab" type="button" data-qr-type="whatsapp" aria-selected="false">
+                        <i class="ri-whatsapp-line" aria-hidden="true"></i>
+                        WhatsApp
+                    </button>
+                    <button class="qr-type-tab" type="button" data-qr-type="wifi" aria-selected="false">
+                        <i class="ri-wifi-line" aria-hidden="true"></i>
+                        WiFi
+                    </button>
+                </div>
+
+                <div class="qr-mode-panel is-active" data-qr-panel="url">
+                    <label class="qr-field">
+                        <span>Destination URL</span>
+                        <input type="url" data-qr-url value="https://blackholesys.com" placeholder="https://blackholesys.com">
+                    </label>
+                </div>
+
+                <div class="qr-mode-panel" data-qr-panel="text" hidden>
+                    <label class="qr-field">
+                        <span>Text content</span>
+                        <textarea data-qr-text rows="5" placeholder="Write the exact text the QR should contain..."></textarea>
+                    </label>
+                </div>
+
+                <div class="qr-mode-panel" data-qr-panel="whatsapp" hidden>
+                    <div class="qr-field-grid">
+                        <label class="qr-field">
+                            <span>WhatsApp number</span>
+                            <input type="tel" data-qr-whatsapp-phone value="+50670827504" placeholder="+50670827504">
+                        </label>
+                        <label class="qr-field">
+                            <span>Prefilled message</span>
+                            <input type="text" data-qr-whatsapp-message value="Hi, I want to talk about a project." placeholder="Optional message">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="qr-mode-panel" data-qr-panel="wifi" hidden>
+                    <div class="qr-field-grid">
+                        <label class="qr-field">
+                            <span>Network name</span>
+                            <input type="text" data-qr-wifi-ssid placeholder="Business WiFi">
+                        </label>
+                        <label class="qr-field">
+                            <span>Password</span>
+                            <input type="text" data-qr-wifi-password placeholder="WiFi password">
+                        </label>
+                        <label class="qr-field">
+                            <span>Security</span>
+                            <select data-qr-wifi-security>
+                                <option value="WPA">WPA/WPA2</option>
+                                <option value="WEP">WEP</option>
+                                <option value="nopass">No password</option>
+                            </select>
+                        </label>
+                        <label class="qr-check-field">
+                            <input type="checkbox" data-qr-wifi-hidden>
+                            <span>Hidden network</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="qr-options-grid">
+                    <label class="qr-field qr-color-field">
+                        <span>QR color</span>
+                        <input type="color" data-qr-color value="#0062ff" aria-label="QR color">
+                    </label>
+                    <label class="qr-field qr-color-field">
+                        <span>Background</span>
+                        <input type="color" data-qr-background value="#ffffff" aria-label="QR background color">
+                    </label>
+                    <label class="qr-field">
+                        <span>Size <strong data-qr-size-value>320px</strong></span>
+                        <input type="range" data-qr-size min="180" max="520" step="20" value="320">
+                    </label>
+                    <label class="qr-field">
+                        <span>Margin <strong data-qr-margin-value>12</strong></span>
+                        <input type="range" data-qr-margin min="0" max="28" step="2" value="12">
+                    </label>
+                </div>
+
+                <div class="qr-logo-upload">
+                    <label class="qr-file-control">
+                        <input type="file" data-qr-logo accept="image/png,image/jpeg,image/svg+xml,image/webp">
+                        <span>
+                            <i class="ri-image-add-line" aria-hidden="true"></i>
+                            Add center logo
+                        </span>
+                    </label>
+                    <button class="qr-inline-button" type="button" data-qr-remove-logo disabled>
+                        <i class="ri-close-line" aria-hidden="true"></i>
+                        Remove
+                    </button>
+                    <small data-qr-logo-name>No logo selected</small>
+                </div>
+
+                <div class="qr-safety-note">
+                    <i class="ri-lock-2-line" aria-hidden="true"></i>
+                    <p>
+                        High error correction stays enabled so the QR keeps scanning reliably when a logo is used.
+                    </p>
+                </div>
+            </form>
+
+            <aside class="qr-panel qr-preview-panel">
+                <div class="qr-panel-heading">
+                    <span class="section-tag">:: LIVE_PREVIEW</span>
+                    <h2>Deploy QR</h2>
+                </div>
+
+                <div class="qr-preview-frame">
+                    <div class="qr-preview-surface" data-qr-preview aria-label="Generated QR preview"></div>
+                </div>
+
+                <p class="qr-status" data-qr-status>Ready. Static QR generated locally.</p>
+
+                <div class="qr-output-meta">
+                    <div>
+                        <span>Type</span>
+                        <strong data-qr-meta-type>URL</strong>
+                    </div>
+                    <div>
+                        <span>Payload</span>
+                        <strong data-qr-meta-length>0 chars</strong>
+                    </div>
+                    <div>
+                        <span>Privacy</span>
+                        <strong>Local</strong>
+                    </div>
+                </div>
+
+                <div class="qr-download-actions">
+                    <div class="container-btn">
+                        <div class="btn-glass">
+                            <button type="button" data-qr-download="png">
+                                <i class="ri-download-cloud-line u-icon-space-right" aria-hidden="true"></i>
+                                PNG
+                            </button>
+                        </div>
+                        <div class="btn-glass">
+                            <button type="button" data-qr-download="svg">
+                                <i class="ri-code-box-line u-icon-space-right" aria-hidden="true"></i>
+                                SVG
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="qr-info-band" aria-labelledby="qr-static-title">
+            <div>
+                <span class="section-tag">:: STATIC_QR_PROMISE</span>
+                <h2 id="qr-static-title">No expiration unless the original content disappears.</h2>
+            </div>
+            <p>
+                A static QR stores the final content directly in the code. If it points to a URL,
+                the QR keeps working as long as that URL stays online.
+            </p>
+        </section>
+    </main>
+
+    <script src="../../assets/vendor/qr-code-styling.min.js"></script>
+    <script src="../../assets/js/tools/qr-studio.js" defer></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Blackhole QR Studio",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "description": "Free static QR code generator for URLs, text, WhatsApp, and WiFi. Generated locally in the browser without account, expiration, or watermark.",
+            "url": "https://blackholesys.com/tools/blackhole-qr/"
+        }
+    </script>
+</body>
+</html>
