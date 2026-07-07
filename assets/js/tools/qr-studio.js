@@ -11,6 +11,8 @@
     const typeButtons = Array.from(document.querySelectorAll('[data-qr-type]'));
     const panels = Array.from(document.querySelectorAll('[data-qr-panel]'));
     const downloadButtons = Array.from(document.querySelectorAll('[data-qr-download]'));
+    const presetButtons = Array.from(document.querySelectorAll('[data-qr-preset]'));
+    const faqItems = Array.from(document.querySelectorAll('.qr-faq-item'));
 
     if (!form || !preview || typeof window.QRCodeStyling !== 'function') {
         if (statusMessage) {
@@ -48,6 +50,21 @@
     const state = {
         type: 'url',
         logoDataUrl: ''
+    };
+
+    const presets = {
+        blackhole: {
+            color: '#0062ff',
+            background: '#ffffff'
+        },
+        classic: {
+            color: '#05070c',
+            background: '#ffffff'
+        },
+        print: {
+            color: '#111827',
+            background: '#ffffff'
+        }
     };
 
     let qrCode = null;
@@ -191,6 +208,21 @@
         if (indicators.length) indicators.length.textContent = `${payload.data.length} chars`;
     }
 
+    function fitPreviewToPanel(size) {
+        const previewSize = `min(100%, ${size}px)`;
+
+        Array.from(preview.children).forEach((child) => {
+            child.style.width = previewSize;
+            child.style.maxWidth = '100%';
+        });
+
+        preview.querySelectorAll('canvas, svg').forEach((element) => {
+            element.style.width = previewSize;
+            element.style.maxWidth = '100%';
+            element.style.height = 'auto';
+        });
+    }
+
     function renderQr() {
         const payload = buildPayload();
         const options = buildQrOptions(payload.data);
@@ -205,6 +237,8 @@
             } else {
                 qrCode.update(options);
             }
+
+            window.requestAnimationFrame(() => fitPreviewToPanel(options.width));
 
             setStatus(payload.fallback ? 'Preview uses safe sample content until you complete the field.' : 'Ready. Static QR generated locally.');
         } catch (error) {
@@ -267,6 +301,69 @@
         renderQr();
     }
 
+    function setActivePreset(name) {
+        presetButtons.forEach((button) => {
+            const isActive = button.dataset.qrPreset === name;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+    }
+
+    function applyPreset(name) {
+        const preset = presets[name];
+
+        if (!preset) {
+            return;
+        }
+
+        if (fields.color) fields.color.value = preset.color;
+        if (fields.background) fields.background.value = preset.background;
+
+        setActivePreset(name);
+        renderQr();
+    }
+
+    function syncFaqHeight(item) {
+        const answer = item.querySelector('.qr-faq-answer');
+
+        if (!answer) {
+            return;
+        }
+
+        item.style.setProperty('--faq-answer-height', `${answer.scrollHeight}px`);
+    }
+
+    function setFaqItem(item, isOpen) {
+        const trigger = item.querySelector('.qr-faq-trigger');
+
+        syncFaqHeight(item);
+        item.classList.toggle('is-open', isOpen);
+
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', String(isOpen));
+        }
+    }
+
+    function initFaq() {
+        faqItems.forEach((item) => {
+            const trigger = item.querySelector('.qr-faq-trigger');
+
+            syncFaqHeight(item);
+
+            if (!trigger) {
+                return;
+            }
+
+            trigger.addEventListener('click', () => {
+                setFaqItem(item, !item.classList.contains('is-open'));
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            faqItems.forEach(syncFaqHeight);
+        });
+    }
+
     function downloadQr(extension) {
         if (!qrCode) {
             renderQr();
@@ -308,9 +405,17 @@
         });
     });
 
+    presetButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            applyPreset(button.dataset.qrPreset || 'blackhole');
+        });
+    });
+
     if (indicators.removeLogo) {
         indicators.removeLogo.addEventListener('click', removeLogo);
     }
 
+    setActivePreset('blackhole');
+    initFaq();
     renderQr();
 })();

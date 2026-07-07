@@ -56,13 +56,11 @@
             <img src="../../assets/images/logo_bhws_w.png" alt="Blackhole Systems" width="2500" height="464" decoding="async">
         </a>
 
-        <nav class="qr-tool-nav" aria-label="QR Studio navigation">
-            <a href="../../#capabilities">Services</a>
-            <a href="../../#deployments">Projects</a>
+        <nav class="qr-tool-nav" aria-label="QR Studio service action">
             <div class="container-btn qr-tool-nav-action">
                 <div class="btn-glass">
                     <a href="../../#contact">
-                        Start Project
+                        Adquirir servicio
                         <i class="ri-arrow-right-line u-icon-space-left" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -192,6 +190,21 @@
                     </label>
                 </div>
 
+                <div class="qr-preset-strip" aria-label="QR visual presets">
+                    <button class="is-active" type="button" data-qr-preset="blackhole" aria-pressed="true">
+                        <span style="--preset-color: #0062ff;"></span>
+                        Blackhole Blue
+                    </button>
+                    <button type="button" data-qr-preset="classic" aria-pressed="false">
+                        <span style="--preset-color: #05070c;"></span>
+                        Classic Black
+                    </button>
+                    <button type="button" data-qr-preset="print" aria-pressed="false">
+                        <span style="--preset-color: #111827;"></span>
+                        Print Safe
+                    </button>
+                </div>
+
                 <div class="qr-logo-upload">
                     <label class="qr-file-control">
                         <input type="file" data-qr-logo accept="image/png,image/jpeg,image/svg+xml,image/webp">
@@ -271,7 +284,97 @@
                 the QR keeps working as long as that URL stays online.
             </p>
         </section>
+
+        <section class="qr-education-grid" aria-label="Static QR guidance">
+            <article class="qr-education-card">
+                <span class="section-tag">:: WHY_STATIC</span>
+                <h2>Static QR, real ownership.</h2>
+                <p>
+                    The final content is encoded inside the QR itself. There is no redirect layer,
+                    no tracking wall, and no external dashboard required to keep it alive.
+                </p>
+            </article>
+            <article class="qr-education-card">
+                <span class="section-tag">:: PRIVACY_SIGNAL</span>
+                <h2>Your data stays local.</h2>
+                <p>
+                    This tool runs in the browser. Blackhole Systems does not receive the URL,
+                    WiFi password, WhatsApp message, logo, or text you use to generate the code.
+                </p>
+            </article>
+        </section>
+
+        <section class="qr-faq" aria-labelledby="qr-faq-title">
+            <div class="qr-section-heading">
+                <span class="section-tag">:: QR_KNOWLEDGE_BASE</span>
+                <h2 id="qr-faq-title">Static QR questions</h2>
+                <p>Quick answers before you print, publish, or share your code.</p>
+            </div>
+
+            <div class="qr-faq-list">
+                <article class="qr-faq-item is-open">
+                    <button class="qr-faq-trigger" type="button" aria-expanded="true" aria-controls="qr-faq-expiration">
+                        <span>Do these QR codes expire?</span>
+                        <i class="ri-add-line" aria-hidden="true"></i>
+                    </button>
+                    <div class="qr-faq-answer" id="qr-faq-expiration">
+                        <p>No. Static QRs do not expire by themselves. If the QR points to a URL, it keeps working while that URL exists.</p>
+                    </div>
+                </article>
+                <article class="qr-faq-item">
+                    <button class="qr-faq-trigger" type="button" aria-expanded="false" aria-controls="qr-faq-storage">
+                        <span>Do you store my QR content?</span>
+                        <i class="ri-add-line" aria-hidden="true"></i>
+                    </button>
+                    <div class="qr-faq-answer" id="qr-faq-storage">
+                        <p>No. The QR is generated in your browser. Your text, links, WiFi data, WhatsApp message, and logo are not sent to our servers.</p>
+                    </div>
+                </article>
+                <article class="qr-faq-item">
+                    <button class="qr-faq-trigger" type="button" aria-expanded="false" aria-controls="qr-faq-dynamic">
+                        <span>What is the difference between static and dynamic QR?</span>
+                        <i class="ri-add-line" aria-hidden="true"></i>
+                    </button>
+                    <div class="qr-faq-answer" id="qr-faq-dynamic">
+                        <p>Static QR codes cannot be edited after download. Dynamic QR codes use a redirect link so the destination can change later and scan stats can be tracked.</p>
+                    </div>
+                </article>
+                <article class="qr-faq-item">
+                    <button class="qr-faq-trigger" type="button" aria-expanded="false" aria-controls="qr-faq-business">
+                        <span>Can I use this for a business?</span>
+                        <i class="ri-add-line" aria-hidden="true"></i>
+                    </button>
+                    <div class="qr-faq-answer" id="qr-faq-business">
+                        <p>Yes. You can download the PNG or SVG and use it in menus, packaging, posters, business cards, signage, or internal workflows.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="qr-upgrade-band" aria-labelledby="qr-upgrade-title">
+            <div>
+                <span class="section-tag">:: NEXT_VERSION</span>
+                <h2 id="qr-upgrade-title">Need editable QRs or scan analytics?</h2>
+                <p>
+                    Dynamic QR tools with branded short links, editable destinations, scan stats,
+                    and client dashboards are planned for future Blackhole Systems builds.
+                </p>
+            </div>
+            <div class="container-btn">
+                <div class="btn-glass">
+                    <a href="../../#contact">
+                        Request dynamic QR
+                        <i class="ri-arrow-right-line u-icon-space-left" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="qr-tool-footer">
+        <p>Developed by <a href="../../">Blackhole Systems</a>.</p>
+        <span>Free static QR generator // 2026</span>
+    </footer>
 
     <script src="../../assets/vendor/qr-code-styling.min.js"></script>
     <script src="../../assets/js/tools/qr-studio.js" defer></script>
@@ -289,6 +392,46 @@
             },
             "description": "Free static QR code generator for URLs, text, WhatsApp, and WiFi. Generated locally in the browser without account, expiration, or watermark.",
             "url": "https://blackholesys.com/tools/blackhole-qr/"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Do these QR codes expire?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No. Static QR codes do not expire by themselves. If the QR points to a URL, it keeps working while that URL exists."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Do you store my QR content?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No. The QR is generated in your browser. Your text, links, WiFi data, WhatsApp message, and logo are not sent to Blackhole Systems servers."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the difference between static and dynamic QR?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Static QR codes cannot be edited after download. Dynamic QR codes use a redirect link so the destination can change later and scan stats can be tracked."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Can I use this for a business?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes. You can download the PNG or SVG and use it in menus, packaging, posters, business cards, signage, or internal workflows."
+                    }
+                }
+            ]
         }
     </script>
 </body>
