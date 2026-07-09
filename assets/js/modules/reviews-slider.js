@@ -11,8 +11,8 @@
 
         const track = slider.querySelector('.reviews-track');
         const cards = Array.from(slider.querySelectorAll('.review-card'));
-        const previousButton = slider.querySelector('[data-review-prev]');
-        const nextButton = slider.querySelector('[data-review-next]');
+        const previousButtons = Array.from(slider.querySelectorAll('[data-review-prev]'));
+        const nextButtons = Array.from(slider.querySelectorAll('[data-review-next]'));
         const dots = Array.from(slider.querySelectorAll('[data-review-dot]'));
 
         if (!track || !cards.length) return;
@@ -21,7 +21,6 @@
 
         const updateSlider = (nextIndex) => {
             activeIndex = (nextIndex + cards.length) % cards.length;
-            track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
 
             cards.forEach((card, index) => {
                 const isActive = index === activeIndex;
@@ -29,20 +28,23 @@
                 card.setAttribute('aria-hidden', String(!isActive));
             });
 
-            dots.forEach((dot, index) => {
-                const isActive = index === activeIndex;
+            dots.forEach((dot) => {
+                const dotIndex = Number(dot.dataset.reviewDot || 0);
+                const isActive = dotIndex === activeIndex;
                 dot.classList.toggle('is-active', isActive);
                 dot.setAttribute('aria-selected', String(isActive));
             });
+
+            track.classList.add('is-ready');
         };
 
-        previousButton?.addEventListener('click', () => {
+        previousButtons.forEach((button) => button.addEventListener('click', () => {
             updateSlider(activeIndex - 1);
-        });
+        }));
 
-        nextButton?.addEventListener('click', () => {
+        nextButtons.forEach((button) => button.addEventListener('click', () => {
             updateSlider(activeIndex + 1);
-        });
+        }));
 
         dots.forEach((dot) => {
             dot.addEventListener('click', () => {
