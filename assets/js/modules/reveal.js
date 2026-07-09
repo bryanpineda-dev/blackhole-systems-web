@@ -27,9 +27,8 @@
             { selector: '#capabilities .capability-card', preset: 'scale-soft', delay: 120, stagger: 80 },
 
             { selector: '.dossier-card', preset: 'scale-soft', delay: 0, stagger: 80 },
-            { selector: '#reviews .reviews-slider', preset: 'fade-up', delay: 0 },
             { selector: '#contact .launch-console', preset: 'fade-right', delay: 0 },
-            { selector: '#contact .launch-form-panel', preset: 'fade-left', delay: 120 }
+            { selector: '#contact .glass-form', preset: 'fade-left', delay: 120 }
         ];
 
         const queueElement = (element, preset, delay) => {

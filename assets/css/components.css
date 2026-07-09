@@ -10,6 +10,7 @@ html.has-custom-cursor a,
 html.has-custom-cursor button,
 html.has-custom-cursor input,
 html.has-custom-cursor textarea,
+html.has-custom-cursor .bh-glass,
 html.has-custom-cursor .glass-card,
 html.has-custom-cursor .glass-coin,
 html.has-custom-cursor .code-card,
@@ -514,38 +515,19 @@ body.is-loading {
 .orb-3 { width: 400px; height: 400px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
 .orb-4 { width: 300px; height: 300px; background: var(--primary-white); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
 
-/* --- SERVICES CARDS --- */
-.glass-card {
-    position: relative; 
-    background: linear-gradient(180deg, var(--white-alpha-03) 0%, var(--white-alpha-01) 100%);
-    border: 1px solid var(--glass-border-light); 
-    border-radius: var(--border-radius-xl); 
-    padding: var(--space-xxl) var(--space-lg); 
-    text-align: center; 
-    overflow: hidden; 
-    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-}
-
-.glass-card::before {
-    content: ''; 
-    position: absolute; 
-    top: 0; left: 0; 
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--white-alpha-40), transparent);
-}
-
-.brand-glass-surface {
+/* --- BRAND GLASS SURFACE --- */
+.bh-glass {
     position: relative;
     overflow: hidden;
     background: linear-gradient(180deg, var(--white-alpha-03) 0%, var(--white-alpha-01) 100%);
     border: 1px solid var(--glass-border-light);
     border-radius: var(--border-radius-xl);
-    -webkit-backdrop-filter: var(--glass-blur-md);
-    backdrop-filter: var(--glass-blur-md);
+    -webkit-backdrop-filter: var(--bh-glass-blur, var(--glass-blur-md));
+    backdrop-filter: var(--bh-glass-blur, var(--glass-blur-md));
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.brand-glass-surface::before {
+.bh-glass::before {
     content: '';
     position: absolute;
     top: 0;
@@ -556,7 +538,13 @@ body.is-loading {
     pointer-events: none;
 }
 
-.brand-glass-surface > * {
+.bh-glass > * {
     position: relative;
     z-index: var(--z-base);
+}
+
+/* --- SERVICES CARDS --- */
+.glass-card {
+    padding: var(--space-xxl) var(--space-lg);
+    text-align: center;
 }

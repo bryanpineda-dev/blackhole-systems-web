@@ -72,7 +72,6 @@
     text-align: left;
     padding: var(--space-xl);
     min-height: 400px;
-    backdrop-filter: var(--glass-blur-md);
     transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
 }
 
@@ -273,4 +272,3 @@
         min-height: auto;
     }
 }
-

@@ -44,7 +44,7 @@
         requestAnimationFrame(renderCursor);
 
         const interactiveElements = document.querySelectorAll(
-            'a, button, input, textarea, .glass-card, .glass-coin, .code-card, .dossier-card, .cmd-btn, .btn-morph, .btn-terminal-sm'
+            'a, button, input, textarea, .bh-glass, .glass-coin, .code-card, .dossier-card, .cmd-btn, .btn-morph, .btn-terminal-sm'
         );
 
         interactiveElements.forEach((element) => {
