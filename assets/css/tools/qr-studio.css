@@ -815,7 +815,7 @@
 
 .qr-tool-footer span {
     color: var(--text-dim);
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }

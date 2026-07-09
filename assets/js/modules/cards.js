@@ -1,12 +1,12 @@
 /**
  * Interactive card physics.
- * Keep this scoped to .glass-card so project cards and code cards remain stable.
+ * Keep this scoped to .js-card-tilt so glass surfaces can be reused without motion.
  */
 (function (BH) {
     'use strict';
 
     BH.initCardTilt = function initCardTilt() {
-        const cards = document.querySelectorAll('.glass-card');
+        const cards = document.querySelectorAll('.js-card-tilt');
         if (!cards.length) return;
 
         cards.forEach((card) => {

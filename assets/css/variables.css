@@ -25,7 +25,8 @@
     --accent-amber: #fbbf24;
     
     --text-main: #FFFFFF;
-    --text-muted: #94a3b8;    
+    --text-muted: #94a3b8;
+    --text-dim: var(--text-muted);
 
     /* --- CODE SYNTAX COLORS --- */
     --syntax-keyword: #c678dd;
@@ -46,6 +47,7 @@
     --purple-alpha-25: rgba(var(--accent-purple-rgb), 0.25);
     
     --white-alpha-01: rgba(255, 255, 255, 0.01);
+    --white-alpha-02: rgba(255, 255, 255, 0.02);
     --white-alpha-03: rgba(255, 255, 255, 0.03);
     --white-alpha-05: rgba(255, 255, 255, 0.05);
     --white-alpha-08: rgba(255, 255, 255, 0.08);
@@ -82,6 +84,7 @@
     --glass-border-ultra-light: var(--white-alpha-05);
     --glass-border-light: var(--white-alpha-08);
     
+    --glass-shadow-soft: none;
     --glass-shadow-mid: 3px 3px 3px rgba(0, 0, 0, 0.7);
     --glass-shadow-deep: 0 20px 50px -10px var(--black-alpha-50);
 
@@ -97,7 +100,7 @@
     /* --- TYPOGRAPHY --- */
     --font-display: 'Outfit', sans-serif; 
     --font-body: 'Outfit', sans-serif;      
-    --font-code: 'Fira Code', 'Courier New', monospace;
+    --font-code: 'Courier New', 'Consolas', monospace;
 
     /* --- LAYOUT & BORDERS --- */
     --container-width: 1280px;
