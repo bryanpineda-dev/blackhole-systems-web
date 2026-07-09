@@ -75,22 +75,28 @@
 }
 
 .footer-kicker {
+    --kicker-font-size: 0.68rem;
+    --kicker-letter-spacing: 0.1em;
+
     display: block;
     margin-bottom: var(--space-sm);
-    color: var(--primary-blue);
+    color: var(--kicker-color);
     font-family: var(--font-code);
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
+    font-size: var(--kicker-font-size);
+    letter-spacing: var(--kicker-letter-spacing);
     text-transform: uppercase;
 }
 
 .footer-label {
+    --kicker-font-size: 0.78rem;
+    --kicker-letter-spacing: 0.12em;
+
     display: block;
     margin-bottom: var(--space-sm);
-    color: var(--primary-blue);
+    color: var(--kicker-color);
     font-family: var(--font-code);
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
+    font-size: var(--kicker-font-size);
+    letter-spacing: var(--kicker-letter-spacing);
     text-transform: uppercase;
 }
 
@@ -145,9 +151,9 @@
 }
 
 .footer-newsletter-action .btn-glass {
-    min-width: 146px;
-    height: 52px;
-    margin-top: 0;
+    --btn-glass-min-width: 146px;
+    --btn-glass-height: 52px;
+    --btn-glass-margin-top: 0;
 }
 
 .footer-shell {

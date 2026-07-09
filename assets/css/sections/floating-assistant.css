@@ -117,20 +117,22 @@
 }
 
 .assistant-status {
+    --kicker-font-size: 0.68rem;
+
     display: inline-flex;
     align-items: center;
     gap: 7px;
     margin-top: 4px;
     color: var(--text-muted);
     font-family: var(--font-code);
-    font-size: 0.68rem;
+    font-size: var(--kicker-font-size);
     text-transform: uppercase;
 }
 
 .assistant-status::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: var(--assistant-status-dot-size, 6px);
+    height: var(--assistant-status-dot-size, 6px);
     border-radius: var(--border-radius-circle);
     background: var(--accent-green);
     box-shadow: 0 0 10px var(--accent-green);
@@ -261,16 +263,24 @@
 }
 
 .assistant-chip {
-    min-height: 34px;
+    --chip-min-height: 34px;
+    --chip-padding: 0 12px;
+    --chip-border: 1px solid var(--blue-alpha-20);
+    --chip-bg: var(--blue-alpha-05);
+    --chip-color: var(--text-muted);
+    --chip-font-size: 0.66rem;
+    --chip-letter-spacing: 0.4px;
+
+    min-height: var(--chip-min-height);
     flex: 0 0 auto;
-    padding: 0 12px;
-    border: 1px solid var(--blue-alpha-20);
-    border-radius: var(--border-radius-pill);
-    background: var(--blue-alpha-05);
-    color: var(--text-muted);
+    padding: var(--chip-padding);
+    border: var(--chip-border);
+    border-radius: var(--chip-radius);
+    background: var(--chip-bg);
+    color: var(--chip-color);
     font-family: var(--font-code);
-    font-size: 0.66rem;
-    letter-spacing: 0.4px;
+    font-size: var(--chip-font-size);
+    letter-spacing: var(--chip-letter-spacing);
     text-transform: uppercase;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }

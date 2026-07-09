@@ -90,14 +90,14 @@
 }
 
 .hero-actions .container-btn {
+    --btn-group-gap: var(--space-sm);
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: var(--space-sm);
 }
 
 .hero-actions .container-btn .btn-glass {
-    min-width: 180px;
-    margin-top: 0;
+    --btn-glass-min-width: 180px;
+    --btn-glass-margin-top: 0;
 }
 

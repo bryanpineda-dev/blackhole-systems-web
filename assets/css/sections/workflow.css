@@ -85,12 +85,12 @@
 }
 
 .workflow-actions {
+    --btn-group-gap: 15px;
     margin-top: 40px;
-    gap: 15px;
 }
 
 .workflow-actions .btn-glass {
-    margin: 0;
+    --btn-glass-margin-top: 0;
 }
 
 .tech-coins-track {

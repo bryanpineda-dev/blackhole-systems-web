@@ -109,18 +109,18 @@
 }
 
 .qr-tool-nav-action .btn-glass {
-    height: 46px;
-    min-width: 188px;
-    margin-top: 0;
-    padding: 0;
+    --btn-glass-height: 46px;
+    --btn-glass-min-width: 188px;
+    --btn-glass-margin-top: 0;
+    --btn-glass-frame-padding: 0;
     width: auto;
 }
 
 .qr-tool-nav-action .btn-glass a {
     align-items: center;
-    height: 46px;
+    height: var(--btn-glass-height);
     min-height: 0;
-    padding-inline: 20px;
+    --btn-glass-content-padding: 0 20px;
 }
 
 .qr-studio {
@@ -595,7 +595,7 @@
 }
 
 .qr-download-actions .btn-glass {
-    min-width: 0;
+    --btn-glass-min-width: 0;
 }
 
 .qr-download-actions .btn-glass button {
@@ -851,9 +851,12 @@
         justify-content: space-between;
     }
 
-    .qr-tool-nav-action .btn-glass,
+    .qr-tool-nav-action .btn-glass {
+        --btn-glass-height: 46px;
+    }
+
     .qr-tool-nav-action .btn-glass a {
-        height: 46px;
+        height: var(--btn-glass-height);
     }
 
     .qr-hero h1 {

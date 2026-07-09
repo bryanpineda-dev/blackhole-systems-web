@@ -92,13 +92,19 @@
 }
 
 .filter-label {
+    --kicker-font-size: 0.75rem;
+    --kicker-letter-spacing: 1px;
+
     font-family: var(--font-code);
-    color: var(--primary-blue);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    color: var(--kicker-color);
+    font-size: var(--kicker-font-size);
+    letter-spacing: var(--kicker-letter-spacing);
 }
 
 .filter-count {
+    --kicker-font-size: 0.72rem;
+    --kicker-letter-spacing: 1px;
+
     display: inline-flex;
     align-items: baseline;
     gap: 7px;
@@ -108,8 +114,8 @@
     border-left: 1px solid var(--purple-alpha-25);
     color: var(--white-alpha-50);
     font-family: var(--font-code);
-    font-size: 0.72rem;
-    letter-spacing: 1px;
+    font-size: var(--kicker-font-size);
+    letter-spacing: var(--kicker-letter-spacing);
     text-transform: uppercase;
 }
 
@@ -585,23 +591,31 @@ body.project-modal-open {
 }
 
 .project-modal-kicker {
+    --kicker-font-size: 0.72rem;
+    --kicker-letter-spacing: 1px;
+
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: var(--space-sm);
     color: var(--text-muted);
     font-family: var(--font-code);
-    font-size: 0.72rem;
-    letter-spacing: 1px;
+    font-size: var(--kicker-font-size);
+    letter-spacing: var(--kicker-letter-spacing);
 }
 
 .project-modal-kicker span {
+    --chip-min-height: 28px;
+    --chip-padding: 0 10px;
+    --chip-border: 1px solid var(--white-alpha-08);
+    --chip-bg: var(--white-alpha-03);
+
     display: inline-flex;
-    min-height: 28px;
+    min-height: var(--chip-min-height);
     align-items: center;
-    padding: 0 10px;
-    border: 1px solid var(--white-alpha-08);
-    background: var(--white-alpha-03);
+    padding: var(--chip-padding);
+    border: var(--chip-border);
+    background: var(--chip-bg);
 }
 
 .project-modal-kicker .success { color: var(--accent-green); }

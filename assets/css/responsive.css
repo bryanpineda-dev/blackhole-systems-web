@@ -475,14 +475,14 @@
     }
 
     .pulse-kicker {
-        padding: 10px 14px;
-        font-size: 0.68rem;
-        letter-spacing: 1px;
+        --status-pill-padding: 10px 14px;
+        --status-pill-font-size: 0.68rem;
+        --status-pill-letter-spacing: 1px;
     }
 
     .hero-actions .container-btn .btn-glass {
-        min-width: 0;
-        height: 54px;
+        --btn-glass-min-width: 0;
+        --btn-glass-height: 54px;
     }
 
     .section-heading {

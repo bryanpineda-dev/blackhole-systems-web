@@ -498,6 +498,7 @@ body.is-loading {
     color: var(--status-pill-color);
     font-family: var(--font-code); 
     font-size: var(--status-pill-font-size);
+    letter-spacing: var(--status-pill-letter-spacing);
     font-weight: 700; 
     margin-bottom: var(--space-sm); 
     box-shadow: 0 0 0px var(--white-alpha-50);

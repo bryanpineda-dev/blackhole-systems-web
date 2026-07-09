@@ -140,6 +140,7 @@
     --status-pill-border: 1px solid var(--primary-white);
     --status-pill-color: var(--primary-white);
     --status-pill-font-size: 0.8rem;
+    --status-pill-letter-spacing: normal;
     --status-dot-size: 5px;
     --status-dot-color: var(--primary-blue);
     --status-dot-shadow: 0 0 10px var(--primary-blue);
