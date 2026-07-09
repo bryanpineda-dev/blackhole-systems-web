@@ -176,24 +176,23 @@
 .btn-morph {
     display: flex;
     align-items: center;
-    width: 46px; /* Starts at icon-only width. */
-    height: 46px;
+    width: var(--btn-morph-size); /* Starts at icon-only width. */
+    height: var(--btn-morph-size);
     background: var(--white-alpha-05);
-    backdrop-filter: var(--glass-blur-md);
-    border: 1px solid var(--glass-border-ultra-light);
-    border-radius: 30px; /* Capsule shape. */
+    -webkit-backdrop-filter: var(--btn-glass-blur);
+    backdrop-filter: var(--btn-glass-blur);
+    border: var(--btn-glass-border);
+    border-radius: var(--btn-glass-radius); /* Capsule shape. */
     overflow: hidden;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                background 0.3s ease, 
-                border-color 0.3s ease;
+    transition: var(--btn-morph-transition);
     text-decoration: none;
     position: relative;
 }
 
 /* 4. Fixed icon block. */
 .btn-icon-box {
-    min-width: 44px; /* Stays aligned with the initial button width. */
-    height: 44px;
+    min-width: var(--btn-morph-icon-size); /* Stays aligned with the initial button width. */
+    height: var(--btn-morph-icon-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -216,20 +215,21 @@
 
 /* Card hover expands the inner action button. */
 .capability-card:hover .btn-morph {
-    width: 180px; /* Wide enough for the label. */
+    width: var(--btn-morph-expanded-width); /* Wide enough for the label. */
     background: transparent; 
-    backdrop-filter: var(--glass-blur-md);
-    border: 1px solid var(--glass-border-ultra-light);
-    border-radius: var(--border-radius-pill); 
-    box-shadow: var(--glass-shadow-mid);
-    letter-spacing: 1px; 
-    font-size: 14px;
+    -webkit-backdrop-filter: var(--btn-glass-blur);
+    backdrop-filter: var(--btn-glass-blur);
+    border: var(--btn-glass-border);
+    border-radius: var(--btn-glass-radius);
+    box-shadow: var(--btn-glass-shadow);
+    letter-spacing: var(--btn-glass-letter-spacing);
+    font-size: var(--btn-glass-font-size);
     overflow: hidden; 
-    color: var(--white-alpha-50);
+    color: var(--btn-glass-color);
 }
 
 .capability-card .btn-morph:hover{
-    border-color: var(--primary-white); 
+    border-color: var(--btn-glass-hover-border);
     transform: translateY(1px);
 }
 
@@ -239,7 +239,7 @@
     inset: 0; 
     border-radius: inherit;
     padding: 1px;
-    background: var(--gradient-glass-rim);
+    background: var(--btn-glass-rim, var(--gradient-glass-rim));
     -webkit-mask: 
         linear-gradient(var(--primary-white) 0 0) content-box, 
         linear-gradient(var(--primary-white) 0 0);

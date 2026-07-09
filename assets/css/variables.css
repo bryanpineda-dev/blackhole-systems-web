@@ -22,7 +22,9 @@
     --accent-purple-rgb: 123, 44, 191;
     --accent-purple: rgb(var(--accent-purple-rgb));
     --accent-green: #10b981;  
+    --accent-green-rgb: 16, 185, 129;
     --accent-amber: #fbbf24;
+    --accent-amber-rgb: 251, 191, 36;
     
     --text-main: #FFFFFF;
     --text-muted: #94a3b8;
@@ -45,6 +47,11 @@
     --purple-alpha-10: rgba(var(--accent-purple-rgb), 0.1);
     --purple-alpha-15: rgba(var(--accent-purple-rgb), 0.15);
     --purple-alpha-25: rgba(var(--accent-purple-rgb), 0.25);
+
+    --green-alpha-10: rgba(var(--accent-green-rgb), 0.1);
+    --green-alpha-35: rgba(var(--accent-green-rgb), 0.35);
+    --amber-alpha-10: rgba(var(--accent-amber-rgb), 0.1);
+    --amber-alpha-35: rgba(var(--accent-amber-rgb), 0.35);
     
     --white-alpha-01: rgba(255, 255, 255, 0.01);
     --white-alpha-02: rgba(255, 255, 255, 0.02);
@@ -87,6 +94,65 @@
     --glass-shadow-soft: none;
     --glass-shadow-mid: 3px 3px 3px rgba(0, 0, 0, 0.7);
     --glass-shadow-deep: 0 20px 50px -10px var(--black-alpha-50);
+
+    /* --- REUSABLE INTERACTION TOKENS --- */
+    --btn-glass-height: 50px;
+    --btn-glass-min-width: 160px;
+    --btn-glass-frame-padding: 0 10px;
+    --btn-glass-content-padding: 0 var(--space-md);
+    --btn-glass-margin-top: var(--space-lg);
+    --btn-glass-radius: var(--border-radius-pill);
+    --btn-glass-blur: var(--glass-blur-md);
+    --btn-glass-border: 1px solid var(--glass-border-ultra-light);
+    --btn-glass-shadow: var(--glass-shadow-mid);
+    --btn-glass-color: var(--white-alpha-50);
+    --btn-glass-font-size: 14px;
+    --btn-glass-letter-spacing: 1px;
+    --btn-glass-transition: all 0.3s ease;
+    --btn-glass-sweep-width: 50%;
+    --btn-glass-sweep-bg: linear-gradient(to left, var(--white-alpha-10), transparent);
+    --btn-glass-sweep-transition: 0.6s;
+    --btn-glass-hover-border: var(--primary-white);
+    --btn-glass-hover-color: var(--primary-white);
+    --btn-glass-hover-shadow: 0 0 10px var(--white-alpha-60), inset 0 0 5px var(--white-alpha-20);
+    --btn-glass-hover-text-shadow: 0 0 5px var(--primary-white);
+
+    --btn-morph-size: 46px;
+    --btn-morph-icon-size: 44px;
+    --btn-morph-expanded-width: 180px;
+    --btn-morph-transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                            background 0.3s ease,
+                            border-color 0.3s ease;
+
+    --kicker-color: var(--primary-blue);
+    --kicker-font-size: 0.9rem;
+    --kicker-letter-spacing: 2px;
+    --kicker-margin-bottom: 1rem;
+    --kicker-caret-gap: 2px;
+    --kicker-caret-duration: 0.8s;
+    --kicker-typing-duration: 1.15s;
+    --kicker-typing-delay: 0.15s;
+
+    --status-pill-gap: 8px;
+    --status-pill-padding: 8px 16px;
+    --status-pill-bg: var(--white-alpha-01);
+    --status-pill-blur: var(--glass-blur-sm);
+    --status-pill-border: 1px solid var(--primary-white);
+    --status-pill-color: var(--primary-white);
+    --status-pill-font-size: 0.8rem;
+    --status-dot-size: 5px;
+    --status-dot-color: var(--primary-blue);
+    --status-dot-shadow: 0 0 10px var(--primary-blue);
+
+    --chip-min-height: 30px;
+    --chip-gap: 8px;
+    --chip-padding: 0 11px;
+    --chip-radius: var(--border-radius-pill);
+    --chip-font-size: 0.68rem;
+    --chip-letter-spacing: 0;
+    --chip-border: 1px solid var(--white-alpha-08);
+    --chip-bg: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
+    --chip-color: var(--text-muted);
 
     /* --- MOTION SYSTEM --- */
     --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);

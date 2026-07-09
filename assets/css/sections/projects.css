@@ -373,17 +373,17 @@
     margin: var(--space-sm) 0 var(--space-md);
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--chip-gap, 8px);
 }
 
 .tech-tag {
     font-family: var(--font-code);
-    font-size: 0.72rem;
-    color: var(--primary-white);
-    background: var(--purple-alpha-10);
-    border: 1px solid var(--purple-alpha-25);
-    padding: 5px 9px;
-    border-radius: var(--border-radius-micro);
+    font-size: var(--tech-tag-font-size, 0.72rem);
+    color: var(--tech-tag-color, var(--primary-white));
+    background: var(--tech-tag-bg, var(--purple-alpha-10));
+    border: var(--tech-tag-border, 1px solid var(--purple-alpha-25));
+    padding: var(--tech-tag-padding, 5px 9px);
+    border-radius: var(--tech-tag-radius, var(--border-radius-micro));
 }
 
 /* Project card footer. */

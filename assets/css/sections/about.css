@@ -81,22 +81,22 @@
 .about-capability-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--chip-gap, 8px);
     margin-top: var(--space-md);
 }
 
 .about-capability-chips span {
     display: inline-flex;
     align-items: center;
-    min-height: 30px;
-    padding: 0 11px;
-    border: 1px solid var(--white-alpha-08);
-    border-radius: var(--border-radius-pill);
-    background: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
-    color: var(--text-muted);
+    min-height: var(--chip-min-height);
+    padding: var(--chip-padding);
+    border: var(--chip-border);
+    border-radius: var(--chip-radius);
+    background: var(--chip-bg);
+    color: var(--chip-color);
     font-family: var(--font-code);
-    font-size: 0.68rem;
-    letter-spacing: 0;
+    font-size: var(--chip-font-size);
+    letter-spacing: var(--chip-letter-spacing);
     text-transform: uppercase;
 }
 
