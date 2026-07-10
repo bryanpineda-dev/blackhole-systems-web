@@ -647,37 +647,33 @@
 
 .form-group label {
     display: block;
-    font-family: var(--font-display);
+    font-family: var(--form-label-font);
     text-transform: uppercase;
-    font-size: 0.78rem;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    color: var(--text-muted);
+    font-size: var(--form-label-font-size);
+    letter-spacing: var(--form-label-letter-spacing);
+    margin-bottom: var(--form-label-margin-bottom);
+    color: var(--form-label-color);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    background: var(--white-alpha-03);
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    padding: 15px;
-    color: var(--primary-white);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 300;
-    transition:
-        background 220ms ease,
-        border-color 220ms ease,
-        box-shadow 220ms ease;
+    min-height: var(--form-control-min-height);
+    background: var(--form-control-bg);
+    border: var(--form-control-border);
+    border-radius: var(--form-control-radius);
+    padding: var(--form-control-padding);
+    color: var(--form-control-color);
+    font: var(--form-control-font);
+    transition: var(--form-control-transition);
 }
 
 .form-group select {
     appearance: none;
     background-image:
-        linear-gradient(45deg, transparent 50%, var(--primary-blue) 50%),
-        linear-gradient(135deg, var(--primary-blue) 50%, transparent 50%);
+        linear-gradient(45deg, transparent 50%, var(--form-select-arrow-color) 50%),
+        linear-gradient(135deg, var(--form-select-arrow-color) 50%, transparent 50%);
     background-position:
         calc(100% - 18px) 52%,
         calc(100% - 12px) 52%;
@@ -686,23 +682,23 @@
 }
 
 .form-group select option {
-    background: var(--bg-panel);
-    color: var(--primary-white);
+    background: var(--form-select-option-bg);
+    color: var(--form-control-color);
 }
 
 .form-group select option:checked,
 .form-group select option:hover {
-    background: var(--bg-command);
-    color: var(--primary-white);
+    background: var(--form-select-option-active-bg);
+    color: var(--form-control-color);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    background-color: var(--blue-alpha-05);
-    box-shadow: 0 0 0 3px var(--blue-alpha-10);
+    outline: var(--form-control-outline);
+    border-color: var(--form-control-focus-border);
+    background-color: var(--form-control-focus-bg);
+    box-shadow: var(--form-control-focus-shadow);
 }
 
 .form-honeypot {
@@ -718,17 +714,17 @@
 .form-status {
     min-height: 1.4rem;
     margin: 14px 0 0;
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--form-status-color);
+    font-size: var(--form-status-font-size);
     text-align: center;
 }
 
 .form-status[data-status="success"] {
-    color: var(--accent-green);
+    color: var(--form-success-color);
 }
 
 .form-status[data-status="error"] {
-    color: #ff9aa5;
+    color: var(--form-error-color);
 }
 
 @media (max-width: 1024px) {

@@ -291,8 +291,10 @@
 
 .qr-field span,
 .qr-check-field span {
-    color: var(--text-muted);
-    font-size: 0.86rem;
+    --form-label-font-size: 0.86rem;
+
+    color: var(--form-label-color);
+    font-size: var(--form-label-font-size);
 }
 
 .qr-field strong {
@@ -303,17 +305,24 @@
 .qr-field input,
 .qr-field textarea,
 .qr-field select {
+    --form-control-min-height: 48px;
+    --form-control-padding: 0 14px;
+    --form-control-bg: linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
+    --form-control-font: 500 1rem var(--font-body);
+    --form-control-transition: border-color 0.2s ease, background 0.2s ease;
+    --form-control-focus-border: rgba(var(--primary-blue-rgb), 0.5);
+    --form-control-focus-shadow: none;
+
     width: 100%;
-    min-height: 48px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    outline: none;
-    background:
-        linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
-    color: var(--primary-white);
-    font: 500 1rem var(--font-body);
-    padding: 0 14px;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    min-height: var(--form-control-min-height);
+    border: var(--form-control-border);
+    border-radius: var(--form-control-radius);
+    outline: var(--form-control-outline);
+    background: var(--form-control-bg);
+    color: var(--form-control-color);
+    font: var(--form-control-font);
+    padding: var(--form-control-padding);
+    transition: var(--form-control-transition);
 }
 
 .qr-field textarea {
@@ -325,8 +334,8 @@
 .qr-field select {
     appearance: none;
     background-image:
-        linear-gradient(45deg, transparent 50%, var(--primary-blue) 50%),
-        linear-gradient(135deg, var(--primary-blue) 50%, transparent 50%),
+        linear-gradient(45deg, transparent 50%, var(--form-select-arrow-color) 50%),
+        linear-gradient(135deg, var(--form-select-arrow-color) 50%, transparent 50%),
         linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
     background-position:
         calc(100% - 18px) 21px,
@@ -339,8 +348,9 @@
 .qr-field input:focus,
 .qr-field textarea:focus,
 .qr-field select:focus {
-    border-color: rgba(var(--primary-blue-rgb), 0.5);
-    background: var(--blue-alpha-05);
+    border-color: var(--form-control-focus-border);
+    background: var(--form-control-focus-bg);
+    box-shadow: var(--form-control-focus-shadow);
 }
 
 .qr-color-field input[type="color"] {
@@ -355,14 +365,17 @@
 }
 
 .qr-check-field {
+    --form-control-min-height: 48px;
+    --form-control-padding: 0 14px;
+
     display: flex;
-    min-height: 48px;
+    min-height: var(--form-control-min-height);
     align-items: center;
     gap: 10px;
-    padding: 0 14px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background: var(--white-alpha-03);
+    padding: var(--form-control-padding);
+    border: var(--form-control-border);
+    border-radius: var(--form-control-radius);
+    background: var(--form-control-bg);
 }
 
 .qr-check-field input {

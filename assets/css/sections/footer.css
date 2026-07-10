@@ -124,26 +124,27 @@
 }
 
 .footer-newsletter-form input {
+    --form-control-min-height: 52px;
+    --form-control-radius: var(--border-radius-pill);
+    --form-control-padding: 0 var(--space-md);
+    --form-control-font: 400 0.95rem var(--font-body);
+
     width: 100%;
-    min-height: 52px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-pill);
-    background: var(--white-alpha-03);
-    color: var(--primary-white);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 0 var(--space-md);
-    outline: none;
-    transition:
-        background 220ms ease,
-        border-color 220ms ease,
-        box-shadow 220ms ease;
+    min-height: var(--form-control-min-height);
+    border: var(--form-control-border);
+    border-radius: var(--form-control-radius);
+    background: var(--form-control-bg);
+    color: var(--form-control-color);
+    font: var(--form-control-font);
+    padding: var(--form-control-padding);
+    outline: var(--form-control-outline);
+    transition: var(--form-control-transition);
 }
 
 .footer-newsletter-form input:focus {
-    border-color: var(--primary-blue);
-    background: var(--blue-alpha-05);
-    box-shadow: 0 0 0 3px var(--blue-alpha-10);
+    border-color: var(--form-control-focus-border);
+    background: var(--form-control-focus-bg);
+    box-shadow: var(--form-control-focus-shadow);
 }
 
 .footer-newsletter-action {

@@ -155,6 +155,35 @@
     --chip-bg: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
     --chip-color: var(--text-muted);
 
+    --form-label-color: var(--text-muted);
+    --form-label-font: var(--font-display);
+    --form-label-font-size: 0.78rem;
+    --form-label-letter-spacing: 1px;
+    --form-label-margin-bottom: 10px;
+    --form-control-min-height: auto;
+    --form-control-padding: 15px;
+    --form-control-border: 1px solid var(--glass-border-light);
+    --form-control-radius: var(--border-radius-sm);
+    --form-control-bg: var(--white-alpha-03);
+    --form-control-color: var(--primary-white);
+    --form-control-font: 300 1rem var(--font-body);
+    --form-control-outline: none;
+    --form-control-transition:
+        background 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+    --form-control-focus-border: var(--primary-blue);
+    --form-control-focus-bg: var(--blue-alpha-05);
+    --form-control-focus-shadow: 0 0 0 3px var(--blue-alpha-10);
+    --form-placeholder-color: var(--white-alpha-40);
+    --form-select-arrow-color: var(--primary-blue);
+    --form-select-option-bg: var(--bg-panel);
+    --form-select-option-active-bg: var(--bg-command);
+    --form-status-color: var(--text-muted);
+    --form-status-font-size: 0.9rem;
+    --form-success-color: var(--accent-green);
+    --form-error-color: #ff9aa5;
+
     /* --- MOTION SYSTEM --- */
     --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --motion-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);

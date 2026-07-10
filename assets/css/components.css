@@ -9,6 +9,7 @@ html.has-custom-cursor body,
 html.has-custom-cursor a,
 html.has-custom-cursor button,
 html.has-custom-cursor input,
+html.has-custom-cursor select,
 html.has-custom-cursor textarea,
 html.has-custom-cursor .bh-glass,
 html.has-custom-cursor .glass-card,
@@ -17,7 +18,14 @@ html.has-custom-cursor .code-card,
 html.has-custom-cursor .dossier-card,
 html.has-custom-cursor .cmd-btn,
 html.has-custom-cursor .btn-morph,
-html.has-custom-cursor .btn-terminal-sm {
+html.has-custom-cursor .btn-terminal-sm,
+html.has-custom-cursor .container-btn .btn-glass a,
+html.has-custom-cursor .container-btn .btn-glass button,
+html.has-custom-cursor .review-control,
+html.has-custom-cursor .review-dot,
+html.has-custom-cursor .qr-file-control span,
+html.has-custom-cursor .qr-inline-button,
+html.has-custom-cursor .qr-preset-strip button {
     cursor: none;
 }
 
