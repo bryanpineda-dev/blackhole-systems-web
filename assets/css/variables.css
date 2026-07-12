@@ -184,6 +184,40 @@
     --form-success-color: var(--accent-green);
     --form-error-color: #ff9aa5;
 
+    --icon-button-size: 44px;
+    --icon-button-border: 1px solid var(--glass-border-light);
+    --icon-button-radius: var(--border-radius-circle);
+    --icon-button-bg: var(--white-alpha-03);
+    --icon-button-color: var(--text-muted);
+    --icon-button-shadow: none;
+    --icon-button-transition:
+        background 220ms ease,
+        border-color 220ms ease,
+        color 220ms ease,
+        transform 220ms ease,
+        box-shadow 220ms ease;
+    --icon-button-hover-bg: var(--blue-alpha-10);
+    --icon-button-hover-border: var(--primary-blue);
+    --icon-button-hover-color: var(--primary-white);
+    --icon-button-hover-transform: translateY(-2px);
+    --icon-button-hover-shadow: none;
+
+    --tool-control-min-height: 46px;
+    --tool-control-gap: 8px;
+    --tool-control-padding: 0 14px;
+    --tool-control-border: 1px solid var(--glass-border-light);
+    --tool-control-radius: var(--border-radius-sm);
+    --tool-control-bg: var(--white-alpha-03);
+    --tool-control-color: var(--text-muted);
+    --tool-control-font: 600 0.95rem var(--font-body);
+    --tool-control-transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+    --tool-control-hover-border: rgba(var(--primary-blue-rgb), 0.42);
+    --tool-control-hover-bg: var(--blue-alpha-10);
+    --tool-control-hover-color: var(--primary-white);
+
     /* --- MOTION SYSTEM --- */
     --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --motion-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);

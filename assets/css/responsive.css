@@ -465,9 +465,11 @@
     }
 
     .mobile-nav-toggle {
-        width: 44px;
-        height: 44px;
-        flex-basis: 44px;
+        --icon-button-size: 44px;
+
+        width: var(--icon-button-size);
+        height: var(--icon-button-size);
+        flex-basis: var(--icon-button-size);
     }
 
     .hero-title {

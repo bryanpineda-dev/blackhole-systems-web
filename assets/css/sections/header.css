@@ -150,20 +150,25 @@
 }
 
 .mobile-nav-toggle {
+    --icon-button-size: 46px;
+    --icon-button-bg: var(--void-alpha-65);
+    --icon-button-color: var(--primary-white);
+    --icon-button-shadow: var(--glass-shadow-mid);
+
     display: none;
-    width: 46px;
-    height: 46px;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 5px;
     padding: 0;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-circle);
-    background: var(--void-alpha-65);
-    color: var(--primary-white);
+    border: var(--icon-button-border);
+    border-radius: var(--icon-button-radius);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-color);
     backdrop-filter: var(--glass-blur-md);
-    box-shadow: var(--glass-shadow-mid);
+    box-shadow: var(--icon-button-shadow);
 }
 
 .mobile-nav-toggle span {

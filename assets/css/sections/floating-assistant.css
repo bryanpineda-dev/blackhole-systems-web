@@ -139,24 +139,34 @@
 }
 
 .assistant-close {
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
+    --icon-button-size: 38px;
+    --icon-button-border: 1px solid var(--white-alpha-08);
+    --icon-button-color: var(--text-muted);
+    --icon-button-hover-color: var(--primary-white);
+    --icon-button-hover-border: var(--blue-alpha-50);
+    --icon-button-transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    flex: 0 0 var(--icon-button-size);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--white-alpha-08);
-    border-radius: var(--border-radius-circle);
-    background: var(--white-alpha-03);
-    color: var(--text-muted);
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    border: var(--icon-button-border);
+    border-radius: var(--icon-button-radius);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-color);
+    transition: var(--icon-button-transition);
 }
 
 .assistant-close:hover,
 .assistant-close:focus-visible {
-    color: var(--primary-white);
-    border-color: var(--blue-alpha-50);
-    background: var(--blue-alpha-10);
+    color: var(--icon-button-hover-color);
+    border-color: var(--icon-button-hover-border);
+    background: var(--icon-button-hover-bg);
 }
 
 .assistant-close i {
@@ -331,23 +341,34 @@
 }
 
 .assistant-send {
-    width: 44px;
-    height: 44px;
+    --icon-button-size: 44px;
+    --icon-button-border: 1px solid var(--blue-alpha-50);
+    --icon-button-bg: var(--primary-blue);
+    --icon-button-color: var(--primary-white);
+    --icon-button-shadow: 0 0 18px var(--blue-alpha-20);
+    --icon-button-hover-transform: translateY(-1px);
+    --icon-button-hover-shadow: 0 0 28px var(--blue-alpha-50);
+    --icon-button-transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--blue-alpha-50);
-    border-radius: var(--border-radius-circle);
-    background: var(--primary-blue);
-    color: var(--primary-white);
-    box-shadow: 0 0 18px var(--blue-alpha-20);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: var(--icon-button-border);
+    border-radius: var(--icon-button-radius);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-color);
+    box-shadow: var(--icon-button-shadow);
+    transition: var(--icon-button-transition);
 }
 
 .assistant-send:hover,
 .assistant-send:focus-visible {
-    transform: translateY(-1px);
-    box-shadow: 0 0 28px var(--blue-alpha-50);
+    transform: var(--icon-button-hover-transform);
+    box-shadow: var(--icon-button-hover-shadow);
 }
 
 .assistant-floating-actions {
@@ -358,14 +379,16 @@
 }
 
 .assistant-floating-btn {
+    --icon-button-size: 58px;
+
     position: relative;
-    width: 58px;
-    height: 58px;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--white-alpha-08);
-    border-radius: var(--border-radius-circle);
+    border-radius: var(--icon-button-radius);
     color: var(--primary-white);
     box-shadow:
         0 14px 32px rgba(0, 0, 0, 0.45),
@@ -464,8 +487,7 @@
     }
 
     .assistant-floating-btn {
-        width: 54px;
-        height: 54px;
+        --icon-button-size: 54px;
     }
 
     .assistant-floating-btn i {

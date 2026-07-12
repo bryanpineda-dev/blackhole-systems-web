@@ -368,27 +368,26 @@
 }
 
 .review-control {
-    width: 44px;
-    height: 44px;
+    --icon-button-color: var(--primary-white);
+    --icon-button-hover-color: var(--primary-blue);
+
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
     display: grid;
     place-items: center;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-circle);
-    background: var(--white-alpha-03);
-    color: var(--primary-white);
+    border: var(--icon-button-border);
+    border-radius: var(--icon-button-radius);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-color);
     cursor: pointer;
-    transition:
-        background 220ms ease,
-        border-color 220ms ease,
-        color 220ms ease,
-        transform 220ms ease;
+    transition: var(--icon-button-transition);
 }
 
 .review-control:hover {
-    background: var(--blue-alpha-10);
-    border-color: var(--primary-blue);
-    color: var(--primary-blue);
-    transform: translateY(-2px);
+    background: var(--icon-button-hover-bg);
+    border-color: var(--icon-button-hover-border);
+    color: var(--icon-button-hover-color);
+    transform: var(--icon-button-hover-transform);
 }
 
 .review-dots {
@@ -398,11 +397,17 @@
 }
 
 .review-dot {
-    width: 8px;
-    height: 8px;
+    --review-dot-size: 8px;
+    --review-dot-active-width: 28px;
+    --review-dot-bg: var(--white-alpha-20);
+    --review-dot-active-bg: var(--primary-blue);
+    --review-dot-active-shadow: 0 0 16px var(--blue-alpha-50);
+
+    width: var(--review-dot-size);
+    height: var(--review-dot-size);
     border: 0;
-    border-radius: var(--border-radius-circle);
-    background: var(--white-alpha-20);
+    border-radius: var(--icon-button-radius);
+    background: var(--review-dot-bg);
     cursor: pointer;
     transition:
         width 220ms ease,
@@ -411,10 +416,10 @@
 }
 
 .review-dot.is-active {
-    width: 28px;
+    width: var(--review-dot-active-width);
     border-radius: var(--border-radius-pill);
-    background: var(--primary-blue);
-    box-shadow: 0 0 16px var(--blue-alpha-50);
+    background: var(--review-dot-active-bg);
+    box-shadow: var(--review-dot-active-shadow);
 }
 
 .contact-launch-section {
