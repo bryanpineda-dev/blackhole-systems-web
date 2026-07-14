@@ -101,11 +101,75 @@
 }
 
 /* Orbit & Planets Layout */
-.about-planets-right { display: flex; justify-content: center; align-items: center; position: relative; height: auto; width: 100%; }
+.about-planets-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: auto;
+    width: 100%;
+}
 
-.orbit-container { position: relative; z-index: 1; width: 21em; height: 21em; font-size: 1rem; }
-.planet { width: 21em; height: 21em; background: url("../../images/planet1.jpg"); background-size: contain; box-shadow: inset -6em -6em 6em var(--black-alpha-100), inset 2em 0em 2em var(--black-alpha-100), -0.1em -0.1em 0.5em var(--white-alpha-40); position: relative; z-index: 2; isolation: isolate; opacity: 0; transform: scale(0); will-change: transform, opacity; animation: popInPlanet 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards, rotatePlanet 20s linear infinite; }
-.moon { position: absolute; width: 5.5em; height: 5.5em; background: url("../../images/planet2.jpg"); background-size: contain; box-shadow: inset -1.5em -1.5em 1.5em var(--primary-black), inset 1.5em 0em 1.5em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40); position: absolute; left: -11em; top: 55%; opacity: 0; transform: scale(0) translateY(-50%); will-change: transform, left, z-index, opacity; z-index: 5; animation: popInMoon1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards, rotatePlanet 3s linear infinite, orbit 20s infinite ease-in-out; }
-.moon2 { position: absolute; width: 3.5em; height: 3.5em; background: linear-gradient(135deg, rgba(var(--primary-blue-rgb), 0.38), rgba(var(--primary-blue-rgb), 0.10)), url("../../images/planet3.webp"); background-blend-mode: color, normal; background-size: contain; box-shadow: inset -1em -1em 1em var(--primary-black), inset 1em 0em 1em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40); position: absolute; left: -11em; top: 20%; opacity: 0; transform: scale(0) translateY(-40%); will-change: transform, left, z-index, opacity; z-index: 5; animation: popInMoon2 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.6s forwards, rotatePlanet 2s linear infinite, orbit 10s infinite ease-in-out; }
-.planet, .moon, .moon2 { border-radius: var(--border-radius-circle); background-repeat: repeat; background-size: 200% 100%; }
+.orbit-container {
+    position: relative;
+    z-index: 1;
+    width: 21em;
+    height: 21em;
+    font-size: 1rem;
+}
 
+.planet {
+    width: 21em;
+    height: 21em;
+    background: url("../../images/planet1.jpg");
+    background-size: contain;
+    box-shadow: inset -6em -6em 6em var(--black-alpha-100), inset 2em 0em 2em var(--black-alpha-100), -0.1em -0.1em 0.5em var(--white-alpha-40);
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    opacity: 0;
+    transform: scale(0);
+    will-change: transform, opacity;
+    animation: popInPlanet 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards, rotatePlanet 20s linear infinite;
+}
+
+.moon {
+    position: absolute;
+    width: 5.5em;
+    height: 5.5em;
+    background: url("../../images/planet2.jpg");
+    background-size: contain;
+    box-shadow: inset -1.5em -1.5em 1.5em var(--primary-black), inset 1.5em 0em 1.5em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40);
+    left: -11em;
+    top: 55%;
+    opacity: 0;
+    transform: scale(0) translateY(-50%);
+    will-change: transform, left, z-index, opacity;
+    z-index: 5;
+    animation: popInMoon1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards, rotatePlanet 3s linear infinite, orbit 20s infinite ease-in-out;
+}
+
+.moon2 {
+    position: absolute;
+    width: 3.5em;
+    height: 3.5em;
+    background: linear-gradient(135deg, rgba(var(--primary-blue-rgb), 0.38), rgba(var(--primary-blue-rgb), 0.10)), url("../../images/planet3.webp");
+    background-blend-mode: color, normal;
+    background-size: contain;
+    box-shadow: inset -1em -1em 1em var(--primary-black), inset 1em 0em 1em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40);
+    left: -11em;
+    top: 20%;
+    opacity: 0;
+    transform: scale(0) translateY(-40%);
+    will-change: transform, left, z-index, opacity;
+    z-index: 5;
+    animation: popInMoon2 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.6s forwards, rotatePlanet 2s linear infinite, orbit 10s infinite ease-in-out;
+}
+
+.planet,
+.moon,
+.moon2 {
+    border-radius: var(--border-radius-circle);
+    background-repeat: repeat;
+    background-size: 200% 100%;
+}
