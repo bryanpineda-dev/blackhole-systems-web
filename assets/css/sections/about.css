@@ -121,7 +121,7 @@
 .planet {
     width: 21em;
     height: 21em;
-    background: url("../../images/planet1.jpg");
+    background: url("../../images/planet1.webp");
     background-size: contain;
     box-shadow: inset -6em -6em 6em var(--black-alpha-100), inset 2em 0em 2em var(--black-alpha-100), -0.1em -0.1em 0.5em var(--white-alpha-40);
     position: relative;
@@ -137,14 +137,15 @@
     position: absolute;
     width: 5.5em;
     height: 5.5em;
-    background: url("../../images/planet2.jpg");
+    background: url("../../images/planet2.webp");
     background-size: contain;
     box-shadow: inset -1.5em -1.5em 1.5em var(--primary-black), inset 1.5em 0em 1.5em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40);
     left: -11em;
     top: 55%;
+    translate: 0 0;
     opacity: 0;
     transform: scale(0) translateY(-50%);
-    will-change: transform, left, z-index, opacity;
+    will-change: transform, translate, z-index, opacity;
     z-index: 5;
     animation: popInMoon1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards, rotatePlanet 3s linear infinite, orbit 20s infinite ease-in-out;
 }
@@ -159,9 +160,10 @@
     box-shadow: inset -1em -1em 1em var(--primary-black), inset 1em 0em 1em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40);
     left: -11em;
     top: 20%;
+    translate: 0 0;
     opacity: 0;
     transform: scale(0) translateY(-40%);
-    will-change: transform, left, z-index, opacity;
+    will-change: transform, translate, z-index, opacity;
     z-index: 5;
     animation: popInMoon2 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.6s forwards, rotatePlanet 2s linear infinite, orbit 10s infinite ease-in-out;
 }
@@ -172,4 +174,10 @@
     border-radius: var(--border-radius-circle);
     background-repeat: repeat;
     background-size: 200% 100%;
+}
+
+.about-planets-right.is-orbit-paused .planet,
+.about-planets-right.is-orbit-paused .moon,
+.about-planets-right.is-orbit-paused .moon2 {
+    animation-play-state: paused;
 }

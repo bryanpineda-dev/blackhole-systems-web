@@ -11,6 +11,7 @@
     const initializers = [
         'initPageLoader',
         'initScrollReveal',
+        'initAboutOrbitObserver',
         'initTelemetry',
         'initProjectFilter',
         'initReviewsSlider',

@@ -144,10 +144,11 @@
 }
 
 @keyframes orbit {
+    0% { translate: 0 0; z-index: var(--z-floating); }
     49% { z-index: var(--z-floating); }
-    50% { left: 25em; z-index: 0; }
+    50% { translate: 36em 0; z-index: 0; }
     99% { z-index: 0; }
-    100% { left: -11em; z-index: var(--z-floating); }
+    100% { translate: 0 0; z-index: var(--z-floating); }
 }
 
 /* --------------------------------------------------------------------------

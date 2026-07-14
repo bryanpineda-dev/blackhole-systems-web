@@ -90,6 +90,41 @@
         });
     };
 
+    BH.initAboutOrbitObserver = function initAboutOrbitObserver() {
+        const orbitStage = document.querySelector('#about .about-planets-right');
+        if (!orbitStage) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            orbitStage.classList.add('is-orbit-paused');
+            return;
+        }
+
+        if (!('IntersectionObserver' in window)) return;
+
+        let isInView = false;
+
+        const syncOrbitState = () => {
+            orbitStage.classList.toggle('is-orbit-paused', document.hidden || !isInView);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (!entry) return;
+
+            isInView = entry.isIntersecting;
+            syncOrbitState();
+        }, {
+            threshold: 0.01,
+            rootMargin: '140px 0px'
+        });
+
+        orbitStage.classList.add('is-orbit-paused');
+        observer.observe(orbitStage);
+        document.addEventListener('visibilitychange', syncOrbitState);
+    };
+
     BH.initTelemetry = function initTelemetry() {
         const counters = document.querySelectorAll('.counter-value');
         if (!counters.length) return;

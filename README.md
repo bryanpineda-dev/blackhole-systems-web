@@ -2,7 +2,7 @@
 
 Premium landing page for **Blackhole Systems**, a digital engineering studio focused on high-end interfaces, custom software systems, automation, API integrations, and connected business workflows.
 
-This repository is the first public version of the Blackhole Systems website. It is currently a static front-end project built with HTML, modular CSS, and vanilla JavaScript.
+This repository is the first public version of the Blackhole Systems website. It is currently a static front-end project built with HTML, modular CSS, vanilla JavaScript, and browser-first utility pages.
 
 ## Overview
 
@@ -16,8 +16,35 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Custom cursor and page loader
 - Scroll reveal motion system
 - Services, workflow, projects, testimonials, and contact sections
+- Floating assistant and direct WhatsApp access
+- Blackhole QR Studio free browser-based utility
 - Image-based Earth horizon background with CSS star motion in the contact area
+- Optimized planetary About animation with WebP textures and viewport-aware pause behavior
 - Mobile-first cleanup for overflow-safe responsive behavior
+
+## Free Tools
+
+### Blackhole QR Studio
+
+`/tools/blackhole-qr-studio/`
+
+Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
+
+Current capabilities:
+
+- URL, text, WhatsApp, and WiFi QR generation
+- Live preview
+- PNG and SVG download
+- Custom QR and background colors
+- Adjustable size and margin
+- Optional center logo
+- High error correction for logo-friendly QR codes
+
+Trust message:
+
+```text
+Static QR codes are generated locally in the browser. They do not expire artificially, require no account, and include no watermark.
+```
 
 ## Tech Stack
 
@@ -39,11 +66,15 @@ blackhole-web-v1/
 │   │   ├── components.css
 │   │   ├── animations.css
 │   │   ├── responsive.css
+│   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
 │   └── js/
 │       ├── app.js
-│       └── modules/
+│       ├── modules/
+│       └── tools/
+└── tools/
+    └── blackhole-qr-studio/
 ```
 
 ## Local Preview
@@ -51,21 +82,35 @@ blackhole-web-v1/
 Because this is a static site, it can run from any local static server.
 
 ```bash
-python -m http.server 8000
+python -m http.server 5500
 ```
 
 Then open:
 
 ```text
-http://127.0.0.1:8000
+http://127.0.0.1:5500
 ```
+
+QR Studio:
+
+```text
+http://127.0.0.1:5500/tools/blackhole-qr-studio/
+```
+
+## Performance Notes
+
+- About section planet textures use WebP versions for lighter animation cost.
+- Orbital movement keeps the original front/back timing while using compositor-friendly translation.
+- About orbit animation pauses when the section is outside the viewport or the tab is hidden.
+- Motion-heavy sections include reduced-motion fallbacks where applicable.
 
 ## Deployment Roadmap
 
 1. Keep versioning the landing page locally.
 2. Push stable versions to GitHub.
-3. Connect deployment to the production domain: `blackholesys.com`.
-4. Publish to the SERED hosting environment once SSH/hosting access is configured.
+3. Keep the GitHub Pages preview available for quick mobile and public testing.
+4. Connect deployment to the production domain: `blackholesys.com`.
+5. Publish to the SERED hosting environment once SSH/hosting access is configured.
 
 ## Status
 
