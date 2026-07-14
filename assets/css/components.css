@@ -488,6 +488,36 @@ body.is-loading {
     transform: translateY(1px);
 }
 
+.container-btn .btn-glass a.is-locked,
+.container-btn .btn-glass button.is-locked {
+    pointer-events: none;
+}
+
+.container-btn .btn-glass a.is-loading,
+.container-btn .btn-glass button.is-loading {
+    background: var(--blue-alpha-50);
+    border-color: var(--primary-blue);
+    color: var(--primary-white);
+    text-shadow: 0 0 10px var(--white-alpha-70);
+    box-shadow: 0 0 15px var(--blue-alpha-50);
+}
+
+.container-btn .btn-glass a.is-success,
+.container-btn .btn-glass button.is-success {
+    background: rgba(var(--accent-green-rgb), 0.5);
+    border-color: var(--accent-green);
+    color: var(--primary-white);
+    box-shadow: 0 0 15px rgba(var(--accent-green-rgb), 0.5);
+}
+
+.container-btn .btn-glass a.is-error,
+.container-btn .btn-glass button.is-error {
+    background: var(--error-alpha-18);
+    border-color: var(--error-alpha-55);
+    color: var(--primary-white);
+    box-shadow: 0 0 15px var(--error-alpha-25);
+}
+
 /* --------------------------------------------------------------------------
    3.4 UI CARDS & MODULES & ORBS
    -------------------------------------------------------------------------- */

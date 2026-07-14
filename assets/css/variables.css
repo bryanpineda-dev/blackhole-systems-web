@@ -25,6 +25,8 @@
     --accent-green-rgb: 16, 185, 129;
     --accent-amber: #fbbf24;
     --accent-amber-rgb: 251, 191, 36;
+    --accent-error: #ff5d6c;
+    --accent-error-rgb: 255, 93, 108;
     
     --text-main: #FFFFFF;
     --text-muted: #94a3b8;
@@ -52,6 +54,9 @@
     --green-alpha-35: rgba(var(--accent-green-rgb), 0.35);
     --amber-alpha-10: rgba(var(--accent-amber-rgb), 0.1);
     --amber-alpha-35: rgba(var(--accent-amber-rgb), 0.35);
+    --error-alpha-18: rgba(var(--accent-error-rgb), 0.18);
+    --error-alpha-25: rgba(var(--accent-error-rgb), 0.25);
+    --error-alpha-55: rgba(var(--accent-error-rgb), 0.55);
     
     --white-alpha-01: rgba(255, 255, 255, 0.01);
     --white-alpha-02: rgba(255, 255, 255, 0.02);

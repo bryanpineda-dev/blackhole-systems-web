@@ -14,31 +14,21 @@
 
         if (submitBtn && form) {
             const originalContent = submitBtn.innerHTML;
+            const submitStateClasses = ['is-loading', 'is-success', 'is-error'];
 
             const setSubmitState = (content, type = 'default') => {
                 submitBtn.innerHTML = content;
-                submitBtn.removeAttribute('style');
+                submitBtn.classList.remove(...submitStateClasses);
                 submitBtn.setAttribute('aria-busy', type === 'loading' ? 'true' : 'false');
 
-                if (type === 'loading') {
-                    submitBtn.style.color = 'var(--primary-white)';
-                    submitBtn.style.textShadow = '0 0 10px var(--white-alpha-70)';
-                    submitBtn.style.background = 'var(--blue-alpha-50)';
-                    submitBtn.style.borderColor = 'var(--primary-blue)';
-                    submitBtn.style.boxShadow = '0 0 15px var(--blue-alpha-50)';
+                if (type !== 'default') {
+                    submitBtn.classList.add(`is-${type}`);
                 }
+            };
 
-                if (type === 'success') {
-                    submitBtn.style.background = 'rgba(16, 185, 129, 0.5)';
-                    submitBtn.style.borderColor = 'var(--accent-green)';
-                    submitBtn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.5)';
-                }
-
-                if (type === 'error') {
-                    submitBtn.style.background = 'rgba(255, 93, 108, 0.18)';
-                    submitBtn.style.borderColor = 'rgba(255, 93, 108, 0.55)';
-                    submitBtn.style.boxShadow = '0 0 15px rgba(255, 93, 108, 0.25)';
-                }
+            const setSubmitLocked = (isLocked) => {
+                submitBtn.classList.toggle('is-locked', isLocked);
+                submitBtn.setAttribute('aria-disabled', String(isLocked));
             };
 
             const setStatus = (message, type = 'default') => {
@@ -91,7 +81,7 @@
 
                 setSubmitState('<i class="ri-loader-4-line ri-spin"></i> SENDING...', 'loading');
                 setStatus('Transmitting project signal...', 'loading');
-                submitBtn.style.pointerEvents = 'none';
+                setSubmitLocked(true);
 
                 try {
                     const response = await fetch(endpoint, {
@@ -120,12 +110,14 @@
                         setSubmitState(originalContent);
                     }, 3600);
                 } finally {
-                    submitBtn.style.pointerEvents = '';
+                    setSubmitLocked(false);
                 }
             });
         }
 
         if (newsletterForm && newsletterSubmit) {
+            const newsletterStateClasses = ['is-success'];
+
             newsletterForm.addEventListener('submit', (event) => {
                 event.preventDefault();
 
@@ -136,10 +128,12 @@
 
                 const originalContent = newsletterSubmit.innerHTML;
 
+                newsletterSubmit.classList.add('is-success');
                 newsletterSubmit.innerHTML = '<i class="ri-check-double-line"></i> SUBSCRIBED';
                 newsletterForm.reset();
 
                 setTimeout(() => {
+                    newsletterSubmit.classList.remove(...newsletterStateClasses);
                     newsletterSubmit.innerHTML = originalContent;
                 }, 2800);
             });
