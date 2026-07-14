@@ -5,6 +5,32 @@
 (function (BH) {
     'use strict';
 
+    const createVisibilityGate = (element, onChange, rootMargin = '160px 0px') => {
+        let isInView = !('IntersectionObserver' in window);
+
+        const syncState = () => {
+            onChange(isInView && !document.hidden);
+        };
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (!entry) return;
+
+                isInView = entry.isIntersecting;
+                syncState();
+            }, {
+                threshold: 0.01,
+                rootMargin
+            });
+
+            observer.observe(element);
+        }
+
+        document.addEventListener('visibilitychange', syncState);
+        syncState();
+    };
+
     BH.initCometField = function initCometField() {
         const container = document.getElementById('comet-field');
         if (!container) return;
@@ -16,6 +42,8 @@
         const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
         const maxActiveComets = 12;
         let activeComets = 0;
+        let isFieldActive = false;
+        let loopTimer = 0;
 
         const getCometPath = () => {
             const width = container.offsetWidth || window.innerWidth;
@@ -56,6 +84,7 @@
         };
 
         const createComet = () => {
+            if (!isFieldActive) return;
             if (activeComets >= maxActiveComets) return;
 
             const comet = document.createElement('div');
@@ -82,17 +111,45 @@
             }, path.duration * 1000);
         };
 
+        const clearLoop = () => {
+            if (!loopTimer) return;
+
+            window.clearTimeout(loopTimer);
+            loopTimer = 0;
+        };
+
+        const scheduleLoop = () => {
+            clearLoop();
+
+            if (!isFieldActive) return;
+
+            loopTimer = window.setTimeout(loop, randomBetween(420, 1150));
+        };
+
         const loop = () => {
+            if (!isFieldActive) return;
+
             const roll = Math.random();
             const batch = roll > 0.86 ? 3 : roll > 0.55 ? 2 : 1;
             for (let i = 0; i < batch; i++) {
                 createComet();
             }
 
-            setTimeout(loop, randomBetween(420, 1150));
+            scheduleLoop();
         };
 
-        loop();
+        createVisibilityGate(container, (isActive) => {
+            isFieldActive = isActive;
+
+            if (isFieldActive && !loopTimer) {
+                loop();
+                return;
+            }
+
+            if (!isFieldActive) {
+                clearLoop();
+            }
+        }, '220px 0px');
     };
 
     BH.initGridPulse = function initGridPulse() {
@@ -113,8 +170,29 @@
         }
 
         const allCells = grid.querySelectorAll('.grid-cell');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let isGridActive = false;
+        let pulseTimer = 0;
+
+        if (prefersReducedMotion) return;
+
+        const clearPulse = () => {
+            if (!pulseTimer) return;
+
+            window.clearTimeout(pulseTimer);
+            pulseTimer = 0;
+        };
+
+        const schedulePulse = () => {
+            clearPulse();
+
+            if (!isGridActive) return;
+
+            pulseTimer = window.setTimeout(pulse, Math.random() * 500 + 100);
+        };
 
         const pulse = () => {
+            if (!isGridActive) return;
             if (!allCells.length) return;
 
             const numPulses = Math.floor(Math.random() * 3) + 1;
@@ -125,13 +203,24 @@
 
                 if (cell) {
                     cell.classList.add('active');
-                    setTimeout(() => cell.classList.remove('active'), Math.random() * 2000 + 500);
+                    window.setTimeout(() => cell.classList.remove('active'), Math.random() * 2000 + 500);
                 }
             }
 
-            setTimeout(pulse, Math.random() * 500 + 100);
+            schedulePulse();
         };
 
-        pulse();
+        createVisibilityGate(grid, (isActive) => {
+            isGridActive = isActive;
+
+            if (isGridActive && !pulseTimer) {
+                pulse();
+                return;
+            }
+
+            if (!isGridActive) {
+                clearPulse();
+            }
+        }, '160px 0px');
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

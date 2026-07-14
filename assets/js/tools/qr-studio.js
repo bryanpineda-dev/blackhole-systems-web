@@ -68,6 +68,28 @@
     };
 
     let qrCode = null;
+    let renderTimer = 0;
+
+    function cancelScheduledRender() {
+        if (!renderTimer) return;
+
+        window.clearTimeout(renderTimer);
+        renderTimer = 0;
+    }
+
+    function scheduleRenderQr() {
+        cancelScheduledRender();
+
+        renderTimer = window.setTimeout(() => {
+            renderTimer = 0;
+            renderQr();
+        }, 80);
+    }
+
+    function renderQrNow() {
+        cancelScheduledRender();
+        renderQr();
+    }
 
     function getValue(field, fallback = '') {
         return field && typeof field.value === 'string' ? field.value.trim() : fallback;
@@ -261,7 +283,7 @@
             panel.hidden = !isActive;
         });
 
-        renderQr();
+        renderQrNow();
     }
 
     function handleLogoUpload(event) {
@@ -287,7 +309,7 @@
             state.logoDataUrl = String(reader.result || '');
             if (indicators.logoName) indicators.logoName.textContent = file.name;
             if (indicators.removeLogo) indicators.removeLogo.disabled = false;
-            renderQr();
+            renderQrNow();
         });
 
         reader.readAsDataURL(file);
@@ -298,7 +320,7 @@
         if (fields.logo) fields.logo.value = '';
         if (indicators.logoName) indicators.logoName.textContent = 'No logo selected';
         if (indicators.removeLogo) indicators.removeLogo.disabled = true;
-        renderQr();
+        renderQrNow();
     }
 
     function setActivePreset(name) {
@@ -320,7 +342,7 @@
         if (fields.background) fields.background.value = preset.background;
 
         setActivePreset(name);
-        renderQr();
+        renderQrNow();
     }
 
     function syncFaqHeight(item) {
@@ -365,9 +387,7 @@
     }
 
     function downloadQr(extension) {
-        if (!qrCode) {
-            renderQr();
-        }
+        renderQrNow();
 
         const timestamp = new Date().toISOString().slice(0, 10);
         const name = `blackhole-${state.type}-qr-${timestamp}`;
@@ -380,7 +400,7 @@
 
     form.addEventListener('input', (event) => {
         if (event.target !== fields.logo) {
-            renderQr();
+            scheduleRenderQr();
         }
     });
 
@@ -390,7 +410,7 @@
             return;
         }
 
-        renderQr();
+        renderQrNow();
     });
 
     typeButtons.forEach((button) => {
@@ -417,5 +437,5 @@
 
     setActivePreset('blackhole');
     initFaq();
-    renderQr();
+    renderQrNow();
 })();

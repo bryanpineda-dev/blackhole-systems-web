@@ -29,6 +29,10 @@
             const setSubmitLocked = (isLocked) => {
                 submitBtn.classList.toggle('is-locked', isLocked);
                 submitBtn.setAttribute('aria-disabled', String(isLocked));
+
+                if ('disabled' in submitBtn) {
+                    submitBtn.disabled = isLocked;
+                }
             };
 
             const setStatus = (message, type = 'default') => {
@@ -63,7 +67,7 @@
                 return payload;
             };
 
-            submitBtn.addEventListener('click', async (event) => {
+            form.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
                 if (!form.checkValidity()) {
