@@ -541,11 +541,17 @@
 .form-header span {
     display: block;
     margin-bottom: 6px;
-    color: var(--text-muted);
+    color: var(--mono-label-color, var(--text-muted));
     font-family: var(--font-code);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: var(--mono-label-font-size, 0.68rem);
+    letter-spacing: var(--mono-label-letter-spacing, 0.08em);
     text-transform: uppercase;
+}
+
+.launch-panel-label {
+    --mono-label-color: var(--text-muted);
+    --mono-label-font-size: 0.68rem;
+    --mono-label-letter-spacing: 0.08em;
 }
 
 .launch-process-list {

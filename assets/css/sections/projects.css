@@ -92,13 +92,8 @@
 }
 
 .filter-label {
-    --kicker-font-size: 0.75rem;
-    --kicker-letter-spacing: 1px;
-
-    font-family: var(--font-code);
-    color: var(--kicker-color);
-    font-size: var(--kicker-font-size);
-    letter-spacing: var(--kicker-letter-spacing);
+    --mono-label-font-size: 0.75rem;
+    --mono-label-letter-spacing: 1px;
 }
 
 .filter-count {

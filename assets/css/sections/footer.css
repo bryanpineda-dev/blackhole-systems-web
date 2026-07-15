@@ -75,29 +75,19 @@
 }
 
 .footer-kicker {
-    --kicker-font-size: 0.68rem;
-    --kicker-letter-spacing: 0.1em;
+    --mono-label-font-size: 0.68rem;
+    --mono-label-letter-spacing: 0.1em;
 
     display: block;
     margin-bottom: var(--space-sm);
-    color: var(--kicker-color);
-    font-family: var(--font-code);
-    font-size: var(--kicker-font-size);
-    letter-spacing: var(--kicker-letter-spacing);
-    text-transform: uppercase;
 }
 
 .footer-label {
-    --kicker-font-size: 0.78rem;
-    --kicker-letter-spacing: 0.12em;
+    --mono-label-font-size: 0.78rem;
+    --mono-label-letter-spacing: 0.12em;
 
     display: block;
     margin-bottom: var(--space-sm);
-    color: var(--kicker-color);
-    font-family: var(--font-code);
-    font-size: var(--kicker-font-size);
-    letter-spacing: var(--kicker-letter-spacing);
-    text-transform: uppercase;
 }
 
 .footer-newsletter h2 {

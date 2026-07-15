@@ -288,6 +288,40 @@ body.is-loading {
     font-weight: 500; 
 }
 
+/* --- REUSABLE TYPE TOKENS --- */
+.bh-title-metal {
+    color: transparent;
+    background: var(--gradient-metallic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 3px var(--black-alpha-50));
+}
+
+.bh-copy {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: var(--copy-muted-line-height);
+}
+
+.bh-copy strong {
+    color: var(--primary-white);
+    font-weight: 500;
+}
+
+.bh-muted {
+    color: var(--copy-muted-color);
+}
+
+.bh-mono-label {
+    color: var(--mono-label-color);
+    font-family: var(--font-code);
+    font-size: var(--mono-label-font-size);
+    letter-spacing: var(--mono-label-letter-spacing);
+    line-height: var(--mono-label-line-height);
+    text-transform: uppercase;
+}
+
 /* --- HUD TEXT BLOCKS --- */
 .hud-text-block, .hud-text-block-color {
     --hud-line-color: var(--glass-border-light);
@@ -533,9 +567,17 @@ body.is-loading {
 }
 
 /* --- BRAND CHIPS --- */
+.bh-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--chip-gap);
+}
+
 .bh-chip {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: var(--chip-gap);
     min-height: var(--chip-min-height);
     padding: var(--chip-padding);
     border: var(--chip-border);
@@ -545,7 +587,9 @@ body.is-loading {
     font-family: var(--font-code);
     font-size: var(--chip-font-size);
     letter-spacing: var(--chip-letter-spacing);
+    line-height: 1.1;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .bh-chip--blue {
@@ -570,6 +614,31 @@ body.is-loading {
     --chip-border: 1px solid var(--amber-alpha-35);
     --chip-bg: var(--amber-alpha-10);
     --chip-color: var(--accent-amber);
+}
+
+.bh-chip--button {
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.bh-status-line {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--status-pill-gap);
+    color: var(--status-pill-color);
+    font-family: var(--font-code);
+    font-size: var(--status-pill-font-size);
+    letter-spacing: var(--status-pill-letter-spacing);
+}
+
+.bh-status-line::before {
+    content: '';
+    flex: 0 0 var(--status-dot-size);
+    width: var(--status-dot-size);
+    height: var(--status-dot-size);
+    border-radius: var(--border-radius-circle);
+    background: var(--status-dot-color);
+    box-shadow: var(--status-dot-shadow);
 }
 
 /* --- BACKGROUND ORBS --- */

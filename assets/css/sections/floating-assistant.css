@@ -281,18 +281,7 @@
     --chip-font-size: 0.66rem;
     --chip-letter-spacing: 0.4px;
 
-    min-height: var(--chip-min-height);
     flex: 0 0 auto;
-    padding: var(--chip-padding);
-    border: var(--chip-border);
-    border-radius: var(--chip-radius);
-    background: var(--chip-bg);
-    color: var(--chip-color);
-    font-family: var(--font-code);
-    font-size: var(--chip-font-size);
-    letter-spacing: var(--chip-letter-spacing);
-    text-transform: uppercase;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .assistant-chip:hover,

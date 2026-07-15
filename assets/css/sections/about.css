@@ -79,25 +79,7 @@
 }
 
 .about-capability-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--chip-gap, 8px);
     margin-top: var(--space-md);
-}
-
-.about-capability-chips span {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--chip-min-height);
-    padding: var(--chip-padding);
-    border: var(--chip-border);
-    border-radius: var(--chip-radius);
-    background: var(--chip-bg);
-    color: var(--chip-color);
-    font-family: var(--font-code);
-    font-size: var(--chip-font-size);
-    letter-spacing: var(--chip-letter-spacing);
-    text-transform: uppercase;
 }
 
 /* Orbit & Planets Layout */

@@ -138,6 +138,14 @@
     --kicker-typing-duration: 1.15s;
     --kicker-typing-delay: 0.15s;
 
+    --mono-label-color: var(--kicker-color);
+    --mono-label-font-size: 0.74rem;
+    --mono-label-letter-spacing: 0.12em;
+    --mono-label-line-height: 1.25;
+
+    --copy-muted-color: var(--text-muted);
+    --copy-muted-line-height: 1.65;
+
     --status-pill-gap: 8px;
     --status-pill-padding: 8px 16px;
     --status-pill-bg: var(--white-alpha-01);
