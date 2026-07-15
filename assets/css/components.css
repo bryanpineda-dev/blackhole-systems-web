@@ -641,6 +641,58 @@ body.is-loading {
     box-shadow: var(--status-dot-shadow);
 }
 
+/* --- ICON BUTTONS --- */
+.bh-icon-button,
+.review-control,
+.project-modal-close,
+.assistant-close,
+.assistant-send,
+.social-links a {
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: var(--icon-button-border);
+    border-radius: var(--icon-button-radius);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-color);
+    box-shadow: var(--icon-button-shadow);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--icon-button-transition);
+}
+
+.bh-icon-button:hover,
+.bh-icon-button:focus-visible,
+.review-control:hover,
+.review-control:focus-visible,
+.project-modal-close:hover,
+.project-modal-close:focus-visible,
+.assistant-close:hover,
+.assistant-close:focus-visible,
+.assistant-send:hover,
+.assistant-send:focus-visible,
+.social-links a:hover,
+.social-links a:focus-visible {
+    border-color: var(--icon-button-hover-border);
+    background: var(--icon-button-hover-bg);
+    color: var(--icon-button-hover-color);
+    box-shadow: var(--icon-button-hover-shadow);
+    transform: var(--icon-button-hover-transform);
+}
+
+.bh-icon-button i,
+.review-control i,
+.project-modal-close i,
+.assistant-close i,
+.assistant-send i,
+.social-links a i {
+    font-size: var(--icon-button-font-size, 1.1rem);
+    line-height: 1;
+}
+
 /* --- BRAND ICON ORBS --- */
 .bh-icon-orb,
 .bullet-icon {

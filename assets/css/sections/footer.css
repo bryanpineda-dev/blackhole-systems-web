@@ -238,29 +238,12 @@
     --icon-button-color: var(--text-muted);
     --icon-button-hover-color: var(--primary-blue);
     --icon-button-hover-border: var(--blue-alpha-50);
+    --icon-button-font-size: 1.1rem;
     --icon-button-transition:
         color 260ms ease,
         border-color 260ms ease,
         background 260ms ease,
         transform 260ms ease;
-
-    width: var(--icon-button-size);
-    height: var(--icon-button-size);
-    display: grid;
-    place-items: center;
-    border: var(--icon-button-border);
-    border-radius: var(--icon-button-radius);
-    background: var(--icon-button-bg);
-    color: var(--icon-button-color);
-    font-size: 1.1rem;
-    transition: var(--icon-button-transition);
-}
-
-.social-links a:hover {
-    border-color: var(--icon-button-hover-border);
-    background: var(--icon-button-hover-bg);
-    color: var(--icon-button-hover-color);
-    transform: var(--icon-button-hover-transform);
 }
 
 @media (max-width: 1024px) {
