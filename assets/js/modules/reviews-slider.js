@@ -8,6 +8,7 @@
     BH.initReviewsSlider = function initReviewsSlider() {
         const slider = document.querySelector('[data-review-slider]');
         if (!slider) return;
+        if (slider.dataset.reviewSliderReady === 'true') return;
 
         const track = slider.querySelector('.reviews-track');
         const cards = Array.from(slider.querySelectorAll('.review-card'));
@@ -18,24 +19,38 @@
         if (!track || !cards.length) return;
 
         let activeIndex = 0;
+        let hasRendered = false;
 
-        const updateSlider = (nextIndex) => {
-            activeIndex = (nextIndex + cards.length) % cards.length;
+        const normalizeIndex = (index) => (index + cards.length) % cards.length;
+
+        const getDotIndex = (dot) => {
+            const dotIndex = Number(dot.dataset.reviewDot);
+            return Number.isFinite(dotIndex) ? dotIndex : 0;
+        };
+
+        const updateSlider = (nextIndex, options = {}) => {
+            const normalizedIndex = normalizeIndex(nextIndex);
+            if (hasRendered && !options.force && normalizedIndex === activeIndex) return;
+
+            activeIndex = normalizedIndex;
+            slider.dataset.activeReview = String(activeIndex);
 
             cards.forEach((card, index) => {
                 const isActive = index === activeIndex;
                 card.classList.toggle('is-active', isActive);
                 card.setAttribute('aria-hidden', String(!isActive));
+                card.toggleAttribute('inert', !isActive);
             });
 
             dots.forEach((dot) => {
-                const dotIndex = Number(dot.dataset.reviewDot || 0);
+                const dotIndex = getDotIndex(dot);
                 const isActive = dotIndex === activeIndex;
                 dot.classList.toggle('is-active', isActive);
                 dot.setAttribute('aria-selected', String(isActive));
             });
 
             track.classList.add('is-ready');
+            hasRendered = true;
         };
 
         previousButtons.forEach((button) => button.addEventListener('click', () => {
@@ -48,15 +63,23 @@
 
         dots.forEach((dot) => {
             dot.addEventListener('click', () => {
-                updateSlider(Number(dot.dataset.reviewDot || 0));
+                updateSlider(getDotIndex(dot));
             });
         });
 
         slider.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') updateSlider(activeIndex - 1);
-            if (event.key === 'ArrowRight') updateSlider(activeIndex + 1);
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                updateSlider(activeIndex - 1);
+            }
+
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                updateSlider(activeIndex + 1);
+            }
         });
 
-        updateSlider(0);
+        slider.dataset.reviewSliderReady = 'true';
+        updateSlider(0, { force: true });
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

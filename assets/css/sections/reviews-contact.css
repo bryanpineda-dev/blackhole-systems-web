@@ -811,18 +811,25 @@
     }
 
     .review-signal-row {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        text-align: center;
     }
 
     .signal-badge {
-        align-self: flex-start;
+        order: 1;
+        align-self: center;
     }
 
     .review-waveform {
+        order: 2;
+        justify-content: center;
         width: min(230px, 100%);
         height: 40px;
         gap: 5px;
+        margin-inline: auto;
     }
 
     .review-waveform span {
