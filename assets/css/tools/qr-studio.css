@@ -171,9 +171,9 @@
     align-items: center;
     gap: 10px;
     padding: 12px 14px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background: linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-bg-soft);
     color: var(--text-muted);
 }
 
@@ -192,13 +192,12 @@
 .qr-panel {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background:
-        linear-gradient(135deg, var(--blue-alpha-10), transparent 36%),
-        linear-gradient(180deg, rgba(9, 12, 20, 0.76), rgba(3, 5, 8, 0.74));
-    box-shadow: var(--glass-shadow-deep);
-    backdrop-filter: var(--glass-blur-md);
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-panel-bg-strong);
+    box-shadow: var(--surface-shadow-deep);
+    -webkit-backdrop-filter: var(--surface-blur-strong);
+    backdrop-filter: var(--surface-blur-strong);
 }
 
 .qr-panel::before {
@@ -206,9 +205,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background:
-        linear-gradient(90deg, transparent, var(--white-alpha-05), transparent),
-        radial-gradient(circle at 92% 0%, var(--purple-alpha-15), transparent 36%);
+    background: var(--surface-panel-rim);
     opacity: 0.52;
     pointer-events: none;
 }
@@ -452,9 +449,9 @@
     align-items: start;
     margin-top: var(--space-md);
     padding: 14px;
-    border: 1px solid rgba(var(--accent-purple-rgb), 0.25);
-    border-radius: var(--border-radius-sm);
-    background: var(--purple-alpha-10);
+    border: var(--surface-note-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-note-bg);
 }
 
 .qr-preset-strip {
@@ -529,8 +526,8 @@
     min-height: 380px;
     place-items: center;
     padding: var(--space-md);
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
     background:
         radial-gradient(circle at 50% 40%, var(--blue-alpha-10), transparent 42%),
         linear-gradient(180deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.2));
@@ -581,10 +578,10 @@
     gap: 5px;
     min-height: 70px;
     align-content: center;
-    padding: 10px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background: var(--white-alpha-03);
+    padding: var(--info-tile-padding);
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-bg);
 }
 
 .qr-output-meta span {
@@ -628,11 +625,9 @@
     align-items: center;
     margin-top: 8px;
     padding: 12px 18px;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background:
-        linear-gradient(90deg, var(--white-alpha-05), transparent),
-        linear-gradient(180deg, rgba(8, 12, 20, 0.72), rgba(3, 5, 8, 0.66));
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-band-bg);
 }
 
 .qr-info-band .section-tag {
@@ -666,13 +661,12 @@
 .qr-upgrade-band {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background:
-        linear-gradient(135deg, var(--blue-alpha-10), transparent 36%),
-        linear-gradient(180deg, rgba(9, 12, 20, 0.72), rgba(3, 5, 8, 0.7));
-    box-shadow: var(--glass-shadow-soft);
-    backdrop-filter: var(--glass-blur-sm);
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-panel-bg);
+    box-shadow: var(--surface-shadow);
+    -webkit-backdrop-filter: var(--surface-blur);
+    backdrop-filter: var(--surface-blur);
 }
 
 .qr-education-card {
@@ -717,9 +711,9 @@
 
 .qr-faq-item {
     overflow: hidden;
-    border: 1px solid var(--glass-border-light);
-    border-radius: var(--border-radius-sm);
-    background: var(--white-alpha-03);
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-bg);
     transition:
         border-color 220ms ease,
         background 220ms ease;

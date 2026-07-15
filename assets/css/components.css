@@ -775,6 +775,58 @@ body.is-loading {
     z-index: var(--z-base);
 }
 
+/* --- REUSABLE SECONDARY SURFACES --- */
+.bh-surface,
+.bh-panel,
+.bh-info-tile,
+.bh-cta-band {
+    position: relative;
+    border: var(--surface-border);
+    border-radius: var(--surface-radius);
+    background: var(--surface-bg);
+}
+
+.bh-panel,
+.bh-cta-band {
+    overflow: hidden;
+    background: var(--surface-panel-bg);
+    box-shadow: var(--surface-shadow);
+    -webkit-backdrop-filter: var(--surface-blur);
+    backdrop-filter: var(--surface-blur);
+}
+
+.bh-panel--strong {
+    background: var(--surface-panel-bg-strong);
+    box-shadow: var(--surface-shadow-deep);
+    -webkit-backdrop-filter: var(--surface-blur-strong);
+    backdrop-filter: var(--surface-blur-strong);
+}
+
+.bh-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--surface-panel-rim);
+    opacity: 0.52;
+    pointer-events: none;
+}
+
+.bh-panel > *,
+.bh-cta-band > * {
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.bh-info-tile {
+    min-height: var(--info-tile-min-height);
+    padding: var(--info-tile-padding);
+}
+
+.bh-cta-band {
+    background: var(--surface-band-bg);
+}
+
 /* --- SERVICES CARDS --- */
 .glass-card {
     padding: var(--space-xxl) var(--space-lg);

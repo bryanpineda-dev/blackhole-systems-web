@@ -483,8 +483,9 @@ body.project-modal-open {
 .project-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: var(--black-alpha-80);
-    backdrop-filter: blur(10px);
+    background: var(--surface-modal-backdrop-bg);
+    -webkit-backdrop-filter: var(--surface-modal-backdrop-blur);
+    backdrop-filter: var(--surface-modal-backdrop-blur);
 }
 
 .project-modal-panel {
@@ -497,16 +498,10 @@ body.project-modal-open {
     grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
     grid-template-rows: minmax(0, 1fr);
     overflow: hidden;
-    border: 1px solid var(--blue-alpha-20);
+    border: var(--surface-border-blue);
     border-radius: var(--border-radius-md);
-    background:
-        radial-gradient(circle at 100% 0%, var(--purple-alpha-15), transparent 34%),
-        radial-gradient(circle at 0% 0%, var(--blue-alpha-15), transparent 38%),
-        var(--bg-panel);
-    box-shadow:
-        0 30px 90px var(--black-alpha-80),
-        0 0 40px var(--blue-alpha-15),
-        0 0 52px var(--purple-alpha-10);
+    background: var(--surface-modal-bg);
+    box-shadow: var(--surface-modal-shadow);
     transform: translateY(14px) scale(0.98);
     transition: transform 0.28s var(--motion-ease-smooth);
 }
@@ -538,7 +533,7 @@ body.project-modal-open {
     min-height: 0;
     height: 100%;
     background: var(--bg-screen);
-    border-right: 1px solid var(--white-alpha-10);
+    border-right: var(--surface-border-strong);
 }
 
 .modal-screen-placeholder {
@@ -622,8 +617,8 @@ body.project-modal-open {
     display: grid;
     gap: 0;
     margin-bottom: var(--space-md);
-    border-top: 1px solid var(--white-alpha-08);
-    border-bottom: 1px solid var(--white-alpha-08);
+    border-top: var(--surface-border);
+    border-bottom: var(--surface-border);
 }
 
 .project-modal-meta-item {
@@ -633,7 +628,7 @@ body.project-modal-open {
     gap: var(--space-sm);
     align-items: center;
     padding: 13px 0;
-    border-bottom: 1px solid var(--white-alpha-05);
+    border-bottom: var(--surface-border-muted);
 }
 
 .project-modal-meta-item:last-child {
@@ -646,7 +641,7 @@ body.project-modal-open {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--blue-alpha-20);
+    border: var(--surface-border-blue);
     border-radius: var(--border-radius-circle);
     background:
         radial-gradient(circle at 70% 20%, var(--purple-alpha-15), transparent 60%),

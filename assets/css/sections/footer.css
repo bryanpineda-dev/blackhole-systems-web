@@ -44,9 +44,9 @@
     gap: var(--space-xl);
     align-items: center;
     padding: clamp(28px, 4vw, 48px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: var(--surface-border);
     border-radius: var(--border-radius-md);
-    background: #030508;
+    background: var(--surface-bg-quiet);
     background-image: none;
     box-shadow: none;
     filter: none;

@@ -100,6 +100,49 @@
     --glass-shadow-mid: 3px 3px 3px rgba(0, 0, 0, 0.7);
     --glass-shadow-deep: 0 20px 50px -10px var(--black-alpha-50);
 
+    /* --- REUSABLE SURFACES --- */
+    --surface-border: 1px solid var(--glass-border-light);
+    --surface-border-muted: 1px solid var(--white-alpha-05);
+    --surface-border-strong: 1px solid var(--white-alpha-10);
+    --surface-border-blue: 1px solid var(--blue-alpha-20);
+    --surface-radius: var(--border-radius-sm);
+    --surface-radius-lg: var(--border-radius-xl);
+    --surface-bg: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
+    --surface-bg-soft: linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
+    --surface-bg-quiet: #030508;
+    --surface-panel-bg:
+        linear-gradient(135deg, var(--blue-alpha-10), transparent 36%),
+        linear-gradient(180deg, rgba(9, 12, 20, 0.72), rgba(3, 5, 8, 0.7));
+    --surface-panel-bg-strong:
+        linear-gradient(135deg, var(--blue-alpha-10), transparent 36%),
+        linear-gradient(180deg, rgba(9, 12, 20, 0.76), rgba(3, 5, 8, 0.74));
+    --surface-panel-rim:
+        linear-gradient(90deg, transparent, var(--white-alpha-05), transparent),
+        radial-gradient(circle at 92% 0%, var(--purple-alpha-15), transparent 36%);
+    --surface-band-bg:
+        linear-gradient(90deg, var(--white-alpha-05), transparent),
+        linear-gradient(180deg, rgba(8, 12, 20, 0.72), rgba(3, 5, 8, 0.66));
+    --surface-note-border: 1px solid var(--purple-alpha-25);
+    --surface-note-bg: var(--purple-alpha-10);
+    --surface-shadow: var(--glass-shadow-soft);
+    --surface-shadow-deep: var(--glass-shadow-deep);
+    --surface-blur: var(--glass-blur-sm);
+    --surface-blur-strong: var(--glass-blur-md);
+    --surface-modal-backdrop-bg: var(--black-alpha-80);
+    --surface-modal-backdrop-blur: blur(10px);
+    --surface-modal-bg:
+        radial-gradient(circle at 100% 0%, var(--purple-alpha-15), transparent 34%),
+        radial-gradient(circle at 0% 0%, var(--blue-alpha-15), transparent 38%),
+        var(--bg-panel);
+    --surface-modal-shadow:
+        0 30px 90px var(--black-alpha-80),
+        0 0 40px var(--blue-alpha-15),
+        0 0 52px var(--purple-alpha-10);
+    --surface-padding: var(--space-md);
+    --surface-padding-lg: var(--space-lg);
+    --info-tile-min-height: 70px;
+    --info-tile-padding: 10px;
+
     /* --- REUSABLE INTERACTION TOKENS --- */
     --btn-glass-height: 50px;
     --btn-glass-min-width: 160px;
