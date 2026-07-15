@@ -246,21 +246,17 @@
     margin-bottom: 0;
 }
 
-.review-rating > span {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--text-muted);
-}
-
 .review-rating {
     padding-top: var(--space-sm);
 }
 
-.review-rating > span {
-    font-family: var(--font-code);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+.review-rating > .bh-mono-label {
+    --mono-label-color: var(--text-muted);
+    --mono-label-font-size: 0.68rem;
+    --mono-label-letter-spacing: 0.08em;
+
+    display: block;
+    margin-bottom: 6px;
 }
 
 .review-feature-list {
@@ -537,20 +533,13 @@
 }
 
 .launch-panel-label,
-.form-header span {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--mono-label-color, var(--text-muted));
-    font-family: var(--font-code);
-    font-size: var(--mono-label-font-size, 0.68rem);
-    letter-spacing: var(--mono-label-letter-spacing, 0.08em);
-    text-transform: uppercase;
-}
-
-.launch-panel-label {
+.form-header .bh-mono-label {
     --mono-label-color: var(--text-muted);
     --mono-label-font-size: 0.68rem;
     --mono-label-letter-spacing: 0.08em;
+
+    display: block;
+    margin-bottom: 6px;
 }
 
 .launch-process-list {

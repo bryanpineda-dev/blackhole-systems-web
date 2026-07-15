@@ -596,31 +596,19 @@ body.project-modal-open {
 }
 
 .project-modal-kicker {
-    --kicker-font-size: 0.72rem;
-    --kicker-letter-spacing: 1px;
-
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: var(--space-sm);
-    color: var(--text-muted);
-    font-family: var(--font-code);
-    font-size: var(--kicker-font-size);
-    letter-spacing: var(--kicker-letter-spacing);
 }
 
-.project-modal-kicker span {
+.project-modal-kicker .bh-chip {
     --chip-min-height: 28px;
     --chip-padding: 0 10px;
     --chip-border: 1px solid var(--white-alpha-08);
     --chip-bg: var(--white-alpha-03);
-
-    display: inline-flex;
-    min-height: var(--chip-min-height);
-    align-items: center;
-    padding: var(--chip-padding);
-    border: var(--chip-border);
-    background: var(--chip-bg);
+    --chip-font-size: 0.72rem;
+    --chip-letter-spacing: 1px;
 }
 
 .project-modal-kicker .success { color: var(--accent-green); }

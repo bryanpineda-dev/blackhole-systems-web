@@ -43,7 +43,7 @@
             setText(modalFields.status, project.status);
 
             if (modalFields.status) {
-                modalFields.status.className = project.statusType;
+                modalFields.status.className = `bh-chip ${project.statusType || ''}`.trim();
             }
 
             setText(modalFields.title, project.name);

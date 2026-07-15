@@ -117,25 +117,15 @@
 }
 
 .assistant-status {
-    --kicker-font-size: 0.68rem;
+    --status-pill-color: var(--text-muted);
+    --status-pill-font-size: 0.68rem;
+    --status-pill-gap: 7px;
+    --status-dot-size: 6px;
+    --status-dot-color: var(--accent-green);
+    --status-dot-shadow: 0 0 10px var(--accent-green);
 
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
     margin-top: 4px;
-    color: var(--text-muted);
-    font-family: var(--font-code);
-    font-size: var(--kicker-font-size);
     text-transform: uppercase;
-}
-
-.assistant-status::before {
-    content: '';
-    width: var(--assistant-status-dot-size, 6px);
-    height: var(--assistant-status-dot-size, 6px);
-    border-radius: var(--border-radius-circle);
-    background: var(--accent-green);
-    box-shadow: 0 0 10px var(--accent-green);
 }
 
 .assistant-close {
