@@ -641,6 +641,50 @@ body.is-loading {
     box-shadow: var(--status-dot-shadow);
 }
 
+/* --- BRAND ICON ORBS --- */
+.bh-icon-orb,
+.bullet-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-orb-size);
+    height: var(--icon-orb-size);
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    border: var(--icon-orb-border);
+    border-radius: var(--icon-orb-radius);
+    background: var(--icon-orb-bg);
+    color: var(--icon-orb-color);
+    box-shadow: var(--icon-orb-shadow);
+    font-size: var(--icon-orb-font-size);
+    line-height: 1;
+    transition: var(--icon-orb-transition);
+    z-index: 1;
+}
+
+.bh-icon-orb i,
+.bullet-icon i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.bh-icon-orb--sm {
+    --icon-orb-size: 40px;
+    --icon-orb-font-size: 1.25rem;
+}
+
+.bh-icon-orb--lg {
+    --icon-orb-size: 50px;
+    --icon-orb-font-size: 1.55rem;
+}
+
 /* --- BACKGROUND ORBS --- */
 .ambient-orb {
     position: absolute; filter: blur(70px); z-index: 0; opacity: 0.10; pointer-events: none;

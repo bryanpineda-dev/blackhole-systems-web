@@ -279,9 +279,8 @@
 }
 
 .review-feature-list .bullet-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.25rem;
+    --icon-orb-size: 40px;
+    --icon-orb-font-size: 1.25rem;
 }
 
 .review-feature-list strong {

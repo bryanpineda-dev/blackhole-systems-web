@@ -215,6 +215,27 @@
     --icon-button-hover-transform: translateY(-2px);
     --icon-button-hover-shadow: none;
 
+    --icon-orb-size: 44px;
+    --icon-orb-font-size: 1.45rem;
+    --icon-orb-bg:
+        radial-gradient(circle at 50% 0%, var(--blue-alpha-20), transparent 68%),
+        var(--panel-alpha-50);
+    --icon-orb-border: 1px solid var(--blue-alpha-20);
+    --icon-orb-radius: var(--border-radius-circle);
+    --icon-orb-color: var(--primary-blue);
+    --icon-orb-shadow:
+        inset 0 0 14px var(--blue-alpha-10),
+        0 0 18px var(--blue-alpha-05);
+    --icon-orb-transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+    --icon-orb-hover-border: var(--blue-alpha-50);
+    --icon-orb-hover-shadow:
+        inset 0 0 18px var(--blue-alpha-20),
+        0 0 24px var(--blue-alpha-15);
+    --icon-orb-hover-transform: translateY(-1px);
+
     --tool-control-min-height: 46px;
     --tool-control-gap: 8px;
     --tool-control-padding: 0 14px;
