@@ -324,10 +324,19 @@ body.is-loading {
     text-align: center;
 }
 
+.bh-section-header--center > .section-tag,
+.bh-section-header--center > .bh-kicker {
+    justify-self: center;
+}
+
 .bh-section-copy {
     max-width: var(--section-header-copy-max-width);
     color: var(--text-muted);
     line-height: var(--copy-muted-line-height);
+}
+
+.bh-section-header--center > .bh-section-copy {
+    margin-inline: auto;
 }
 
 .bh-panel-header {
@@ -576,7 +585,8 @@ body.is-loading {
    3.4 UI CARDS & MODULES & ORBS
    -------------------------------------------------------------------------- */
 
-/* --- BADGES & HALOS --- */
+/* --- STATUS PILLS & HALOS --- */
+.bh-status-pill,
 .pulse-kicker {
     display: inline-flex; 
     align-items: center; 
@@ -592,16 +602,17 @@ body.is-loading {
     font-size: var(--status-pill-font-size);
     letter-spacing: var(--status-pill-letter-spacing);
     font-weight: 700; 
-    margin-bottom: var(--space-sm); 
+    margin-bottom: var(--status-pill-margin-bottom);
     box-shadow: 0 0 0px var(--white-alpha-50);
 }
 
+.bh-status-dot,
 .status-dot { 
     width: var(--status-dot-size); height: var(--status-dot-size);
     background: var(--status-dot-color);
     border-radius: var(--border-radius-circle); 
     box-shadow: var(--status-dot-shadow);
-    animation: blink 1s infinite; 
+    animation: var(--status-dot-animation);
 }
 
 /* --- BRAND CHIPS --- */

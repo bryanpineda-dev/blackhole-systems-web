@@ -222,9 +222,11 @@
     --status-pill-color: var(--primary-white);
     --status-pill-font-size: 0.8rem;
     --status-pill-letter-spacing: normal;
+    --status-pill-margin-bottom: var(--space-sm);
     --status-dot-size: 5px;
     --status-dot-color: var(--primary-blue);
     --status-dot-shadow: 0 0 10px var(--primary-blue);
+    --status-dot-animation: blink 1s infinite;
 
     --chip-min-height: 30px;
     --chip-gap: 8px;
@@ -235,6 +237,14 @@
     --chip-border: 1px solid var(--white-alpha-08);
     --chip-bg: linear-gradient(180deg, var(--white-alpha-03), var(--white-alpha-01));
     --chip-color: var(--text-muted);
+
+    --tech-tag-padding: 5px 9px;
+    --tech-tag-radius: var(--border-radius-micro);
+    --tech-tag-font-size: 0.72rem;
+    --tech-tag-letter-spacing: 0;
+    --tech-tag-border: 1px solid var(--purple-alpha-25);
+    --tech-tag-bg: var(--purple-alpha-10);
+    --tech-tag-color: var(--primary-white);
 
     --form-label-color: var(--text-muted);
     --form-label-font: var(--font-display);
