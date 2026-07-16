@@ -146,6 +146,11 @@
     /* --- REUSABLE LAYOUT PRIMITIVES --- */
     --layout-stack-gap: var(--space-md);
     --layout-list-gap: var(--space-sm);
+    --layout-grid-gap: var(--space-md);
+    --layout-grid-columns: repeat(2, minmax(0, 1fr));
+    --layout-grid-min: 240px;
+    --layout-meta-columns: 3;
+    --layout-meta-gap: 10px;
     --layout-actions-gap: var(--space-sm);
     --layout-actions-align: center;
     --layout-actions-justify: flex-start;

@@ -833,6 +833,34 @@ body.is-loading {
     gap: var(--layout-stack-gap);
 }
 
+.bh-grid,
+.bh-auto-grid,
+.bh-meta-grid {
+    display: grid;
+    gap: var(--layout-grid-gap);
+}
+
+.bh-grid {
+    grid-template-columns: var(--layout-grid-columns);
+}
+
+.bh-grid--2 {
+    --layout-grid-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bh-grid--3 {
+    --layout-grid-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bh-auto-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--layout-grid-min)), 1fr));
+}
+
+.bh-meta-grid {
+    grid-template-columns: repeat(var(--layout-meta-columns), minmax(0, 1fr));
+    gap: var(--layout-meta-gap);
+}
+
 .bh-list-grid {
     display: grid;
     gap: var(--layout-list-gap);
