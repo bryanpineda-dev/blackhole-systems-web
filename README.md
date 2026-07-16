@@ -26,7 +26,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 
 ### Blackhole QR Studio
 
-`/tools/blackhole-qr-studio/`
+`/tools/blackhole-qr/`
 
 Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
 
@@ -74,7 +74,7 @@ blackhole-web-v1/
 │       ├── modules/
 │       └── tools/
 └── tools/
-    └── blackhole-qr-studio/
+    └── blackhole-qr/
 ```
 
 ## Local Preview
@@ -94,7 +94,7 @@ http://127.0.0.1:5500
 QR Studio:
 
 ```text
-http://127.0.0.1:5500/tools/blackhole-qr-studio/
+http://127.0.0.1:5500/tools/blackhole-qr/
 ```
 
 ## Performance Notes

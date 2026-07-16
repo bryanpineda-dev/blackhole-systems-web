@@ -11,6 +11,7 @@
         const formStatus = document.querySelector('[data-form-status]');
         const newsletterForm = document.querySelector('[data-newsletter-form]');
         const newsletterSubmit = document.querySelector('[data-newsletter-submit]');
+        const newsletterStatus = document.querySelector('[data-newsletter-status]');
 
         if (submitBtn && form) {
             const originalContent = submitBtn.innerHTML;
@@ -131,14 +132,29 @@
                 }
 
                 const originalContent = newsletterSubmit.innerHTML;
+                const email = new FormData(newsletterForm).get('newsletterEmail') || '';
+                const recipient = newsletterForm.dataset.newsletterRecipient || 'info@blackholesys.com';
+                const subject = encodeURIComponent('Signal Log subscription');
+                const body = encodeURIComponent(`Please add this email to the Blackhole Systems Signal Log: ${email}`);
 
                 newsletterSubmit.classList.add('is-success');
-                newsletterSubmit.innerHTML = '<i class="ri-check-double-line"></i> SUBSCRIBED';
+                newsletterSubmit.innerHTML = '<i class="ri-mail-send-line"></i> OPENING MAIL';
+                window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+                if (newsletterStatus) {
+                    newsletterStatus.textContent = 'Your email client should open to confirm the subscription request.';
+                    newsletterStatus.dataset.status = 'success';
+                }
+
                 newsletterForm.reset();
 
                 setTimeout(() => {
                     newsletterSubmit.classList.remove(...newsletterStateClasses);
                     newsletterSubmit.innerHTML = originalContent;
+                    if (newsletterStatus) {
+                        newsletterStatus.textContent = '';
+                        newsletterStatus.dataset.status = '';
+                    }
                 }, 2800);
             });
         }

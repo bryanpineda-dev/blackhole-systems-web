@@ -40,7 +40,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20260707-footer-neutral">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260716-preprod">
     <script defer src="https://kit.fontawesome.com/c86704639a.js" crossorigin="anonymous"></script>
     <noscript>
         <style>
@@ -1223,7 +1223,7 @@
                     <h2 id="footer-newsletter-title">Join the Signal Log</h2>
                     <p>Receive build notes, project insights, launch updates, and digital system ideas from Blackhole Systems.</p>
                 </div>
-                <form class="footer-newsletter-form" data-newsletter-form aria-label="Subscribe to Blackhole Systems updates">
+                <form class="footer-newsletter-form" data-newsletter-form data-newsletter-recipient="info@blackholesys.com" aria-label="Subscribe to Blackhole Systems updates">
                     <label class="sr-only" for="newsletterEmail">Email address</label>
                     <input type="email" id="newsletterEmail" name="newsletterEmail" autocomplete="email" placeholder="name@domain.com" required>
                     <div class="container-btn footer-newsletter-action">
@@ -1231,6 +1231,7 @@
                             <button type="submit" data-newsletter-submit>Subscribe</button>
                         </div>
                     </div>
+                    <p class="footer-newsletter-status" data-newsletter-status role="status" aria-live="polite"></p>
                 </form>
             </section>
         </div>
@@ -1252,10 +1253,10 @@
             <nav class="footer-nav footer-explore" aria-label="Future Blackhole pages">
                 <span class="bh-mono-label footer-label">Explore</span>
                 <a href="tools/blackhole-qr/index.html">QR Studio</a>
-                <a href="#">Blog</a>
-                <a href="#">Store</a>
-                <a href="#">Partnerships</a>
-                <a href="#">FAQs</a>
+                <span class="footer-link-disabled">Blog</span>
+                <span class="footer-link-disabled">Store</span>
+                <span class="footer-link-disabled">Partnerships</span>
+                <span class="footer-link-disabled">FAQs</span>
             </nav>
 
             <nav class="footer-nav footer-builds" aria-label="Build categories">
