@@ -104,6 +104,10 @@
     will-change: transform;
 }
 
+.tech-coins-wrapper.is-coins-paused .tech-coins-track {
+    animation-play-state: paused;
+}
+
 .glass-coin { 
     background: var(--white-alpha-01); 
     border: 1px solid var(--glass-border-light); 

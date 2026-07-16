@@ -776,14 +776,19 @@ body.is-loading {
     line-height: 1;
 }
 
+.bh-icon-orb--xs {
+    --icon-orb-size: var(--icon-orb-size-xs);
+    --icon-orb-font-size: var(--icon-orb-font-size-xs);
+}
+
 .bh-icon-orb--sm {
-    --icon-orb-size: 40px;
-    --icon-orb-font-size: 1.25rem;
+    --icon-orb-size: var(--icon-orb-size-sm);
+    --icon-orb-font-size: var(--icon-orb-font-size-sm);
 }
 
 .bh-icon-orb--lg {
-    --icon-orb-size: 50px;
-    --icon-orb-font-size: 1.55rem;
+    --icon-orb-size: var(--icon-orb-size-lg);
+    --icon-orb-font-size: var(--icon-orb-font-size-lg);
 }
 
 /* --- BACKGROUND ORBS --- */

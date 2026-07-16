@@ -125,6 +125,40 @@
         document.addEventListener('visibilitychange', syncOrbitState);
     };
 
+    BH.initTechCoinsObserver = function initTechCoinsObserver() {
+        const coinsWrapper = document.querySelector('.tech-coins-wrapper');
+        if (!coinsWrapper) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            coinsWrapper.classList.add('is-coins-paused');
+            return;
+        }
+
+        if (!('IntersectionObserver' in window)) return;
+
+        let isInView = false;
+
+        const syncCoinsState = () => {
+            coinsWrapper.classList.toggle('is-coins-paused', document.hidden || !isInView);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (!entry) return;
+
+            isInView = entry.isIntersecting;
+            syncCoinsState();
+        }, {
+            threshold: 0.01,
+            rootMargin: '140px 0px'
+        });
+
+        observer.observe(coinsWrapper);
+        document.addEventListener('visibilitychange', syncCoinsState);
+    };
+
     BH.initTelemetry = function initTelemetry() {
         const counters = document.querySelectorAll('.counter-value');
         if (!counters.length) return;

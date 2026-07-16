@@ -12,6 +12,7 @@
         'initPageLoader',
         'initScrollReveal',
         'initAboutOrbitObserver',
+        'initTechCoinsObserver',
         'initTelemetry',
         'initProjectFilter',
         'initReviewsSlider',
