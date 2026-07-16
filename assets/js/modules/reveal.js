@@ -159,6 +159,43 @@
         document.addEventListener('visibilitychange', syncCoinsState);
     };
 
+    BH.initWorkflowCodeScanObserver = function initWorkflowCodeScanObserver() {
+        const codeStage = document.querySelector('#mission .code-ecosystem');
+        if (!codeStage) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            codeStage.classList.remove('is-code-scan-active');
+            return;
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            codeStage.classList.add('is-code-scan-active');
+            return;
+        }
+
+        let isInView = false;
+
+        const syncCodeScanState = () => {
+            codeStage.classList.toggle('is-code-scan-active', !document.hidden && isInView);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (!entry) return;
+
+            isInView = entry.isIntersecting;
+            syncCodeScanState();
+        }, {
+            threshold: 0.01,
+            rootMargin: '160px 0px'
+        });
+
+        observer.observe(codeStage);
+        document.addEventListener('visibilitychange', syncCodeScanState);
+    };
+
     BH.initTelemetry = function initTelemetry() {
         const counters = document.querySelectorAll('.counter-value');
         if (!counters.length) return;

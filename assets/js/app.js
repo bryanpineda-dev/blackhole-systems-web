@@ -13,6 +13,7 @@
         'initScrollReveal',
         'initAboutOrbitObserver',
         'initTechCoinsObserver',
+        'initWorkflowCodeScanObserver',
         'initTelemetry',
         'initProjectFilter',
         'initReviewsSlider',
