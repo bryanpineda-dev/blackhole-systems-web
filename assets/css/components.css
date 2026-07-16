@@ -827,6 +827,36 @@ body.is-loading {
     background: var(--surface-band-bg);
 }
 
+/* --- REUSABLE LAYOUT PRIMITIVES --- */
+.bh-stack {
+    display: grid;
+    gap: var(--layout-stack-gap);
+}
+
+.bh-list-grid {
+    display: grid;
+    gap: var(--layout-list-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.bh-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: var(--layout-actions-align);
+    justify-content: var(--layout-actions-justify);
+    gap: var(--layout-actions-gap);
+}
+
+.bh-icon-row {
+    display: grid;
+    grid-template-columns: var(--layout-icon-row-size) minmax(0, 1fr);
+    gap: var(--layout-icon-row-gap);
+    align-items: var(--layout-icon-row-align);
+    min-width: 0;
+}
+
 /* --- SERVICES CARDS --- */
 .glass-card {
     padding: var(--space-xxl) var(--space-lg);

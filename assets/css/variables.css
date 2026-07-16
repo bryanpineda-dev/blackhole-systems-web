@@ -143,6 +143,16 @@
     --info-tile-min-height: 70px;
     --info-tile-padding: 10px;
 
+    /* --- REUSABLE LAYOUT PRIMITIVES --- */
+    --layout-stack-gap: var(--space-md);
+    --layout-list-gap: var(--space-sm);
+    --layout-actions-gap: var(--space-sm);
+    --layout-actions-align: center;
+    --layout-actions-justify: flex-start;
+    --layout-icon-row-size: 42px;
+    --layout-icon-row-gap: var(--space-sm);
+    --layout-icon-row-align: start;
+
     /* --- REUSABLE INTERACTION TOKENS --- */
     --btn-glass-height: 50px;
     --btn-glass-min-width: 160px;
