@@ -51,7 +51,8 @@
     BH.initHeaderMobileNav = function initHeaderMobileNav() {
         const header = document.querySelector('.site-header');
         const toggle = document.querySelector('.mobile-nav-toggle');
-        const navLinks = document.querySelectorAll('.main-nav-list a');
+        const mobileMenu = document.getElementById('mobile-command-menu');
+        const navLinks = document.querySelectorAll('.main-nav-list a, .mobile-command-menu a');
 
         if (!header || !toggle) return;
 
@@ -60,6 +61,7 @@
             document.body.classList.remove('nav-open');
             toggle.setAttribute('aria-expanded', 'false');
             toggle.setAttribute('aria-label', 'Open navigation menu');
+            if (mobileMenu) mobileMenu.setAttribute('aria-hidden', 'true');
         };
 
         const openMenu = () => {
@@ -67,6 +69,7 @@
             document.body.classList.add('nav-open');
             toggle.setAttribute('aria-expanded', 'true');
             toggle.setAttribute('aria-label', 'Close navigation menu');
+            if (mobileMenu) mobileMenu.setAttribute('aria-hidden', 'false');
         };
 
         toggle.addEventListener('click', () => {
@@ -80,6 +83,12 @@
         navLinks.forEach((link) => {
             link.addEventListener('click', closeMenu);
         });
+
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', (event) => {
+                if (event.target === mobileMenu) closeMenu();
+            });
+        }
 
         window.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') closeMenu();

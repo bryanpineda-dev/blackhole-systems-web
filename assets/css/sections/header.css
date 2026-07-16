@@ -141,6 +141,10 @@
     justify-content: flex-end; 
 }
 
+.mobile-command-menu {
+    display: none;
+}
+
 .mobile-nav-toggle {
     --icon-button-size: 46px;
     --icon-button-bg: var(--void-alpha-65);
