@@ -22,8 +22,10 @@ build/
 .env
 .env.*
 
-# Local-only unused media kept outside the first public repository snapshot
+# Legacy media exports kept out of the production site
 assets/images/bh.webm
 assets/images/blackhole.webm
+assets/images/planet1.jpg
+assets/images/planet2.jpg
 assets/images/planet3.png
 assets/images/planet4.png
