@@ -158,6 +158,16 @@
     --layout-icon-row-gap: var(--space-sm);
     --layout-icon-row-align: start;
 
+    /* --- REUSABLE HEADER BLOCKS --- */
+    --section-header-max-width: 760px;
+    --section-header-gap: var(--space-sm);
+    --section-header-copy-max-width: 780px;
+    --panel-header-gap: var(--space-xs);
+    --panel-header-margin-bottom: var(--space-md);
+    --panel-title-font-size: 1.65rem;
+    --panel-title-line-height: 1.08;
+    --panel-copy-max-width: 700px;
+
     /* --- REUSABLE INTERACTION TOKENS --- */
     --btn-glass-height: 50px;
     --btn-glass-min-width: 160px;
