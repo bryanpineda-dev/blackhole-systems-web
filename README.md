@@ -11,7 +11,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 ## Features
 
 - Responsive landing page
-- Cinematic hero section with optimized video assets
+- Cinematic WebGPU/Three.js blackhole hero with static image fallback
 - Modular section-based CSS architecture
 - Custom cursor and page loader
 - Scroll reveal motion system
@@ -51,6 +51,7 @@ Static QR codes are generated locally in the browser. They do not expire artific
 - HTML5
 - CSS3 with modular imports
 - Vanilla JavaScript modules
+- Local Three.js/WebGPU vendor files for the blackhole hero
 - Remix Icons and Font Awesome icons
 
 ## Project Structure
@@ -69,6 +70,7 @@ blackhole-web-v1/
 │   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
+│   ├── vendor/
 │   └── js/
 │       ├── app.js
 │       ├── modules/
@@ -99,10 +101,15 @@ http://127.0.0.1:5500/tools/blackhole-qr/
 
 ## Performance Notes
 
+- The hero uses a local Three.js/WebGPU renderer with a static fallback image for unsupported browsers.
 - About section planet textures use WebP versions for lighter animation cost.
 - Orbital movement keeps the original front/back timing while using compositor-friendly translation.
 - About orbit animation pauses when the section is outside the viewport or the tab is hidden.
 - Motion-heavy sections include reduced-motion fallbacks where applicable.
+
+## Local Lab
+
+Experimental prototypes live in `prototypes/` and are intentionally kept local while ideas are being tested.
 
 ## Deployment Roadmap
 

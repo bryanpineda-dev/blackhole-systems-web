@@ -18,6 +18,9 @@ dist/
 build/
 .cache/
 
+# Local prototype lab
+prototypes/
+
 # Local environment files
 .env
 .env.*
