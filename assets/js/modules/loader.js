@@ -12,12 +12,14 @@
         const startedAt = performance.now();
         const minimumDuration = 850;
         const maximumDuration = 2200;
+        const exitDuration = 850;
         let hasFinished = false;
 
         const removeLoader = () => {
             window.setTimeout(() => {
+                document.body.classList.remove('is-loading');
                 loader.remove();
-            }, 700);
+            }, exitDuration);
         };
 
         const hideLoader = () => {
@@ -29,7 +31,6 @@
 
             window.setTimeout(() => {
                 loader.classList.add('is-hiding');
-                document.body.classList.remove('is-loading');
                 removeLoader();
             }, remaining);
         };

@@ -91,19 +91,45 @@
     }
 }
 
-@keyframes loaderOrbit {
-    0% { transform: rotate(0deg) scale(1); border-top-color: var(--primary-white); }
-    100% { transform: rotate(360deg) scale(1); border-top-color: var(--primary-white); }
+@keyframes loaderParticleOrbit {
+    0% {
+        opacity: 0.46;
+        transform:
+            rotate(var(--loader-particle-angle, 0deg))
+            translateX(var(--loader-particle-radius, 44px))
+            rotate(calc(var(--loader-particle-angle, 0deg) * -1))
+            scale(0.88);
+    }
+
+    28%,
+    62% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+        transform:
+            rotate(calc(var(--loader-particle-angle, 0deg) + 360deg))
+            translateX(var(--loader-particle-radius, 44px))
+            rotate(calc((var(--loader-particle-angle, 0deg) + 360deg) * -1))
+            scale(1);
+    }
 }
 
-@keyframes loaderMarkOrbit {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+@keyframes loaderSignalSweep {
+    0% {
+        opacity: 0;
+        transform: translateX(-120%);
+    }
 
-@keyframes loaderBar {
-    0% { transform: translateX(-100%); }
-    70%, 100% { transform: translateX(100%); }
+    26% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(265%);
+    }
 }
 
 @keyframes typing {
