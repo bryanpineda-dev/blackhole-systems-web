@@ -21,14 +21,45 @@
     top: 0; left: 0; 
     width: 100%; height: 100%; 
     z-index: 0; 
+    isolation: isolate;
 }
 
-.hero-video { 
+.hero-video,
+.hero-fallback-image,
+.hero-blackhole-stage { 
     position: absolute; 
     top: 0; left: 0; 
     width: 100%; height: 100%; 
-    object-fit: cover; 
     z-index: 0; 
+}
+
+.hero-video,
+.hero-fallback-image {
+    object-fit: cover;
+    transition: opacity var(--transition-slow);
+}
+
+.hero-blackhole-stage {
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.hero-blackhole-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-section.is-webgpu-ready .hero-blackhole-stage {
+    opacity: 1;
+}
+
+.hero-section.is-webgpu-ready .hero-fallback-image,
+.hero-section.is-webgpu-ready .hero-video,
+.hero-section.is-webgpu-ready .star-field {
+    opacity: 0;
 }
 
 .video-overlay { 

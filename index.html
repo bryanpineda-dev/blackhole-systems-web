@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/images/favicon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="preload" href="assets/images/blackhole-hero-poster.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/images/blackhole-fallback.png" as="image" fetchpriority="high">
     <link rel="preload" href="assets/images/logo_bhws_w.png" as="image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,10 +191,8 @@
         <section id="hero" class="hero-section">
             
             <div class="hero-backdrop">
-                <video autoplay muted loop playsinline class="hero-video" poster="assets/images/blackhole-hero-poster.jpg">
-                    <source src="assets/images/blackhole-hero-optimized.mp4" type="video/mp4">
-                    <source src="assets/images/blackhole-hero-optimized.webm" type="video/webm">
-                </video>
+                <img class="hero-fallback-image" src="assets/images/blackhole-fallback.png" alt="" width="1365" height="768" fetchpriority="high" decoding="async">
+                <div class="hero-blackhole-stage" data-hero-blackhole aria-hidden="true"></div>
                 <div class="video-overlay" aria-hidden="true"></div>
                 <div class="star-field" id="star-field" data-star-field data-star-count="70" data-star-viewport="true" aria-hidden="true"></div>
             </div>
@@ -1411,6 +1409,17 @@
     <script src="assets/js/modules/reviews-slider.js" defer></script>
     <script src="assets/js/modules/floating-assistant.js" defer></script>
     <script src="assets/js/modules/cursor.js" defer></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./assets/vendor/three/build/three.webgpu.min.js",
+                "three/webgpu": "./assets/vendor/three/build/three.webgpu.min.js",
+                "three/tsl": "./assets/vendor/three/build/three.tsl.min.js",
+                "three/addons/": "./assets/vendor/three/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="assets/js/modules/hero-blackhole.js"></script>
     <script src="assets/js/app.js" defer></script>
     <script type="application/ld+json">
         {
