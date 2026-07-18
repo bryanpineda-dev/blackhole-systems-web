@@ -24,7 +24,6 @@
     isolation: isolate;
 }
 
-.hero-video,
 .hero-fallback-image,
 .hero-blackhole-stage { 
     position: absolute; 
@@ -33,7 +32,6 @@
     z-index: 0; 
 }
 
-.hero-video,
 .hero-fallback-image {
     object-fit: cover;
     transition: opacity var(--transition-slow);
@@ -57,7 +55,6 @@
 }
 
 .hero-section.is-webgpu-ready .hero-fallback-image,
-.hero-section.is-webgpu-ready .hero-video,
 .hero-section.is-webgpu-ready .star-field {
     opacity: 0;
 }

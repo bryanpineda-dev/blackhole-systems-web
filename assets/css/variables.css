@@ -357,6 +357,7 @@
     --motion-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
     --motion-duration-reveal: 760ms;
     --motion-duration-fast: 360ms;
+    --transition-slow: 900ms var(--motion-ease-smooth);
     --motion-distance-sm: 16px;
     --motion-distance-md: 28px;
     --motion-blur-soft: 6px;
