@@ -181,6 +181,9 @@
     --btn-glass-bg: var(--void-alpha-65);
     --btn-glass-blur: var(--glass-blur-lg);
     --btn-glass-border: 1px solid var(--glass-border-ultra-light);
+    --btn-glass-rim: var(--gradient-glass-rim);
+    --btn-glass-rim-width: 1px;
+    --btn-glass-rim-transition: opacity 0.3s ease;
     --btn-glass-shadow: var(--glass-shadow-mid);
     --btn-glass-color: var(--white-alpha-50);
     --btn-glass-font-size: 14px;

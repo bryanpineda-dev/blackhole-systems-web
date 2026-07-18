@@ -565,13 +565,14 @@ body.is-loading {
 
 /* Glass Button Rim Light */
 .container-btn .btn-glass a::after,
-.container-btn .btn-glass button::after {
+.container-btn .btn-glass button::after,
+.btn-morph::after {
     content: '';
     position: absolute;
     inset: 0; 
     border-radius: inherit;
-    padding: 1px;
-    background: var(--btn-glass-rim, var(--gradient-glass-rim));
+    padding: var(--btn-glass-rim-width);
+    background: var(--btn-glass-rim);
     -webkit-mask: 
         linear-gradient(var(--primary-white) 0 0) content-box, 
         linear-gradient(var(--primary-white) 0 0);
@@ -579,7 +580,7 @@ body.is-loading {
     mask-composite: exclude;
     pointer-events: none;
     z-index: var(--z-above);
-    transition: opacity 0.3s ease;
+    transition: var(--btn-glass-rim-transition);
 }
 
 /* Glass Button Sweep Animation */

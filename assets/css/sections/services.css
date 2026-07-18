@@ -233,21 +233,6 @@
     transform: translateY(1px);
 }
 
-.capability-card .btn-morph::after{
-    content: '';
-    position: absolute;
-    inset: 0; 
-    border-radius: inherit;
-    padding: 1px;
-    background: var(--btn-glass-rim, var(--gradient-glass-rim));
-    -webkit-mask: 
-        linear-gradient(var(--primary-white) 0 0) content-box, 
-        linear-gradient(var(--primary-white) 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
 .capability-card:hover .btn-text {
     opacity: 1;
     transition-delay: 0.5s; /* Waits for the button expansion to start. */
