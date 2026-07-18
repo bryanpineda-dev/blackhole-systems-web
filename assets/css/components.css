@@ -545,7 +545,7 @@ body.is-loading {
     display: flex; 
     justify-content: center; 
     align-items: center;
-    background: transparent; 
+    background: var(--btn-glass-bg); 
     -webkit-backdrop-filter: var(--btn-glass-blur);
     backdrop-filter: var(--btn-glass-blur);
     border: var(--btn-glass-border);
@@ -598,15 +598,6 @@ body.is-loading {
 .container-btn .btn-glass:hover a::before,
 .container-btn .btn-glass:hover button::before {
     transform: skewX(45deg) translate(200%); 
-}
-
-.container-btn .btn-glass::before { 
-    transition: 2000ms; 
-}
-
-.btn-glass:hover { 
-    background: transparent; 
-    transition: all 0.2s; 
 }
 
 /* Glass Button Hover State */

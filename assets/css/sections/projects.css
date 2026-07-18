@@ -131,7 +131,10 @@
     font-size: 0.82rem;
     color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
     display: grid;
     grid-template-columns: 38px minmax(0, 1fr);
     align-items: center;
@@ -262,7 +265,10 @@
     border-radius: var(--border-radius-tech);
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
 
 .dossier-card[hidden] {
@@ -438,7 +444,11 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     border-radius: var(--border-radius-micro);
-    transition: all 0.3s ease;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
     cursor: none; /* Respects the custom cursor engine. */
 }
 
@@ -543,6 +553,7 @@ body.project-modal-open {
     top: 16px;
     right: 16px;
     z-index: var(--z-content);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
     backdrop-filter: var(--glass-blur-sm);
 }
 

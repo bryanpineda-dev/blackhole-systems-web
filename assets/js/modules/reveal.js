@@ -8,6 +8,8 @@
     BH.initScrollReveal = function initScrollReveal() {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const revealQueue = new Map();
+        const pendingHeroReveals = new Set();
+        let isLoaderComplete = !document.body.classList.contains('is-loading') || !document.getElementById('page-loader');
         const revealGroups = [
             { selector: '#hero .status-badge', preset: 'fade-down', delay: 80 },
             { selector: '#hero .hero-title', preset: 'fade-up', delay: 160 },
@@ -58,9 +60,24 @@
 
         if (!elements.length) return;
 
+        const revealElement = (element) => {
+            element.classList.add('reveal-active', 'is-revealed');
+
+            const tag = element.querySelector('.section-tag');
+            if (tag) {
+                tag.classList.add('reveal-active', 'is-revealed');
+            }
+        };
+
+        document.addEventListener('blackhole:loader-complete', () => {
+            isLoaderComplete = true;
+            pendingHeroReveals.forEach(revealElement);
+            pendingHeroReveals.clear();
+        }, { once: true });
+
         if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             elements.forEach((element) => {
-                element.classList.add('reveal-active', 'is-revealed');
+                revealElement(element);
             });
             return;
         }
@@ -69,13 +86,13 @@
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
 
-                entry.target.classList.add('reveal-active', 'is-revealed');
-
-                const tag = entry.target.querySelector('.section-tag');
-                if (tag) {
-                    tag.classList.add('reveal-active', 'is-revealed');
+                if (entry.target.closest('#hero') && !isLoaderComplete) {
+                    pendingHeroReveals.add(entry.target);
+                    observer.unobserve(entry.target);
+                    return;
                 }
 
+                revealElement(entry.target);
                 observer.unobserve(entry.target);
             });
         }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });

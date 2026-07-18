@@ -75,8 +75,11 @@
     --black-alpha-50: rgba(0, 0, 0, 0.5);
     --black-alpha-80: rgba(0, 0, 0, 0.8);
     --black-alpha-100: rgba(0, 0, 0, 1);
-    
+
     --void-alpha-20: rgba(2, 3, 5, 0.2);
+    --void-alpha-35: rgba(2, 3, 5, 0.35);
+    --void-alpha-45: rgba(2, 3, 5, 0.45);
+    --void-alpha-50: rgba(2, 3, 5, 0.5);
     --void-alpha-60: rgba(2, 3, 5, 0.6);
     --void-alpha-65: rgba(2, 3, 5, 0.65);
     
@@ -175,13 +178,20 @@
     --btn-glass-content-padding: 0 var(--space-md);
     --btn-glass-margin-top: var(--space-lg);
     --btn-glass-radius: var(--border-radius-pill);
-    --btn-glass-blur: var(--glass-blur-md);
+    --btn-glass-bg: var(--void-alpha-65);
+    --btn-glass-blur: var(--glass-blur-lg);
     --btn-glass-border: 1px solid var(--glass-border-ultra-light);
     --btn-glass-shadow: var(--glass-shadow-mid);
     --btn-glass-color: var(--white-alpha-50);
     --btn-glass-font-size: 14px;
     --btn-glass-letter-spacing: 1px;
-    --btn-glass-transition: all 0.3s ease;
+    --btn-glass-transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease,
+        text-shadow 0.3s ease,
+        transform 0.3s ease;
     --btn-glass-sweep-width: 50%;
     --btn-glass-sweep-bg: linear-gradient(to left, var(--white-alpha-10), transparent);
     --btn-glass-sweep-transition: 0.6s;
@@ -193,9 +203,13 @@
     --btn-morph-size: 46px;
     --btn-morph-icon-size: 44px;
     --btn-morph-expanded-width: 180px;
+    --btn-morph-bg: var(--white-alpha-05);
+    --btn-morph-active-bg: var(--btn-glass-bg);
     --btn-morph-transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                             background 0.3s ease,
-                            border-color 0.3s ease;
+                            border-color 0.3s ease,
+                            box-shadow 0.3s ease,
+                            transform 0.3s ease;
 
     --kicker-color: var(--primary-blue);
     --kicker-font-size: 0.9rem;

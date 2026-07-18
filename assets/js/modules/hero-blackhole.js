@@ -32,6 +32,11 @@ import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 
 const HERO_SELECTOR = '[data-hero-blackhole]';
 const THREE_DPR_CAP = 1.35;
+const CAMERA_PROFILES = [
+    { maxWidth: 520, position: [0, -1.85, -24.5], target: [0, 0, 0] },
+    { maxWidth: 820, position: [0, -1.9, -21.5], target: [0, 0, 0] },
+    { maxWidth: Infinity, position: [0, -2, -18], target: [0, 0, 0] }
+];
 
 const config = {
     blackHoleMass: 0.4,
@@ -84,6 +89,10 @@ const getStageSize = (stage) => {
         width: Math.max(1, Math.round(rect.width || window.innerWidth)),
         height: Math.max(1, Math.round(rect.height || window.innerHeight))
     };
+};
+
+const getCameraProfile = (width) => {
+    return CAMERA_PROFILES.find((profile) => width <= profile.maxWidth) || CAMERA_PROFILES[CAMERA_PROFILES.length - 1];
 };
 
 const createBlackholeRenderer = async (stage, onReady) => {
@@ -367,8 +376,14 @@ const createBlackholeRenderer = async (stage, onReady) => {
     scene.background = new THREE.Color(0x000000);
 
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-    camera.position.set(0, -2, -18);
-    camera.lookAt(0, 0, 0);
+
+    const applyCameraProfile = (stageWidth) => {
+        const profile = getCameraProfile(stageWidth);
+        camera.position.set(...profile.position);
+        camera.lookAt(...profile.target);
+    };
+
+    applyCameraProfile(width);
 
     const renderer = new THREE.WebGPURenderer({ antialias: false, alpha: false });
     renderer.setSize(width, height);
@@ -438,6 +453,7 @@ const createBlackholeRenderer = async (stage, onReady) => {
 
     const resize = () => {
         const nextSize = getStageSize(stage);
+        applyCameraProfile(nextSize.width);
         camera.aspect = nextSize.width / nextSize.height;
         camera.updateProjectionMatrix();
         renderer.setSize(nextSize.width, nextSize.height);

@@ -34,6 +34,7 @@
         0 22px 70px rgba(0, 0, 0, 0.62),
         0 0 42px var(--blue-alpha-15),
         inset 0 1px 0 var(--white-alpha-08);
+    -webkit-backdrop-filter: var(--glass-blur-lg);
     backdrop-filter: var(--glass-blur-lg);
     opacity: 0;
     visibility: hidden;

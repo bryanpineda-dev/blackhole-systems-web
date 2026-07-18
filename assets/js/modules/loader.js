@@ -19,6 +19,7 @@
             window.setTimeout(() => {
                 document.body.classList.remove('is-loading');
                 loader.remove();
+                document.dispatchEvent(new CustomEvent('blackhole:loader-complete'));
             }, exitDuration);
         };
 

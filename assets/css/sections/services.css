@@ -178,7 +178,7 @@
     align-items: center;
     width: var(--btn-morph-size); /* Starts at icon-only width. */
     height: var(--btn-morph-size);
-    background: var(--white-alpha-05);
+    background: var(--btn-morph-bg);
     -webkit-backdrop-filter: var(--btn-glass-blur);
     backdrop-filter: var(--btn-glass-blur);
     border: var(--btn-glass-border);
@@ -216,7 +216,7 @@
 /* Card hover expands the inner action button. */
 .capability-card:hover .btn-morph {
     width: var(--btn-morph-expanded-width); /* Wide enough for the label. */
-    background: transparent; 
+    background: var(--btn-morph-active-bg); 
     -webkit-backdrop-filter: var(--btn-glass-blur);
     backdrop-filter: var(--btn-glass-blur);
     border: var(--btn-glass-border);
