@@ -12,6 +12,8 @@
     --bg-deep: #010101;
     --bg-command: #040609;
     --bg-screen: #0a0e17;
+    --bg-blue-deep: #071a40;
+    --bg-slate-deep: #111827;
     
     /* --- BRAND COLORS --- */
     --primary-blue-rgb: 0, 98, 255;
@@ -27,6 +29,7 @@
     --accent-amber-rgb: 251, 191, 36;
     --accent-error: #ff5d6c;
     --accent-error-rgb: 255, 93, 108;
+    --accent-error-soft: #fecaca;
     
     --text-main: #FFFFFF;
     --text-muted: #94a3b8;
@@ -72,7 +75,11 @@
     --white-alpha-70: rgba(255, 255, 255, 0.7);
     --white-alpha-80: rgba(255, 255, 255, 0.8);
     
+    --black-alpha-18: rgba(0, 0, 0, 0.18);
+    --black-alpha-36: rgba(0, 0, 0, 0.36);
+    --black-alpha-45: rgba(0, 0, 0, 0.45);
     --black-alpha-50: rgba(0, 0, 0, 0.5);
+    --black-alpha-62: rgba(0, 0, 0, 0.62);
     --black-alpha-80: rgba(0, 0, 0, 0.8);
     --black-alpha-100: rgba(0, 0, 0, 1);
 
@@ -106,6 +113,8 @@
     --glass-shadow-soft: none;
     --glass-shadow-mid: 3px 3px 3px rgba(0, 0, 0, 0.7);
     --glass-shadow-deep: 0 20px 50px -10px var(--black-alpha-50);
+    --shadow-floating-control: 0 14px 32px var(--black-alpha-45);
+    --shadow-preview-card: 0 20px 48px var(--black-alpha-36);
 
     /* --- REUSABLE SURFACES --- */
     --surface-border: 1px solid var(--glass-border-light);
@@ -295,6 +304,7 @@
     --form-status-font-size: 0.9rem;
     --form-success-color: var(--accent-green);
     --form-error-color: #ff9aa5;
+    --form-error-soft-color: var(--accent-error-soft);
 
     --icon-button-size: 44px;
     --icon-button-border: 1px solid var(--glass-border-light);
@@ -359,11 +369,45 @@
     --tool-control-hover-bg: var(--blue-alpha-10);
     --tool-control-hover-color: var(--primary-white);
 
+    /* --- FLOATING ASSISTANT TOKENS --- */
+    --assistant-panel-bg:
+        radial-gradient(circle at 100% 0%, var(--blue-alpha-20), transparent 36%),
+        linear-gradient(180deg, rgba(6, 10, 18, 0.96), rgba(2, 3, 5, 0.98));
+    --assistant-panel-shadow:
+        0 22px 70px var(--black-alpha-62),
+        0 0 42px var(--blue-alpha-15),
+        inset 0 1px 0 var(--white-alpha-08);
+    --assistant-form-bg: var(--black-alpha-18);
+    --assistant-floating-shadow:
+        var(--shadow-floating-control),
+        inset 0 1px 0 var(--white-alpha-10);
+    --assistant-bot-bg:
+        radial-gradient(circle at 50% 18%, var(--blue-alpha-50), transparent 58%),
+        linear-gradient(180deg, var(--bg-blue-deep), var(--bg-screen));
+    --assistant-bot-shadow:
+        0 0 26px var(--blue-alpha-20),
+        var(--shadow-floating-control),
+        inset 0 0 18px var(--blue-alpha-10);
+    --assistant-bot-open-shadow:
+        0 0 34px var(--blue-alpha-50),
+        var(--shadow-floating-control),
+        inset 0 0 18px var(--blue-alpha-20);
+    --assistant-whatsapp-bg: linear-gradient(180deg, var(--bg-slate-deep), var(--primary-black));
+    --assistant-whatsapp-hover-shadow:
+        0 0 24px var(--white-alpha-20),
+        var(--shadow-floating-control);
+
     /* --- MOTION SYSTEM --- */
     --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --motion-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-duration-ui-fast: 200ms;
+    --motion-duration-ui: 220ms;
+    --motion-duration-panel: 240ms;
     --motion-duration-reveal: 760ms;
     --motion-duration-fast: 360ms;
+    --motion-transition-fast: var(--motion-duration-ui-fast) ease;
+    --motion-transition-control: var(--motion-duration-ui) ease;
+    --motion-transition-panel: var(--motion-duration-panel) ease;
     --transition-slow: 900ms var(--motion-ease-smooth);
     --motion-distance-sm: 16px;
     --motion-distance-md: 28px;

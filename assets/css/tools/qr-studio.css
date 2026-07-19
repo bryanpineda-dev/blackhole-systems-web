@@ -549,7 +549,7 @@
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius-sm);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.36);
+    box-shadow: var(--shadow-preview-card);
 }
 
 .qr-status {
@@ -561,7 +561,7 @@
 }
 
 .qr-status.is-error {
-    color: #fecaca;
+    color: var(--form-error-soft-color);
 }
 
 .qr-output-meta {

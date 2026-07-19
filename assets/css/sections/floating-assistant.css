@@ -27,13 +27,8 @@
     overflow: hidden;
     border: 1px solid var(--blue-alpha-20);
     border-radius: var(--border-radius-lg);
-    background:
-        radial-gradient(circle at 100% 0%, var(--blue-alpha-20), transparent 36%),
-        linear-gradient(180deg, rgba(6, 10, 18, 0.96), rgba(2, 3, 5, 0.98));
-    box-shadow:
-        0 22px 70px rgba(0, 0, 0, 0.62),
-        0 0 42px var(--blue-alpha-15),
-        inset 0 1px 0 var(--white-alpha-08);
+    background: var(--assistant-panel-bg);
+    box-shadow: var(--assistant-panel-shadow);
     -webkit-backdrop-filter: var(--glass-blur-lg);
     backdrop-filter: var(--glass-blur-lg);
     opacity: 0;
@@ -42,9 +37,9 @@
     transform-origin: bottom right;
     pointer-events: none;
     transition:
-        opacity 0.24s ease,
-        visibility 0.24s ease,
-        transform 0.24s var(--motion-ease-smooth);
+        opacity var(--motion-transition-panel),
+        visibility var(--motion-transition-panel),
+        transform var(--motion-duration-panel) var(--motion-ease-smooth);
 }
 
 .floating-assistant.is-open .floating-assistant-panel {
@@ -268,7 +263,7 @@
     gap: 10px;
     padding: 16px 18px 18px;
     border-top: 1px solid var(--white-alpha-08);
-    background: rgba(0, 0, 0, 0.18);
+    background: var(--assistant-form-bg);
 }
 
 .assistant-form input {
@@ -312,8 +307,8 @@
     --icon-button-hover-transform: translateY(-1px);
     --icon-button-hover-shadow: 0 0 28px var(--blue-alpha-50);
     --icon-button-transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform var(--motion-transition-fast),
+        box-shadow var(--motion-transition-fast);
 }
 
 .assistant-floating-actions {
@@ -335,14 +330,12 @@
     border: 1px solid var(--white-alpha-08);
     border-radius: var(--icon-button-radius);
     color: var(--primary-white);
-    box-shadow:
-        0 14px 32px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 var(--white-alpha-10);
+    box-shadow: var(--assistant-floating-shadow);
     overflow: hidden;
     transition:
-        transform 0.22s var(--motion-ease-smooth),
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
+        transform var(--motion-duration-ui) var(--motion-ease-smooth),
+        border-color var(--motion-transition-control),
+        box-shadow var(--motion-transition-control);
 }
 
 .assistant-floating-btn::before {
@@ -367,35 +360,25 @@
 }
 
 .assistant-bot-toggle {
-    background:
-        radial-gradient(circle at 50% 18%, var(--blue-alpha-50), transparent 58%),
-        linear-gradient(180deg, #071a40, var(--bg-screen));
+    background: var(--assistant-bot-bg);
     border-color: var(--blue-alpha-50);
-    box-shadow:
-        0 0 26px var(--blue-alpha-20),
-        0 14px 32px rgba(0, 0, 0, 0.45),
-        inset 0 0 18px var(--blue-alpha-10);
+    box-shadow: var(--assistant-bot-shadow);
 }
 
 .floating-assistant.is-open .assistant-bot-toggle {
     border-color: var(--primary-blue);
-    box-shadow:
-        0 0 34px var(--blue-alpha-50),
-        0 14px 32px rgba(0, 0, 0, 0.45),
-        inset 0 0 18px var(--blue-alpha-20);
+    box-shadow: var(--assistant-bot-open-shadow);
 }
 
 .assistant-whatsapp {
-    background: linear-gradient(180deg, #111827, #000000);
+    background: var(--assistant-whatsapp-bg);
     border-color: var(--white-alpha-15);
 }
 
 .assistant-whatsapp:hover,
 .assistant-whatsapp:focus-visible {
     border-color: var(--primary-white);
-    box-shadow:
-        0 0 24px var(--white-alpha-20),
-        0 14px 32px rgba(0, 0, 0, 0.45);
+    box-shadow: var(--assistant-whatsapp-hover-shadow);
 }
 
 @keyframes assistantPulse {
