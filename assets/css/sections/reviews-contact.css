@@ -693,19 +693,9 @@
 }
 
 .form-status {
-    min-height: 1.4rem;
-    margin: 14px 0 0;
-    color: var(--form-status-color);
-    font-size: var(--form-status-font-size);
+    --form-status-margin: 14px 0 0;
+
     text-align: center;
-}
-
-.form-status[data-status="success"] {
-    color: var(--form-success-color);
-}
-
-.form-status[data-status="error"] {
-    color: var(--form-error-color);
 }
 
 @media (max-width: 1024px) {

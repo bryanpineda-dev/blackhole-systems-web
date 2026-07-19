@@ -215,16 +215,12 @@
 }
 
 .footer-newsletter-status {
-    grid-column: 1 / -1;
-    min-height: 1.2rem;
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    text-align: center;
-}
+    --form-status-min-height: 1.2rem;
+    --form-status-margin: 0;
+    --form-status-font-size: 0.82rem;
 
-.footer-newsletter-status[data-status="success"] {
-    color: var(--accent-green);
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
 .footer-contact i {

@@ -67,20 +67,13 @@
 }
 
 .status-indicator {
-    font-family: var(--font-code);
-    font-size: 0.7rem;
-    color: var(--accent-green);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.pulse {
-    width: 6px; height: 6px;
-    background: var(--accent-green);
-    border-radius: var(--border-radius-circle);
-    box-shadow: 0 0 8px var(--accent-green);
-    animation: blink 1.5s infinite;
+    --status-pill-color: var(--accent-green);
+    --status-pill-font-size: 0.7rem;
+    --status-pill-gap: 6px;
+    --status-dot-size: 6px;
+    --status-dot-color: var(--accent-green);
+    --status-dot-shadow: 0 0 8px var(--accent-green);
+    --status-dot-animation: blink 1.5s infinite;
 }
 
 /* Command base filters. */

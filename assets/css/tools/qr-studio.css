@@ -558,15 +558,12 @@
 }
 
 .qr-status {
+    --form-status-min-height: 24px;
+    --form-status-margin: var(--space-sm) 0;
+    --form-error-color: var(--form-error-soft-color);
+
     position: relative;
     z-index: var(--z-above);
-    min-height: 24px;
-    margin: var(--space-sm) 0;
-    color: var(--text-muted);
-}
-
-.qr-status.is-error {
-    color: var(--form-error-soft-color);
 }
 
 .qr-output-meta {

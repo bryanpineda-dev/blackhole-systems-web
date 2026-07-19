@@ -764,6 +764,25 @@ body.is-loading {
     border-radius: var(--border-radius-circle);
     background: var(--status-dot-color);
     box-shadow: var(--status-dot-shadow);
+    animation: var(--status-dot-animation);
+}
+
+.bh-form-status {
+    min-height: var(--form-status-min-height, 1.4rem);
+    margin: var(--form-status-margin, 0);
+    color: var(--form-status-color);
+    font-size: var(--form-status-font-size);
+    line-height: var(--form-status-line-height, 1.45);
+}
+
+.bh-form-status[data-status="success"],
+.bh-form-status.is-success {
+    color: var(--form-success-color);
+}
+
+.bh-form-status[data-status="error"],
+.bh-form-status.is-error {
+    color: var(--form-error-color);
 }
 
 /* --- ICON BUTTONS --- */

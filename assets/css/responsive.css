@@ -521,8 +521,9 @@
     }
 
     .status-indicator {
+        --status-pill-font-size: 0.66rem;
+
         flex-shrink: 0;
-        font-size: 0.66rem;
     }
 
     .command-filters {
