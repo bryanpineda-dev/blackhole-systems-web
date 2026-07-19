@@ -403,11 +403,18 @@
     --motion-duration-ui-fast: 200ms;
     --motion-duration-ui: 220ms;
     --motion-duration-panel: 240ms;
+    --motion-duration-toggle: 260ms;
+    --motion-duration-medium: 300ms;
+    --motion-duration-expand: 320ms;
+    --motion-duration-smooth: 400ms;
     --motion-duration-reveal: 760ms;
     --motion-duration-fast: 360ms;
     --motion-transition-fast: var(--motion-duration-ui-fast) ease;
     --motion-transition-control: var(--motion-duration-ui) ease;
     --motion-transition-panel: var(--motion-duration-panel) ease;
+    --motion-transition-toggle: var(--motion-duration-toggle) ease;
+    --motion-transition-medium: var(--motion-duration-medium) ease;
+    --motion-transition-smooth: var(--motion-duration-smooth) ease;
     --transition-slow: 900ms var(--motion-ease-smooth);
     --motion-distance-sm: 16px;
     --motion-distance-md: 28px;

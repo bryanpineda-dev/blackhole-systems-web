@@ -99,7 +99,10 @@
     border-radius: var(--border-radius-pill);
     color: var(--text-muted);
     font-size: 0.95rem;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition:
+        color var(--motion-transition-fast),
+        border-color var(--motion-transition-fast),
+        background var(--motion-transition-fast);
 }
 
 .qr-tool-nav > a:hover {
@@ -309,7 +312,9 @@
     --form-control-padding: 0 14px;
     --form-control-bg: linear-gradient(180deg, var(--white-alpha-05), var(--white-alpha-01));
     --form-control-font: 500 1rem var(--font-body);
-    --form-control-transition: border-color 0.2s ease, background 0.2s ease;
+    --form-control-transition:
+        border-color var(--motion-transition-fast),
+        background var(--motion-transition-fast);
     --form-control-focus-border: rgba(var(--primary-blue-rgb), 0.5);
     --form-control-focus-shadow: none;
 
@@ -715,8 +720,8 @@
     border-radius: var(--surface-radius);
     background: var(--surface-bg);
     transition:
-        border-color 220ms ease,
-        background 220ms ease;
+        border-color var(--motion-transition-control),
+        background var(--motion-transition-control);
 }
 
 .qr-faq-item.is-open {
@@ -739,7 +744,7 @@
     text-align: left;
     font: 700 1rem var(--font-body);
     cursor: pointer;
-    transition: color 220ms ease;
+    transition: color var(--motion-transition-control);
 }
 
 .qr-faq-trigger:hover {
@@ -756,9 +761,9 @@
     color: var(--primary-blue);
     background: var(--blue-alpha-10);
     transition:
-        transform 260ms ease,
-        background 220ms ease,
-        color 220ms ease;
+        transform var(--motion-transition-toggle),
+        background var(--motion-transition-control),
+        color var(--motion-transition-control);
 }
 
 .qr-faq-item.is-open .qr-faq-trigger i {
@@ -771,9 +776,9 @@
     opacity: 0;
     transform: translateY(-4px);
     transition:
-        max-height 320ms ease,
-        opacity 220ms ease,
-        transform 260ms ease;
+        max-height var(--motion-duration-expand) ease,
+        opacity var(--motion-transition-control),
+        transform var(--motion-transition-toggle);
 }
 
 .qr-faq-item.is-open .qr-faq-answer {

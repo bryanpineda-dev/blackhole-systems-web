@@ -11,8 +11,8 @@
     width: 100%; 
     z-index: var(--z-header); 
     transition:
-        opacity 0.4s ease,
-        transform 0.4s ease; 
+        opacity var(--motion-transition-smooth),
+        transform var(--motion-transition-smooth); 
     background: transparent; 
 }
 
@@ -55,7 +55,9 @@
     display: block;
     max-width: none;
     object-fit: contain;
-    transition: opacity 0.4s ease, transform 0.4s ease; 
+    transition:
+        opacity var(--motion-transition-smooth),
+        transform var(--motion-transition-smooth); 
 }
 
 .logo-full { width: auto; height: 45px; opacity: 1; transform: translateY(0); }
@@ -122,7 +124,7 @@
     color: var(--text-muted); 
     position: relative; 
     padding: 5px 0; 
-    transition: color 0.3s ease; 
+    transition: color var(--motion-transition-medium); 
 }
 
 .nav-link::after { 
@@ -131,7 +133,7 @@
     bottom: 0px; left: 50%; 
     width: 0; height: 2px; 
     background: var(--primary-white); 
-    transition: 0.3s ease; 
+    transition: width var(--motion-transition-medium); 
     transform: translateX(-50%); 
 }
 
@@ -177,7 +179,9 @@
     height: 1px;
     background: var(--primary-white);
     transform-origin: center;
-    transition: transform 0.26s var(--motion-ease-smooth), opacity 0.2s ease;
+    transition:
+        transform var(--motion-duration-toggle) var(--motion-ease-smooth),
+        opacity var(--motion-transition-fast);
 }
 
 .site-header.menu-open .mobile-nav-toggle span:nth-child(1) {

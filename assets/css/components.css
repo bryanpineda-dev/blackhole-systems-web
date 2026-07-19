@@ -40,7 +40,13 @@ html.has-custom-cursor .qr-preset-strip button {
     margin: -4px 0 0 -4px;
     opacity: 0;
     box-shadow: 0 0 12px var(--white-alpha-80), 0 0 20px var(--blue-alpha-20);
-    transition: opacity 0.2s ease, width 0.22s ease, height 0.22s ease, margin 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+    transition:
+        opacity var(--motion-transition-fast),
+        width var(--motion-transition-control),
+        height var(--motion-transition-control),
+        margin var(--motion-transition-control),
+        background-color var(--motion-transition-control),
+        box-shadow var(--motion-transition-control);
 }
 
 .cursor-ring {
@@ -54,7 +60,14 @@ html.has-custom-cursor .qr-preset-strip button {
     margin: -15px 0 0 -15px;
     opacity: 0;
     background: transparent;
-    transition: opacity 0.2s ease, width 0.24s ease, height 0.24s ease, margin 0.24s ease, background-color 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    transition:
+        opacity var(--motion-transition-fast),
+        width var(--motion-transition-panel),
+        height var(--motion-transition-panel),
+        margin var(--motion-transition-panel),
+        background-color var(--motion-transition-panel),
+        border-color var(--motion-transition-panel),
+        box-shadow var(--motion-transition-panel);
 }
 
 html.cursor-ready .cursor-dot,
@@ -727,7 +740,10 @@ body.is-loading {
 
 .bh-chip--button {
     cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition:
+        color var(--motion-transition-fast),
+        border-color var(--motion-transition-fast),
+        background var(--motion-transition-fast);
 }
 
 .bh-status-line {
@@ -870,7 +886,10 @@ body.is-loading {
     border-radius: var(--border-radius-xl);
     -webkit-backdrop-filter: var(--bh-glass-blur, var(--glass-blur-md));
     backdrop-filter: var(--bh-glass-blur, var(--glass-blur-md));
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    transition:
+        background var(--motion-transition-smooth),
+        border-color var(--motion-transition-smooth),
+        box-shadow var(--motion-transition-smooth);
 }
 
 .bh-glass::before {
