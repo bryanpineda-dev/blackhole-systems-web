@@ -5,6 +5,44 @@
 (function (BH) {
     'use strict';
 
+    const setStarFieldPaused = (container, shouldPause) => {
+        container.classList.toggle('is-star-field-paused', shouldPause);
+    };
+
+    const observeStarField = (container) => {
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let isInView = !('IntersectionObserver' in window);
+
+        const syncState = () => {
+            setStarFieldPaused(container, reducedMotionQuery.matches || document.hidden || !isInView);
+        };
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (!entry) return;
+
+                isInView = entry.isIntersecting;
+                syncState();
+            }, {
+                threshold: 0.01,
+                rootMargin: '140px 0px'
+            });
+
+            observer.observe(container);
+        }
+
+        document.addEventListener('visibilitychange', syncState);
+
+        if (typeof reducedMotionQuery.addEventListener === 'function') {
+            reducedMotionQuery.addEventListener('change', syncState);
+        } else if (typeof reducedMotionQuery.addListener === 'function') {
+            reducedMotionQuery.addListener(syncState);
+        }
+
+        syncState();
+    };
+
     const createStarField = (container) => {
         if (!container || container.dataset.starFieldReady === 'true') return;
 
@@ -39,6 +77,8 @@
 
             container.appendChild(star);
         }
+
+        observeStarField(container);
     };
 
     BH.initStarField = function initStarField() {

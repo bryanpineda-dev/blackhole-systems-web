@@ -86,6 +86,11 @@
     box-shadow: 0 0 4px var(--primary-white); 
 }
 
+.star-field.is-star-field-paused .star,
+.hero-section.is-webgpu-ready .star-field .star {
+    animation-play-state: paused;
+}
+
 .hero-content-wrapper { 
     position: relative; 
     z-index: var(--z-content); 
