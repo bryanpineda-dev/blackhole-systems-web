@@ -17,6 +17,16 @@
         if (element) element.innerHTML = value;
     }
 
+    function getStatusChipClass(statusType) {
+        const modifiers = {
+            success: 'bh-chip--green',
+            pending: 'bh-chip--amber',
+            private: ''
+        };
+
+        return ['bh-chip', modifiers[statusType] || ''].filter(Boolean).join(' ');
+    }
+
     namespace.mountProjectModal = function mountProjectModal(options) {
         const { modal, grid, projects } = options;
 
@@ -43,7 +53,7 @@
             setText(modalFields.status, project.status);
 
             if (modalFields.status) {
-                modalFields.status.className = `bh-chip ${project.statusType || ''}`.trim();
+                modalFields.status.className = getStatusChipClass(project.statusType);
             }
 
             setText(modalFields.title, project.name);

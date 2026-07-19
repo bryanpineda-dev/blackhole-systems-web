@@ -746,6 +746,23 @@ body.is-loading {
         background var(--motion-transition-fast);
 }
 
+.bh-tech-tag,
+.tech-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--tech-tag-padding);
+    border: var(--tech-tag-border);
+    border-radius: var(--tech-tag-radius);
+    background: var(--tech-tag-bg);
+    color: var(--tech-tag-color);
+    font-family: var(--font-code);
+    font-size: var(--tech-tag-font-size);
+    letter-spacing: var(--tech-tag-letter-spacing);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
 .bh-status-line {
     display: inline-flex;
     align-items: center;

@@ -387,22 +387,6 @@
     gap: var(--chip-gap, 8px);
 }
 
-.tech-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-code);
-    font-size: var(--tech-tag-font-size);
-    letter-spacing: var(--tech-tag-letter-spacing);
-    line-height: 1.1;
-    color: var(--tech-tag-color);
-    background: var(--tech-tag-bg);
-    border: var(--tech-tag-border);
-    padding: var(--tech-tag-padding);
-    border-radius: var(--tech-tag-radius);
-    white-space: nowrap;
-}
-
 /* Project card footer. */
 .dossier-footer{
     margin-top: auto; /* Pushes the actions to the bottom of the info column. */
@@ -610,10 +594,6 @@ body.project-modal-open {
     --chip-font-size: 0.72rem;
     --chip-letter-spacing: 1px;
 }
-
-.project-modal-kicker .success { color: var(--accent-green); }
-.project-modal-kicker .pending { color: var(--accent-amber); }
-.project-modal-kicker .private { color: var(--text-muted); }
 
 .project-modal-content h3 {
     margin: 0 0 var(--space-sm);
