@@ -91,8 +91,8 @@
         visibility: hidden;
         pointer-events: none;
         background: rgba(0, 0, 0, 0.45);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: var(--surface-modal-backdrop-blur);
+        backdrop-filter: var(--surface-modal-backdrop-blur);
         transition:
             opacity 260ms ease,
             visibility 260ms ease;
@@ -137,8 +137,8 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        padding: 1px;
-        background: var(--gradient-glass-rim);
+        padding: var(--glass-rim-width);
+        background: var(--glass-rim);
         -webkit-mask:
             linear-gradient(var(--primary-white) 0 0) content-box,
             linear-gradient(var(--primary-white) 0 0);

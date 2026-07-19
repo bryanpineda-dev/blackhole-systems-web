@@ -90,6 +90,10 @@
     /* --- GRADIENTS --- */
     --gradient-metallic: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 30%, #94A3B8 50%, #CBD5E1 70%, #475569 100%);
     --gradient-glass-rim: radial-gradient(circle at 50% 0%, var(--white-alpha-70) 0%, var(--white-alpha-10) 50%, transparent 100%);
+    --glass-rim: var(--gradient-glass-rim);
+    --glass-rim-width: 1px;
+    --glass-rim-width-subtle: 0.6px;
+    --glass-rim-transition: opacity 0.3s ease;
 
     /* --- GLASSMORPHISM ENGINE --- */
     --glass-blur-sm: blur(12px);
@@ -181,9 +185,9 @@
     --btn-glass-bg: var(--void-alpha-65);
     --btn-glass-blur: var(--glass-blur-lg);
     --btn-glass-border: 1px solid var(--glass-border-ultra-light);
-    --btn-glass-rim: var(--gradient-glass-rim);
-    --btn-glass-rim-width: 1px;
-    --btn-glass-rim-transition: opacity 0.3s ease;
+    --btn-glass-rim: var(--glass-rim);
+    --btn-glass-rim-width: var(--glass-rim-width);
+    --btn-glass-rim-transition: var(--glass-rim-transition);
     --btn-glass-shadow: var(--glass-shadow-mid);
     --btn-glass-color: var(--white-alpha-50);
     --btn-glass-font-size: 14px;

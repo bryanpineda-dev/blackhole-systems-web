@@ -92,8 +92,8 @@
     position: absolute;
     inset: 0; 
     border-radius: inherit;
-    padding: 0.6px;
-    background: var(--gradient-glass-rim);
+    padding: var(--glass-rim-width-subtle);
+    background: var(--glass-rim);
     -webkit-mask: 
         linear-gradient(var(--primary-white) 0 0) content-box, 
         linear-gradient(var(--primary-white) 0 0);
@@ -101,7 +101,7 @@
     mask-composite: exclude;
     pointer-events: none;
     z-index: var(--z-above);
-    transition: opacity 0.3s ease;
+    transition: var(--glass-rim-transition);
 }
 
 .main-nav-list { 

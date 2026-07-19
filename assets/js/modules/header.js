@@ -9,9 +9,19 @@
         const header = document.querySelector('.site-header');
         if (!header) return;
 
-        window.addEventListener('scroll', () => {
+        let scrollTicking = false;
+        const updateHeaderScroll = () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+            scrollTicking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(updateHeaderScroll);
+        }, { passive: true });
+
+        updateHeaderScroll();
     };
 
     BH.initHeaderZoneObserver = function initHeaderZoneObserver() {
