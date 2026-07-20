@@ -302,6 +302,7 @@
     --form-select-option-active-bg: var(--bg-command);
     --form-status-color: var(--text-muted);
     --form-status-font-size: 0.9rem;
+    --form-status-line-height: 1.45;
     --form-success-color: var(--accent-green);
     --form-error-color: #ff9aa5;
     --form-error-soft-color: var(--accent-error-soft);
