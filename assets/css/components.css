@@ -286,11 +286,14 @@ body.is-loading {
 .loader-signal {
     position: relative;
     width: min(290px, 70vw);
-    height: 1px;
+    height: 3px;
     margin-bottom: var(--space-sm);
     overflow: hidden;
-    background: linear-gradient(90deg, transparent, var(--white-alpha-08), transparent);
+    background: linear-gradient(90deg, transparent, var(--blue-alpha-15), var(--white-alpha-12), var(--blue-alpha-15), transparent);
     border-radius: var(--border-radius-pill);
+    box-shadow:
+        inset 0 0 0 1px var(--white-alpha-03),
+        0 0 18px var(--blue-alpha-10);
 }
 
 .loader-signal::before {
@@ -304,12 +307,15 @@ body.is-loading {
 
 .loader-signal span {
     display: block;
-    width: 38%;
+    width: 52%;
     height: 100%;
     background: linear-gradient(90deg, transparent, var(--primary-blue), var(--primary-white), var(--primary-blue), transparent);
-    transform: translateX(-120%);
-    animation: loaderSignalSweep 1.9s var(--motion-ease-smooth) infinite;
-    box-shadow: 0 0 18px var(--blue-alpha-50);
+    border-radius: inherit;
+    transform: translateX(-115%);
+    animation: loaderSignalSweep 1.55s var(--motion-ease-out) infinite;
+    box-shadow:
+        0 0 10px var(--blue-alpha-85),
+        0 0 22px var(--blue-alpha-50);
 }
 
 .loader-status {
@@ -674,6 +680,7 @@ body.is-loading {
     font-family: var(--font-code); 
     font-size: var(--status-pill-font-size);
     letter-spacing: var(--status-pill-letter-spacing);
+    line-height: var(--status-pill-line-height);
     font-weight: 700; 
     margin-bottom: var(--status-pill-margin-bottom);
     box-shadow: 0 0 0px var(--white-alpha-50);
@@ -681,11 +688,18 @@ body.is-loading {
 
 .bh-status-dot,
 .status-dot { 
+    display: block;
+    flex: 0 0 var(--status-dot-size);
     width: var(--status-dot-size); height: var(--status-dot-size);
     background: var(--status-dot-color);
     border-radius: var(--border-radius-circle); 
     box-shadow: var(--status-dot-shadow);
+    transform: translateY(var(--status-dot-offset-y));
     animation: var(--status-dot-animation);
+}
+
+.status-copy {
+    line-height: var(--status-pill-line-height);
 }
 
 /* --- BRAND CHIPS --- */
@@ -771,16 +785,20 @@ body.is-loading {
     font-family: var(--font-code);
     font-size: var(--status-pill-font-size);
     letter-spacing: var(--status-pill-letter-spacing);
+    line-height: var(--status-pill-line-height);
 }
 
 .bh-status-line::before {
     content: '';
+    display: block;
     flex: 0 0 var(--status-dot-size);
+    align-self: center;
     width: var(--status-dot-size);
     height: var(--status-dot-size);
     border-radius: var(--border-radius-circle);
     background: var(--status-dot-color);
     box-shadow: var(--status-dot-shadow);
+    transform: translateY(var(--status-dot-offset-y));
     animation: var(--status-dot-animation);
 }
 

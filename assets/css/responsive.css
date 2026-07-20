@@ -193,7 +193,7 @@
         flex: 0 0 var(--status-dot-size);
         align-self: center;
         margin: 0;
-        transform: none;
+        transform: translateY(var(--status-dot-offset-y));
     }
 
     .mobile-command-nav {

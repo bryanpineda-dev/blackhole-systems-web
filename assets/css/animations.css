@@ -118,17 +118,18 @@
 
 @keyframes loaderSignalSweep {
     0% {
-        opacity: 0;
-        transform: translateX(-120%);
+        opacity: 0.2;
+        transform: translateX(-115%) scaleX(0.65);
     }
 
-    26% {
+    30%,
+    68% {
         opacity: 1;
     }
 
     100% {
-        opacity: 0;
-        transform: translateX(265%);
+        opacity: 0.25;
+        transform: translateX(225%) scaleX(0.9);
     }
 }
 
