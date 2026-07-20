@@ -227,15 +227,27 @@
 }
 
 .assistant-quick-actions {
+    flex: 0 0 auto;
     display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     gap: 8px;
-    padding: 0 18px 14px;
+    min-height: 48px;
+    padding: 0 18px 10px;
     overflow-x: auto;
-    scrollbar-width: none;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue-alpha-50) transparent;
 }
 
 .assistant-quick-actions::-webkit-scrollbar {
-    display: none;
+    height: 4px;
+}
+
+.assistant-quick-actions::-webkit-scrollbar-thumb {
+    background: var(--blue-alpha-50);
+    border-radius: var(--border-radius-pill);
 }
 
 .assistant-chip {
@@ -258,6 +270,7 @@
 }
 
 .assistant-form {
+    flex: 0 0 auto;
     display: grid;
     grid-template-columns: 1fr 44px;
     gap: 10px;
