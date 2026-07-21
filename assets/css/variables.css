@@ -216,6 +216,14 @@
     --btn-glass-hover-shadow: 0 0 10px var(--white-alpha-60), inset 0 0 5px var(--white-alpha-20);
     --btn-glass-hover-text-shadow: 0 0 5px var(--primary-white);
 
+    --scan-sweep-duration: 2.8s;
+    --scan-sweep-ease: var(--motion-ease-out);
+    --scan-sweep-delay: 0s;
+    --scan-sweep-width: 38%;
+    --scan-sweep-bg: linear-gradient(90deg, transparent, var(--white-alpha-15), transparent);
+    --scan-sweep-skew: -18deg;
+    --scan-sweep-end-x: 560%;
+
     --btn-morph-size: 46px;
     --btn-morph-icon-size: 44px;
     --btn-morph-expanded-width: 180px;

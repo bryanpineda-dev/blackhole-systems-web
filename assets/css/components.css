@@ -664,6 +664,43 @@ body.is-loading {
     box-shadow: 0 0 15px var(--error-alpha-25);
 }
 
+/* --- REUSABLE SCAN SWEEP --- */
+.bh-scan-sweep {
+    position: relative;
+    overflow: hidden;
+}
+
+.bh-scan-sweep::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--scan-sweep-width) * -1 - 4%);
+    width: var(--scan-sweep-width);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: var(--scan-sweep-bg);
+    transform: translate3d(0, 0, 0) skewX(var(--scan-sweep-skew));
+}
+
+.is-scan-active .bh-scan-sweep::before,
+.is-code-scan-active .bh-scan-sweep::before,
+.bh-scan-sweep.is-scan-active::before {
+    animation: bhScanSweep var(--scan-sweep-duration) var(--scan-sweep-ease) infinite;
+    animation-delay: var(--scan-sweep-delay);
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .is-scan-active .bh-scan-sweep::before,
+    .is-code-scan-active .bh-scan-sweep::before,
+    .bh-scan-sweep.is-scan-active::before {
+        animation: none;
+        will-change: auto;
+    }
+}
+
 /* --------------------------------------------------------------------------
    3.4 UI CARDS & MODULES & ORBS
    -------------------------------------------------------------------------- */

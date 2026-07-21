@@ -181,22 +181,25 @@
 /* --------------------------------------------------------------------------
    4.3 ORGANIC & ETHEREAL MOVEMENT
    -------------------------------------------------------------------------- */
-@keyframes codeCardScan {
+@keyframes bhScanSweep {
     0% {
         opacity: 0;
-        transform: translate3d(-48%, 0, 0);
+        transform: translate3d(0, 0, 0) skewX(var(--scan-sweep-skew));
     }
-    7% {
-        opacity: 0.55;
+
+    8% {
+        opacity: 1;
     }
-    18% {
-        opacity: 0.5;
-        transform: translate3d(48%, 0, 0);
+
+    28% {
+        opacity: 0.85;
+        transform: translate3d(var(--scan-sweep-end-x), 0, 0) skewX(var(--scan-sweep-skew));
     }
-    24%,
+
+    32%,
     100% {
         opacity: 0;
-        transform: translate3d(48%, 0, 0);
+        transform: translate3d(var(--scan-sweep-end-x), 0, 0) skewX(var(--scan-sweep-skew));
     }
 }
 

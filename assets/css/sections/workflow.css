@@ -29,6 +29,10 @@
 
 /* Code Cards Instance Specifics */
 .code-card {
+    --scan-sweep-duration: 3s;
+    --scan-sweep-ease: cubic-bezier(0.45, 0, 0.25, 1);
+    --scan-sweep-delay: var(--code-card-scan-delay, 0s);
+
     position: absolute; 
     overflow: hidden;
     padding: var(--space-md);
@@ -40,30 +44,6 @@
     -webkit-backdrop-filter: var(--glass-blur-sm);
     backdrop-filter: var(--glass-blur-sm);
     transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-}
-
-.code-card::before {
-    content: '';
-    position: absolute;
-    inset: -45% -70%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    background:
-        linear-gradient(
-            115deg,
-            transparent 42%,
-            var(--white-alpha-05) 48%,
-            var(--white-alpha-80) 50%,
-            var(--blue-alpha-20) 53%,
-            transparent 60%
-        );
-    transform: translate3d(-48%, 0, 0);
-}
-
-.code-ecosystem.is-code-scan-active .code-card::before {
-    animation: codeCardScan 7.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
-    animation-delay: var(--code-card-scan-delay, 0s);
 }
 
 .card-header,
@@ -102,8 +82,8 @@
 .glowing-icon { font-size: 1.1rem; color: var(--primary-blue); animation: pulse-glow 2s infinite alternate; }
 
 .card-python { --code-card-scan-delay: 0s; top: 5%; left: 8%; width: 220px; border-left: 3px solid var(--primary-blue); z-index: 1; }
-.card-js { --code-card-scan-delay: 1.35s; top: 15%; left: 65%; width: 230px; border-left: 3px solid var(--primary-blue); z-index: 2; }
-.card-php { --code-card-scan-delay: 2.7s; top: 50%; left: 15%; width: 240px; border-left: 3px solid var(--primary-blue); z-index: 3; }
+.card-js { --code-card-scan-delay: 0.9s; top: 15%; left: 65%; width: 230px; border-left: 3px solid var(--primary-blue); z-index: 2; }
+.card-php { --code-card-scan-delay: 1.8s; top: 50%; left: 15%; width: 240px; border-left: 3px solid var(--primary-blue); z-index: 3; }
 
 /* --------------------------------------------------------------------------
    5.5 TECH COINS SLIDER
@@ -156,10 +136,6 @@
 .glass-coin:hover i, .glass-coin:hover svg { color: var(--primary-white); filter: drop-shadow(0 0 8px var(--white-alpha-80)); }
 
 @media (prefers-reduced-motion: reduce) {
-    .code-ecosystem.is-code-scan-active .code-card::before {
-        animation: none;
-    }
-
     .tech-coins-track {
         animation: none;
         transform: none;
