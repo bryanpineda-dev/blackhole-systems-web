@@ -148,6 +148,31 @@
     50% { opacity: 0.4; } 
 }
 
+@keyframes bhPacketStream {
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: translateY(0) scale(0.82);
+    }
+
+    45% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1);
+    }
+}
+
+@keyframes bhTelemetryPing {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.45);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.7);
+    }
+}
+
 /* --------------------------------------------------------------------------
    4.2 ORBITAL & PLANETARY PHYSICS
    -------------------------------------------------------------------------- */

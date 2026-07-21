@@ -189,11 +189,9 @@
     margin-bottom: var(--space-lg);
 }
 
-.signal-badge {
+.review-packet-pill {
     flex: 0 0 auto;
     margin-bottom: 0;
-    padding: 7px 12px;
-    font-size: 0.7rem;
 }
 
 .review-waveform {
@@ -784,7 +782,7 @@
         text-align: center;
     }
 
-    .signal-badge {
+    .review-packet-pill {
         order: 1;
         align-self: center;
     }

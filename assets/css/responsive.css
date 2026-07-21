@@ -406,14 +406,11 @@
         background: radial-gradient(circle, var(--void-alpha-50) 0%, var(--void-alpha-20) 48%, transparent 72%);
     }
 
-    .pulse-kicker {
+    .hero-signal-pill {
         width: fit-content;
         max-width: min(100%, 560px);
         justify-content: center;
-        gap: 10px;
         margin-inline: auto;
-        padding: 10px 18px;
-        line-height: var(--status-pill-line-height);
         text-align: center;
     }
 
@@ -697,9 +694,8 @@
         font-size: clamp(2.45rem, 12.4vw, 3.35rem);
     }
 
-    .pulse-kicker {
-        --status-pill-padding: 10px 14px;
-        --status-pill-font-size: 0.68rem;
+    .hero-signal-pill {
+        --signal-pill-font-size: 0.68rem;
         --status-pill-letter-spacing: 1px;
     }
 

@@ -116,6 +116,10 @@
     background: radial-gradient(circle, var(--void-alpha-50) 0%, var(--void-alpha-20) 44%, transparent 68%);
 }
 
+.hero-signal-pill {
+    margin-bottom: var(--status-pill-margin-bottom);
+}
+
 .hero-description { 
     font-size: 1.15rem; 
     color: var(--white-alpha-80);
