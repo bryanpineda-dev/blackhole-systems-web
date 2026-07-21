@@ -456,6 +456,10 @@ body.is-loading {
     text-transform: uppercase;
 }
 
+.bh-terminal-prefix {
+    color: var(--primary-white);
+}
+
 /* --- HUD TEXT BLOCKS --- */
 .hud-text-block, .hud-text-block-color {
     --hud-line-color: var(--glass-border-light);
