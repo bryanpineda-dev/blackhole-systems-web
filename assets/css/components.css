@@ -667,6 +667,8 @@ body.is-loading {
 /* --- STATUS PILLS & HALOS --- */
 .bh-status-pill,
 .pulse-kicker {
+    --status-dot-offset-y: var(--status-pill-dot-offset-y);
+
     display: inline-flex; 
     align-items: center; 
     gap: var(--status-pill-gap);

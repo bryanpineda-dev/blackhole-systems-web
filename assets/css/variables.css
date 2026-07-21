@@ -255,7 +255,8 @@
     --status-pill-line-height: 1;
     --status-pill-margin-bottom: var(--space-sm);
     --status-dot-size: 5px;
-    --status-dot-offset-y: -0.06em;
+    --status-dot-offset-y: -0.18em;
+    --status-pill-dot-offset-y: -0.02em;
     --status-dot-color: var(--primary-blue);
     --status-dot-shadow: 0 0 10px var(--primary-blue);
     --status-dot-animation: blink 1s infinite;
