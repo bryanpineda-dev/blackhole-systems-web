@@ -626,22 +626,6 @@
         font-size: 0.74rem;
     }
 
-    .footer-shell {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-
-    .footer-brand,
-    .footer-nav,
-    .footer-contact {
-        grid-column: auto;
-        grid-row: auto;
-    }
-
-    .footer-bottom {
-        align-items: flex-start;
-        flex-direction: column;
-    }
 }
 
 @media (max-width: 480px) {
@@ -777,11 +761,4 @@
         flex-wrap: wrap;
     }
 
-    .footer-contact a {
-        word-break: break-word;
-    }
-
-    .social-links {
-        flex-wrap: wrap;
-    }
 }

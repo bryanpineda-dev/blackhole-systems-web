@@ -26,6 +26,7 @@
         'initGridPulse',
         'initHeaderZoneObserver',
         'initFloatingAssistant',
+        'initFooterMeta',
         'initCustomCursor'
     ];
 
