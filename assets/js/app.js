@@ -27,6 +27,7 @@
         'initHeaderZoneObserver',
         'initFloatingAssistant',
         'initFooterMeta',
+        'initFooterSpectrumObserver',
         'initCustomCursor'
     ];
 

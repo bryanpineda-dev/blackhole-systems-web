@@ -16,4 +16,25 @@
             target.textContent = currentYear;
         });
     };
+
+    BH.initFooterSpectrumObserver = function initFooterSpectrumObserver() {
+        const footer = document.querySelector('.site-footer');
+
+        if (!footer) return;
+
+        if (!('IntersectionObserver' in window)) {
+            footer.classList.add('is-spectrum-visible');
+            return;
+        }
+
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                footer.classList.toggle('is-spectrum-visible', entry.isIntersecting);
+            });
+        }, {
+            threshold: 0.12
+        });
+
+        footerObserver.observe(footer);
+    };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

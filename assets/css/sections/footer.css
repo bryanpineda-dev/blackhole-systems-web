@@ -7,6 +7,7 @@
    -------------------------------------------------------------------------- */
 .site-footer {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     border-top: 1px solid var(--glass-border-light);
     background:
@@ -17,16 +18,40 @@
 }
 
 .site-footer::before {
+    --footer-spectrum-dot-size: 20px;
+    --footer-spectrum-noise-size: 256px;
+
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -16%;
+    z-index: var(--z-base);
     background:
-        linear-gradient(90deg, transparent, var(--white-alpha-03), transparent),
-        linear-gradient(rgba(var(--primary-blue-rgb), 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(var(--primary-blue-rgb), 0.045) 1px, transparent 1px);
-    background-size: 100% 100%, 58px 58px, 58px 58px;
-    opacity: 0.38;
+        conic-gradient(
+            from 180deg at 50% 70%,
+            rgba(255, 255, 255, 0.88) 0deg,
+            rgba(var(--primary-blue-rgb), 0.98) 72deg,
+            rgba(var(--accent-purple-rgb), 0.78) 144deg,
+            rgba(var(--primary-blue-rgb), 0.72) 216deg,
+            rgba(var(--accent-purple-rgb), 0.72) 288deg,
+            rgba(255, 255, 255, 0.88) 1turn
+        );
+    -webkit-mask:
+        radial-gradient(circle at 50% 50%, #fff 2px, transparent 2.5px) 50% 50% / var(--footer-spectrum-dot-size) var(--footer-spectrum-dot-size),
+        repeating-radial-gradient(circle at 44% 56%, #fff 0 1px, rgba(255, 255, 255, 0.68) 1px 2px, transparent 2px 7px) 256px 50% / var(--footer-spectrum-noise-size) var(--footer-spectrum-noise-size);
+    mask:
+        radial-gradient(circle at 50% 50%, #fff 2px, transparent 2.5px) 50% 50% / var(--footer-spectrum-dot-size) var(--footer-spectrum-dot-size),
+        repeating-radial-gradient(circle at 44% 56%, #fff 0 1px, rgba(255, 255, 255, 0.68) 1px 2px, transparent 2px 7px) 256px 50% / var(--footer-spectrum-noise-size) var(--footer-spectrum-noise-size);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    filter: saturate(1.08) contrast(1.05);
+    opacity: 0.3;
+    animation: footer-spectrum-flicker 20s linear infinite;
+    animation-play-state: paused;
     pointer-events: none;
+}
+
+.site-footer.is-spectrum-visible::before {
+    animation-play-state: running;
 }
 
 .footer-newsletter-shell,
@@ -261,6 +286,19 @@
         transform 260ms ease;
 }
 
+@keyframes footer-spectrum-flicker {
+    to {
+        -webkit-mask-position: 50% 50%, 0 50%;
+        mask-position: 50% 50%, 0 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer::before {
+        animation: none;
+    }
+}
+
 @media (max-width: 1024px) {
     .footer-newsletter,
     .footer-shell {
@@ -275,6 +313,12 @@
 @media (max-width: 640px) {
     .site-footer {
         padding-top: 54px;
+    }
+
+    .site-footer::before {
+        --footer-spectrum-dot-size: 22px;
+
+        opacity: 0.24;
     }
 
     .footer-newsletter {
