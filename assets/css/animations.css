@@ -91,45 +91,23 @@
     }
 }
 
-@keyframes loaderParticleOrbit {
+@keyframes loaderRadialInflow {
     0% {
-        opacity: 0.46;
-        transform:
-            rotate(var(--loader-particle-angle, 0deg))
-            translateX(var(--loader-particle-radius, 44px))
-            rotate(calc(var(--loader-particle-angle, 0deg) * -1))
-            scale(0.88);
+        opacity: 0;
+        transform: translateX(0) translateY(-50%) scale(1);
     }
 
-    28%,
-    62% {
+    10% {
+        opacity: 1;
+    }
+
+    80% {
         opacity: 1;
     }
 
     100% {
-        opacity: 0.5;
-        transform:
-            rotate(calc(var(--loader-particle-angle, 0deg) + 360deg))
-            translateX(var(--loader-particle-radius, 44px))
-            rotate(calc((var(--loader-particle-angle, 0deg) + 360deg) * -1))
-            scale(1);
-    }
-}
-
-@keyframes loaderSignalSweep {
-    0% {
-        opacity: 0.2;
-        transform: translateX(-115%) scaleX(0.65);
-    }
-
-    30%,
-    68% {
         opacity: 1;
-    }
-
-    100% {
-        opacity: 0.25;
-        transform: translateX(225%) scaleX(0.9);
+        transform: translateX(var(--orbit-radius)) translateY(-50%) scale(0);
     }
 }
 
