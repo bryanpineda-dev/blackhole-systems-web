@@ -104,8 +104,7 @@
     position: absolute;
     width: 3.5em;
     height: 3.5em;
-    background: linear-gradient(135deg, rgba(var(--primary-blue-rgb), 0.38), rgba(var(--primary-blue-rgb), 0.10)), url("../../images/planet3.webp");
-    background-blend-mode: color, normal;
+    background: url("../../images/planet2.webp");
     background-size: contain;
     box-shadow: inset -1em -1em 1em var(--primary-black), inset 1em 0em 1em var(--black-alpha-80), -0.1em -0.1em 0.5em var(--white-alpha-40);
     left: -11em;
