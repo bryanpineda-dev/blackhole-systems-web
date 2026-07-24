@@ -13,6 +13,50 @@
     const downloadButtons = Array.from(document.querySelectorAll('[data-qr-download]'));
     const presetButtons = Array.from(document.querySelectorAll('[data-qr-preset]'));
     const faqItems = Array.from(document.querySelectorAll('.qr-faq-item'));
+    const BH = window.BlackholeSystems || {};
+
+    if (typeof BH.initStarField === 'function') {
+        BH.initStarField();
+    }
+
+    function initQrHeroMotionPause() {
+        const hero = document.querySelector('.qr-hero');
+        if (!hero) return;
+
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let isInView = !('IntersectionObserver' in window);
+
+        const syncState = () => {
+            hero.classList.toggle('is-qr-hero-paused', reducedMotionQuery.matches || document.hidden || !isInView);
+        };
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (!entry) return;
+
+                isInView = entry.isIntersecting;
+                syncState();
+            }, {
+                threshold: 0.01,
+                rootMargin: '160px 0px'
+            });
+
+            observer.observe(hero);
+        }
+
+        document.addEventListener('visibilitychange', syncState);
+
+        if (typeof reducedMotionQuery.addEventListener === 'function') {
+            reducedMotionQuery.addEventListener('change', syncState);
+        } else if (typeof reducedMotionQuery.addListener === 'function') {
+            reducedMotionQuery.addListener(syncState);
+        }
+
+        syncState();
+    }
+
+    initQrHeroMotionPause();
 
     if (!form || !preview || typeof window.QRCodeStyling !== 'function') {
         if (statusMessage) {
@@ -69,6 +113,7 @@
 
     let qrCode = null;
     let renderTimer = 0;
+    let fitFrame = 0;
 
     function cancelScheduledRender() {
         if (!renderTimer) return;
@@ -176,8 +221,8 @@
         };
     }
 
-    function buildQrOptions(data) {
-        const size = getNumber(fields.size, 320);
+    function buildQrOptions(data, sizeOverride = null) {
+        const size = sizeOverride || getNumber(fields.size, 320);
         const margin = getNumber(fields.margin, 12);
         const color = sanitizeHex(getValue(fields.color, '#0062ff'), '#0062ff');
         const background = sanitizeHex(getValue(fields.background, '#ffffff'), '#ffffff');
@@ -230,37 +275,75 @@
         if (indicators.length) indicators.length.textContent = `${payload.data.length} chars`;
     }
 
+    function getPreviewAvailableSize() {
+        const frame = preview.closest('.qr-preview-frame');
+        const source = frame || preview;
+        const rect = source.getBoundingClientRect();
+        const frameStyles = frame ? window.getComputedStyle(frame) : null;
+        const surfaceStyles = window.getComputedStyle(preview);
+        const paddingX = frameStyles
+            ? parseFloat(frameStyles.paddingLeft || '0') + parseFloat(frameStyles.paddingRight || '0')
+            : 0;
+        const cssMaxSize = parseFloat(surfaceStyles.getPropertyValue('--qr-preview-max-size') || '360');
+        const maxSize = Number.isFinite(cssMaxSize) && cssMaxSize > 0 ? cssMaxSize : 360;
+        const availableSize = Math.floor(Math.max(0, rect.width - paddingX));
+
+        return Math.max(160, Math.min(maxSize, availableSize || maxSize));
+    }
+
     function fitPreviewToPanel(size) {
-        const previewSize = `min(100%, ${size}px)`;
+        const requestedSize = Math.max(160, Number(size) || 320);
+        const visualSize = Math.min(requestedSize, getPreviewAvailableSize());
+        const previewSize = `${Math.round(visualSize)}px`;
+
+        preview.style.setProperty('--qr-preview-size', previewSize);
 
         Array.from(preview.children).forEach((child) => {
             child.style.width = previewSize;
+            child.style.height = previewSize;
             child.style.maxWidth = '100%';
+            child.style.maxHeight = '100%';
         });
 
         preview.querySelectorAll('canvas, svg').forEach((element) => {
             element.style.width = previewSize;
+            element.style.height = previewSize;
             element.style.maxWidth = '100%';
-            element.style.height = 'auto';
+            element.style.maxHeight = '100%';
+        });
+
+        return Math.round(visualSize);
+    }
+
+    function schedulePreviewFit() {
+        if (fitFrame) {
+            window.cancelAnimationFrame(fitFrame);
+        }
+
+        fitFrame = window.requestAnimationFrame(() => {
+            fitFrame = 0;
+            fitPreviewToPanel(getNumber(fields.size, 320));
         });
     }
 
     function renderQr() {
         const payload = buildPayload();
-        const options = buildQrOptions(payload.data);
+        const exportOptions = buildQrOptions(payload.data);
+        const visualSize = fitPreviewToPanel(exportOptions.width);
+        const previewOptions = buildQrOptions(payload.data, visualSize);
 
         updateIndicators(payload);
 
         try {
             if (!qrCode) {
-                qrCode = new window.QRCodeStyling(options);
+                qrCode = new window.QRCodeStyling(previewOptions);
                 preview.innerHTML = '';
                 qrCode.append(preview);
             } else {
-                qrCode.update(options);
+                qrCode.update(previewOptions);
             }
 
-            window.requestAnimationFrame(() => fitPreviewToPanel(options.width));
+            fitPreviewToPanel(visualSize);
 
             setStatus(payload.fallback ? 'Preview uses safe sample content until you complete the field.' : 'Ready. Static QR generated locally.');
         } catch (error) {
@@ -377,7 +460,11 @@
             }
 
             trigger.addEventListener('click', () => {
-                setFaqItem(item, !item.classList.contains('is-open'));
+                const shouldOpen = !item.classList.contains('is-open');
+
+                faqItems.forEach((faqItem) => {
+                    setFaqItem(faqItem, faqItem === item ? shouldOpen : false);
+                });
             });
         });
 
@@ -389,9 +476,11 @@
     function downloadQr(extension) {
         renderQrNow();
 
+        const payload = buildPayload();
+        const exportQr = new window.QRCodeStyling(buildQrOptions(payload.data));
         const timestamp = new Date().toISOString().slice(0, 10);
         const name = `blackhole-${state.type}-qr-${timestamp}`;
-        qrCode.download({ name, extension });
+        exportQr.download({ name, extension });
     }
 
     form.addEventListener('submit', (event) => {
@@ -434,6 +523,8 @@
     if (indicators.removeLogo) {
         indicators.removeLogo.addEventListener('click', removeLogo);
     }
+
+    window.addEventListener('resize', schedulePreviewFit);
 
     setActivePreset('blackhole');
     initFaq();
