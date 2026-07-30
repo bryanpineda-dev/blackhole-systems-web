@@ -120,15 +120,20 @@
     margin-bottom: var(--status-pill-margin-bottom);
 }
 
-.hero-description { 
-    font-size: 1.15rem; 
+.hero-description {
+    font-size: 1.15rem;
     color: var(--white-alpha-80);
-    font-weight: 300; 
-    max-width: 600px; 
+    font-weight: 400;
+    max-width: 600px;
     margin: 0 auto;
     text-shadow:
         0 2px 12px var(--black-alpha-80),
         0 0 22px var(--blue-alpha-20);
+}
+
+.hero-description strong {
+    color: var(--primary-white);
+    font-weight: 600;
 }
 
 .hero-actions { 

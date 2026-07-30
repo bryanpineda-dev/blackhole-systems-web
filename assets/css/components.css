@@ -886,6 +886,16 @@ body.is-loading {
         background var(--motion-transition-fast);
 }
 
+.service-modules-copy strong {
+    color: var(--primary-white);
+    font-weight: 600;
+}
+
+.services-capability-chips {
+    justify-content: center;
+    margin-top: var(--space-lg);
+}
+
 .bh-tech-tag,
 .tech-tag {
     display: inline-flex;
