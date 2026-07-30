@@ -379,12 +379,20 @@
 
 .qr-panel-heading h3 {
     margin: 8px 0 0;
-    color: var(--primary-white);
     font-family: var(--font-display);
     font-size: clamp(2rem, 3vw, 2.65rem);
     font-weight: 520;
     line-height: 1;
     letter-spacing: 0;
+    color: transparent;
+    background: var(--gradient-metallic);
+    background-size: 100% 1.15em;
+    background-repeat: repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 3px var(--black-alpha-50));
+    padding-bottom: 0.08em;
 }
 
 .qr-panel-status {
@@ -890,6 +898,15 @@
     font-size: clamp(2.45rem, 5vw, 3.6rem);
     line-height: 1;
     filter: drop-shadow(0 0 18px rgba(var(--primary-blue-rgb), 0.32));
+    animation: qrOwnershipIconGlow 2.8s ease-in-out infinite;
+}
+
+.qr-promise li:nth-child(2) i {
+    animation-delay: 0.35s;
+}
+
+.qr-promise li:nth-child(3) i {
+    animation-delay: 0.7s;
 }
 
 .qr-promise strong {
@@ -1023,9 +1040,9 @@
 
 .qr-tool-footer {
     min-height: 94px;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-md);
     margin-top: clamp(58px, 7vw, 92px);
     padding-bottom: var(--space-md);
@@ -1040,9 +1057,48 @@
 .qr-tool-footer a {
     color: var(--primary-white);
     text-decoration: none;
+    transition:
+        color var(--motion-transition-fast),
+        filter var(--motion-transition-fast);
+}
+
+.qr-tool-footer p a:hover {
+    color: var(--primary-blue);
+    filter: drop-shadow(0 0 10px rgba(var(--primary-blue-rgb), 0.46));
+}
+
+.qr-tool-footer-mark {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    border-radius: var(--border-radius-circle);
+}
+
+.qr-tool-footer-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.88;
+    filter: drop-shadow(0 0 12px rgba(var(--primary-blue-rgb), 0.22));
+    transition:
+        opacity var(--motion-transition-fast),
+        filter var(--motion-transition-fast),
+        transform var(--motion-transition-fast);
+}
+
+.qr-tool-footer-mark:hover img {
+    opacity: 1;
+    filter:
+        drop-shadow(0 0 12px rgba(var(--primary-blue-rgb), 0.54))
+        drop-shadow(0 0 28px rgba(var(--primary-blue-rgb), 0.18));
+    transform: scale(1.04);
 }
 
 .qr-tool-footer span {
+    justify-self: end;
     font-family: var(--font-code);
     font-size: 0.78rem;
     letter-spacing: 0.14em;
@@ -1063,6 +1119,21 @@
     50% {
         filter: drop-shadow(0 0 10px rgba(var(--primary-blue-rgb), 0.75));
         opacity: 1;
+    }
+}
+
+@keyframes qrOwnershipIconGlow {
+    0%,
+    100% {
+        color: rgba(var(--primary-blue-rgb), 0.78);
+        filter: drop-shadow(0 0 5px rgba(var(--primary-blue-rgb), 0.24));
+    }
+
+    50% {
+        color: var(--primary-blue);
+        filter:
+            drop-shadow(0 0 12px rgba(var(--primary-blue-rgb), 0.7))
+            drop-shadow(0 0 28px rgba(var(--primary-blue-rgb), 0.22));
     }
 }
 
@@ -1210,10 +1281,16 @@
     }
 
     .qr-tool-footer {
-        flex-direction: column;
-        align-items: flex-start;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
         margin-top: var(--space-xl);
         padding: var(--space-md) 0;
+    }
+
+    .qr-tool-footer p,
+    .qr-tool-footer span {
+        justify-self: center;
     }
 }
 
