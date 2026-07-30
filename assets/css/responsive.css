@@ -163,7 +163,7 @@
         display: flex;
         align-items: flex-start;
         flex-direction: column;
-        gap: 10px;
+        gap: 14px;
         padding-right: 58px;
         padding-bottom: var(--space-sm);
         border-bottom: 1px solid var(--white-alpha-08);
@@ -173,6 +173,7 @@
         width: min(195px, 62vw);
         height: auto;
         display: block;
+        margin-bottom: 2px;
     }
 
     .mobile-command-status {
