@@ -49,10 +49,6 @@
             .map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`)
             .join('');
 
-        const association = project.association
-            ? `<span class="d-association">${escapeHtml(project.association)}</span>`
-            : '';
-
         return `
             <article class="dossier-card" data-project-id="${escapeHtml(project.id)}" data-filters="${escapeHtml(project.filters.join(' '))}">
                 <div class="dossier-top-bar">
@@ -74,7 +70,6 @@
                         <span class="d-type">${escapeHtml(project.industry)}</span>
                     </div>
                     <p class="d-desc">${escapeHtml(project.summary)}</p>
-                    ${association}
                     <div class="d-tags">${tags}</div>
 
                     <div class="dossier-footer">

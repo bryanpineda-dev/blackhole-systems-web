@@ -284,7 +284,7 @@
     letter-spacing: 1px;
 }
 
-.d-id { color: var(--white-alpha-50); }
+.d-id { color: var(--primary-blue); }
 .d-status.success { color: var(--accent-green); }
 .d-status.pending { color: var(--accent-amber); }
 .d-status.private { color: var(--text-muted); }
@@ -345,6 +345,8 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    background:
+        linear-gradient(180deg, rgba(3, 5, 9, 0.96), rgba(1, 2, 6, 0.98));
 }
 
 .dossier-title-row {
@@ -354,13 +356,21 @@
 .d-title {
     font-size: 1.2rem;
     margin-bottom: 5px;
-    color: var(--primary-white);
+    color: transparent;
+    background: var(--gradient-metallic);
+    background-size: 100% 1.15em;
+    background-repeat: repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 3px var(--black-alpha-50));
+    padding-bottom: 0.06em;
 }
 
 .d-type,
 .d-association {
     display: block;
-    color: var(--text-muted);
+    color: var(--primary-blue);
     font-family: var(--font-code);
     font-size: 0.66rem;
     line-height: 1.5;
@@ -504,8 +514,13 @@ body.project-modal-open {
     overflow: hidden;
     border: var(--surface-border-blue);
     border-radius: var(--border-radius-md);
-    background: var(--surface-modal-bg);
-    box-shadow: var(--surface-modal-shadow);
+    background:
+        radial-gradient(circle at 100% 0%, rgba(var(--primary-blue-rgb), 0.08), transparent 32%),
+        radial-gradient(circle at 0% 0%, rgba(var(--primary-blue-rgb), 0.1), transparent 38%),
+        var(--bg-panel);
+    box-shadow:
+        0 30px 90px var(--black-alpha-80),
+        0 0 34px var(--blue-alpha-10);
     transform: translateY(14px) scale(0.98);
     transition: transform 0.28s var(--motion-ease-smooth);
 }
@@ -595,16 +610,25 @@ body.project-modal-open {
     --chip-letter-spacing: 1px;
 }
 
+.project-modal-kicker [data-project-modal-id] {
+    --chip-border: 1px solid var(--blue-alpha-50);
+    --chip-bg: var(--blue-alpha-05);
+    --chip-color: var(--primary-blue);
+}
+
 .project-modal-content h3 {
     margin: 0 0 var(--space-sm);
     color: transparent;
     background: var(--gradient-metallic);
+    background-size: 100% 1.15em;
+    background-repeat: repeat-y;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.05;
+    line-height: 1.12;
     filter: drop-shadow(0 0 18px var(--blue-alpha-15));
+    padding-bottom: 0.08em;
 }
 
 .project-modal-content p {
@@ -616,10 +640,8 @@ body.project-modal-open {
 
 .project-modal-meta {
     display: grid;
-    gap: 0;
+    gap: 10px;
     margin-bottom: var(--space-md);
-    border-top: var(--surface-border);
-    border-bottom: var(--surface-border);
 }
 
 .project-modal-meta-item {
@@ -628,12 +650,7 @@ body.project-modal-open {
     grid-template-columns: 42px minmax(0, 1fr);
     gap: var(--space-sm);
     align-items: center;
-    padding: 13px 0;
-    border-bottom: var(--surface-border-muted);
-}
-
-.project-modal-meta-item:last-child {
-    border-bottom: 0;
+    padding: 6px 0;
 }
 
 .project-modal-meta-icon {
@@ -720,9 +737,14 @@ body.project-modal-open {
 }
 
 .project-modal-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+}
+
+.project-modal-actions .btn-terminal-sm {
+    width: auto;
+    min-width: 0;
 }
 
 /* --- RESPONSIVE FIX FOR NEW LAYOUT --- */
@@ -779,12 +801,16 @@ body.project-modal-open {
         padding: var(--space-md);
     }
 
-    .project-modal-actions,
-    .project-modal-actions .btn-terminal-sm {
-        width: 100%;
+    .project-modal-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .project-modal-actions .btn-terminal-sm {
+        width: auto;
+        min-width: 0;
+        gap: 7px;
+        padding-inline: 8px;
+        font-size: 0.62rem;
         justify-content: center;
     }
 }
