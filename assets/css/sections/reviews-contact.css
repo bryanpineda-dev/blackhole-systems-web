@@ -775,25 +775,25 @@
     }
 
     .review-signal-row {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: var(--space-sm);
+        gap: clamp(10px, 3vw, var(--space-md));
         text-align: center;
     }
 
     .review-packet-pill {
-        order: 1;
+        order: 0;
         align-self: center;
     }
 
     .review-waveform {
-        order: 2;
+        order: 0;
         justify-content: center;
-        width: min(230px, 100%);
-        height: 40px;
-        gap: 5px;
-        margin-inline: auto;
+        width: clamp(96px, 26vw, 150px);
+        height: 36px;
+        gap: 4px;
+        margin-inline: 0;
     }
 
     .review-waveform span {
@@ -834,6 +834,18 @@
     .review-dots {
         flex: 1;
         justify-content: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .review-signal-row {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+
+    .review-waveform {
+        width: min(190px, 100%);
+        margin-inline: auto;
     }
 }
 
