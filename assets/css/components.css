@@ -303,6 +303,7 @@ body.is-loading {
     background: var(--gradient-metallic);
     background-size: 100% 1.15em;
     background-repeat: repeat-y;
+    padding-bottom: 0.08em;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;

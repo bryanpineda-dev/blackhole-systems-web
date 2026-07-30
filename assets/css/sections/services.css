@@ -184,13 +184,21 @@
     border: var(--btn-glass-border);
     border-radius: var(--btn-glass-radius); /* Capsule shape. */
     overflow: hidden;
-    transition: var(--btn-morph-transition);
+    transition:
+        width 0.5s var(--motion-ease-smooth),
+        background 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.28s ease;
     text-decoration: none;
     position: relative;
+    will-change: width, background, box-shadow;
 }
 
 /* 4. Fixed icon block. */
 .btn-icon-box {
+    flex: 0 0 var(--btn-morph-icon-size);
+    width: var(--btn-morph-icon-size);
     min-width: var(--btn-morph-icon-size); /* Stays aligned with the initial button width. */
     height: var(--btn-morph-icon-size);
     display: flex;
@@ -198,6 +206,7 @@
     justify-content: center;
     color: var(--white-alpha-40);
     font-size: 1.1rem;
+    transition: color 0.24s ease;
 }
 
 /* 5. Hidden button label. */
@@ -210,7 +219,10 @@
     letter-spacing: 1px;
     white-space: nowrap;
     padding-right: 20px;
-    transition: opacity 0.3s ease;
+    transform: translateX(-4px);
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s var(--motion-ease-smooth);
 }
 
 /* Card hover expands the inner action button. */
@@ -235,6 +247,7 @@
 
 .capability-card:hover .btn-text {
     opacity: 1;
+    transform: translateX(0);
     transition-delay: 0.5s; /* Waits for the button expansion to start. */
 }
 
@@ -257,21 +270,18 @@
         min-height: auto;
     }
 }
-.capability-card li::before,
-.capability-card li > i,
-.capability-card [class*="bullet"],
-.capability-card [class*="arrow"] {
+.capability-card .card-bullets li::before,
+.capability-card .card-bullets li > i {
     color: var(--accent-purple, #9b5cff);
-    text-shadow: 0 0 8px var(--purple-alpha-35, rgba(155, 92, 255, 0.35));
+    filter: drop-shadow(0 0 4px rgba(var(--accent-purple-rgb), 0.28));
     transition:
         color var(--motion-transition-fast),
-        text-shadow var(--motion-transition-fast);
+        filter var(--motion-transition-fast);
 }
 
-.capability-card:hover li::before,
-.capability-card:hover li > i,
-.capability-card:hover [class*="bullet"],
-.capability-card:hover [class*="arrow"] {
-    color: var(--accent-purple, #b082ff);
-    text-shadow: 0 0 12px var(--purple-alpha-55, rgba(155, 92, 255, 0.55));
+.capability-card:hover .card-bullets li::before,
+.capability-card:hover .card-bullets li > i {
+    filter:
+        drop-shadow(0 0 5px rgba(var(--accent-purple-rgb), 0.42))
+        drop-shadow(0 0 10px rgba(var(--accent-purple-rgb), 0.22));
 }

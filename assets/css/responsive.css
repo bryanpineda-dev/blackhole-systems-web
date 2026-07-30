@@ -690,7 +690,7 @@
 
     .section-heading {
         font-size: clamp(2rem, 10vw, 2.45rem);
-        line-height: 1.08;
+        line-height: 1.14;
     }
 
     .reveal-item[data-reveal="fade-left"],
