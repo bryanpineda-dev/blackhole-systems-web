@@ -10,12 +10,12 @@
 
     const initializers = [
         'initPageLoader',
+        'initProjectFilter',
         'initScrollReveal',
         'initAboutOrbitObserver',
         'initTechCoinsObserver',
         'initWorkflowCodeScanObserver',
         'initTelemetry',
-        'initProjectFilter',
         'initReviewsSlider',
         'initCardTilt',
         'initFormHandler',
