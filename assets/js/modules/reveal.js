@@ -98,7 +98,7 @@
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
 
-                if (entry.target.closest('#hero') && !isLoaderComplete) {
+                if (entry.target.closest('#hero, .qr-hero') && !isLoaderComplete) {
                     pendingHeroReveals.add(entry.target);
                     observer.unobserve(entry.target);
                     return;

@@ -36,7 +36,9 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/tools/qr-studio.css">
 </head>
-<body class="tool-page qr-tool-page">
+<body class="tool-page qr-tool-page is-loading" data-page-boot="loader cursor reveal stars" data-page-assets="../../assets">
+    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="Initializing Blackhole Systems"></div>
+
     <header class="qr-tool-header">
         <a class="qr-tool-logo" href="../../" aria-label="Back to Blackhole Systems home">
             <img src="../../assets/images/logo_bhws_w.png" alt="Blackhole Systems" width="2500" height="464" decoding="async">
@@ -380,8 +382,11 @@
     </footer>
 
     <script src="../../assets/vendor/qr-code-styling.min.js"></script>
+    <script src="../../assets/js/modules/loader.js" defer></script>
+    <script src="../../assets/js/modules/cursor.js" defer></script>
     <script src="../../assets/js/modules/hero-effects.js" defer></script>
     <script src="../../assets/js/modules/reveal.js" defer></script>
+    <script src="../../assets/js/modules/page-boot.js" defer></script>
     <script src="../../assets/js/tools/qr-studio.js" defer></script>
     <script type="application/ld+json">
         {

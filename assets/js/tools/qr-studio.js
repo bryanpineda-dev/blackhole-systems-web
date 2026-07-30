@@ -13,12 +13,6 @@
     const downloadButtons = Array.from(document.querySelectorAll('[data-qr-download]'));
     const presetButtons = Array.from(document.querySelectorAll('[data-qr-preset]'));
     const faqItems = Array.from(document.querySelectorAll('.qr-faq-item'));
-    const BH = window.BlackholeSystems || {};
-
-    if (typeof BH.initStarField === 'function') {
-        BH.initStarField();
-    }
-
     function initQrHeroMotionPause() {
         const hero = document.querySelector('.qr-hero');
         if (!hero) return;
@@ -544,8 +538,4 @@
     setActivePreset('blackhole');
     initFaq();
     renderQrNow();
-
-    if (window.BlackholeSystems && typeof window.BlackholeSystems.initScrollReveal === 'function') {
-        window.BlackholeSystems.initScrollReveal();
-    }
 })();
