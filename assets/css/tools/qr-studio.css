@@ -223,10 +223,10 @@
 }
 
 .qr-hero-proof i {
-    color: var(--primary-blue);
+    color: var(--accent-purple);
     font-size: 1rem;
     line-height: 1;
-    filter: drop-shadow(0 0 5px rgba(var(--primary-blue-rgb), 0.42));
+    filter: drop-shadow(0 0 5px rgba(var(--accent-purple-rgb), 0.42));
     animation: qrProofIconGlow 3s ease-in-out infinite;
 }
 
@@ -330,8 +330,7 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--border-radius-xl);
     background:
-        linear-gradient(135deg, rgba(var(--primary-blue-rgb), 0.08), transparent 34%),
-        linear-gradient(180deg, rgba(12, 15, 24, 0.64), rgba(4, 6, 10, 0.7));
+        linear-gradient(180deg, rgba(4, 6, 12, 0.88), rgba(1, 2, 6, 0.94));
     -webkit-backdrop-filter: var(--glass-blur-lg) saturate(1.08);
     backdrop-filter: var(--glass-blur-lg) saturate(1.08);
     box-shadow:
@@ -401,9 +400,9 @@
     gap: 8px;
     min-height: 34px;
     padding: 8px 14px;
-    border: 1px solid var(--blue-alpha-50);
+    border: 1px solid var(--purple-alpha-25);
     border-radius: var(--border-radius-pill);
-    background: var(--blue-alpha-15);
+    background: var(--purple-alpha-10);
     color: var(--primary-white);
     font-family: var(--font-code);
     font-size: 0.72rem;
@@ -417,8 +416,8 @@
     width: 8px;
     height: 8px;
     border-radius: var(--border-radius-circle);
-    background: var(--primary-blue);
-    box-shadow: 0 0 12px var(--blue-alpha-50);
+    background: var(--accent-purple);
+    box-shadow: 0 0 12px rgba(var(--accent-purple-rgb), 0.5);
 }
 
 /* --------------------------------------------------------------------------
@@ -1085,8 +1084,7 @@
     filter: drop-shadow(0 0 12px rgba(var(--primary-blue-rgb), 0.22));
     transition:
         opacity var(--motion-transition-fast),
-        filter var(--motion-transition-fast),
-        transform var(--motion-transition-fast);
+        filter var(--motion-transition-fast);
 }
 
 .qr-tool-footer-mark:hover img {
@@ -1094,7 +1092,6 @@
     filter:
         drop-shadow(0 0 12px rgba(var(--primary-blue-rgb), 0.54))
         drop-shadow(0 0 28px rgba(var(--primary-blue-rgb), 0.18));
-    transform: scale(1.04);
 }
 
 .qr-tool-footer span {
@@ -1112,12 +1109,12 @@
 @keyframes qrProofIconGlow {
     0%,
     100% {
-        filter: drop-shadow(0 0 2px rgba(var(--primary-blue-rgb), 0.28));
+        filter: drop-shadow(0 0 2px rgba(var(--accent-purple-rgb), 0.28));
         opacity: 0.82;
     }
 
     50% {
-        filter: drop-shadow(0 0 10px rgba(var(--primary-blue-rgb), 0.75));
+        filter: drop-shadow(0 0 10px rgba(var(--accent-purple-rgb), 0.75));
         opacity: 1;
     }
 }
