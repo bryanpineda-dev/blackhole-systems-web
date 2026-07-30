@@ -17,6 +17,8 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Scroll reveal motion system
 - Services, workflow, projects, testimonials, and contact sections
 - Floating assistant and direct WhatsApp access
+- Project quote form wired to the Blackhole Systems Admin lead API
+- Footer Signal Log newsletter capture via email handoff
 - Blackhole QR Studio free browser-based utility
 - Image-based Earth horizon background with CSS star motion in the contact area
 - Optimized planetary About animation with WebP textures and viewport-aware pause behavior
@@ -45,6 +47,30 @@ Trust message:
 ```text
 Static QR codes are generated locally in the browser. They do not expire artificially, require no account, and include no watermark.
 ```
+
+## Lead Capture
+
+The main project quote form sends inquiries to the Blackhole Systems Admin lead intake API.
+
+Local endpoint:
+
+```text
+http://127.0.0.1:8020/api/leads
+```
+
+Production endpoint:
+
+```text
+https://admin.blackholesys.com/api/leads
+```
+
+The landing and admin must share this channel:
+
+```text
+blackhole-web-quote
+```
+
+The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
 
 ## Tech Stack
 
