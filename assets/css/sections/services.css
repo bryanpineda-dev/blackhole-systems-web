@@ -257,3 +257,21 @@
         min-height: auto;
     }
 }
+.capability-card li::before,
+.capability-card li > i,
+.capability-card [class*="bullet"],
+.capability-card [class*="arrow"] {
+    color: var(--accent-purple, #9b5cff);
+    text-shadow: 0 0 8px var(--purple-alpha-35, rgba(155, 92, 255, 0.35));
+    transition:
+        color var(--motion-transition-fast),
+        text-shadow var(--motion-transition-fast);
+}
+
+.capability-card:hover li::before,
+.capability-card:hover li > i,
+.capability-card:hover [class*="bullet"],
+.capability-card:hover [class*="arrow"] {
+    color: var(--accent-purple, #b082ff);
+    text-shadow: 0 0 12px var(--purple-alpha-55, rgba(155, 92, 255, 0.55));
+}
