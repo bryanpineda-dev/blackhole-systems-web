@@ -265,9 +265,24 @@
         statusMessage.classList.toggle('is-error', isError);
     }
 
+    function syncRangeFill(field) {
+        if (!field) return;
+
+        const min = Number(field.min || 0);
+        const max = Number(field.max || 100);
+        const value = Number(field.value || min);
+        const range = max - min;
+        const progress = range > 0 ? ((value - min) / range) * 100 : 0;
+
+        field.style.setProperty('--qr-range-fill', `${Math.max(0, Math.min(100, progress))}%`);
+    }
+
     function updateIndicators(payload) {
         const size = getNumber(fields.size, 320);
         const margin = getNumber(fields.margin, 12);
+
+        syncRangeFill(fields.size);
+        syncRangeFill(fields.margin);
 
         if (indicators.size) indicators.size.textContent = `${size}px`;
         if (indicators.margin) indicators.margin.textContent = String(margin);
@@ -529,4 +544,8 @@
     setActivePreset('blackhole');
     initFaq();
     renderQrNow();
+
+    if (window.BlackholeSystems && typeof window.BlackholeSystems.initScrollReveal === 'function') {
+        window.BlackholeSystems.initScrollReveal();
+    }
 })();
