@@ -8,6 +8,12 @@
 (function bootstrapBlackholeSystems(BH) {
     'use strict';
 
+    const bootState = BH.appBootState || {
+        initialized: new Set()
+    };
+
+    BH.appBootState = bootState;
+
     const initializers = [
         'initPageLoader',
         'initProjectFilter',
@@ -31,13 +37,26 @@
         'initCustomCursor'
     ];
 
-    document.addEventListener('DOMContentLoaded', () => {
-        initializers.forEach((initializerName) => {
-            const initializer = BH[initializerName];
+    const runInitializer = (initializerName) => {
+        if (bootState.initialized.has(initializerName)) return;
 
-            if (typeof initializer === 'function') {
-                initializer();
-            }
+        const initializer = BH[initializerName];
+
+        if (typeof initializer !== 'function') return;
+
+        initializer();
+        bootState.initialized.add(initializerName);
+    };
+
+    const initApp = () => {
+        initializers.forEach((initializerName) => {
+            runInitializer(initializerName);
         });
-    });
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp, { once: true });
+    } else {
+        initApp();
+    }
 })(window.BlackholeSystems = window.BlackholeSystems || {});
