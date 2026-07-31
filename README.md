@@ -14,7 +14,8 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Cinematic WebGPU/Three.js blackhole hero with static image fallback
 - Modular section-based CSS architecture
 - Custom cursor and page loader
-- Scroll reveal motion system
+- Shared page boot layer for standalone pages and tools
+- Scroll reveal motion system with page-specific presets
 - Services, workflow, projects, testimonials, and contact sections
 - Floating assistant and direct WhatsApp access
 - Project quote form wired to the Blackhole Systems Admin lead API
@@ -31,6 +32,8 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 `/tools/blackhole-qr/`
 
 Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
+
+The tool uses the shared page boot layer for the Blackhole loader, custom cursor, star field, and scroll reveal behavior while keeping QR-specific logic isolated in `assets/js/tools/qr-studio.js`.
 
 Current capabilities:
 
@@ -77,8 +80,30 @@ The footer Signal Log newsletter currently opens an email handoff to `info@black
 - HTML5
 - CSS3 with modular imports
 - Vanilla JavaScript modules
+- Namespace-based browser scripts registered on `window.BlackholeSystems`
 - Local Three.js/WebGPU vendor files for the blackhole hero
 - Remix Icons and Font Awesome icons
+
+## JavaScript Architecture
+
+The site does not use a bundler. JavaScript is organized as browser-loaded scripts that register public initializers on `window.BlackholeSystems`.
+
+Primary bootstrap files:
+
+- `assets/js/app.js` boots the main landing page and guards initializers so each feature runs once.
+- `assets/js/modules/page-boot.js` boots standalone tools or future pages through `data-page-boot` tokens.
+
+Current module groups:
+
+- `assets/js/modules/assistant/` owns assistant data, routing, handoff formatting, and UI state.
+- `assets/js/modules/forms/` separates the project quote form from the newsletter handoff while preserving `BH.initFormHandler`.
+- `assets/js/modules/effects/` owns reusable and landing motion effects such as star fields, comet fields, tactical grid pulse, and shared visibility gates.
+- `assets/js/modules/reveal.js` is the shared reveal engine.
+- `assets/js/modules/reveal-landing.js` registers landing reveal presets.
+- `assets/js/modules/reveal-qr.js` registers QR Studio reveal presets.
+- `assets/js/modules/landing-motion.js` owns landing-only motion observers and telemetry counters.
+- `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated.
+- `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
 
 ## Project Structure
 
@@ -100,6 +125,15 @@ blackhole-web-v1/
 │   └── js/
 │       ├── app.js
 │       ├── modules/
+│       │   ├── assistant/
+│       │   ├── effects/
+│       │   ├── forms/
+│       │   ├── projects-*.js
+│       │   ├── page-boot.js
+│       │   ├── reveal.js
+│       │   ├── reveal-landing.js
+│       │   ├── reveal-qr.js
+│       │   └── landing-motion.js
 │       └── tools/
 └── tools/
     └── blackhole-qr/
@@ -131,7 +165,8 @@ http://127.0.0.1:5500/tools/blackhole-qr/
 - About section planet textures use WebP versions for lighter animation cost.
 - Orbital movement keeps the original front/back timing while using compositor-friendly translation.
 - About orbit animation pauses when the section is outside the viewport or the tab is hidden.
-- Motion-heavy sections include reduced-motion fallbacks where applicable.
+- Star fields, comet fields, tactical grid pulse, scroll reveal, and card tilt are gated by viewport visibility and/or reduced-motion checks where applicable.
+- Card tilt runs only on fine pointers and avoids duplicate event listeners per card.
 
 ## Local Lab
 
