@@ -1,6 +1,6 @@
 /**
- * Hero background particles.
- * Generates a lightweight star field that visually pulls toward the viewport center.
+ * Star field effect.
+ * Generates lightweight particles for any [data-star-field] container.
  */
 (function (BH) {
     'use strict';

@@ -6,10 +6,14 @@
     'use strict';
 
     BH.initCardTilt = function initCardTilt() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
         const cards = document.querySelectorAll('.js-card-tilt');
-        if (!cards.length) return;
+        if (!cards.length || prefersReducedMotion || !supportsFinePointer) return;
 
         cards.forEach((card) => {
+            if (card.dataset.cardTiltReady === 'true') return;
+
             card.addEventListener('mousemove', (event) => {
                 const rect = card.getBoundingClientRect();
                 const x = event.clientX - rect.left;
@@ -33,6 +37,8 @@
                     card.style.zIndex = '';
                 }, 300);
             });
+
+            card.dataset.cardTiltReady = 'true';
         });
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});
