@@ -33,8 +33,8 @@ import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 const HERO_SELECTOR = '[data-hero-blackhole]';
 const THREE_DPR_CAP = 1.35;
 const CAMERA_PROFILES = [
-    { maxWidth: 520, position: [0, -1.85, -24.5], target: [0, 0, 0] },
-    { maxWidth: 820, position: [0, -1.9, -21.5], target: [0, 0, 0] },
+    { maxWidth: 520, position: [0, -1.85, -29], target: [0, 0, 0] },
+    { maxWidth: 820, position: [0, -1.9, -25], target: [0, 0, 0] },
     { maxWidth: Infinity, position: [0, -2, -18], target: [0, 0, 0] }
 ];
 
