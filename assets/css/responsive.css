@@ -388,6 +388,11 @@
         padding: clamp(118px, 16vh, 148px) 0 clamp(64px, 10vh, 96px);
     }
 
+    .hero-fallback-image {
+        object-fit: contain;
+        object-position: center 58%;
+    }
+
     .hero-content-wrapper {
         height: auto;
         min-height: calc(100svh - 210px);
@@ -431,6 +436,14 @@
         font-size: clamp(2.6rem, 13vw, 4.2rem);
         line-height: 1.04;
         margin-bottom: var(--space-md);
+    }
+
+    .hero-title-line--wide {
+        display: none;
+    }
+
+    .hero-title-line--narrow {
+        display: block;
     }
 
     .hero-description {

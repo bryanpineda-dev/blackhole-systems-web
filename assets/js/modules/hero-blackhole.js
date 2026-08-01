@@ -33,9 +33,9 @@ import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 const HERO_SELECTOR = '[data-hero-blackhole]';
 const THREE_DPR_CAP = 1.35;
 const CAMERA_PROFILES = [
-    { maxWidth: 520, position: [0, -1.85, -29], target: [0, 0, 0] },
-    { maxWidth: 820, position: [0, -1.9, -25], target: [0, 0, 0] },
-    { maxWidth: Infinity, position: [0, -2, -18], target: [0, 0, 0] }
+    { maxWidth: 520, position: [0, -1.85, -24.5], target: [0, 0, 0], rayFov: 2.05, rayCenter: [0.5, 0.58] },
+    { maxWidth: 820, position: [0, -1.9, -21.5], target: [0, 0, 0], rayFov: 1.45, rayCenter: [0.5, 0.54] },
+    { maxWidth: Infinity, position: [0, -2, -18], target: [0, 0, 0], rayFov: 1, rayCenter: [0.5, 0.5] }
 ];
 
 const config = {
@@ -197,7 +197,9 @@ const createBlackholeRenderer = async (stage, onReady) => {
         time: uniform(0),
         resolution: uniform(new THREE.Vector2(width, height)),
         cameraPosition: uniform(new THREE.Vector3(0, 5, 20)),
-        cameraTarget: uniform(new THREE.Vector3(0, 0, 0))
+        cameraTarget: uniform(new THREE.Vector3(0, 0, 0)),
+        cameraRayFov: uniform(1),
+        cameraRayCenter: uniform(new THREE.Vector2(0.5, 0.5))
     };
 
     const starField = Fn(([rayDir]) => {
@@ -301,7 +303,7 @@ const createBlackholeRenderer = async (stage, onReady) => {
 
     const blackHoleShader = Fn(() => {
         const rs = uniforms.blackHoleMass.mul(2.0);
-        const uv = screenUV.sub(0.5).mul(2.0);
+        const uv = screenUV.sub(uniforms.cameraRayCenter).mul(2.0);
         const aspect = uniforms.resolution.x.div(uniforms.resolution.y);
         const screenPos = vec2(uv.x.mul(aspect), uv.y);
         const camPos = uniforms.cameraPosition;
@@ -310,7 +312,7 @@ const createBlackholeRenderer = async (stage, onReady) => {
         const worldUp = vec3(0.0, 1.0, 0.0);
         const camRight = normalize(cross(worldUp, camForward));
         const camUp = cross(camForward, camRight);
-        const fov = float(1.0);
+        const fov = uniforms.cameraRayFov;
         const rayDir = normalize(
             camForward.add(camRight.mul(screenPos.x).mul(fov)).add(camUp.mul(screenPos.y).mul(fov))
         ).toVar('rayDir');
@@ -381,6 +383,8 @@ const createBlackholeRenderer = async (stage, onReady) => {
         const profile = getCameraProfile(stageWidth);
         camera.position.set(...profile.position);
         camera.lookAt(...profile.target);
+        uniforms.cameraRayFov.value = profile.rayFov;
+        uniforms.cameraRayCenter.value.set(...profile.rayCenter);
     };
 
     applyCameraProfile(width);
