@@ -185,11 +185,11 @@
     border-radius: var(--btn-glass-radius); /* Capsule shape. */
     overflow: hidden;
     transition:
-        width 0.5s var(--motion-ease-smooth),
-        background 0.28s ease,
-        border-color 0.28s ease,
-        box-shadow 0.28s ease,
-        transform 0.28s ease;
+        width 0.3s var(--motion-ease-smooth),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
     text-decoration: none;
     position: relative;
     will-change: width, background, box-shadow;
@@ -221,8 +221,8 @@
     padding-right: 20px;
     transform: translateX(-4px);
     transition:
-        opacity 0.22s ease,
-        transform 0.22s var(--motion-ease-smooth);
+        opacity 0.3s ease,
+        transform 0.3s var(--motion-ease-smooth);
 }
 
 /* Card hover expands the inner action button. */
@@ -248,7 +248,7 @@
 .capability-card:hover .btn-text {
     opacity: 1;
     transform: translateX(0);
-    transition-delay: 0.5s; /* Waits for the button expansion to start. */
+    transition-delay: 0.18s; /* Lets the label appear once the capsule has room. */
 }
 
 .capability-card:hover .btn-icon-box {
