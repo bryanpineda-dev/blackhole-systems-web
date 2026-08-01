@@ -168,7 +168,7 @@
 
 .footer-newsletter-field {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--space-xs);
     align-items: center;
     min-height: 62px;
@@ -201,15 +201,7 @@
 }
 
 .footer-newsletter-field > i {
-    display: grid;
-    place-items: center;
-    width: 42px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    color: var(--primary-blue);
-    background: var(--blue-alpha-08);
-    box-shadow: inset 0 0 0 1px var(--blue-alpha-18);
-    font-size: 1rem;
+    display: none;
 }
 
 .footer-newsletter-form input {
@@ -403,29 +395,77 @@
     .site-footer::before {
         --footer-spectrum-dot-size: 22px;
 
-        opacity: 0.24;
+        opacity: 0.16;
     }
 
     .footer-newsletter {
-        padding: var(--space-lg);
+        justify-items: center;
+        gap: 20px;
+        padding: clamp(28px, 8vw, 36px) clamp(20px, 6vw, 28px);
+        text-align: center;
+    }
+
+    .footer-newsletter-copy {
+        width: min(100%, 400px);
+    }
+
+    .footer-newsletter h2 {
+        font-size: clamp(2.05rem, 10vw, 2.8rem);
+        line-height: 1.02;
     }
 
     .footer-newsletter-form {
         grid-template-columns: 1fr;
+        gap: 10px;
+        justify-self: center;
+        width: min(100%, 360px);
     }
 
     .footer-newsletter-field {
-        grid-template-columns: auto minmax(0, 1fr);
-        border-radius: 24px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .footer-newsletter-field:focus-within {
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .footer-newsletter-form input {
+        --form-control-min-height: 50px;
+        --form-control-padding: 0 18px;
+
+        border: var(--form-control-border);
+        border-radius: var(--border-radius-pill);
+        background: rgba(3, 5, 8, 0.62);
+        box-shadow: inset 0 1px 0 var(--white-alpha-10);
+        text-align: center;
+    }
+
+    .footer-newsletter-form input:focus {
+        border-color: var(--form-control-focus-border);
+        box-shadow: var(--form-control-focus-shadow);
     }
 
     .footer-newsletter-field .footer-newsletter-action {
-        grid-column: 1 / -1;
+        justify-self: center;
+        margin-top: 0;
+        width: auto;
     }
 
-    .footer-newsletter-action,
     .footer-newsletter-action .btn-glass {
-        width: 100%;
+        --btn-glass-min-width: 176px;
+        --btn-glass-height: 48px;
+
+        width: auto;
     }
 
     .footer-shell {
