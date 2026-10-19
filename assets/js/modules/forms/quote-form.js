@@ -17,6 +17,15 @@
 
         const originalContent = submitBtn.innerHTML;
         const submitStateClasses = ['is-loading', 'is-success', 'is-error'];
+        const configuredTimeout = Number(form.dataset.leadTimeoutMs);
+        const requestTimeout = Number.isFinite(configuredTimeout) && configuredTimeout > 0 ? configuredTimeout : 15000;
+        let isSubmitting = false;
+        let resetTimer = 0;
+
+        const clearResetTimer = () => {
+            window.clearTimeout(resetTimer);
+            resetTimer = 0;
+        };
 
         const setSubmitState = (content, type = 'default') => {
             submitBtn.innerHTML = content;
@@ -71,6 +80,7 @@
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (isSubmitting) return;
 
             if (!form.checkValidity()) {
                 form.reportValidity();
@@ -78,6 +88,7 @@
             }
 
             const endpoint = resolveEndpoint();
+            clearResetTimer();
 
             if (!endpoint) {
                 setStatus('Lead endpoint is not configured yet.', 'error');
@@ -88,15 +99,25 @@
             setSubmitState('<i class="ri-loader-4-line ri-spin"></i> SENDING...', 'loading');
             setStatus('Transmitting project signal...', 'loading');
             setSubmitLocked(true);
+            isSubmitting = true;
+            let timeoutId = 0;
+            let didTimeout = false;
 
             try {
+                const controller = new AbortController();
+                timeoutId = window.setTimeout(() => {
+                    didTimeout = true;
+                    controller.abort();
+                }, requestTimeout);
+
                 const response = await fetch(endpoint, {
                     method: 'POST',
-                    body: buildPayload()
+                    body: buildPayload(),
+                    signal: controller.signal
                 });
                 const data = await response.json().catch(() => ({}));
 
-                if (!response.ok || data.ok !== true) {
+                if (didTimeout || !response.ok || data.ok !== true) {
                     throw new Error(data.message || 'The signal could not be transmitted.');
                 }
 
@@ -104,18 +125,24 @@
                 setStatus(data.message || 'Project signal received. I will review it soon.', 'success');
                 form.reset();
 
-                setTimeout(() => {
+                resetTimer = window.setTimeout(() => {
                     setSubmitState(originalContent);
                     setStatus('');
+                    resetTimer = 0;
                 }, 4200);
             } catch (error) {
                 setSubmitState('<i class="ri-error-warning-line"></i> TRY AGAIN', 'error');
-                setStatus(error.message || 'Something went wrong. Please try again or use WhatsApp.', 'error');
+                setStatus(didTimeout
+                    ? 'The server did not respond in time. Your details were kept. Please retry or contact me on WhatsApp.'
+                    : error.message || 'Something went wrong. Please try again or use WhatsApp.', 'error');
 
-                setTimeout(() => {
+                resetTimer = window.setTimeout(() => {
                     setSubmitState(originalContent);
+                    resetTimer = 0;
                 }, 3600);
             } finally {
+                window.clearTimeout(timeoutId);
+                isSubmitting = false;
                 setSubmitLocked(false);
             }
         });

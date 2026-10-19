@@ -31,6 +31,52 @@
         const { modal, grid, projects } = options;
 
         if (!modal || !grid || !projects.length || typeof escapeHtml !== 'function') return;
+        if (modal.dataset.projectModalReady === 'true') return;
+
+        let previousFocus = null;
+        let focusFrame = 0;
+        const inertSiblings = new Set();
+        const focusableSelector = 'a[href], button, input, select, textarea, [tabindex]';
+
+        function getFocusableElements() {
+            return Array.from(modal.querySelectorAll(focusableSelector)).filter((element) => {
+                return element.tabIndex >= 0 && !element.matches(':disabled') &&
+                    !element.closest('[inert], [hidden]') && element.getClientRects().length > 0;
+            });
+        }
+
+        function focusModal() {
+            (getFocusableElements()[0] || modal).focus({ preventScroll: true });
+        }
+
+        function focusWhenVisible() {
+            if (!modal.classList.contains('is-open')) return;
+
+            // The existing visibility transition can reject focus in the opening frame.
+            if (window.getComputedStyle(modal).visibility !== 'visible') {
+                focusFrame = window.requestAnimationFrame(focusWhenVisible);
+                return;
+            }
+
+            focusFrame = 0;
+            focusModal();
+        }
+
+        function isolateBackground() {
+            let current = modal;
+
+            // The modal is nested in deployments, so isolate siblings along its ancestor path.
+            while (current.parentElement) {
+                Array.from(current.parentElement.children).forEach((sibling) => {
+                    if (sibling !== current && !sibling.inert) {
+                        sibling.inert = true;
+                        inertSiblings.add(sibling);
+                    }
+                });
+                current = current.parentElement;
+                if (current === document.body) break;
+            }
+        }
 
         const modalFields = {
             icon: modal.querySelector('[data-project-modal-icon]'),
@@ -45,8 +91,11 @@
             live: modal.querySelector('[data-project-modal-live]')
         };
 
-        function openModal(project) {
+        function openModal(project, trigger) {
             if (!project) return;
+            if (!modal.classList.contains('is-open')) {
+                previousFocus = trigger || document.activeElement;
+            }
 
             setHtml(modalFields.icon, `<i class="${escapeHtml(project.icon)}" aria-hidden="true"></i><span>${escapeHtml(project.category)}</span>`);
             setText(modalFields.id, `#${project.id}`);
@@ -70,12 +119,24 @@
             modal.classList.add('is-open');
             modal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('project-modal-open');
+            isolateBackground();
+            focusWhenVisible();
         }
 
         function closeModal() {
+            if (!modal.classList.contains('is-open')) return;
+
+            window.cancelAnimationFrame(focusFrame);
+            focusFrame = 0;
             modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('project-modal-open');
+            inertSiblings.forEach((element) => { element.inert = false; });
+            inertSiblings.clear();
+            if (previousFocus?.isConnected) {
+                previousFocus.focus({ preventScroll: true });
+            }
+            previousFocus = null;
+            modal.setAttribute('aria-hidden', 'true');
         }
 
         grid.addEventListener('click', (event) => {
@@ -83,17 +144,47 @@
             if (!button) return;
 
             const project = projects.find((item) => item.id === button.dataset.projectDetails);
-            openModal(project);
+            openModal(project, button);
         });
 
         modal.querySelectorAll('[data-project-close]').forEach((button) => {
             button.addEventListener('click', closeModal);
         });
 
-        window.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        document.addEventListener('keydown', (event) => {
+            if (!modal.classList.contains('is-open')) return;
+
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                event.stopPropagation();
                 closeModal();
+                return;
+            }
+
+            if (event.key === 'Tab') {
+                const elements = getFocusableElements();
+                const first = elements[0];
+                const last = elements[elements.length - 1];
+
+                if (!first) {
+                    event.preventDefault();
+                    modal.focus({ preventScroll: true });
+                } else if (event.shiftKey && (document.activeElement === first || document.activeElement === modal)) {
+                    event.preventDefault();
+                    last.focus({ preventScroll: true });
+                } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === modal)) {
+                    event.preventDefault();
+                    first.focus({ preventScroll: true });
+                }
             }
         });
+
+        document.addEventListener('focusin', (event) => {
+            if (modal.classList.contains('is-open') && !modal.contains(event.target)) {
+                focusModal();
+            }
+        });
+
+        modal.dataset.projectModalReady = 'true';
     };
 })(window.BlackholeSystemsProjects = window.BlackholeSystemsProjects || {});

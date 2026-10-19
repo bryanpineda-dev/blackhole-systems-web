@@ -5,9 +5,24 @@
 (function (BH) {
     'use strict';
 
+    BH.completePageLoader = function completePageLoader() {
+        const loader = document.getElementById('page-loader');
+        const wasLoading = document.body.classList.contains('is-loading');
+
+        document.body.classList.remove('is-loading');
+        loader?.remove();
+
+        if (loader || wasLoading) {
+            document.dispatchEvent(new CustomEvent('blackhole:loader-complete'));
+        }
+    };
+
     BH.initPageLoader = function initPageLoader() {
         const loader = document.getElementById('page-loader');
-        if (!loader) return;
+        if (!loader) {
+            BH.completePageLoader();
+            return;
+        }
 
         const startedAt = performance.now();
         const minimumDuration = 850;
@@ -17,9 +32,7 @@
 
         const removeLoader = () => {
             window.setTimeout(() => {
-                document.body.classList.remove('is-loading');
-                loader.remove();
-                document.dispatchEvent(new CustomEvent('blackhole:loader-complete'));
+                BH.completePageLoader();
             }, exitDuration);
         };
 

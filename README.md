@@ -6,18 +6,17 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.1**
+Website version: **1.0.2**
 
-Deployment tag: `v1.0.1`
+Deployment tag: `v1.0.2`
 
 Release changes:
 
-- Update the project archive to 17 projects.
-- Remove My Choice CR from the project archive while preserving its real testimonial.
-- Add Troleando por Mexico as an in-progress travel website with a destination catalog, galleries, and WhatsApp inquiry flows.
-- Add Vision Territorial as a deployed agency collaboration with a custom WordPress plugin, PDF-based canton search, and local data storage.
-- Establish detailed English commit messages, annotated deployment tags, and README reviews for every new version.
-- Correct the interaction documentation to reflect both mouse and touch card tilt.
+- Isolate synchronous initializer failures in both landing and standalone page bootstraps without blocking independent modules.
+- Recover unavailable or failed loaders, preserve normal loader timings, and keep the loader-complete event idempotent.
+- Complete project-modal keyboard focus management and background isolation without redesigning the modal.
+- Bound quote requests to 15 seconds by default, prevent concurrent submissions, preserve failed form data, and protect retries from stale UI timers.
+- Add repeatable Node.js contract checks and isolated Chrome/Playwright browser tests. Development tooling is not required to serve the website.
 
 ## Overview
 
@@ -94,6 +93,8 @@ The landing and admin must share this channel:
 blackhole-web-quote
 ```
 
+Quote requests use an `AbortController` with a 15-second deadline covering the request and response-body read. An optional `data-lead-timeout-ms` attribute on the quote form can override that deadline with a positive number of milliseconds. Concurrent submissions are ignored while a request is pending. Failures retain entered values, release the submit button, and allow a manual retry; successful responses clear the form. Retries are never automatic. A timeout does not prove that the admin failed to receive the request, so this client-side guard is not server-side deduplication.
+
 The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
 
 ## Tech Stack
@@ -111,8 +112,9 @@ The site does not use a bundler. JavaScript is organized as browser-loaded scrip
 
 Primary bootstrap files:
 
-- `assets/js/app.js` boots the main landing page and guards initializers so each feature runs once.
-- `assets/js/modules/page-boot.js` boots standalone tools or future pages through `data-page-boot` tokens.
+- `assets/js/app.js` boots the main landing page, records successful initializers, and reports failures while continuing independent initializers.
+- `assets/js/modules/page-boot.js` boots standalone tools or future pages through `data-page-boot` tokens with the same failure isolation and successful-initialization guards.
+- `assets/js/modules/loader.js` owns normal loader timing and the idempotent `BH.completePageLoader` completion contract. Both bootstraps also have a minimal recovery path if the loader script itself is unavailable.
 
 Current module groups:
 
@@ -126,11 +128,16 @@ Current module groups:
 - `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated.
 - `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
 
+The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its existing close button, backdrop, Escape key, and contact action remain available.
+
 ## Project Structure
 
 ```text
 blackhole-web-v1/
 ├── index.html
+├── package.json
+├── package-lock.json
+├── tests/
 ├── assets/
 │   ├── css/
 │   │   ├── style.css
@@ -182,6 +189,24 @@ QR Studio:
 http://127.0.0.1:5500/tools/blackhole-qr/
 ```
 
+## Verification
+
+The website remains static and has no build step. Node.js 22 or newer and the development dependencies are only needed to run checks:
+
+```bash
+npm ci
+npm test
+npm run test:browser
+```
+
+`npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export.
+
+Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
+
+Browser fixtures intercept repository resources at `http://blackhole.test`; no HTTP server is started. All external requests are blocked, and quote responses are simulated so no real leads are submitted. These checks do not certify the production admin API, CDN availability, or GPU rendering on physical devices. Optional `BLACKHOLE_QA_DIR` selects an output directory for desktop/mobile review screenshots; no generated screenshots are needed in production.
+
+Run both suites with `npm run test:all` before publishing a version. Keep `node_modules/`, test tooling, and local review artifacts out of the hosted static site's public document root.
+
 ## Performance Notes
 
 - The hero uses a local Three.js/WebGPU renderer with a static fallback image for unsupported browsers.
@@ -203,7 +228,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.1, the branch and tag are published with `git push origin main v1.0.1`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.2, the branch and tag are published with `git push origin main v1.0.2`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 

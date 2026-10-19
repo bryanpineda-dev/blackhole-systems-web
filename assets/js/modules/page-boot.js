@@ -26,9 +26,14 @@
         if (bootState.initialized.has(key)) return true;
         if (typeof initializer !== 'function') return false;
 
-        bootState.initialized.add(key);
-        initializer();
-        return true;
+        try {
+            initializer();
+            bootState.initialized.add(key);
+            return true;
+        } catch (error) {
+            console.error(`[Blackhole Systems] Page boot ${key} failed:`, error);
+            return false;
+        }
     };
 
     const createLoaderRings = () => {
@@ -110,16 +115,33 @@
         const tokens = getBootTokens();
 
         if (hasToken(tokens, 'loader')) {
-            prepareLoader();
-
-            if (!initOnce('loader', BH.initPageLoader)) {
-                document.body.classList.remove('is-loading');
+            if (!initOnce('loader', () => {
+                prepareLoader();
+                if (typeof BH.initPageLoader !== 'function') {
+                    throw new Error('Page loader initializer is unavailable.');
+                }
+                BH.initPageLoader();
+            })) {
+                if (typeof BH.completePageLoader === 'function') {
+                    BH.completePageLoader();
+                } else {
+                    document.getElementById('page-loader')?.remove();
+                    document.body.classList.remove('is-loading');
+                    document.dispatchEvent(new CustomEvent('blackhole:loader-complete'));
+                }
             }
         }
 
         if (hasToken(tokens, 'cursor')) {
-            prepareCursor();
-            initOnce('cursor', BH.initCustomCursor);
+            if (!initOnce('cursor', () => {
+                prepareCursor();
+                if (typeof BH.initCustomCursor !== 'function') {
+                    throw new Error('Custom cursor initializer is unavailable.');
+                }
+                BH.initCustomCursor();
+            })) {
+                document.documentElement.classList.remove('has-custom-cursor', 'cursor-ready');
+            }
         }
 
         if (hasToken(tokens, 'stars')) {
@@ -131,5 +153,9 @@
         }
     };
 
-    document.addEventListener('DOMContentLoaded', BH.initPageBoot, { once: true });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', BH.initPageBoot, { once: true });
+    } else {
+        BH.initPageBoot();
+    }
 })(window.BlackholeSystems = window.BlackholeSystems || {});

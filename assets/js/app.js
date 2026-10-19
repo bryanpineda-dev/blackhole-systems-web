@@ -42,10 +42,33 @@
 
         const initializer = BH[initializerName];
 
-        if (typeof initializer !== 'function') return;
+        try {
+            if (typeof initializer !== 'function') {
+                if (initializerName === 'initPageLoader') {
+                    throw new Error('Page loader initializer is unavailable.');
+                }
+                return;
+            }
 
-        initializer();
-        bootState.initialized.add(initializerName);
+            initializer();
+            bootState.initialized.add(initializerName);
+        } catch (error) {
+            console.error(`[Blackhole Systems] ${initializerName} failed:`, error);
+
+            if (initializerName === 'initPageLoader') {
+                if (typeof BH.completePageLoader === 'function') {
+                    BH.completePageLoader();
+                } else {
+                    document.getElementById('page-loader')?.remove();
+                    document.body.classList.remove('is-loading');
+                    document.dispatchEvent(new CustomEvent('blackhole:loader-complete'));
+                }
+            }
+
+            if (initializerName === 'initCustomCursor') {
+                document.documentElement.classList.remove('has-custom-cursor', 'cursor-ready');
+            }
+        }
     };
 
     const initApp = () => {

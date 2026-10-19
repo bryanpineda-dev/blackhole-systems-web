@@ -1,0 +1,89 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const { spawnSync } = require('node:child_process');
+const { test } = require('node:test');
+
+const root = path.resolve(__dirname, '..');
+const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const walk = (directory) => fs.readdirSync(path.join(root, directory), { withFileTypes: true })
+    .flatMap((entry) => entry.isDirectory() ? walk(path.join(directory, entry.name)) : [path.join(directory, entry.name)]);
+
+function load(files) {
+    const context = vm.createContext({ window: {} });
+    for (const file of files) vm.runInContext(read(file), context, { filename: file });
+    return context.window;
+}
+
+test('all authored JavaScript files pass syntax validation', () => {
+    for (const file of walk('assets/js').filter((file) => file.endsWith('.js'))) {
+        const result = spawnSync(process.execPath, ['--check', path.join(root, file)], { encoding: 'utf8' });
+        assert.equal(result.status, 0, `${file}: ${result.stderr || result.error || ''}`);
+    }
+});
+
+test('local HTML resources, links and CSS imports resolve', () => {
+    const check = (file, reference) => {
+        if (/^(?:https?:|\/\/|#|mailto:|tel:|data:)/.test(reference)) return;
+        let target = path.resolve(path.dirname(path.join(root, file)), reference.split(/[?#]/)[0]);
+        if (fs.existsSync(target) && fs.statSync(target).isDirectory()) target = path.join(target, 'index.html');
+        assert.ok(fs.existsSync(target), `${file}: missing ${reference}`);
+    };
+    for (const file of ['index.html', 'tools/blackhole-qr/index.html']) {
+        const source = read(file);
+        for (const match of source.matchAll(/\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)) check(file, match[1]);
+        const ids = [...source.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]);
+        assert.equal(new Set(ids).size, ids.length, `${file}: duplicate IDs`);
+        for (const match of source.matchAll(/<script\b[^>]*\btype=["'](?:application\/ld\+json|importmap)["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+            assert.doesNotThrow(() => JSON.parse(match[1]));
+        }
+    }
+    for (const file of walk('assets/css').filter((file) => file.endsWith('.css'))) {
+        for (const match of read(file).matchAll(/(?:@import\s+|url\(\s*)["']?([^"'\s;)]+)["']?/g)) check(file, match[1]);
+    }
+});
+
+test('portfolio records, filters and rendering share a valid unique dataset', () => {
+    const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
+    const filters = new Set([...read('index.html').matchAll(/data-filter="([^"]+)"/g)].map((match) => match[1]));
+    assert.equal(namespace.projects.length, 17);
+    assert.equal(new Set(namespace.projects.map((project) => project.id)).size, namespace.projects.length);
+    for (const project of namespace.projects) {
+        for (const field of ['id', 'name', 'url', 'icon', 'category', 'industry', 'type', 'role', 'summary', 'status', 'statusType']) {
+            assert.ok(project[field], `${project.id}: missing ${field}`);
+        }
+        assert.equal(new URL(project.url).protocol, 'https:');
+        for (const field of ['built', 'systems', 'stack', 'filters']) assert.ok(project[field].length, `${project.id}: ${field}`);
+        for (const filter of project.filters) assert.ok(filters.has(filter), `${project.id}: unknown filter ${filter}`);
+        assert.ok(namespace.renderProjectCard(project).includes(`data-project-id="${project.id}"`));
+        assert.ok(namespace.renderProjectMeta(project).length);
+    }
+    assert.equal(namespace.projects.some((project) => project.id === 'BH-012'), false);
+    assert.ok(read('index.html').includes('Andrea'));
+    assert.equal(namespace.escapeHtml('<script>"&\'').includes('<script>'), false);
+});
+
+test('assistant explicit routes, fallback and handoff encode user input safely', () => {
+    const BH = load(['assets/js/modules/assistant/assistant-data.js', 'assets/js/modules/assistant/assistant-router.js',
+        'assets/js/modules/assistant/assistant-handoff.js']).BlackholeSystems;
+    const data = BH.assistantData;
+    const router = BH.Assistant.createRouter(data.serviceCatalog);
+    const handoff = BH.Assistant.createHandoff({ ...data, router });
+    for (const id of Object.keys(data.serviceCatalog)) {
+        assert.equal(router.detectService('', id).id, id);
+        const response = handoff.buildResponse('<script>alert("test")</script>', id);
+        assert.ok(response.html.length);
+        assert.ok(Array.isArray(response.quickActions));
+        assert.equal(response.html.includes('<script>'), false);
+    }
+    assert.equal(router.detectService('zxqvzz').id, 'fallback');
+    for (const id of [...data.defaultQuickActions, ...data.fallbackQuickActions]) assert.ok(data.serviceCatalog[id]);
+});
+
+test('README and development package declare the same release version', () => {
+    const pkg = JSON.parse(read('package.json'));
+    const readme = read('README.md');
+    assert.ok(readme.includes(`Website version: **${pkg.version}**`));
+    assert.ok(readme.includes(`Deployment tag: \`v${pkg.version}\``));
+});
