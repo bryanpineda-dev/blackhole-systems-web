@@ -2,7 +2,22 @@
 
 Premium landing page for **Blackhole Systems**, a digital engineering studio focused on high-end interfaces, custom software systems, automation, API integrations, and connected business workflows.
 
-This repository is the first public version of the Blackhole Systems website. It is currently a static front-end project built with HTML, modular CSS, vanilla JavaScript, and browser-first utility pages.
+This repository contains the Blackhole Systems website. It is a static front-end project built with HTML, modular CSS, vanilla JavaScript, and browser-first utility pages.
+
+## Current Version
+
+Website version: **1.0.1**
+
+Deployment tag: `v1.0.1`
+
+Release changes:
+
+- Update the project archive to 17 projects.
+- Remove My Choice CR from the project archive while preserving its real testimonial.
+- Add Troleando por Mexico as an in-progress travel website with a destination catalog, galleries, and WhatsApp inquiry flows.
+- Add Vision Territorial as a deployed agency collaboration with a custom WordPress plugin, PDF-based canton search, and local data storage.
+- Establish detailed English commit messages, annotated deployment tags, and README reviews for every new version.
+- Correct the interaction documentation to reflect both mouse and touch card tilt.
 
 ## Overview
 
@@ -24,6 +39,12 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Image-based Earth horizon background with CSS star motion in the contact area
 - Optimized planetary About animation with WebP textures and viewport-aware pause behavior
 - Mobile-first cleanup for overflow-safe responsive behavior
+
+## Project Archive
+
+The portfolio has its own curated dataset in `assets/js/modules/projects-data.js`. Shared rendering, filtering, and modal modules consume that list, including the project counter and detail metadata.
+
+The archive currently contains 17 projects. Project cards and modals use category icons as preview placeholders. Desktop screenshots for all 17 projects have been prepared as local review artifacts outside this repository; integrating preview images into the website remains pending.
 
 ## Free Tools
 
@@ -118,6 +139,8 @@ blackhole-web-v1/
 │   │   ├── components.css
 │   │   ├── animations.css
 │   │   ├── responsive.css
+│   │   ├── sections.css
+│   │   ├── utilities.css
 │   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
@@ -166,19 +189,28 @@ http://127.0.0.1:5500/tools/blackhole-qr/
 - Orbital movement keeps the original front/back timing while using compositor-friendly translation.
 - About orbit animation pauses when the section is outside the viewport or the tab is hidden.
 - Star fields, comet fields, tactical grid pulse, scroll reveal, and card tilt are gated by viewport visibility and/or reduced-motion checks where applicable.
-- Card tilt runs only on fine pointers and avoids duplicate event listeners per card.
+- Card tilt supports fine-pointer mouse input and touch gestures, respects reduced-motion preferences, and avoids duplicate event listeners per card.
 
 ## Local Lab
 
 Experimental prototypes live in `prototypes/` and are intentionally kept local while ideas are being tested.
 
+## Versioning And Releases
+
+Every commit must have a detailed English subject and body, a distinct website version, and a matching annotated deployment tag using `vMAJOR.MINOR.PATCH`.
+
+For every new version, review this README against the actual implementation. Update the current version, release changes, and any affected feature, architecture, interaction, or integration documentation. Keep implemented behavior and pending work clearly identified.
+
+Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
+
+For version 1.0.1, the branch and tag are published with `git push origin main v1.0.1`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+
 ## Deployment Roadmap
 
-1. Keep versioning the landing page locally.
-2. Push stable versions to GitHub.
-3. Keep the GitHub Pages preview available for quick mobile and public testing.
-4. Connect deployment to the production domain: `blackholesys.com`.
-5. Publish to the SERED hosting environment once SSH/hosting access is configured.
+1. Prepare and publish each version using the documented release workflow.
+2. Keep the GitHub Pages preview available for quick mobile and public testing.
+3. Connect deployment to the production domain: `blackholesys.com`.
+4. Publish to the SERED hosting environment once SSH/hosting access is configured.
 
 ## Status
 

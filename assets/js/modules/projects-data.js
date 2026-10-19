@@ -305,33 +305,6 @@
             stack: ['WordPress', 'Catalog', 'Corporate', 'Multipage', 'Brand']
         },
         {
-            id: 'BH-012',
-            name: 'My Choice CR',
-            url: 'https://mychoicecr.com/',
-            status: 'DEPLOYED',
-            statusType: 'success',
-            icon: 'ri-handbag-line',
-            category: 'E-Commerce',
-            industry: 'Accessories / Retail',
-            type: 'Sales-Focused Online Store',
-            role: 'Solo Developer',
-            filters: ['commerce'],
-            summary: 'Virtual store for women accessories, focused entirely on sales with payment gateway support and a custom design guided by client feedback.',
-            built: [
-                'Sales-focused virtual store',
-                'Custom design based on client direction',
-                'Payment gateway checkout',
-                'Responsive shopping experience'
-            ],
-            systems: [
-                'WooCommerce store setup',
-                'Payment gateway integration',
-                'Product catalog',
-                'Conversion-focused storefront'
-            ],
-            stack: ['WordPress', 'WooCommerce', 'Payments', 'Retail', 'Storefront']
-        },
-        {
             id: 'BH-013',
             name: 'Dulce Hogar',
             url: 'https://dulcehogar.cr/',
@@ -441,6 +414,61 @@
                 'Niuvort ecosystem implementation'
             ],
             stack: ['WordPress', 'Landing', 'WhatsApp', 'Sales', 'Niuvort']
+        },
+        {
+            id: 'BH-017',
+            name: 'Troleando por Mexico',
+            url: 'https://troleandopormexico.com/',
+            status: 'IN_PROGRESS',
+            statusType: 'pending',
+            icon: 'ri-plane-line',
+            category: 'Travel Website',
+            industry: 'Travel / Tourism',
+            type: 'Custom Website + Destination Catalog',
+            role: 'Solo Developer',
+            filters: ['corporate'],
+            summary: 'Custom travel website with a destination catalog, extensive photo galleries, and destination-specific WhatsApp inquiry links for tours in Mexico.',
+            built: [
+                'Complete website redesign built from scratch',
+                'Destination catalog and informational pages',
+                'Extensive photo galleries for each destination',
+                'Destination-specific WhatsApp inquiry paths'
+            ],
+            systems: [
+                'Custom PHP matrix through WordPress shortcodes',
+                'Destination and gallery content structure',
+                'Prefilled WhatsApp inquiry links',
+                'Tour information and contact flows'
+            ],
+            stack: ['PHP', 'WordPress', 'Shortcodes', 'WhatsApp', 'Travel']
+        },
+        {
+            id: 'BH-018',
+            name: 'Vision Territorial',
+            url: 'https://visionterritorialcr.com/',
+            status: 'DEPLOYED',
+            statusType: 'success',
+            icon: 'ri-file-search-line',
+            category: 'Information Platform',
+            industry: 'Municipal Information',
+            type: 'Custom WordPress Platform + PDF Search',
+            role: 'Solo Developer',
+            association: 'Agency collaboration',
+            filters: ['content', 'systems', 'agency'],
+            summary: 'Complete custom web platform with intelligent search powered by each canton\'s PDF documents, a WordPress plugin matrix, and locally managed data without third-party data dependencies.',
+            built: [
+                'Complete website and system built from scratch',
+                'Intelligent search based on canton PDF documents',
+                'Custom WordPress plugin matrix',
+                'Local storage for the platform data'
+            ],
+            systems: [
+                'Search driven by canton PDF documents',
+                'Custom WordPress plugin architecture',
+                'Locally stored and managed platform data',
+                'Data management without third-party dependencies'
+            ],
+            stack: ['WordPress', 'Custom Plugin', 'PDF Search', 'Local Data']
         }
     ];
 })(window.BlackholeSystemsProjects = window.BlackholeSystemsProjects || {});
