@@ -14,6 +14,14 @@
 
         if (!grid || !buttons.length || !projects.length || typeof namespace.renderProjectCard !== 'function') return;
 
+        [grid, modal].filter(Boolean).forEach((container) => {
+            if (container.dataset.previewFallbackReady === 'true') return;
+            container.addEventListener('error', (event) => {
+                if (event.target.matches?.('[data-project-preview]')) event.target.remove();
+            }, true);
+            container.dataset.previewFallbackReady = 'true';
+        });
+
         grid.innerHTML = projects.map(namespace.renderProjectCard).join('');
 
         if (count) {

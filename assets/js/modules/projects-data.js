@@ -8,6 +8,7 @@
     namespace.projects = [
         {
             id: 'BH-001',
+            preview: { src: 'assets/images/projects/bh-001-sebana.jpg', width: 1440, height: 810 },
             name: 'SEBANA',
             url: 'https://sebanacr.com/',
             status: 'DEPLOYED',
@@ -35,6 +36,7 @@
         },
         {
             id: 'BH-002',
+            preview: { src: 'assets/images/projects/bh-002-alai-boutique.jpg', width: 1265, height: 712 },
             name: 'ALAI Boutique',
             url: 'https://alaiboutique.com/',
             status: 'DEPLOYED',
@@ -62,6 +64,7 @@
         },
         {
             id: 'BH-003',
+            preview: { src: 'assets/images/projects/bh-003-mariam-enfermera.jpg', width: 1440, height: 810 },
             name: 'Mariam Enfermera',
             url: 'https://mariamenfermera.com/',
             status: 'DEPLOYED',
@@ -89,6 +92,7 @@
         },
         {
             id: 'BH-004',
+            preview: { src: 'assets/images/projects/bh-004-niuvort-solutions.jpg', width: 1440, height: 810 },
             name: 'Niuvort Solutions',
             url: 'https://niuvort.com/',
             status: 'DEPLOYED',
@@ -117,6 +121,7 @@
         },
         {
             id: 'BH-005',
+            preview: { src: 'assets/images/projects/bh-005-coxbrand-academy.jpg', width: 1440, height: 810 },
             name: 'Coxbrand Academy',
             url: 'https://coxbrand-academy.com/',
             status: 'IN_PROGRESS',
@@ -144,6 +149,7 @@
         },
         {
             id: 'BH-006',
+            preview: { src: 'assets/images/projects/bh-006-meraki-travel-cr.jpg', width: 1440, height: 810 },
             name: 'Meraki Travel CR',
             url: 'https://merakitravelcr.com/',
             status: 'DEPLOYED',
@@ -171,6 +177,7 @@
         },
         {
             id: 'BH-007',
+            preview: { src: 'assets/images/projects/bh-007-entre-cantones.jpg', width: 1440, height: 810 },
             name: 'Entre Cantones',
             url: 'https://entrecantones.com/',
             status: 'DEPLOYED',
@@ -198,6 +205,7 @@
         },
         {
             id: 'BH-008',
+            preview: { src: 'assets/images/projects/bh-008-polyacril.jpg', width: 1440, height: 810 },
             name: 'Polyacril',
             url: 'https://polyacril-ca.com/',
             status: 'DEPLOYED',
@@ -225,6 +233,7 @@
         },
         {
             id: 'BH-009',
+            preview: { src: 'assets/images/projects/bh-009-thermo-en-linea.jpg', width: 1440, height: 810 },
             name: 'Thermo en Linea',
             url: 'https://thermoenlinea.com/',
             status: 'DEPLOYED',
@@ -252,6 +261,7 @@
         },
         {
             id: 'BH-010',
+            preview: { src: 'assets/images/projects/bh-010-rinnai-cr.jpg', width: 1440, height: 810 },
             name: 'Rinnai CR',
             url: 'https://rinnai.cr/',
             status: 'DEPLOYED',
@@ -279,6 +289,7 @@
         },
         {
             id: 'BH-011',
+            preview: { src: 'assets/images/projects/bh-011-all-fire-products.jpg', width: 1440, height: 810 },
             name: 'All Fire Products',
             url: 'https://allfireproducts.com/',
             status: 'DEPLOYED',
@@ -306,6 +317,7 @@
         },
         {
             id: 'BH-013',
+            preview: { src: 'assets/images/projects/bh-013-dulce-hogar.jpg', width: 1440, height: 810 },
             name: 'Dulce Hogar',
             url: 'https://dulcehogar.cr/',
             status: 'DEPLOYED',
@@ -333,6 +345,7 @@
         },
         {
             id: 'BH-014',
+            preview: { src: 'assets/images/projects/bh-014-niuvort-entertainment.jpg', width: 1440, height: 810 },
             name: 'Niuvort Entertainment',
             url: 'https://niuvortentertainment.com/',
             status: 'DEPLOYED',
@@ -361,6 +374,7 @@
         },
         {
             id: 'BH-015',
+            preview: { src: 'assets/images/projects/bh-015-nvt-online.jpg', width: 1440, height: 810 },
             name: 'NVT Online',
             url: 'https://nvtonline.com/',
             status: 'DEPLOYED',
@@ -389,6 +403,7 @@
         },
         {
             id: 'BH-016',
+            preview: { src: 'assets/images/projects/bh-016-tu-web-ahora.jpg', width: 1440, height: 810 },
             name: 'Tu Web Ahora',
             url: 'https://tuwebahora.com/',
             status: 'DEPLOYED',
@@ -417,6 +432,7 @@
         },
         {
             id: 'BH-017',
+            preview: { src: 'assets/images/projects/bh-017-troleando-por-mexico.jpg', width: 1440, height: 810 },
             name: 'Troleando por Mexico',
             url: 'https://troleandopormexico.com/',
             status: 'IN_PROGRESS',
@@ -444,6 +460,7 @@
         },
         {
             id: 'BH-018',
+            preview: { src: 'assets/images/projects/bh-018-vision-territorial.jpg', width: 1440, height: 810 },
             name: 'Vision Territorial',
             url: 'https://visionterritorialcr.com/',
             status: 'DEPLOYED',

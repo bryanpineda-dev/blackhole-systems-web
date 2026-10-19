@@ -8,6 +8,7 @@
     const escapeHtml = namespace.escapeHtml;
     const renderList = namespace.renderList;
     const renderProjectMeta = namespace.renderProjectMeta;
+    const renderProjectPreview = namespace.renderProjectPreview;
 
     function setText(element, value) {
         if (element) element.textContent = value;
@@ -97,7 +98,7 @@
                 previousFocus = trigger || document.activeElement;
             }
 
-            setHtml(modalFields.icon, `<i class="${escapeHtml(project.icon)}" aria-hidden="true"></i><span>${escapeHtml(project.category)}</span>`);
+            setHtml(modalFields.icon, renderProjectPreview(project, 'eager'));
             setText(modalFields.id, `#${project.id}`);
             setText(modalFields.status, project.status);
 

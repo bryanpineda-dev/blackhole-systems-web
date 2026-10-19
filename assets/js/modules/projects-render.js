@@ -44,6 +44,18 @@
         `).join('');
     }
 
+    function renderProjectPreview(project, loading = 'lazy') {
+        const fallback = `<i class="${escapeHtml(project.icon)}" aria-hidden="true"></i><span>${escapeHtml(project.category)}</span>`;
+        const preview = project.preview;
+
+        if (!preview?.src) return fallback;
+
+        return `${fallback}<img class="project-preview-image" data-project-preview
+            src="${escapeHtml(preview.src)}" alt="${escapeHtml(`Homepage preview of ${project.name}`)}"
+            width="${escapeHtml(preview.width)}" height="${escapeHtml(preview.height)}"
+            loading="${loading === 'eager' ? 'eager' : 'lazy'}" decoding="async">`;
+    }
+
     function renderProjectCard(project) {
         const tags = project.stack.slice(0, 4)
             .map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`)
@@ -58,8 +70,7 @@
 
                 <div class="dossier-screen">
                     <div class="screen-placeholder">
-                        <i class="${escapeHtml(project.icon)}" aria-hidden="true"></i>
-                        <span>${escapeHtml(project.category)}</span>
+                        ${renderProjectPreview(project)}
                     </div>
                     <div class="screen-glare"></div>
                 </div>
@@ -92,5 +103,6 @@
     namespace.escapeHtml = escapeHtml;
     namespace.renderList = renderList;
     namespace.renderProjectMeta = renderProjectMeta;
+    namespace.renderProjectPreview = renderProjectPreview;
     namespace.renderProjectCard = renderProjectCard;
 })(window.BlackholeSystemsProjects = window.BlackholeSystemsProjects || {});

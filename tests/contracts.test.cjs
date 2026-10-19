@@ -81,6 +81,34 @@ test('assistant explicit routes, fallback and handoff encode user input safely',
     for (const id of [...data.defaultQuickActions, ...data.fallbackQuickActions]) assert.ok(data.serviceCatalog[id]);
 });
 
+test('all project previews resolve to local reviewed JPEGs with stable dimensions and shared rendering', () => {
+    const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
+    const sources = new Set();
+    for (const project of namespace.projects) {
+        const preview = project.preview;
+        assert.ok(preview.src.startsWith('assets/images/projects/'));
+        assert.ok(path.basename(preview.src).startsWith(project.id.toLowerCase() + '-'));
+        assert.ok(fs.statSync(path.join(root, preview.src)).size > 0);
+        assert.ok(Number.isInteger(preview.width) && preview.width > 0);
+        assert.ok(Number.isInteger(preview.height) && preview.height > 0);
+        sources.add(preview.src);
+        const card = namespace.renderProjectCard(project);
+        const modal = namespace.renderProjectPreview(project, 'eager');
+        assert.ok(card.includes(`src="${preview.src}"`));
+        assert.ok(card.includes('loading="lazy"'));
+        assert.ok(modal.includes(`src="${preview.src}"`));
+        assert.ok(modal.includes('loading="eager"'));
+        assert.ok(modal.includes(`width="${preview.width}" height="${preview.height}"`));
+        assert.ok(modal.includes(`alt="Homepage preview of ${namespace.escapeHtml(project.name)}"`));
+    }
+    assert.equal(sources.size, namespace.projects.length);
+    assert.equal(fs.readdirSync(path.join(root, 'assets/images/projects')).length, sources.size);
+    const withoutPreview = { ...namespace.projects[0], preview: undefined };
+    const fallback = namespace.renderProjectPreview(withoutPreview);
+    assert.equal(fallback.includes('<img'), false);
+    assert.ok(fallback.includes(withoutPreview.category));
+});
+
 test('README and development package declare the same release version', () => {
     const pkg = JSON.parse(read('package.json'));
     const readme = read('README.md');

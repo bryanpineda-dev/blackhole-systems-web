@@ -156,7 +156,67 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
             }
         });
     });
+
+    test(`all 17 project screenshots load and match their modals at ${viewport.width}px`, async () => {
+        await withPage({ viewport }, async (page, errors) => {
+            await page.locator('#page-loader').waitFor({ state: 'detached' });
+            const projects = await page.evaluate(() => window.BlackholeSystemsProjects.projects.map(({ id, preview }) => ({ id, preview })));
+            assert.equal(projects.length, 17);
+            const inspectImage = async (image) => {
+                await image.decode();
+                return { src: image.getAttribute('src'), width: image.naturalWidth, height: image.naturalHeight,
+                    fit: getComputedStyle(image).objectFit, loading: image.loading };
+            };
+            for (const { id, preview } of projects) {
+                const card = page.locator(`[data-project-id="${id}"]`);
+                await card.scrollIntoViewIfNeeded();
+                const image = card.locator('[data-project-preview]');
+                const info = await image.evaluate(inspectImage);
+                assert.deepEqual(info, { src: preview.src, width: preview.width, height: preview.height, fit: 'contain', loading: 'lazy' });
+                await card.locator('[data-project-details]').click();
+                const modalImage = page.locator('[data-project-modal] [data-project-preview]');
+                const modalInfo = await modalImage.evaluate(inspectImage);
+                assert.deepEqual(modalInfo, { ...info, loading: 'eager' });
+                assert.equal(await page.locator('html').evaluate((element) => element.scrollWidth <= window.innerWidth), true);
+                if (process.env.BLACKHOLE_QA_DIR && ['BH-001', 'BH-002', 'BH-017', 'BH-018'].includes(id)) {
+                    await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                    await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-modal-${id}-${viewport.width}.png`), animations: 'disabled' });
+                }
+                await page.keyboard.press('Escape');
+            }
+            for (const filter of ['featured', 'agency', 'all']) {
+                await page.locator(`.cmd-btn[data-filter="${filter}"]`).click();
+                await page.locator('.dossier-grid.is-transitioning').waitFor({ state: 'detached' });
+                const visible = await page.locator('.dossier-card:not([hidden])').evaluateAll((cards) => cards.map((card) => card.dataset.filters));
+                assert.ok(visible.length > 0);
+                if (filter !== 'all') assert.ok(visible.every((value) => value.split(' ').includes(filter)));
+            }
+            assert.deepEqual(errors, []);
+            if (process.env.BLACKHOLE_QA_DIR) {
+                await page.locator('.dossier-card').first().scrollIntoViewIfNeeded();
+                await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-cards-${viewport.width}.png`), animations: 'disabled' });
+            }
+        });
+    });
 }
+
+test('failed project images fall back to their original category in cards and modals', async () => {
+    await withPage({ overrides: { 'assets/images/projects/bh-001-sebana.jpg': '' } }, async (page, errors) => {
+        await page.locator('#page-loader').waitFor({ state: 'detached' });
+        const card = page.locator('[data-project-id="BH-001"]');
+        await card.scrollIntoViewIfNeeded();
+        await card.locator('[data-project-preview]').waitFor({ state: 'detached' });
+        assert.equal(await card.locator('.screen-placeholder span').textContent(), 'Booking System');
+        await card.locator('[data-project-details]').click();
+        const modal = page.locator('[data-project-modal]');
+        await modal.locator('[data-project-preview]').waitFor({ state: 'detached' });
+        assert.equal(await modal.locator('[data-project-modal-icon] span').textContent(), 'Booking System');
+        assert.equal(await modal.getAttribute('aria-hidden'), 'false');
+        await page.keyboard.press('Escape');
+        assert.equal(await modal.getAttribute('aria-hidden'), 'true');
+        assert.deepEqual(errors, []);
+    });
+});
 
 test('QR remains usable when the loader module is unavailable', async () => {
     await withPage({ url: '/tools/blackhole-qr/', overrides: { 'assets/js/modules/loader.js': '' } }, async (page, errors) => {

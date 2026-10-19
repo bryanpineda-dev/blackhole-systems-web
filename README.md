@@ -6,17 +6,16 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.2**
+Website version: **1.0.3**
 
-Deployment tag: `v1.0.2`
+Deployment tag: `v1.0.3`
 
 Release changes:
 
-- Isolate synchronous initializer failures in both landing and standalone page bootstraps without blocking independent modules.
-- Recover unavailable or failed loaders, preserve normal loader timings, and keep the loader-complete event idempotent.
-- Complete project-modal keyboard focus management and background isolation without redesigning the modal.
-- Bound quote requests to 15 seconds by default, prevent concurrent submissions, preserve failed form data, and protect retries from stale UI timers.
-- Add repeatable Node.js contract checks and isolated Chrome/Playwright browser tests. Development tooling is not required to serve the website.
+- Integrate the 17 reviewed public-site screenshots into project cards and detail modals.
+- Keep screenshots local, proportional, and uncropped inside the existing preview frames and responsive layouts.
+- Lazy-load card previews, load modal previews on demand, and retain the original category icons as missing-image fallbacks.
+- Extend contract and browser regression checks to validate preview assets, project correspondence, modal switching, and image-failure recovery.
 
 ## Overview
 
@@ -43,7 +42,9 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 
 The portfolio has its own curated dataset in `assets/js/modules/projects-data.js`. Shared rendering, filtering, and modal modules consume that list, including the project counter and detail metadata.
 
-The archive currently contains 17 projects. Project cards and modals use category icons as preview placeholders. Desktop screenshots for all 17 projects have been prepared as local review artifacts outside this repository; integrating preview images into the website remains pending.
+The archive currently contains 17 projects. Each record has a `preview` object with a local image path and its intrinsic dimensions. The reviewed public-site screenshots live in `assets/images/projects/` and are shared by cards and detail modals through `renderProjectPreview`.
+
+Card previews use native lazy loading; modal previews load when opened and reuse the same local asset. Images retain their full proportions with `object-fit: contain`, without cropping or stretching. Existing desktop and responsive frame sizes are preserved. Category icons remain underneath as a fallback when a screenshot is absent or fails to load. Filters, project metadata, buttons, and modal keyboard behavior are unchanged.
 
 ## Free Tools
 
@@ -199,7 +200,7 @@ npm test
 npm run test:browser
 ```
 
-`npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export.
+`npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio and preview-asset contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, all 17 card/modal previews and image-failure recovery, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
 
@@ -228,7 +229,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.2, the branch and tag are published with `git push origin main v1.0.2`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.3, the branch and tag are published with `git push origin main v1.0.3`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 
