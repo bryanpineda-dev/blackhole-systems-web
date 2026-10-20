@@ -159,6 +159,7 @@ body.nav-open .floating-assistant {
     gap: 12px;
     padding: 18px;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: var(--blue-alpha-50) transparent;
 }
@@ -175,6 +176,8 @@ body.nav-open .floating-assistant {
 .assistant-message {
     display: flex;
     width: 100%;
+    flex: 0 0 auto;
+    min-width: 0;
 }
 
 .assistant-message.user {
@@ -183,6 +186,8 @@ body.nav-open .floating-assistant {
 
 .assistant-bubble {
     max-width: 86%;
+    min-width: 0;
+    overflow-wrap: anywhere;
     padding: 12px 14px;
     border: 1px solid var(--white-alpha-08);
     border-radius: 16px;
@@ -190,6 +195,19 @@ body.nav-open .floating-assistant {
     background: var(--white-alpha-03);
     font-size: 0.88rem;
     line-height: 1.55;
+}
+
+.assistant-bubble p {
+    margin: 0 0 12px;
+}
+
+.assistant-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.assistant-bubble > a {
+    display: block;
+    margin-top: 8px;
 }
 
 .assistant-message.bot .assistant-bubble {
@@ -278,6 +296,10 @@ body.nav-open .floating-assistant {
     color: var(--primary-white);
     border-color: var(--primary-blue);
     background: var(--blue-alpha-15);
+}
+
+.assistant-chip[hidden] {
+    display: none;
 }
 
 .assistant-form {

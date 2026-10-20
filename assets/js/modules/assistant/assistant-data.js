@@ -1,150 +1,88 @@
-/**
- * Floating assistant knowledge base.
- * Keep service definitions, links, labels, and routing keywords outside the UI
- * module so the assistant can grow without bloating interaction code.
- */
+/** Public service knowledge only; never operational client records. */
 (function (BH) {
     'use strict';
-
     const defaultQuickActions = ['website', 'booking', 'dashboard', 'ecommerce', 'automation', 'ai'];
+    const related = ['budget', 'timeline', 'support', 'projects', 'contact', 'restart'];
+    const serviceCatalog = {};
+
+    function service(id, label, chip, summary, es, keywords) {
+        serviceCatalog[id] = { kind: 'service', label, chip, summary, es, keywords, related };
+    }
+
+    service('website', 'Website / landing', 'Website',
+        'Responsive websites with clear content, lead capture, SEO foundations and performance work.',
+        { label: 'Sitio web / landing', chip: 'Sitio web', summary: 'Sitios adaptables con contenido claro, captaci\u00f3n de consultas, bases de SEO y trabajo de rendimiento.' },
+        ['website', 'web page', 'landing', 'site', 'redesign', 'seo', 'performance', 'pagina web', 'sitio web', 'rediseno', 'redisenar', 'pagina informativa']);
+    service('booking', 'Booking / reservation system', 'Booking',
+        'Reservation systems can combine availability, appointment rules, confirmations and administration. Payments are scoped when needed.',
+        { label: 'Sistema de reservas', chip: 'Reservas', summary: 'Las reservas pueden reunir disponibilidad, reglas de citas, confirmaciones y administraci\u00f3n. Los pagos se definen si el proyecto los necesita.' },
+        ['booking', 'reservation', 'reservations', 'appointment', 'appointments', 'calendar', 'availability', 'reservas', 'reserva', 'reservaciones', 'citas', 'cita', 'agenda', 'calendario', 'disponibilidad']);
+    service('dashboard', 'Dashboard / portal', 'Dashboard',
+        'Custom dashboards centralize records, users, permissions, reports and business workflows around the actual operation.',
+        { label: 'Dashboard / portal', chip: 'Dashboard', summary: 'Los paneles a medida centralizan registros, usuarios, permisos, reportes y flujos seg\u00fan la operaci\u00f3n del negocio.' },
+        ['dashboard', 'dashboards', 'portal', 'admin panel', 'client area', 'customer portal', 'crm', 'reporting', 'reports', 'permissions', 'roles', 'panel', 'panel administrativo', 'reporteria', 'reportes', 'permisos']);
+    service('ecommerce', 'E-commerce / sales system', 'Store',
+        'Online stores can include a product catalog, checkout, payment integrations, inventory and order notifications.',
+        { label: 'Tienda / sistema de ventas', chip: 'Tienda', summary: 'Una tienda puede incluir cat\u00e1logo, checkout, integraciones de pago, inventario y notificaciones de pedidos.' },
+        ['ecommerce', 'e commerce', 'store', 'shop', 'storefront', 'checkout', 'inventory', 'catalog', 'cart', 'woocommerce', 'tienda', 'carrito', 'cat\u00e1logo', 'inventario', 'pasarela', 'compras']);
+    service('wordpress', 'WordPress / custom plugin', 'Plugin',
+        'Custom PHP and WordPress plugins add business-specific workflows, administration and integrations.',
+        { label: 'WordPress / plugin a medida', chip: 'Plugin', summary: 'Los plugins PHP y WordPress a medida permiten crear flujos, administraci\u00f3n e integraciones propias del negocio.' },
+        ['wordpress', 'custom plugin', 'plugin', 'theme', 'php', 'shortcode', 'wp admin', 'plugin personalizado', 'tema']);
+    service('automation', 'Automation / scripts', 'Automation',
+        'Automation connects repeatable tasks, data synchronization, reports and internal utilities to reduce manual work.',
+        { label: 'Automatizaci\u00f3n / scripts', chip: 'Automatizaci\u00f3n', summary: 'La automatizaci\u00f3n conecta tareas repetitivas, sincronizaci\u00f3n de datos, reportes y utilidades internas para reducir trabajo manual.' },
+        ['automation', 'automate', 'script', 'scripts', 'python', 'repetitive', 'automated reports', 'automatizaci\u00f3n', 'automatizar', 'proceso repetitivo', 'tarea repetitiva', 'reporte automatico']);
+    service('ai', 'AI tools / chatbots', 'AI',
+        'AI-assisted workflows, knowledge-based tools and chatbots are scoped around useful business tasks and their data requirements.',
+        { label: 'Herramientas de IA / chatbots', chip: 'IA', summary: 'Los flujos con IA, herramientas de conocimiento y chatbots se definen seg\u00fan tareas utiles y los datos que necesitan.' },
+        ['ai', 'artificial intelligence', 'gpt', 'chatgpt', 'chatbot', 'chatbots', 'assistant', 'openai', 'knowledge base', 'ia', 'inteligencia artificial', 'asistente', 'base de conocimiento']);
+    service('integrations', 'API / integrations', 'APIs',
+        'Integrations connect systems through APIs, webhooks, synchronization rules and visibility into failures.',
+        { label: 'API / integraciones', chip: 'APIs', summary: 'Las integraciones conectan sistemas mediante APIs, webhooks, reglas de sincronizaci\u00f3n y seguimiento de errores.' },
+        ['api', 'apis', 'integration', 'integrations', 'webhook', 'webhooks', 'payment gateway', 'zapier', 'make.com', 'integraci\u00f3n', 'integraciones', 'conectar', 'sincronizaci\u00f3n']);
+    service('custom', 'Custom software systems', 'Software',
+        'Custom software starts with business rules, users and workflows, then selects the technology and delivery scope that fit them.',
+        { label: 'Software a medida', chip: 'Software', summary: 'El software a medida parte de las reglas del negocio, usuarios y procesos para definir la tecnolog\u00eda y el alcance adecuados.' },
+        ['custom software', 'software systems', 'business system', 'internal system', 'software a medida', 'software personalizado', 'sistema interno', 'sistema a medida']);
+    service('frontend', 'Front-end engineering', 'Front end',
+        'Front-end work covers responsive interfaces, accessible interactions, application states and integration with the underlying system.',
+        { label: 'Desarrollo front-end', chip: 'Front end', summary: 'El front-end abarca interfaces adaptables, interacciones accesibles, estados de la aplicaci\u00f3n y conexion con el sistema.' },
+        ['front end', 'frontend', 'react', 'javascript interface', 'interfaz', 'interfaces']);
+    service('backend', 'Back-end / databases', 'Back end',
+        'Back-end work covers application rules, databases, authentication, permissions and reliable data flows.',
+        { label: 'Back-end / bases de datos', chip: 'Back end', summary: 'El back-end comprende reglas de la aplicaci\u00f3n, bases de datos, autenticaci\u00f3n, permisos y flujos de datos fiables.' },
+        ['back end', 'backend', 'database', 'databases', 'authentication', 'base de datos', 'bases de datos', 'autenticaci\u00f3n']);
+    service('design', 'UX/UI product design', 'UX/UI',
+        'Product design organizes information, user journeys, interface states and visual hierarchy before implementation.',
+        { label: 'Dise\u00f1o de producto UX/UI', chip: 'UX/UI', summary: 'El dise\u00f1o de producto organiza informaci\u00f3n, recorridos de usuario, estados de interfaz y jerarqu\u00eda visual antes de implementar.' },
+        ['ux', 'ui', 'ux ui', 'product design', 'user experience', 'dise\u00f1o de producto', 'dise\u00f1o ux', 'dise\u00f1o ui', 'experiencia de usuario']);
+
+    const intents = {
+        support: ['Support / maintenance', 'Support', 'Soporte / mantenimiento', 'Soporte', ['support', 'maintenance', 'hosting', 'domain', 'fix', 'bug', 'broken', 'restore', 'backup', 'error', 'update', 'soporte', 'mantenimiento', 'dominio', 'arreglar', 'falla', 'fallo', 'restaurar', 'respaldo', 'actualizar']],
+        budget: ['Quote / budget', 'Quote', 'Cotizaci\u00f3n / presupuesto', 'Cotizaci\u00f3n', ['budget', 'price', 'cost', 'quote', 'estimate', 'pricing', 'how much', 'presupuesto', 'precio', 'costo', 'cotizaci\u00f3n', 'cotizar', 'cuanto cuesta', 'cuanto vale', 'cuanto cobran']],
+        timeline: ['Timeline / delivery', 'Timeline', 'Plazo / entrega', 'Plazo', ['timeline', 'deadline', 'delivery', 'how long', 'duration', 'urgent', 'asap', 'tiempo', 'fecha', 'plazo', 'entrega', 'urgente', 'cuanto tarda', 'cuanto dura']],
+        projects: ['Public project archive', 'Projects', 'Portafolio p\u00fablico', 'Proyectos', ['projects', 'portfolio', 'deployments', 'case studies', 'examples', 'proyectos', 'portafolio', 'trabajos', 'casos de exito', 'ejemplos']],
+        social: ['Social channels', 'Social', 'Redes sociales', 'Redes', ['social', 'social media', 'instagram', 'facebook', 'linkedin', 'github', 'follow', 'redes', 'redes sociales', 'seguir']],
+        services: ['Blackhole services', 'Services', 'Servicios de Blackhole', 'Servicios', ['services', 'what do you do', 'what can you build', 'servicios', 'que hacen', 'que puedes hacer']],
+        contact: ['Contact', 'Contact', 'Contacto', 'Contacto', ['contact', 'whatsapp', 'email', 'call', 'meeting', 'phone', 'number', 'form', 'contacto', 'correo', 'llamar', 'reunion', 'numero', 'telefono', 'celular', 'formulario']],
+        restart: ['New conversation', 'Start over', 'Nueva conversaci\u00f3n', 'Empezar de nuevo', ['start over', 'reset conversation', 'new conversation', 'empezar de nuevo', 'reiniciar conversaci\u00f3n', 'nueva conversaci\u00f3n']]
+    };
+    Object.entries(intents).forEach(([id, [label, chip, labelEs, chipEs, keywords]]) => {
+        serviceCatalog[id] = { kind: 'intent', label, chip, es: { label: labelEs, chip: chipEs }, keywords, related: defaultQuickActions };
+    });
 
     BH.assistantData = {
         links: {
-            contact: '#contact',
-            email: 'mailto:info@blackholesys.com',
-            github: 'https://github.com/bryanpineda-dev',
-            instagram: 'https://www.instagram.com/blackholesys',
-            linkedin: 'https://www.linkedin.com/company/blackhole-sys/',
-            facebook: 'https://www.facebook.com/blackholesys',
+            contact: '#contact', email: 'mailto:info@blackholesys.com',
+            github: 'https://github.com/bryanpineda-dev', instagram: 'https://www.instagram.com/blackholesys',
+            linkedin: 'https://www.linkedin.com/company/blackhole-sys/', facebook: 'https://www.facebook.com/blackholesys',
             whatsapp: 'https://wa.me/50670827504'
         },
-
+        limits: { message: 2000, context: 6000, turns: 40 },
         defaultQuickActions,
-        fallbackQuickActions: ['website', 'booking', 'dashboard', 'projects', 'social', 'budget'],
+        fallbackQuickActions: ['custom', 'website', 'booking', 'ecommerce', 'contact', 'restart'],
         defaultWhatsAppText: 'Hi Bryan, I want to talk about a project for Blackhole Systems.',
-
-        serviceCatalog: {
-            website: {
-                label: 'Website / landing',
-                chip: 'Website',
-                summary: 'Yes, this fits a website build. We can help with structure, premium UI, responsive front end, performance, SEO foundations, and lead capture.',
-                handoff: 'Start a website brief on WhatsApp',
-                keywords: ['website', 'web page', 'landing', 'landing page', 'site', 'redesign', 'refresh', 'campaign page', 'portfolio', 'institutional page', 'seo', 'performance', 'pagina web', 'página web', 'sitio web', 'landing', 'rediseño', 'redisenar', 'rediseñar', 'campana', 'campaña', 'portafolio', 'pagina informativa', 'página informativa'],
-                related: ['booking', 'dashboard', 'ecommerce', 'support', 'budget', 'contact']
-            },
-            booking: {
-                label: 'Booking / reservation system',
-                chip: 'Booking',
-                summary: 'Yes, this fits a booking system. We can build reservation logic, availability, forms, payments if needed, confirmations, and an admin panel.',
-                handoff: 'Start a booking brief on WhatsApp',
-                keywords: ['booking', 'booking system', 'reservation', 'reservations', 'appointment', 'appointments', 'calendar', 'schedule', 'tickets', 'ticketing', 'event tickets', 'availability', 'reservation flow', 'sistema de reservas', 'sitio de reservas', 'web de reservas', 'pagina de reservas', 'página de reservas', 'reserva', 'reservas', 'reservaciones', 'cita', 'citas', 'agenda', 'calendario', 'entradas', 'ranchos', 'disponibilidad'],
-                related: ['dashboard', 'integrations', 'wordpress', 'budget', 'timeline', 'contact']
-            },
-            dashboard: {
-                label: 'Dashboard / portal',
-                chip: 'Dashboard',
-                summary: 'Yes, this fits a dashboard or portal. We can centralize users, records, roles, reports, activity, and business workflows in one controlled system.',
-                handoff: 'Start a dashboard brief on WhatsApp',
-                keywords: ['dashboard', 'dashboards', 'portal', 'admin panel', 'panel', 'client area', 'customer portal', 'crm', 'reporting', 'reports', 'records', 'permissions', 'roles', 'internal system', 'panel admin', 'panel administrativo', 'portal cliente', 'sistema interno', 'reporteria', 'reportería', 'reportes', 'permisos', 'usuarios', 'roles'],
-                related: ['automation', 'integrations', 'ai', 'budget', 'timeline', 'contact']
-            },
-            ecommerce: {
-                label: 'E-commerce / sales system',
-                chip: 'Store',
-                summary: 'Yes, this fits an e-commerce build. We can handle product structure, checkout, WhatsApp orders, payment gateways, inventory, and customer notifications.',
-                handoff: 'Start a store brief on WhatsApp',
-                keywords: ['ecommerce', 'e-commerce', 'store', 'shop', 'storefront', 'checkout', 'payment', 'payments', 'inventory', 'catalog', 'woocommerce', 'cart', 'tienda', 'tienda en linea', 'tienda en línea', 'carrito', 'catalogo', 'catálogo', 'inventario', 'pasarela', 'pago', 'pagos', 'compras'],
-                related: ['wordpress', 'integrations', 'dashboard', 'automation', 'budget', 'contact']
-            },
-            wordpress: {
-                label: 'WordPress / custom plugin',
-                chip: 'Plugin',
-                summary: 'Yes, this fits a custom WordPress/PHP build. We can create plugins, admin tools, WooCommerce logic, booking flows, reports, and business-specific features.',
-                handoff: 'Start a plugin brief on WhatsApp',
-                keywords: ['wordpress', 'woocommerce plugin', 'custom plugin', 'plugin', 'theme', 'php plugin', 'shortcode', 'wp admin', 'wp-admin', 'php', 'plugin personalizado', 'tema', 'administrador wordpress', 'woocommerce', 'plugin wordpress'],
-                related: ['booking', 'ecommerce', 'dashboard', 'support', 'budget', 'contact']
-            },
-            automation: {
-                label: 'Automation / scripts',
-                chip: 'Automation',
-                summary: 'Yes, this fits automation. We can reduce manual work with scripts, API syncs, reporting flows, content utilities, and internal tools.',
-                handoff: 'Start an automation brief on WhatsApp',
-                keywords: ['automation', 'automate', 'script', 'python', 'workflow', 'repetitive', 'sync', 'process', 'task', 'utility', 'report automation', 'automatizacion', 'automatización', 'automatizar', 'flujo', 'proceso repetitivo', 'tarea repetitiva', 'sincronizar', 'reporte automatico', 'reporte automático'],
-                related: ['integrations', 'dashboard', 'ai', 'budget', 'timeline', 'contact']
-            },
-            ai: {
-                label: 'AI assistant / smart tool',
-                chip: 'AI',
-                summary: 'Yes, this fits an AI-assisted tool. We can build guided assistants, lead qualification, knowledge routing, GPT workflows, and smart internal utilities.',
-                handoff: 'Start an AI tool brief on WhatsApp',
-                keywords: ['ai', 'artificial intelligence', 'gpt', 'chatgpt', 'chatbot', 'assistant', 'bot', 'prompt', 'openai', 'knowledge base', 'ia', 'inteligencia artificial', 'asistente', 'chat bot', 'chatbot', 'base de conocimiento'],
-                related: ['automation', 'integrations', 'dashboard', 'budget', 'timeline', 'contact']
-            },
-            integrations: {
-                label: 'API / integrations',
-                chip: 'APIs',
-                summary: 'Yes, this fits an integration flow. We can connect platforms through APIs, webhooks, payment gateways, CRMs, sync logic, and admin visibility.',
-                handoff: 'Start an integration brief on WhatsApp',
-                keywords: ['api', 'integration', 'integrations', 'webhook', 'connect', 'payment gateway', 'third party', 'crm', 'zapier', 'make', 'sync', 'integracion', 'integración', 'integraciones', 'conectar', 'pasarela de pago', 'sincronizacion', 'sincronización'],
-                related: ['dashboard', 'automation', 'ecommerce', 'ai', 'budget', 'contact']
-            },
-            support: {
-                label: 'Support / maintenance',
-                chip: 'Support',
-                summary: 'Yes, this fits support or maintenance. We can review, fix, improve, monitor, and keep existing websites, stores, plugins, or systems moving.',
-                handoff: 'Start a support request on WhatsApp',
-                keywords: ['support', 'maintenance', 'hosting', 'domain', 'fix', 'bug', 'update', 'care', 'monthly', 'improve existing', 'soporte', 'mantenimiento', 'dominio', 'hospedaje', 'hosting', 'arreglo', 'error', 'mensualidad', 'mejoras'],
-                related: ['website', 'wordpress', 'ecommerce', 'automation', 'budget', 'contact']
-            },
-            budget: {
-                label: 'Quote / budget',
-                chip: 'Quote',
-                summary: 'Yes, we can scope it. The clean path is to define must-have features, timeline, technical risk, and a realistic first version before pricing.',
-                handoff: 'Request a quote on WhatsApp',
-                keywords: ['budget', 'price', 'cost', 'quote', 'estimate', 'pricing', 'how much', 'range', 'presupuesto', 'precio', 'costo', 'cotizacion', 'cotización', 'cotizar', 'cuanto cuesta', 'cuánto cuesta'],
-                related: ['website', 'booking', 'dashboard', 'ecommerce', 'automation', 'contact']
-            },
-            timeline: {
-                label: 'Timeline / delivery',
-                chip: 'Timeline',
-                summary: 'Yes, we can map timing. Delivery depends on scope, content readiness, integrations, QA, and whether we launch in phases.',
-                handoff: 'Discuss timeline on WhatsApp',
-                keywords: ['timeline', 'time', 'deadline', 'delivery', 'how long', 'duration', 'urgent', 'asap', 'launch', 'tiempo', 'fecha', 'plazo', 'entrega', 'urgente', 'rapido', 'rápido', 'lanzamiento'],
-                related: ['budget', 'website', 'dashboard', 'integrations', 'support', 'contact']
-            },
-            projects: {
-                label: 'Projects / deployment archive',
-                chip: 'Projects',
-                summary: 'The portfolio includes 16 real deployments built as solo developer: booking systems, e-commerce stores, dashboards, WordPress/PHP plugins, corporate sites, and automation-ready platforms.',
-                handoff: 'Ask about a similar project on WhatsApp',
-                pageHref: '#deployments',
-                pageLabel: 'Open project archive',
-                keywords: ['project', 'projects', 'portfolio', 'deployments', 'deploys', 'case studies', 'work examples', 'client work', 'real work', 'sebana', 'alai', 'mariam', 'coxbrand', 'meraki', 'my choice', 'niuvort', 'proyecto', 'proyectos', 'portafolio', 'trabajos', 'clientes', 'casos', 'casos de exito', 'casos de éxito', 'deploys', 'despliegues', 'ejemplos'],
-                related: ['booking', 'dashboard', 'ecommerce', 'website', 'wordpress', 'contact']
-            },
-            social: {
-                label: 'Social media / channels',
-                chip: 'Social',
-                summary: 'You can follow or contact Blackhole Systems through LinkedIn, GitHub, Instagram, Facebook, WhatsApp, or email.',
-                keywords: ['social', 'social media', 'instagram', 'facebook', 'linkedin', 'github', 'network', 'networks', 'follow', 'redes', 'redes sociales', 'ig', 'fb', 'git', 'seguir', 'perfil', 'perfiles'],
-                related: ['contact', 'projects', 'services', 'website', 'budget', 'ai']
-            },
-            services: {
-                label: 'Blackhole services',
-                chip: 'Services',
-                summary: 'Blackhole Systems builds custom digital systems: websites, dashboards, booking tools, stores, plugins, automations, integrations, and AI-assisted workflows.',
-                handoff: 'Ask about services on WhatsApp',
-                keywords: ['service', 'services', 'what do you do', 'what can you build', 'blackhole systems', 'digital engineering', 'help me', 'servicio', 'servicios', 'que hacen', 'qué hacen', 'que puedes hacer', 'qué puedes hacer', 'ayuda'],
-                related: defaultQuickActions
-            },
-            contact: {
-                label: 'Contact route',
-                chip: 'Contact',
-                summary: 'The fastest route is WhatsApp or the project brief form. Send the idea, expected result, timeline, and any reference links.',
-                handoff: 'Open WhatsApp',
-                keywords: ['contact', 'whatsapp', 'email', 'instagram', 'facebook', 'github', 'linkedin', 'call', 'meeting', 'number', 'phone', 'phone number', 'mobile', 'cell', 'cellphone', 'telephone', 'tel', 'your number', 'contact number', 'whatsapp number', 'contacto', 'correo', 'llamar', 'reunion', 'reunión', 'numero', 'número', 'telefono', 'teléfono', 'celular', 'movil', 'móvil', 'tu numero', 'tu número', 'numero de telefono', 'número de teléfono', 'numero de whatsapp', 'número de whatsapp'],
-                related: defaultQuickActions
-            }
-        }
+        serviceCatalog
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

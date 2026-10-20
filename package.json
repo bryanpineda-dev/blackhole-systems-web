@@ -1,14 +1,14 @@
 {
   "name": "blackhole-systems-website",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "description": "Development checks for the static Blackhole Systems website.",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/contracts.test.cjs tests/boot.test.cjs",
-    "test:browser": "node --test --test-concurrency=1 tests/browser.test.cjs tests/reveal.test.cjs tests/responsive.test.cjs",
+    "test": "node --test tests/contracts.test.cjs tests/boot.test.cjs tests/assistant.test.cjs",
+    "test:browser": "node --test --test-concurrency=1 tests/browser.test.cjs tests/reveal.test.cjs tests/responsive.test.cjs tests/assistant-browser.test.cjs",
     "test:all": "npm test && npm run test:browser"
   },
   "devDependencies": {

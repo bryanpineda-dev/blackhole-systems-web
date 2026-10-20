@@ -6,19 +6,19 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.7**
+Website version: **1.0.8**
 
-Deployment tag: `v1.0.7`
+Deployment tag: `v1.0.8`
 
 Release changes:
 
-- Send service requests and similar-project inquiries directly to WhatsApp with contextual, prefilled messages; keep Start Project actions connected to the quote form.
-- Keep quote submission disabled until its handler is attached, use POST as the native form method, and expose a WhatsApp fallback if initialization is unavailable.
-- Reject whitespace-only required fields and enforce the public intake field limits before sending.
-- Preserve edits made while a quote request is pending and distinguish those unsent edits from the confirmed submission.
-- Recover cleanly from malformed/null API responses while preserving existing timeout, retry, and concurrent-submission guards.
-- Reveal the service morph label on keyboard focus using its existing brand styles and timings.
-- Extend quote and WhatsApp regression coverage and document the companion admin fix for brief validation before source-page enrichment.
+- Replace single-message keyword replies with a local guided advisor that separates service domains, intent and public project references.
+- Retain visitor-provided context through quote, timeline and contact follow-ups, with explicit clarification and conversation reset.
+- Add English/Spanish guidance, cover all nine service headings, and read project names, statuses and archive counts from the public dataset.
+- Preserve the complete accepted context in reviewable WhatsApp drafts and offer the existing project form without submitting or overwriting it.
+- Improve modeless keyboard entry, message-log semantics, long-token wrapping and bounded message handling without redesigning the panel.
+- Serialize pending turns, preserve rejected/failed drafts, and expose direct contact when an assistant module is unavailable.
+- Add conversation and browser fault-injection coverage; keep the existing service CTA and quote-form behavior unchanged.
 
 ## Overview
 
@@ -33,7 +33,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Shared page boot layer for standalone pages and tools
 - Scroll reveal motion system with page-specific presets and opt-in reversible landing reveals
 - Services, workflow, projects, testimonials, and contact sections
-- Floating assistant and direct WhatsApp access
+- Local guided project assistant with conversation context and direct WhatsApp access
 - Contextual WhatsApp handoffs from service buttons and project detail modals
 - Project quote form wired to the Blackhole Systems Admin lead API
 - Footer Signal Log newsletter capture via email handoff
@@ -92,7 +92,7 @@ Start Project actions in the header, mobile menu, hero, and Workflow still navig
 
 The quote form uses native POST rather than GET and starts with its submit button disabled. Its existing status area provides a direct WhatsApp fallback until the quote handler has attached successfully; initialization clears the fallback and enables submission. A missing quote script therefore cannot turn a normal click or Enter into a URL containing the visitor's details. The quote and project-modal script references carry release revisions so this markup does not reuse an older cached handler.
 
-Required names and the project brief reject whitespace-only values. The browser enforces 80 characters per name field, 160 for the combined name, 190 for email, 60 for WhatsApp, and 3,000 for the project brief. The brief uses a submission-time limit rather than native paste truncation: longer text stays in the field and must be shortened before sending. These bounds follow the public intake contract without adding fields or changing the form layout. The companion admin change validates the raw trimmed brief before appending source-page metadata and returns HTTP 422 for empty or over-limit briefs rather than silently truncating them; publish that admin change alongside this website version.
+Required names and the project brief reject whitespace-only values. The browser enforces 80 characters per name field, 160 for the combined name, 190 for email, 60 for WhatsApp, and 3,000 for the project brief. The brief uses a submission-time limit rather than native paste truncation: longer text stays in the field and must be shortened before sending. These bounds follow the public intake contract without adding fields or changing the form layout. The companion admin validation introduced with website 1.0.7 checks the raw trimmed brief before appending source-page metadata and returns HTTP 422 for empty or over-limit briefs rather than silently truncating them; that admin validation must be deployed for matching server-side enforcement. Version 1.0.8 adds no new admin dependency.
 
 Local endpoint:
 
@@ -116,7 +116,17 @@ Quote requests use an `AbortController` with a 15-second deadline covering the r
 
 The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
 
-The assistant uses component-local viewport-edge and panel-offset values. On screens up to 520px high, its open panel uses the available height, compacts header/composer spacing, and hides the floating shortcuts until closed. Its visible close control receives focus when those shortcuts are hidden; closing restores focus without automatically opening the mobile keyboard.
+## Guided Project Assistant
+
+The landing assistant is a deterministic local advisor, not a generative AI model. It uses no external AI provider, API key, backend conversation endpoint or dashboard client records. Its curated service knowledge covers the nine public service headings plus website, reservation, dashboard and WordPress inquiries. The public project archive is its sole source for project names, domains, summaries and statuses; project summaries retain their authored English text.
+
+Routing treats service domains separately from price, timing, support and contact intent. Whole-keyword matching, clause-local negation and clarification replace substring scoring and duplicate-keyword weighting. Ambiguous service choices remain pending until resolved. These rules do not claim unrestricted language understanding; unclear requests are clarified instead of receiving invented facts, prices or delivery promises.
+
+Conversation memory lasts only for the current page lifetime, survives closing/reopening the panel and is cleared by Start over or a reload. No local/session storage is used. Accepted visitor details, selected service, public reference and questions form a WhatsApp draft; later follow-ups and chips do not replace the earlier brief. Both in-message and floating WhatsApp links use that context. WhatsApp opens a visitor-reviewable draft and never sends automatically. The form action navigates to the existing quote section without pre-filling, overwriting or submitting any fields.
+
+Each message is limited to 2,000 characters, accepted context to 6,000 characters and a conversation to 40 turns. Rejected drafts stay in the input and are never silently truncated. At the conversation limit, contact and Start over remain available. The visible message log is bounded independently. One response is pending at a time; a draft typed while waiting is preserved. Response errors allow manual retry. Missing feature modules expose a direct-contact fallback; if the bootstrap itself is missing, its native controls stay disabled while the independent WhatsApp link remains available.
+
+The assistant keeps its existing colors, dimensions and motion. It uses component-local viewport-edge and panel-offset values. On screens up to 520px high, its open panel uses the available height, compacts header/composer spacing, and hides the floating shortcuts until closed. Opening moves focus to the visible close control at all viewport sizes, without opening the mobile keyboard. This is a modeless region with a focusable conversation log, not a focus-trapping dialog; Escape/close restore the opener. Long tokens wrap inside bubbles, and incoming replies do not force a visitor back to the bottom after they scroll up.
 
 ## Tech Stack
 
@@ -139,7 +149,7 @@ Primary bootstrap files:
 
 Current module groups:
 
-- `assets/js/modules/assistant/` owns assistant data, routing, handoff formatting, and UI state.
+- `assets/js/modules/assistant/` separates curated public knowledge, pure routing, transactional session memory, response/handoff formatting, DOM interaction and bootstrap/fallback behavior. `BH.initFloatingAssistant` remains the landing initializer; the QR tool does not mount this feature.
 - `assets/js/modules/forms/` separates the project quote form from the newsletter handoff while preserving `BH.initFormHandler`.
 - `assets/js/modules/effects/` owns reusable and landing motion effects such as star fields, comet fields, tactical grid pulse, and shared visibility gates.
 - `assets/js/modules/reveal.js` is the shared reveal engine.
@@ -243,6 +253,8 @@ Run both suites with `npm run test:all` before publishing a version. Keep `node_
 Motion-enabled browser checks additionally exercise repeated entry/exit at both edges, rapid direction changes, viewport resizing, focused tall forms, row staggering after filters and reflow, mouse/touch tilt, loader-gated hero entries, one-shot planet/QR behavior, reduced motion, and missing-API fallbacks. The reviews carousel receives one viewport reveal around the whole component; its own internal slide animations remain independent.
 
 Responsive checks also cover narrow touch layout widths, complete side-by-side hero/Workflow actions, mobile-menu focus and inert-state cleanup, assistant portrait/landscape bounds and resize focus, QR overflow before/during reveals, and footer-column/legend clearance. Hero button spacing is narrowed only at 360px and below; Workflow action sizing is local to mobile widths. Footer columns use an intermediate two-column layout before the existing tablet stack, and the final legend stacks earlier to clear the floating controls.
+
+Assistant-specific suites exercise natural-language routing, negation, ambiguous choices, all nine service headings and 17 public project identities, bilingual follow-ups, context-preserving handoffs, reset, input/context bounds and HTML escaping. Browser checks additionally cover modeless keyboard entry, portrait/landscape wrapping, rapid submissions, preserved form drafts, response exceptions, missing modules and successful reinitialization. These checks do not certify a physical mobile keyboard or screen-reader announcement behavior.
 
 ## Performance Notes
 

@@ -40,7 +40,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20260716-preprod">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.8">
     <script defer src="https://kit.fontawesome.com/c86704639a.js" crossorigin="anonymous"></script>
     <noscript>
         <style>
@@ -1440,15 +1440,15 @@
     </footer>
 
     <!-- Floating assistant: quick project guidance plus direct WhatsApp access. -->
-    <aside class="floating-assistant" data-floating-assistant aria-live="polite">
-        <div class="floating-assistant-panel" data-assistant-panel aria-hidden="true">
+    <aside class="floating-assistant" data-floating-assistant aria-label="Blackhole project assistant">
+        <div class="floating-assistant-panel" id="blackhole-assistant-panel" data-assistant-panel role="region" aria-labelledby="blackhole-assistant-title" aria-hidden="true" lang="en">
             <header class="assistant-header">
                 <div class="assistant-brand">
                     <div class="assistant-avatar" aria-hidden="true">
                         <i class="ri-robot-2-line"></i>
                     </div>
                     <div>
-                        <span class="assistant-title">Blackhole Assistant</span>
+                        <span class="assistant-title" id="blackhole-assistant-title">Blackhole Assistant</span>
                         <span class="assistant-status bh-status-line">Project routing online</span>
                     </div>
                 </div>
@@ -1457,12 +1457,12 @@
                 </button>
             </header>
 
-            <div class="assistant-messages" data-assistant-messages>
+            <div class="assistant-messages" data-assistant-messages role="log" aria-label="Project conversation" aria-live="polite" aria-relevant="additions" tabindex="0">
                 <div class="assistant-message bot">
                     <div class="assistant-bubble">
                         <strong>Hi, I am the Blackhole assistant.</strong>
                         <br><br>
-                        Tell me what you need and I will match it to a Blackhole service.
+                        I am a guided project advisor. Tell me what you need and I will help define the next step.
                         <br>
                         Example: "I need a booking system."
                     </div>
@@ -1479,15 +1479,15 @@
             </div>
 
             <form class="assistant-form" data-assistant-form autocomplete="off">
-                <input type="text" data-assistant-input aria-label="Ask Blackhole Assistant" placeholder="Ask about your project...">
-                <button class="assistant-send" type="submit" aria-label="Send message">
+                <input type="text" data-assistant-input aria-label="Ask Blackhole Assistant" placeholder="Ask about your project..." enterkeyhint="send" disabled>
+                <button class="assistant-send" type="submit" aria-label="Send message" disabled>
                     <i class="ri-arrow-up-line" aria-hidden="true"></i>
                 </button>
             </form>
         </div>
 
         <div class="assistant-floating-actions">
-            <button class="assistant-floating-btn assistant-bot-toggle" type="button" data-assistant-toggle aria-label="Open Blackhole assistant" aria-expanded="false">
+            <button class="assistant-floating-btn assistant-bot-toggle" type="button" data-assistant-toggle aria-label="Open Blackhole assistant" aria-expanded="false" aria-controls="blackhole-assistant-panel" disabled>
                 <i class="ri-robot-2-line" aria-hidden="true"></i>
             </button>
             <a class="assistant-floating-btn assistant-whatsapp" href="https://wa.me/50670827504?text=Hi%20Bryan%2C%20I%20want%20to%20talk%20about%20a%20project%20for%20Blackhole%20Systems." target="_blank" rel="noopener" aria-label="Contact Blackhole Systems on WhatsApp">
@@ -1517,11 +1517,12 @@
     <script src="assets/js/modules/effects/comet-field.js" defer></script>
     <script src="assets/js/modules/effects/grid-pulse.js" defer></script>
     <script src="assets/js/modules/reviews-slider.js" defer></script>
-    <script src="assets/js/modules/assistant/assistant-data.js" defer></script>
-    <script src="assets/js/modules/assistant/assistant-router.js" defer></script>
-    <script src="assets/js/modules/assistant/assistant-handoff.js" defer></script>
-    <script src="assets/js/modules/assistant/assistant-ui.js" defer></script>
-    <script src="assets/js/modules/assistant/assistant.js" defer></script>
+    <script src="assets/js/modules/assistant/assistant-data.js?v=1.0.8" defer></script>
+    <script src="assets/js/modules/assistant/assistant-router.js?v=1.0.8" defer></script>
+    <script src="assets/js/modules/assistant/assistant-session.js?v=1.0.8" defer></script>
+    <script src="assets/js/modules/assistant/assistant-handoff.js?v=1.0.8" defer></script>
+    <script src="assets/js/modules/assistant/assistant-ui.js?v=1.0.8" defer></script>
+    <script src="assets/js/modules/assistant/assistant.js?v=1.0.8" defer></script>
     <script src="assets/js/modules/footer.js" defer></script>
     <script src="assets/js/modules/cursor.js" defer></script>
     <script type="importmap">

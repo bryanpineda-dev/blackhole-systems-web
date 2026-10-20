@@ -70,7 +70,7 @@ test('portfolio records, filters and rendering share a valid unique dataset', ()
 });
 
 test('assistant explicit routes, fallback and handoff encode user input safely', () => {
-    const BH = load(['assets/js/modules/assistant/assistant-data.js', 'assets/js/modules/assistant/assistant-router.js',
+    const BH = load(['assets/js/modules/assistant/assistant-data.js', 'assets/js/modules/assistant/assistant-router.js', 'assets/js/modules/assistant/assistant-session.js',
         'assets/js/modules/assistant/assistant-handoff.js']).BlackholeSystems;
     const data = BH.assistantData;
     const router = BH.Assistant.createRouter(data.serviceCatalog);
