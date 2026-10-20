@@ -626,10 +626,6 @@
         font-size: 0.62rem;
     }
 
-    .dossier-screen {
-        height: clamp(150px, 44vw, 205px);
-    }
-
     .dossier-info {
         padding: 18px;
     }

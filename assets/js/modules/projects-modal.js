@@ -80,6 +80,7 @@
         }
 
         const modalFields = {
+            scroll: modal.querySelector('[data-project-modal-scroll]'),
             icon: modal.querySelector('[data-project-modal-icon]'),
             id: modal.querySelector('[data-project-modal-id]'),
             status: modal.querySelector('[data-project-modal-status]'),
@@ -120,6 +121,7 @@
             modal.classList.add('is-open');
             modal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('project-modal-open');
+            if (modalFields.scroll) modalFields.scroll.scrollTop = 0;
             isolateBackground();
             focusWhenVisible();
         }

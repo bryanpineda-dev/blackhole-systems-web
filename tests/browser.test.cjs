@@ -19,6 +19,19 @@ async function freezeClock(page) {
     await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
 }
 
+async function assertFullPreview(image) {
+    const geometry = await image.evaluate((element) => ({
+        width: element.clientWidth, height: element.clientHeight,
+        expectedHeight: element.clientWidth * element.naturalHeight / element.naturalWidth,
+        frameWidth: element.parentElement.clientWidth,
+        frameHeight: element.parentElement.clientHeight
+    }));
+    assert.ok(geometry.width > 0 && geometry.height > 0);
+    assert.ok(Math.abs(geometry.width - geometry.frameWidth) <= 1, 'preview fills the frame width');
+    assert.ok(Math.abs(geometry.height - geometry.frameHeight) <= 1, 'frame follows the image height');
+    assert.ok(Math.abs(geometry.height - geometry.expectedHeight) <= 1, 'preview retains its intrinsic proportions');
+}
+
 test('standalone boot isolates failures and does not rerun successful modules', async () => {
     await withPage({ fixture: '<body class="is-loading" data-page-boot="loader cursor stars reveal"></body>' }, async (page, errors) => {
         await page.evaluate(() => {
@@ -85,6 +98,58 @@ test('loader maximum wait still releases a page without a load event', async () 
 });
 
 for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    test(`header logo follows the project header band at ${viewport.width}px regardless of archive height`, async () => {
+        await withPage({ viewport }, async (page, errors) => {
+            await page.locator('#page-loader').waitFor({ state: 'detached' });
+            const header = page.locator('.site-header');
+            const deploy = page.locator('#deployments');
+            const scrollToPosition = async (position) => page.evaluate(({ position }) => {
+                const section = document.querySelector('#deployments');
+                const top = section.getBoundingClientRect().top + scrollY;
+                const header = document.querySelector('.site-header').getBoundingClientRect();
+                const target = position === 'before' ? top - innerHeight : position === 'enter'
+                    ? top - header.bottom + 4 : position === 'middle' ? top + section.offsetHeight / 2
+                        : top + section.offsetHeight - header.top + 4;
+                window.scrollTo({ top: target, behavior: 'instant' });
+            }, { position });
+            await scrollToPosition('before');
+            await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            await scrollToPosition('enter');
+            await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            await page.waitForFunction(() => getComputedStyle(document.querySelector('.logo-wrapper')).opacity === '0');
+            assert.equal(await header.evaluate((element) => getComputedStyle(element).opacity), '1');
+            assert.equal(await header.locator(viewport.width > 1024 ? '.nav-capsule' : '.mobile-nav-toggle').isVisible(), true);
+            await scrollToPosition('middle');
+            assert.equal(await header.evaluate((element) => element.classList.contains('in-deploy-zone')), true);
+            if (viewport.width === 390) {
+                assert.ok(await deploy.evaluate((element) => innerHeight / element.offsetHeight < 0.1), 'archive exceeds the former 10% visibility requirement');
+            }
+            await page.setViewportSize({ width: viewport.width, height: viewport.height - 90 });
+            await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            await scrollToPosition('after');
+            await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            await page.waitForFunction((expected) => getComputedStyle(document.querySelector('.logo-wrapper')).opacity === expected,
+                viewport.width <= 768 ? '0' : '1');
+            await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+            await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('scrolled') &&
+                getComputedStyle(document.querySelector('.logo-wrapper')).opacity === '1');
+            await scrollToPosition('enter');
+            await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            for (const filter of ['featured', 'all']) {
+                await page.locator(`.cmd-btn[data-filter="${filter}"]`).click();
+                await page.locator('.dossier-grid.is-transitioning').waitFor({ state: 'detached' });
+                await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            }
+            await page.locator('.site-footer').evaluate((element) => element.scrollIntoView({ block: 'start', behavior: 'instant' }));
+            await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-footer-zone'));
+            await page.setViewportSize(viewport);
+            await scrollToPosition('enter');
+            await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('in-footer-zone') &&
+                document.querySelector('.site-header').classList.contains('in-deploy-zone'));
+            assert.deepEqual(errors, []);
+        });
+    });
+
     test(`landing modal traps and restores focus at ${viewport.width}px without changing page layout`, async () => {
         await withPage({ viewport }, async (page, errors) => {
             await page.locator('#page-loader').waitFor({ state: 'detached' });
@@ -173,10 +238,13 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 const image = card.locator('[data-project-preview]');
                 const info = await image.evaluate(inspectImage);
                 assert.deepEqual(info, { src: preview.src, width: preview.width, height: preview.height, fit: 'contain', loading: 'lazy' });
+                await assertFullPreview(image);
                 await card.locator('[data-project-details]').click();
                 const modalImage = page.locator('[data-project-modal] [data-project-preview]');
                 const modalInfo = await modalImage.evaluate(inspectImage);
                 assert.deepEqual(modalInfo, { ...info, loading: 'eager' });
+                await assertFullPreview(modalImage);
+                assert.equal(await page.locator('[data-project-modal-scroll]').evaluate((element) => element.scrollTop), 0);
                 assert.equal(await page.locator('html').evaluate((element) => element.scrollWidth <= window.innerWidth), true);
                 if (process.env.BLACKHOLE_QA_DIR && ['BH-001', 'BH-002', 'BH-017', 'BH-018'].includes(id)) {
                     await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
@@ -196,6 +264,93 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 await page.locator('.dossier-card').first().scrollIntoViewIfNeeded();
                 await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-cards-${viewport.width}.png`), animations: 'disabled' });
             }
+        });
+    });
+}
+
+for (const viewport of [
+    { width: 320, height: 568 }, { width: 768, height: 1024 },
+    { width: 1024, height: 768 }, { width: 1920, height: 1080 },
+    { width: 844, height: 390 }
+]) {
+    test(`project previews remain full-width with one modal scroll at ${viewport.width}x${viewport.height}`, async () => {
+        await withPage({ viewport }, async (page, errors) => {
+            await page.locator('#page-loader').waitFor({ state: 'detached' });
+            const card = page.locator('[data-project-id="BH-001"]');
+            await card.scrollIntoViewIfNeeded();
+            await card.locator('[data-project-preview]').evaluate((image) => image.decode());
+            await assertFullPreview(card.locator('[data-project-preview]'));
+            const documentWidthBefore = await page.locator('html').evaluate((element) => element.scrollWidth);
+            await card.locator('[data-project-details]').click();
+            const modal = page.locator('[data-project-modal]');
+            const image = modal.locator('[data-project-preview]');
+            await image.evaluate((element) => element.decode());
+            await assertFullPreview(image);
+            await page.waitForFunction(() => getComputedStyle(document.querySelector('.project-modal-panel')).transform === 'matrix(1, 0, 0, 1, 0, 0)');
+            const composition = await modal.evaluate((element) => {
+                const header = element.querySelector('.project-modal-header').getBoundingClientRect();
+                const preview = element.querySelector('[data-project-preview]').getBoundingClientRect();
+                const intro = element.querySelector('.project-modal-intro').getBoundingClientRect();
+                const metadata = element.querySelector('.project-modal-meta').getBoundingClientRect();
+                const scroll = element.querySelector('[data-project-modal-scroll]');
+                const panel = element.querySelector('.project-modal-panel').getBoundingClientRect();
+                return {
+                    headerClear: header.bottom <= preview.top + 1,
+                    introBefore: intro.bottom <= preview.top,
+                    metadataBelow: metadata.top >= preview.bottom,
+                    horizontalOverflow: scroll.scrollWidth > scroll.clientWidth,
+                    nestedScroll: getComputedStyle(element.querySelector('.project-modal-content')).overflowY,
+                    panelInViewport: header.top >= 0 && panel.bottom <= innerHeight,
+                    compact: panel.width <= 760 && panel.height <= 680,
+                    titleSize: parseFloat(getComputedStyle(element.querySelector('h3')).fontSize),
+                    metaColumns: getComputedStyle(element.querySelector('.project-modal-meta')).gridTemplateColumns.split(' ').length,
+                    detailColumns: getComputedStyle(element.querySelector('.project-modal-details')).gridTemplateColumns.split(' ').length
+                };
+            });
+            assert.deepEqual(composition, { headerClear: true, introBefore: true, metadataBelow: true,
+                horizontalOverflow: false, nestedScroll: 'visible', panelInViewport: true, compact: true,
+                titleSize: 26, metaColumns: viewport.width <= 480 ? 1 : 2, detailColumns: viewport.width <= 640 ? 1 : 2 });
+            assert.equal(await modal.locator('.project-modal-meta dt').count(), 4);
+            assert.equal(await modal.locator('.project-modal-meta dd').count(), 4);
+            assert.equal(await modal.locator('.project-modal-section h4').count(), 3);
+            const close = modal.locator('.project-modal-close');
+            const closeBefore = await close.boundingBox();
+            const scroll = modal.locator('[data-project-modal-scroll]');
+            await scroll.evaluate((element) => { element.scrollTop = element.scrollHeight; });
+            assert.ok(await scroll.evaluate((element) => element.scrollTop > 0));
+            assert.deepEqual(await close.boundingBox(), closeBefore);
+            const actions = modal.locator('.project-modal-actions');
+            assert.equal(await actions.evaluate((element) => {
+                const box = element.getBoundingClientRect();
+                const scrollBox = element.closest('[data-project-modal-scroll]').getBoundingClientRect();
+                return box.top >= scrollBox.top && box.bottom <= scrollBox.bottom;
+            }), true);
+            const buttonGeometry = await actions.locator('.btn-terminal-sm').evaluateAll((buttons) => buttons.map((button) => {
+                const box = button.getBoundingClientRect();
+                const copy = button.querySelector('span');
+                const label = copy.getBoundingClientRect();
+                const icon = button.querySelector('i').getBoundingClientRect();
+                return { top: box.top, height: box.height,
+                    fits: label.left >= box.left && label.right <= box.right && icon.right <= box.right && copy.scrollWidth <= copy.clientWidth };
+            }));
+            assert.ok(buttonGeometry.every((button) => button.fits), 'action labels and icons stay inside their buttons');
+            assert.equal(buttonGeometry[0].top, buttonGeometry[1].top);
+            assert.equal(buttonGeometry[0].height, buttonGeometry[1].height);
+            if (process.env.BLACKHOLE_QA_DIR) {
+                await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-details-${viewport.width}x${viewport.height}.png`), animations: 'disabled' });
+            }
+            await close.click();
+            await page.locator('[data-project-id="BH-002"] [data-project-details]').click();
+            assert.equal(await scroll.evaluate((element) => element.scrollTop), 0);
+            if (process.env.BLACKHOLE_QA_DIR) {
+                await image.evaluate((element) => element.decode());
+                await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-preview-${viewport.width}x${viewport.height}.png`), animations: 'disabled' });
+            }
+            await page.keyboard.press('Escape');
+            assert.equal(await page.locator('html').evaluate((element) => element.scrollWidth), documentWidthBefore,
+                'opening and closing projects does not add document overflow');
+            assert.deepEqual(errors, []);
         });
     });
 }

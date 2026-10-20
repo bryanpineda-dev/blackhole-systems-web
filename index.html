@@ -802,40 +802,51 @@
             <div class="project-modal" data-project-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" tabindex="-1">
                 <div class="project-modal-backdrop" data-project-close></div>
                 <article class="project-modal-panel">
-                    <button class="project-modal-close" type="button" data-project-close aria-label="Close project details">
-                        <i class="ri-close-line" aria-hidden="true"></i>
-                    </button>
-                    <div class="project-modal-screen">
-                        <div class="screen-placeholder modal-screen-placeholder" data-project-modal-icon>
-                            <i class="ri-code-box-line" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="project-modal-content">
+                    <div class="project-modal-header">
                         <div class="project-modal-kicker">
                             <span class="bh-chip" data-project-modal-id>#BH-000</span>
                             <span class="bh-chip" data-project-modal-status>DEPLOYED</span>
                         </div>
-                        <h3 id="project-modal-title" data-project-modal-title>Project Title</h3>
-                        <p data-project-modal-summary></p>
-                        <div class="project-modal-meta" data-project-modal-meta></div>
-                        <div class="project-modal-section">
-                            <span>What I Built</span>
-                            <ul class="bh-list-grid" data-project-modal-built></ul>
-                        </div>
-                        <div class="project-modal-section">
-                            <span>Systems & Integrations</span>
-                            <ul class="bh-list-grid" data-project-modal-systems></ul>
-                        </div>
-                        <div class="project-modal-tags" data-project-modal-tags></div>
-                        <div class="project-modal-actions bh-actions">
-                            <a class="btn-terminal-sm view-live" data-project-modal-live target="_blank" rel="noopener">
-                                <span>LIVE_URL</span>
-                                <i class="ri-external-link-line" aria-hidden="true"></i>
-                            </a>
-                            <a class="btn-terminal-sm request-demo" href="#contact" data-project-close>
-                                <span>START_SIMILAR_BUILD</span>
-                                <i class="ri-arrow-right-line" aria-hidden="true"></i>
-                            </a>
+                        <button class="project-modal-close" type="button" data-project-close aria-label="Close project details">
+                            <i class="ri-close-line" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="project-modal-scroll" data-project-modal-scroll>
+                        <div class="project-modal-content">
+                            <div class="project-modal-intro">
+                                <h3 id="project-modal-title" data-project-modal-title>Project Title</h3>
+                                <p data-project-modal-summary></p>
+                            </div>
+                            <div class="project-modal-screen">
+                                <div class="screen-placeholder modal-screen-placeholder" data-project-modal-icon>
+                                    <i class="ri-code-box-line" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <dl class="project-modal-meta" data-project-modal-meta></dl>
+                            <div class="project-modal-details">
+                                <div class="project-modal-section">
+                                    <h4>What I Built</h4>
+                                    <ul class="bh-list-grid" data-project-modal-built></ul>
+                                </div>
+                                <div class="project-modal-section">
+                                    <h4>Systems &amp; Integrations</h4>
+                                    <ul class="bh-list-grid" data-project-modal-systems></ul>
+                                </div>
+                            </div>
+                            <div class="project-modal-section">
+                                <h4>Technology Stack</h4>
+                                <div class="project-modal-tags" data-project-modal-tags></div>
+                            </div>
+                            <div class="project-modal-actions bh-actions">
+                                <a class="btn-terminal-sm view-live" data-project-modal-live target="_blank" rel="noopener">
+                                    <span>LIVE_URL</span>
+                                    <i class="ri-external-link-line" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn-terminal-sm request-demo" href="#contact" data-project-close>
+                                    <span>START_<wbr>SIMILAR_<wbr>BUILD</span>
+                                    <i class="ri-arrow-right-line" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>

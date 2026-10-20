@@ -32,16 +32,28 @@
         if (!header) return;
 
         if (deploySection) {
-            const deployObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    header.classList.toggle('in-deploy-zone', entry.isIntersecting);
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '-80px 0px 0px 0px'
-            });
+            let deployObserver;
+            let resizeFrame = 0;
+            const observeDeployZone = () => {
+                deployObserver?.disconnect();
+                const top = Math.max(0, parseFloat(window.getComputedStyle(header).top) || 0);
+                const bottom = Math.max(0, window.innerHeight - top - header.offsetHeight);
 
-            deployObserver.observe(deploySection);
+                // Observe the header band, not a percentage of the growing project archive.
+                deployObserver = new IntersectionObserver(([entry]) => {
+                    header.classList.toggle('in-deploy-zone', entry.isIntersecting);
+                }, {
+                    threshold: 0,
+                    rootMargin: `-${top}px 0px -${bottom}px 0px`
+                });
+                deployObserver.observe(deploySection);
+            };
+
+            observeDeployZone();
+            window.addEventListener('resize', () => {
+                window.cancelAnimationFrame(resizeFrame);
+                resizeFrame = window.requestAnimationFrame(observeDeployZone);
+            }, { passive: true });
         }
 
         if (footer) {

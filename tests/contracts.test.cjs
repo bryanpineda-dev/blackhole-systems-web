@@ -57,7 +57,12 @@ test('portfolio records, filters and rendering share a valid unique dataset', ()
         for (const field of ['built', 'systems', 'stack', 'filters']) assert.ok(project[field].length, `${project.id}: ${field}`);
         for (const filter of project.filters) assert.ok(filters.has(filter), `${project.id}: unknown filter ${filter}`);
         assert.ok(namespace.renderProjectCard(project).includes(`data-project-id="${project.id}"`));
-        assert.ok(namespace.renderProjectMeta(project).length);
+        const metadata = namespace.renderProjectMeta(project);
+        assert.equal([...metadata.matchAll(/<dt>/g)].length, 4);
+        assert.equal([...metadata.matchAll(/<dd>/g)].length, 4);
+        for (const value of [project.industry, project.type, project.role, project.association || 'Direct build']) {
+            assert.ok(metadata.includes(namespace.escapeHtml(value)));
+        }
     }
     assert.equal(namespace.projects.some((project) => project.id === 'BH-012'), false);
     assert.ok(read('index.html').includes('Andrea'));

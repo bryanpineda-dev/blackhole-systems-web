@@ -33,13 +33,11 @@
 
         return metadata.map((item) => `
             <div class="project-modal-meta-item">
-                <span class="project-modal-meta-icon" aria-hidden="true">
-                    <i class="${escapeHtml(item.icon)}"></i>
-                </span>
-                <div class="project-modal-meta-copy">
+                <dt>
+                    <i class="${escapeHtml(item.icon)}" aria-hidden="true"></i>
                     <span>${escapeHtml(item.label)}</span>
-                    <strong>${escapeHtml(item.value)}</strong>
-                </div>
+                </dt>
+                <dd>${escapeHtml(item.value)}</dd>
             </div>
         `).join('');
     }

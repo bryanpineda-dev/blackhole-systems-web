@@ -6,16 +6,20 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.3**
+Website version: **1.0.4**
 
-Deployment tag: `v1.0.3`
+Deployment tag: `v1.0.4`
 
 Release changes:
 
-- Integrate the 17 reviewed public-site screenshots into project cards and detail modals.
-- Keep screenshots local, proportional, and uncropped inside the existing preview frames and responsive layouts.
-- Lazy-load card previews, load modal previews on demand, and retain the original category icons as missing-image fallbacks.
-- Extend contract and browser regression checks to validate preview assets, project correspondence, modal switching, and image-failure recovery.
+- Let project card frames follow each screenshot's intrinsic proportions, removing fixed-height letterboxing.
+- Replace the tall modal image column with a compact README-style project sheet: title and summary, complete screenshot, technical metadata, implementation details, systems, stack, and links in one scroll area.
+- Limit the dialog to 760px wide and 680px high, with smaller typography and responsive detail columns instead of oversized single-column content.
+- Recapture Polyacril and Vision Territorial after decoding their CSS background images, not just their image tags.
+- Restore project-zone logo hiding by observing the actual header band rather than requiring 10% of the entire archive to be visible; preserve navigation and footer behavior.
+- Keep project codes, status, and the close control in a persistent header that does not cover the screenshot; reset scrolling when opening a project.
+- Allow the existing contact action label to wrap at its separators on narrow screens while keeping both modal buttons side by side.
+- Extend browser checks for complete previews, responsive geometry, reachable actions, persistent closing, and scroll reset across desktop, tablet, and mobile layouts.
 
 ## Overview
 
@@ -44,7 +48,11 @@ The portfolio has its own curated dataset in `assets/js/modules/projects-data.js
 
 The archive currently contains 17 projects. Each record has a `preview` object with a local image path and its intrinsic dimensions. The reviewed public-site screenshots live in `assets/images/projects/` and are shared by cards and detail modals through `renderProjectPreview`.
 
-Card previews use native lazy loading; modal previews load when opened and reuse the same local asset. Images retain their full proportions with `object-fit: contain`, without cropping or stretching. Existing desktop and responsive frame sizes are preserved. Category icons remain underneath as a fallback when a screenshot is absent or fails to load. Filters, project metadata, buttons, and modal keyboard behavior are unchanged.
+Card previews use native lazy loading; modal previews load when opened and reuse the same local asset. Images render at full width and automatic height, so their frames follow the original screenshot proportions without cropping, stretching, or side gutters. Missing-image fallbacks retain a 16:9 frame and the original category icon. Filters, project metadata, buttons, and modal keyboard behavior are preserved.
+
+Project modals are compact README-style sheets, capped at 760px wide and 680px high within the viewport. A title and summary introduce the complete preview, followed by a semantic technical definition list, implementation and integration sections, technology tags, and the existing actions. Metadata and implementation sections use two columns where space allows and stack on narrow screens. The project code, status, and close button stay in a separate persistent header, outside the screenshot and scroll area. Opening a project resets the scroll position; on short viewports, the complete screenshot remains accessible through scrolling rather than being cropped to the viewport height.
+
+The header hides only its logo while deployments overlap the header band, regardless of how tall the archive grows or which filter is selected. The observer updates after viewport resizing. Main navigation, the mobile menu control, and the independent footer visibility state retain their existing behavior. On small screens, the existing scroll-based logo hiding remains in effect outside deployments as well.
 
 ## Free Tools
 
@@ -200,7 +208,7 @@ npm test
 npm run test:browser
 ```
 
-`npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio and preview-asset contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, all 17 card/modal previews and image-failure recovery, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export.
+`npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio and preview-asset contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, all 17 card/modal previews and image-failure recovery, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export. Preview composition checks also cover 320, 768, 1024, and 1920px widths and a short mobile landscape viewport, including full-width intrinsic image sizing, compact README hierarchy, responsive detail columns, single scrolling, reachable actions, an unobstructed close control, and scroll reset between projects. Header checks cover project entry/exit, tall archives, filters, viewport resizing, the existing mobile scroll rule, and returning from the footer.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
 
@@ -229,7 +237,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.3, the branch and tag are published with `git push origin main v1.0.3`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.4, the branch and tag are published with `git push origin main v1.0.4`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 
