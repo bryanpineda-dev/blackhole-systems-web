@@ -60,12 +60,46 @@
     will-change: auto;
 }
 
+/* Reversible reveals own translate/opacity, not the component's hover transform. */
+.reveal-item[data-reveal-cycle="repeat"] {
+    --reveal-distance: var(--motion-distance-sm);
+    filter: none;
+    transform: none;
+    translate: 0 var(--reveal-distance);
+    transition: var(--reveal-rest-transition, none);
+    will-change: auto;
+}
+
+.reveal-item[data-reveal-cycle="repeat"][data-reveal-edge="above"] {
+    translate: 0 calc(var(--reveal-distance) * -1);
+}
+
+.reveal-item[data-reveal-cycle="repeat"][data-reveal="fade"] {
+    --reveal-distance: 0px;
+}
+
+.reveal-item[data-reveal-cycle="repeat"].is-revealed {
+    translate: 0 0;
+}
+
+@media (max-width: 768px) {
+    .reveal-item[data-reveal-cycle="repeat"] {
+        --reveal-distance: calc(var(--motion-distance-sm) * 0.75);
+    }
+
+    .reveal-item[data-reveal-cycle="repeat"][data-reveal="fade"] {
+        --reveal-distance: 0px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .reveal-item,
-    .reveal-hidden {
+    .reveal-hidden,
+    .reveal-item[data-reveal-cycle="repeat"][data-reveal-edge] {
         opacity: 1;
         filter: none;
         transform: none;
+        translate: none;
         transition: none;
     }
 }

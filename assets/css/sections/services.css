@@ -75,7 +75,7 @@
     transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
 }
 
-.capability-card.reveal-item {
+.capability-card.reveal-item:not([data-reveal-cycle="repeat"]) {
     transition:
         opacity var(--motion-duration-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms),
         transform var(--motion-duration-reveal) var(--motion-ease-out) var(--reveal-delay, 0ms),

@@ -420,6 +420,7 @@
     --motion-duration-expand: 320ms;
     --motion-duration-smooth: 400ms;
     --motion-duration-reveal: 760ms;
+    --motion-duration-reveal-repeat: 600ms;
     --motion-duration-fast: 360ms;
     --motion-transition-fast: var(--motion-duration-ui-fast) ease;
     --motion-transition-control: var(--motion-duration-ui) ease;

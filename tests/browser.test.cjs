@@ -103,6 +103,9 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
             await page.locator('#page-loader').waitFor({ state: 'detached' });
             const header = page.locator('.site-header');
             const deploy = page.locator('#deployments');
+            const settleViewport = () => page.evaluate(() => new Promise((resolve) => {
+                requestAnimationFrame(() => requestAnimationFrame(resolve));
+            }));
             const scrollToPosition = async (position) => page.evaluate(({ position }) => {
                 const section = document.querySelector('#deployments');
                 const top = section.getBoundingClientRect().top + scrollY;
@@ -125,6 +128,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 assert.ok(await deploy.evaluate((element) => innerHeight / element.offsetHeight < 0.1), 'archive exceeds the former 10% visibility requirement');
             }
             await page.setViewportSize({ width: viewport.width, height: viewport.height - 90 });
+            await settleViewport();
             await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-deploy-zone'));
             await scrollToPosition('after');
             await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('in-deploy-zone'));
@@ -143,6 +147,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
             await page.locator('.site-footer').evaluate((element) => element.scrollIntoView({ block: 'start', behavior: 'instant' }));
             await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('in-footer-zone'));
             await page.setViewportSize(viewport);
+            await settleViewport();
             await scrollToPosition('enter');
             await page.waitForFunction(() => !document.querySelector('.site-header').classList.contains('in-footer-zone') &&
                 document.querySelector('.site-header').classList.contains('in-deploy-zone'));

@@ -6,20 +6,19 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.4**
+Website version: **1.0.5**
 
-Deployment tag: `v1.0.4`
+Deployment tag: `v1.0.5`
 
 Release changes:
 
-- Let project card frames follow each screenshot's intrinsic proportions, removing fixed-height letterboxing.
-- Replace the tall modal image column with a compact README-style project sheet: title and summary, complete screenshot, technical metadata, implementation details, systems, stack, and links in one scroll area.
-- Limit the dialog to 760px wide and 680px high, with smaller typography and responsive detail columns instead of oversized single-column content.
-- Recapture Polyacril and Vision Territorial after decoding their CSS background images, not just their image tags.
-- Restore project-zone logo hiding by observing the actual header band rather than requiring 10% of the entire archive to be visible; preserve navigation and footer behavior.
-- Keep project codes, status, and the close control in a persistent header that does not cover the screenshot; reset scrolling when opening a project.
-- Allow the existing contact action label to wrap at its separators on narrow screens while keeping both modal buttons side by side.
-- Extend browser checks for complete previews, responsive geometry, reachable actions, persistent closing, and scroll reset across desktop, tablet, and mobile layouts.
+- Add opt-in reversible landing reveals: short vertical entrances, subtle exits, and re-entry when scrolling back.
+- Stagger service and project cards within their current row instead of accumulating delays through the entire archive.
+- Animate readable text blocks independently, avoiding multiplied parent/child fades and keeping focused forms visible.
+- Use native viewport observation and Web Animations with independent translate/opacity, preserving card tilt, component hovers, filters, and slider behavior.
+- Retain the original one-shot planetary entrance, orbit timing, loader coordination, and QR Studio reveals.
+- Respect reduced motion and keep content readable when viewport observation is unavailable.
+- Extend motion-enabled browser coverage for entry/exit, rapid reversal, focus, resizing, mouse/touch tilt, planets, QR, filters, reviews, and the page footer.
 
 ## Overview
 
@@ -32,7 +31,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Modular section-based CSS architecture
 - Custom cursor and page loader
 - Shared page boot layer for standalone pages and tools
-- Scroll reveal motion system with page-specific presets
+- Scroll reveal motion system with page-specific presets and opt-in reversible landing reveals
 - Services, workflow, projects, testimonials, and contact sections
 - Floating assistant and direct WhatsApp access
 - Project quote form wired to the Blackhole Systems Admin lead API
@@ -131,6 +130,7 @@ Current module groups:
 - `assets/js/modules/forms/` separates the project quote form from the newsletter handoff while preserving `BH.initFormHandler`.
 - `assets/js/modules/effects/` owns reusable and landing motion effects such as star fields, comet fields, tactical grid pulse, and shared visibility gates.
 - `assets/js/modules/reveal.js` is the shared reveal engine.
+- `assets/js/modules/reveal-repeat.js` provides the opt-in reversible lifecycle, loaded by the landing only.
 - `assets/js/modules/reveal-landing.js` registers landing reveal presets.
 - `assets/js/modules/reveal-qr.js` registers QR Studio reveal presets.
 - `assets/js/modules/landing-motion.js` owns landing-only motion observers and telemetry counters.
@@ -138,6 +138,14 @@ Current module groups:
 - `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
 
 The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its existing close button, backdrop, Escape key, and contact action remain available.
+
+### Scroll Reveal Behavior
+
+Landing presets opt into repeatable viewport reveals, except the About planets, which retain their original one-shot preset and independent planetary animations. Titles, kickers, text blocks, code cards, services, projects, reviews, contact blocks, and footer content enter as they become visible, exit near the viewport edge, and re-enter when returning. The sticky project console uses opacity only. Cards stagger within their current layout row, including after filtering and responsive reflow.
+
+Reversible entries use the brand easing with a 600ms duration and a 16px vertical distance, reduced to 12px at mobile widths; exits use the existing 300ms motion token without a stagger delay. They do not add blur, scale, rotation, scroll smoothing, or scroll-linked scrubbing. The lifecycle uses `IntersectionObserver` and native Web Animations, with individual `translate` isolated from existing hover/tilt `transform` values. Component transitions remain independent. Focused content remains visible until focus leaves, and hero entries wait for loader completion. Reduced-motion users see content without these transitions; changing that preference cancels running reversible animations.
+
+The shared engine still defaults to one-shot reveals. QR Studio loads its existing presets without the repeat module. If viewport observation is unavailable, content is revealed immediately; if Web Animations is unavailable, repeat groups use the existing one-shot engine. Missing duration or easing tokens skip the native animation rather than interrupting content visibility.
 
 ## Project Structure
 
@@ -170,6 +178,7 @@ blackhole-web-v1/
 │       │   ├── projects-*.js
 │       │   ├── page-boot.js
 │       │   ├── reveal.js
+│       │   ├── reveal-repeat.js
 │       │   ├── reveal-landing.js
 │       │   ├── reveal-qr.js
 │       │   └── landing-motion.js
@@ -216,6 +225,10 @@ Browser fixtures intercept repository resources at `http://blackhole.test`; no H
 
 Run both suites with `npm run test:all` before publishing a version. Keep `node_modules/`, test tooling, and local review artifacts out of the hosted static site's public document root.
 
+Motion-enabled browser checks additionally exercise repeated entry/exit at both edges, rapid direction changes, viewport resizing, focused tall forms, row staggering after filters and reflow, mouse/touch tilt, loader-gated hero entries, one-shot planet/QR behavior, reduced motion, and missing-API fallbacks. The reviews carousel receives one viewport reveal around the whole component; its own internal slide animations remain independent.
+
+Known narrow-screen limitation: with the production fonts at 320px, the existing Workflow action buttons extend the document width to 351px. This was reproduced unchanged against the published v1.0.4 sources during motion QA; this release does not redesign that action row.
+
 ## Performance Notes
 
 - The hero uses a local Three.js/WebGPU renderer with a static fallback image for unsupported browsers.
@@ -237,7 +250,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.4, the branch and tag are published with `git push origin main v1.0.4`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.5, the branch and tag are published with `git push origin main v1.0.5`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 

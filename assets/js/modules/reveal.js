@@ -19,11 +19,11 @@
         const pendingHeroReveals = new Set();
         let isLoaderComplete = !document.body.classList.contains('is-loading') || !document.getElementById('page-loader');
 
-        const queueElement = (element, preset, delay) => {
+        const queueElement = (element, preset, delay, options = {}) => {
             const current = revealQueue.get(element);
             if (current && current.delay <= delay) return;
 
-            revealQueue.set(element, { preset, delay });
+            revealQueue.set(element, { preset, delay, ...options });
         };
 
         revealGroups.forEach((group) => {
@@ -33,16 +33,37 @@
                 queueElement(
                     element,
                     group.preset,
-                    (group.delay || 0) + (group.stagger || 0) * index
+                    (group.delay || 0) + (group.stagger || 0) * index,
+                    {
+                        repeat: group.repeat === true,
+                        getDelay: group.staggerByRow ? () => {
+                            const rowIndex = Array.from(elements).filter((sibling) =>
+                                !sibling.hidden && sibling.offsetTop === element.offsetTop && sibling.offsetLeft < element.offsetLeft
+                            ).length;
+                            return (group.delay || 0) + (group.stagger || 0) * rowIndex;
+                        } : () => (group.delay || 0) + (group.stagger || 0) * index
+                    }
                 );
             });
         });
 
         document.querySelectorAll('.section-tag').forEach((tag) => {
-            queueElement(tag, 'fade-up', 0);
+            if (!revealQueue.has(tag)) queueElement(tag, 'fade-up', 0);
+        });
+
+        // A readable block gets one reveal, not multiplied parent/child fades.
+        revealQueue.forEach((config, element) => {
+            if (!config.repeat) return;
+            for (let parent = element.parentElement; parent; parent = parent.parentElement) {
+                if (revealQueue.get(parent)?.repeat) {
+                    revealQueue.delete(element);
+                    break;
+                }
+            }
         });
 
         const elements = Array.from(revealQueue.keys());
+        let repeatCycle;
 
         if (!elements.length) return;
 
@@ -59,6 +80,7 @@
             isLoaderComplete = true;
             pendingHeroReveals.forEach(revealElement);
             pendingHeroReveals.clear();
+            repeatCycle?.releaseLoader();
         }, { once: true });
 
         if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -83,13 +105,29 @@
             });
         }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
 
+        const repeatItems = new Map();
         elements.forEach((element) => {
             const config = revealQueue.get(element);
+            const repeats = config.repeat && typeof BH.createRepeatReveal === 'function' && typeof element.animate === 'function';
+
+            if (repeats) {
+                element.style.setProperty('--reveal-rest-transition', getComputedStyle(element).transition);
+                element.dataset.revealCycle = 'repeat';
+                element.classList.remove('reveal-active', 'is-revealed');
+                repeatItems.set(element, config);
+            }
 
             element.classList.add('reveal-item');
             element.dataset.reveal = config.preset;
             element.style.setProperty('--reveal-delay', `${config.delay}ms`);
-            observer.observe(element);
+            if (!repeats) observer.observe(element);
         });
+
+        if (repeatItems.size) {
+            repeatCycle = BH.createRepeatReveal({
+                items: repeatItems,
+                isReady: (element) => !element.closest('#hero, .qr-hero') || isLoaderComplete
+            });
+        }
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});
