@@ -17,8 +17,8 @@
             const navigation = ['contact', 'social'].includes(analysis.intent) && (analysis.isExplicit || /^(contact|contacto|whatsapp|email|correo|form|formulario|social|redes)$/i.test(message));
             if (!navigation && !analysis.isExplicit && !analysis.greeting && !analysis.thanks && !details.includes(message)) details.push(message);
             if (!navigation && (details.join('\n').length > limits.context || current.turns >= limits.turns)) throw new RangeError(language === 'es'
-                ? 'Esta conversaci\u00f3n lleg\u00f3 a su l\u00edmite. Puedes contactar con el contexto actual o elegir Empezar de nuevo; tu borrador no se borr\u00f3.'
-                : 'This conversation reached its limit. Contact us with the current context or choose Start over; your draft was not cleared.');
+                ? 'Alcanzaste el l\u00edmite de esta conversaci\u00f3n. Puedes continuar por WhatsApp o elegir Empezar de nuevo. El texto que escribiste sigue en el campo.'
+                : 'This conversation has reached its limit. You can continue on WhatsApp or choose Start over. Your message is still in the field.');
             return {
                 language, details: navigation ? current.details.slice() : details,
                 turns: current.turns + (navigation ? 0 : 1),

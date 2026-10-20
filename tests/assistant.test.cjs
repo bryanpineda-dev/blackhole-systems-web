@@ -63,7 +63,7 @@ test('assistant retains context across price, timing and contact chips and clear
     const { handoff, session } = setup();
     const brief = 'Quiero una tienda con inventario y cuentas para mis clientes.';
     handoff.buildResponse(brief);
-    assert.match(handoff.buildResponse('Los clientes deben descargar facturas').html, /Esos detalles ya forman parte/);
+    assert.match(handoff.buildResponse('Los clientes deben descargar facturas').html, /Entendido\./);
     const price = handoff.buildResponse('Cuanto cuesta?');
     assert.equal(price.language, 'es');
     assert.match(price.html, /Cotizaci\u00f3n: Tienda/);
@@ -93,9 +93,9 @@ test('assistant uses Spanish for a first-message contact, quote or maintenance r
 test('assistant remembers ambiguous needs and can resolve the pending choice', () => {
     const { handoff, session } = setup();
     const first = handoff.buildResponse('I want a store and dashboard');
-    assert.match(first.html, /main need/);
+    assert.match(first.html, /Which of these options/);
     assert.equal(session.snapshot().pending.length, 2);
-    assert.match(handoff.buildResponse('Not sure yet').html, /main need/);
+    assert.match(handoff.buildResponse('Not sure yet').html, /Which of these options/);
     handoff.buildResponse('the first one');
     assert.equal(session.snapshot().serviceId, 'dashboard');
     assert.equal(session.snapshot().pending.length, 0);
@@ -120,7 +120,7 @@ test('assistant reads every project name, code and domain from the public archiv
 
 test('assistant preserves an ambiguous public reference until the visitor resolves it', () => {
     const { handoff, session } = setup();
-    assert.match(handoff.buildResponse('SEBANA or ALAI Boutique').html, /main need/);
+    assert.match(handoff.buildResponse('SEBANA or ALAI Boutique').html, /Which of these options/);
     assert.equal(session.snapshot().pendingProjects.length, 2);
     handoff.buildResponse('the second one');
     assert.equal(session.snapshot().project.id, 'BH-002');
@@ -148,6 +148,34 @@ test('assistant escapes visitor input and never invents a numeric price or deliv
     const response = handoff.buildResponse('<img src=x onerror="alert(1)"> I want a website');
     assert.equal(response.html.includes('<img'), false);
     assert.ok(draft(response).includes('<img src=x'));
-    assert.match(handoff.buildResponse('How much?').html, /before quoting/);
-    assert.match(handoff.buildResponse('How long?').html, /cannot promise/);
+    assert.match(handoff.buildResponse('How much?').html, /before preparing a quote/);
+    assert.match(handoff.buildResponse('How long?').html, /confirm the timeline after reviewing/);
+});
+
+test('assistant service copy asks one localized question tailored to each service', () => {
+    const { data } = setup();
+    assert.equal(data.serviceCatalog.ecommerce.es.question, '\u00bfQu\u00e9 funciones necesitas que tenga tu tienda?');
+    for (const [id, service] of Object.entries(data.serviceCatalog).filter(([, item]) => item.kind === 'service')) {
+        for (const [language, message, question] of [['en', 'I need help', service.question], ['es', 'Necesito ayuda', service.es.question]]) {
+            assert.ok(question, id + ': missing ' + language + ' question');
+            assert.equal((question.match(/\?/g) || []).length, 1, id);
+            assert.equal(question.endsWith('?'), true, id);
+            assert.equal(question.startsWith('\u00bf'), language === 'es', id);
+            const response = setup().handoff.buildResponse(message, id);
+            const plain = response.html.replace(/<[^>]*>/g, '');
+            assert.ok(plain.includes(question), id);
+            assert.equal((plain.match(/\?/g) || []).length, 1, id + ': no compound question burst');
+            assert.doesNotMatch(plain, /Handoff context|Conservar\u00e9 esos detalles|Que debe|\uFFFD/);
+        }
+    }
+});
+
+test('assistant Spanish response copy has balanced question marks across conversation branches', () => {
+    for (const message of ['Hola', 'Gracias', 'Empezar de nuevo', 'Cuanto cuesta?', 'Y cuanto tarda?', 'Tengo un error', 'Contacto', 'Servicios', 'Proyectos', 'SEBANA o ALAI Boutique', 'zxqvzz']) {
+        const { handoff } = setup();
+        handoff.buildResponse('Hola');
+        const plain = handoff.buildResponse(message).html.replace(/<[^>]*>/g, '');
+        assert.equal((plain.match(/\u00bf/g) || []).length, (plain.match(/\?/g) || []).length, message);
+        assert.doesNotMatch(plain, /(?:^|[.>]\s+)(?:Que|Cual|Quien|Tienes)\b|primera version|que resultado|lo usara|\uFFFD/);
+    }
 });

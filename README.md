@@ -6,19 +6,16 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.8**
+Website version: **1.0.9**
 
-Deployment tag: `v1.0.8`
+Deployment tag: `v1.0.9`
 
 Release changes:
 
-- Replace single-message keyword replies with a local guided advisor that separates service domains, intent and public project references.
-- Retain visitor-provided context through quote, timeline and contact follow-ups, with explicit clarification and conversation reset.
-- Add English/Spanish guidance, cover all nine service headings, and read project names, statuses and archive counts from the public dataset.
-- Preserve the complete accepted context in reviewable WhatsApp drafts and offer the existing project form without submitting or overwriting it.
-- Improve modeless keyboard entry, message-log semantics, long-token wrapping and bounded message handling without redesigning the panel.
-- Serialize pending turns, preserve rejected/failed drafts, and expose direct contact when an assistant module is unavailable.
-- Add conversation and browser fault-injection coverage; keep the existing service CTA and quote-form behavior unchanged.
+- Correct Spanish accents, punctuation and unnatural phrasing throughout assistant guidance and recovery messages.
+- Replace the compound service prompt with one short, service-specific question in English and Spanish.
+- Clarify contact links and WhatsApp brief labels without changing routing, conversation memory, handoff destinations or panel styling.
+- Add editorial regression checks, refresh assistant script revisions and retain the existing public portfolio facts.
 
 ## Overview
 
@@ -117,6 +114,8 @@ Quote requests use an `AbortController` with a 15-second deadline covering the r
 The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
 
 ## Guided Project Assistant
+
+Service descriptions and their English/Spanish follow-up questions live together in `assistant-data.js`. Each initial service reply asks one concise question tailored to that service. Response copy uses visitor-facing language rather than internal handoff terminology; editorial checks cover the localized prompts and Spanish question punctuation alongside the behavior tests.
 
 The landing assistant is a deterministic local advisor, not a generative AI model. It uses no external AI provider, API key, backend conversation endpoint or dashboard client records. Its curated service knowledge covers the nine public service headings plus website, reservation, dashboard and WordPress inquiries. The public project archive is its sole source for project names, domains, summaries and statuses; project summaries retain their authored English text.
 

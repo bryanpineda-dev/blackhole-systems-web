@@ -57,8 +57,8 @@
                 if (!response || typeof response.html !== 'string' || !Array.isArray(response.quickActions)) throw new Error('Invalid assistant response');
             } catch (error) {
                 const bubble = addMessage('user', error instanceof RangeError ? error.message : language === 'es'
-                    ? 'No pude preparar la respuesta. Tu borrador sigue en el campo. Intenta de nuevo o usa WhatsApp.'
-                    : 'I could not prepare the response. Your draft is still in the field. Try again or use WhatsApp.', true);
+                    ? 'Hubo un problema al responder. Tu mensaje sigue en el campo. Int\u00e9ntalo de nuevo o cont\u00e1ctanos por WhatsApp.'
+                    : 'Something went wrong while preparing the reply. Your message is still in the field. Try again or contact us on WhatsApp.', true);
                 bubble.className = 'assistant-message bot';
                 bubble.setAttribute('role', 'alert');
                 setBusy(false);

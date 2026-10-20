@@ -13,7 +13,7 @@
         message.className = 'assistant-message bot';
         const bubble = document.createElement('div');
         bubble.className = 'assistant-bubble';
-        bubble.textContent = 'Project guidance is unavailable right now. You can still contact Bryan directly. ';
+        bubble.textContent = 'The assistant is unavailable right now. You can still contact Bryan directly. ';
         const link = document.createElement('a');
         link.href = widget.querySelector('.assistant-whatsapp').href;
         link.target = '_blank';
