@@ -226,7 +226,8 @@
 }
 
 /* Card hover expands the inner action button. */
-.capability-card:hover .btn-morph {
+.capability-card:hover .btn-morph,
+.capability-card .btn-morph:focus-visible {
     width: var(--btn-morph-expanded-width); /* Wide enough for the label. */
     background: var(--btn-morph-active-bg); 
     -webkit-backdrop-filter: var(--btn-glass-blur);
@@ -245,13 +246,15 @@
     transform: translateY(1px);
 }
 
-.capability-card:hover .btn-text {
+.capability-card:hover .btn-text,
+.capability-card .btn-morph:focus-visible .btn-text {
     opacity: 1;
     transform: translateX(0);
     transition-delay: 0.18s; /* Lets the label appear once the capsule has room. */
 }
 
-.capability-card:hover .btn-icon-box {
+.capability-card:hover .btn-icon-box,
+.capability-card .btn-morph:focus-visible .btn-icon-box {
     color: var(--primary-blue); /* Highlights the icon when activated. */
 }    
 

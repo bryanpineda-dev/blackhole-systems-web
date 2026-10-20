@@ -6,19 +6,19 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.6**
+Website version: **1.0.7**
 
-Deployment tag: `v1.0.6`
+Deployment tag: `v1.0.7`
 
 Release changes:
 
-- Keep hero and Workflow actions side by side with complete labels at narrow mobile widths, without enlarging the page or changing shared button defaults.
-- Fit the assistant panel between viewport edges; use the available height and hide floating shortcuts while it is open on short screens.
-- Keep assistant close/input controls reachable and move focus away from shortcuts hidden by the compact layout.
-- Contain mobile-menu focus, isolate the background, preserve existing inert states, and restore usable focus on all close paths and desktop resizing.
-- Contain QR panel and FAQ lateral entrances within their page gutters without changing reveal presets or the full-bleed hero.
-- Fit footer columns at intermediate widths and keep its final legend clear of floating actions.
-- Add responsive regression coverage while preserving the blackhole camera, planets, reversible reveals, tilt, morph timing, and project modals.
+- Send service requests and similar-project inquiries directly to WhatsApp with contextual, prefilled messages; keep Start Project actions connected to the quote form.
+- Keep quote submission disabled until its handler is attached, use POST as the native form method, and expose a WhatsApp fallback if initialization is unavailable.
+- Reject whitespace-only required fields and enforce the public intake field limits before sending.
+- Preserve edits made while a quote request is pending and distinguish those unsent edits from the confirmed submission.
+- Recover cleanly from malformed/null API responses while preserving existing timeout, retry, and concurrent-submission guards.
+- Reveal the service morph label on keyboard focus using its existing brand styles and timings.
+- Extend quote and WhatsApp regression coverage and document the companion admin fix for brief validation before source-page enrichment.
 
 ## Overview
 
@@ -34,6 +34,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Scroll reveal motion system with page-specific presets and opt-in reversible landing reveals
 - Services, workflow, projects, testimonials, and contact sections
 - Floating assistant and direct WhatsApp access
+- Contextual WhatsApp handoffs from service buttons and project detail modals
 - Project quote form wired to the Blackhole Systems Admin lead API
 - Footer Signal Log newsletter capture via email handoff
 - Blackhole QR Studio free browser-based utility
@@ -87,6 +88,12 @@ Static QR codes are generated locally in the browser. They do not expire artific
 
 The main project quote form sends inquiries to the Blackhole Systems Admin lead intake API.
 
+Start Project actions in the header, mobile menu, hero, and Workflow still navigate to the quote form. The nine Request Service buttons instead use native `wa.me` links with the selected service and portfolio-site reference already encoded in the message. Start Similar Build in a project modal uses that project's name and code in its message; opening a different project replaces the context. Both handoffs open in a separate tab and preserve the existing visible labels, icons, hover styling, and modal-close behavior. They do not submit a lead or send a WhatsApp message automatically.
+
+The quote form uses native POST rather than GET and starts with its submit button disabled. Its existing status area provides a direct WhatsApp fallback until the quote handler has attached successfully; initialization clears the fallback and enables submission. A missing quote script therefore cannot turn a normal click or Enter into a URL containing the visitor's details. The quote and project-modal script references carry release revisions so this markup does not reuse an older cached handler.
+
+Required names and the project brief reject whitespace-only values. The browser enforces 80 characters per name field, 160 for the combined name, 190 for email, 60 for WhatsApp, and 3,000 for the project brief. The brief uses a submission-time limit rather than native paste truncation: longer text stays in the field and must be shortened before sending. These bounds follow the public intake contract without adding fields or changing the form layout. The companion admin change validates the raw trimmed brief before appending source-page metadata and returns HTTP 422 for empty or over-limit briefs rather than silently truncating them; publish that admin change alongside this website version.
+
 Local endpoint:
 
 ```text
@@ -105,7 +112,7 @@ The landing and admin must share this channel:
 blackhole-web-quote
 ```
 
-Quote requests use an `AbortController` with a 15-second deadline covering the request and response-body read. An optional `data-lead-timeout-ms` attribute on the quote form can override that deadline with a positive number of milliseconds. Concurrent submissions are ignored while a request is pending. Failures retain entered values, release the submit button, and allow a manual retry; successful responses clear the form. Retries are never automatic. A timeout does not prove that the admin failed to receive the request, so this client-side guard is not server-side deduplication.
+Quote requests use an `AbortController` with a 15-second deadline covering the request and response-body read. An optional `data-lead-timeout-ms` attribute on the quote form can override that deadline with a positive number of milliseconds. Concurrent submissions are ignored while a request is pending. Failures retain entered values, release the submit button, and allow a manual retry. Confirmed success clears an unchanged form; if the visitor edited any values while waiting, those values remain and the status explains that the newer edits were not included in the accepted request. Retries are never automatic. A timeout does not prove that the admin failed to receive the request, so this client-side guard is not server-side deduplication.
 
 The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
 
@@ -143,7 +150,7 @@ Current module groups:
 - `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated.
 - `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
 
-The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its existing close button, backdrop, Escape key, and contact action remain available.
+The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its close button, backdrop, Escape key, and contextual WhatsApp inquiry action remain available.
 
 ### Scroll Reveal Behavior
 
@@ -229,6 +236,8 @@ Browser checks use installed Google Chrome by default. To use Playwright Chromiu
 
 Browser fixtures intercept repository resources at `http://blackhole.test`; no HTTP server is started. All external requests are blocked, and quote responses are simulated so no real leads are submitted. These checks do not certify the production admin API, CDN availability, or GPU rendering on physical devices. Optional `BLACKHOLE_QA_DIR` selects an output directory for desktop/mobile review screenshots; no generated screenshots are needed in production.
 
+Quote regression checks also cover missing-module submission guards and recovery, whitespace/length validation, the exact brief limit, edits made in flight, and null JSON responses. WhatsApp checks verify all nine service messages, project identity across all 17 modal previews, keyboard-visible morph labels, and intercepted desktop/mobile popup handoffs without contacting WhatsApp or sending messages.
+
 Run both suites with `npm run test:all` before publishing a version. Keep `node_modules/`, test tooling, and local review artifacts out of the hosted static site's public document root.
 
 Motion-enabled browser checks additionally exercise repeated entry/exit at both edges, rapid direction changes, viewport resizing, focused tall forms, row staggering after filters and reflow, mouse/touch tilt, loader-gated hero entries, one-shot planet/QR behavior, reduced motion, and missing-API fallbacks. The reviews carousel receives one viewport reveal around the whole component; its own internal slide animations remain independent.
@@ -256,7 +265,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.6, the branch and tag are published with `git push origin main v1.0.6`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.7, the branch and tag are published with `git push origin main v1.0.7`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 

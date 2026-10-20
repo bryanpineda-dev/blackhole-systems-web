@@ -10,7 +10,7 @@
     Forms.initQuoteForm = function initQuoteForm() {
         const submitBtn = document.getElementById('formSubmitBtn');
         const form = document.querySelector('.sci-fi-form');
-        const formStatus = document.querySelector('[data-form-status]');
+        const formStatus = form?.querySelector('[data-form-status]');
 
         if (!submitBtn || !form) return;
         if (form.dataset.quoteFormReady === 'true') return;
@@ -63,15 +63,39 @@
             return form.dataset.leadEndpointProduction || form.dataset.leadEndpoint || '';
         };
 
-        const buildPayload = () => {
-            const payload = new FormData(form);
+        const validateContent = () => {
+            const textFields = Array.from(form.querySelectorAll('input:not(.form-honeypot), textarea'));
+            textFields.forEach((field) => {
+                field.setCustomValidity('');
+                const label = field.labels?.[0]?.textContent.trim() || field.name;
+                const maxLength = Number(field.dataset.maxlength || field.maxLength);
+                if (field.required && !field.value.trim()) {
+                    field.setCustomValidity(`Please complete ${label.toLowerCase()}.`);
+                } else if (maxLength > 0 && field.value.trim().length > maxLength) {
+                    field.setCustomValidity(`${label} must be ${maxLength} characters or fewer.`);
+                }
+            });
+
+            const firstName = form.elements.namedItem('firstName');
+            const lastName = form.elements.namedItem('lastName');
+            if (firstName && lastName && `${firstName.value.trim()} ${lastName.value.trim()}`.trim().length > 160) {
+                lastName.setCustomValidity('Your full name must be 160 characters or fewer.');
+            }
+            return form.checkValidity();
+        };
+
+        form.addEventListener('input', () => {
+            form.querySelectorAll('input, textarea').forEach((field) => field.setCustomValidity(''));
+        });
+
+        const buildPayload = (payload) => {
             const firstName = (payload.get('firstName') || '').toString().trim();
             const lastName = (payload.get('lastName') || '').toString().trim();
 
             payload.set('name', `${firstName} ${lastName}`.trim());
             payload.set('project_type', payload.get('projectType') || '');
             payload.set('budget_range', payload.get('optionalRange') || '');
-            payload.set('brief', payload.get('message') || '');
+            payload.set('brief', (payload.get('message') || '').toString().trim());
             payload.set('lead_channel', form.dataset.leadChannel || 'blackhole-web-quote');
             payload.set('source_page', window.location.href);
 
@@ -82,7 +106,7 @@
             event.preventDefault();
             if (isSubmitting) return;
 
-            if (!form.checkValidity()) {
+            if (!validateContent()) {
                 form.reportValidity();
                 return;
             }
@@ -104,6 +128,8 @@
             let didTimeout = false;
 
             try {
+                const payload = new FormData(form);
+                const submittedValues = Array.from(payload.entries());
                 const controller = new AbortController();
                 timeoutId = window.setTimeout(() => {
                     didTimeout = true;
@@ -112,22 +138,28 @@
 
                 const response = await fetch(endpoint, {
                     method: 'POST',
-                    body: buildPayload(),
+                    body: buildPayload(payload),
                     signal: controller.signal
                 });
-                const data = await response.json().catch(() => ({}));
+                const body = await response.json().catch(() => null);
+                const data = body && typeof body === 'object' ? body : {};
 
                 if (didTimeout || !response.ok || data.ok !== true) {
                     throw new Error(data.message || 'The signal could not be transmitted.');
                 }
 
                 setSubmitState('<i class="ri-check-double-line"></i> TRANSMISSION SENT', 'success');
-                setStatus(data.message || 'Project signal received. I will review it soon.', 'success');
-                form.reset();
+                const currentValues = Array.from(new FormData(form).entries());
+                const hasNewEdits = currentValues.length !== submittedValues.length || currentValues.some(([key, value], index) =>
+                    key !== submittedValues[index]?.[0] || value !== submittedValues[index]?.[1]);
+                setStatus(hasNewEdits
+                    ? 'Your submitted details were received. Newer edits were kept here and were not included in that request.'
+                    : data.message || 'Project signal received. I will review it soon.', 'success');
+                if (!hasNewEdits) form.reset();
 
                 resetTimer = window.setTimeout(() => {
                     setSubmitState(originalContent);
-                    setStatus('');
+                    if (!hasNewEdits) setStatus('');
                     resetTimer = 0;
                 }, 4200);
             } catch (error) {
@@ -148,5 +180,7 @@
         });
 
         form.dataset.quoteFormReady = 'true';
+        setStatus('');
+        setSubmitLocked(false);
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

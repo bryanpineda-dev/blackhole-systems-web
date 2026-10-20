@@ -90,7 +90,8 @@
             built: modal.querySelector('[data-project-modal-built]'),
             systems: modal.querySelector('[data-project-modal-systems]'),
             tags: modal.querySelector('[data-project-modal-tags]'),
-            live: modal.querySelector('[data-project-modal-live]')
+            live: modal.querySelector('[data-project-modal-live]'),
+            inquiry: modal.querySelector('[data-project-modal-inquiry]')
         };
 
         function openModal(project, trigger) {
@@ -116,6 +117,12 @@
 
             if (modalFields.live) {
                 modalFields.live.href = project.url;
+            }
+
+            if (modalFields.inquiry) {
+                const message = `Hi Bryan! I saw ${project.name} (${project.id}) in the Blackhole Systems portfolio and would like to discuss a similar build.\n\nI'd like to share my idea and explore the scope, timeline, and next steps.\n\nhttps://blackholesys.com/#deployments`;
+                modalFields.inquiry.href = `https://wa.me/50670827504?text=${encodeURIComponent(message)}`;
+                modalFields.inquiry.setAttribute('aria-label', `Discuss a build similar to ${project.name} on WhatsApp`);
             }
 
             modal.classList.add('is-open');

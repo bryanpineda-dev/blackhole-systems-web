@@ -249,6 +249,10 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 const modalInfo = await modalImage.evaluate(inspectImage);
                 assert.deepEqual(modalInfo, { ...info, loading: 'eager' });
                 await assertFullPreview(modalImage);
+                const inquiry = new URL(await page.locator('[data-project-modal-inquiry]').getAttribute('href'));
+                assert.equal(inquiry.origin + inquiry.pathname, 'https://wa.me/50670827504');
+                assert.ok(inquiry.searchParams.get('text').includes(id));
+                assert.ok(inquiry.searchParams.get('text').includes(await page.locator('[data-project-modal-title]').textContent()));
                 assert.equal(await page.locator('[data-project-modal-scroll]').evaluate((element) => element.scrollTop), 0);
                 assert.equal(await page.locator('html').evaluate((element) => element.scrollWidth <= window.innerWidth), true);
                 if (process.env.BLACKHOLE_QA_DIR && ['BH-001', 'BH-002', 'BH-017', 'BH-018'].includes(id)) {
@@ -509,3 +513,146 @@ test('invalid form data and missing endpoint never send a request', async () => 
         assert.match(await page.locator('[data-form-status]').textContent(), /not configured/);
     });
 });
+
+test('quote validation rejects whitespace and over-limit values before sending and accepts the brief boundary', async () => {
+    await withForm(async (page, submit) => {
+        const invalid = [
+            { firstName: '   ' }, { lastName: '   ' }, { message: '   ' },
+            { firstName: 'A'.repeat(81) }, { lastName: 'B'.repeat(81) },
+            { firstName: 'A'.repeat(80), lastName: 'B'.repeat(80) },
+            { email: 'q'.repeat(179) + '@example.com' }, { whatsapp: '1'.repeat(61) },
+            { message: 'A'.repeat(3001) }
+        ];
+        for (const values of invalid) {
+            await page.evaluate(values => {
+                const valid = { firstName: 'Test', lastName: 'Blackhole', email: 'qa@example.invalid', whatsapp: '', message: 'Simulated brief' };
+                for (const [id, value] of Object.entries({ ...valid, ...values })) {
+                    const field = document.getElementById(id);
+                    field.value = value;
+                    field.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }, values);
+            await submit();
+            assert.equal(await page.evaluate(() => window.requests.length), 0);
+            assert.equal(await page.locator('form').evaluate(form => form.checkValidity()), false);
+        }
+        await page.locator('#message').fill('A'.repeat(3001));
+        await submit();
+        assert.equal(await page.locator('#message').inputValue(), 'A'.repeat(3001), 'over-limit input is preserved rather than truncated');
+        assert.equal(await page.evaluate(() => window.requests.length), 0);
+        await page.locator('#message').fill('A'.repeat(3000));
+        await submit();
+        assert.equal(await page.evaluate(() => window.requests[0].payload.brief.length), 3000);
+        await page.evaluate(() => window.resolveRequest());
+        assert.equal(await page.locator('#message').inputValue(), '');
+    });
+});
+
+test('quote success preserves edits made after the request and explains that they were not sent', async () => {
+    await withForm(async (page, submit) => {
+        await submit();
+        await page.locator('#message').fill('Additional requirements typed while sending.');
+        await page.locator('#projectType').selectOption({ label: 'E-Commerce Platform' });
+        await page.evaluate(() => window.resolveRequest());
+        assert.equal(await page.locator('#message').inputValue(), 'Additional requirements typed while sending.');
+        assert.equal(await page.locator('#projectType').inputValue(), 'E-Commerce Platform');
+        assert.equal(await page.evaluate(() => window.requests[0].payload.brief), 'Simulated request only');
+        assert.match(await page.locator('[data-form-status]').textContent(), /Newer edits were kept.*not included/);
+        await page.clock.runFor(4200);
+        assert.match(await page.locator('[data-form-status]').textContent(), /Newer edits were kept/);
+        assert.equal(await page.locator('#formSubmitBtn').isDisabled(), false);
+        await submit();
+        assert.equal(await page.evaluate(() => window.requests[1].payload.brief), 'Additional requirements typed while sending.');
+        await page.evaluate(() => window.resolveRequest());
+        assert.equal(await page.locator('#message').inputValue(), '');
+    });
+});
+
+test('quote form stays disabled with a WhatsApp fallback if its module cannot load', async () => {
+    await withPage({ overrides: { 'assets/js/modules/forms/quote-form.js': '' } }, async (page, errors) => {
+        await page.locator('#page-loader').waitFor({ state: 'detached' });
+        const form = page.locator('.sci-fi-form');
+        const navigations = [];
+        page.on('request', request => { if (request.isNavigationRequest()) navigations.push(request.url()); });
+        assert.equal(await form.getAttribute('method'), 'post');
+        assert.equal(await page.locator('#formSubmitBtn').isDisabled(), true);
+        assert.equal(await page.locator('[data-form-status] a').getAttribute('href').then(url => new URL(url).hostname), 'wa.me');
+        for (const [id, value] of Object.entries({ firstName: 'Test', lastName: 'Blackhole', email: 'qa@example.invalid', message: 'No native submission allowed.' })) {
+            await page.locator('#' + id).fill(value);
+        }
+        await page.locator('#firstName').focus();
+        await page.keyboard.press('Enter');
+        await page.locator('#formSubmitBtn').evaluate(button => button.click());
+        await page.waitForTimeout(200);
+        assert.deepEqual(navigations, []);
+        assert.equal(page.url(), 'http://blackhole.test/');
+        await addScripts(page, ['assets/js/modules/forms/quote-form.js']);
+        await page.evaluate(() => window.BlackholeSystems.Forms.initQuoteForm());
+        assert.equal(await page.locator('#formSubmitBtn').isDisabled(), false);
+        assert.equal(await page.locator('[data-form-status]').textContent(), '');
+        assert.equal(await page.locator('#message').inputValue(), 'No native submission allowed.');
+        assert.deepEqual(errors, []);
+    });
+});
+
+test('quote null JSON response is a recoverable failure rather than a raw parsing error', async () => {
+    await withForm(async (page, submit) => {
+        await page.evaluate(() => { window.fetch = async () => ({ ok: true, json: async () => null }); });
+        await submit();
+        await page.waitForFunction(() => document.querySelector('[data-form-status]').dataset.status === 'error');
+        assert.match(await page.locator('[data-form-status]').textContent(), /could not be transmitted/);
+        assert.equal(await page.locator('#firstName').inputValue(), 'Test');
+        assert.equal(await page.locator('#formSubmitBtn').isDisabled(), false);
+    });
+});
+
+for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    test(`service WhatsApp handoffs and keyboard labels retain their context at ${viewport.width}px`, async () => {
+        const session = await openPage(browser, { viewport, isMobile: viewport.width < 768, hasTouch: viewport.width < 768 });
+        const { page, context, errors } = session;
+        try {
+            await page.locator('#page-loader').waitFor({ state: 'detached' });
+            const services = await page.locator('.capability-card').evaluateAll(cards => cards.map(card => ({
+                name: card.querySelector('h3').textContent, href: card.querySelector('.btn-morph').href,
+                target: card.querySelector('.btn-morph').target, rel: card.querySelector('.btn-morph').rel
+            })));
+            assert.equal(services.length, 9);
+            for (const service of services) {
+                const url = new URL(service.href);
+                assert.equal(url.origin + url.pathname, 'https://wa.me/50670827504');
+                assert.ok(url.searchParams.get('text').includes(service.name));
+                assert.ok(url.searchParams.get('text').includes('https://blackholesys.com/#capabilities'));
+                assert.equal(service.target, '_blank'); assert.ok(service.rel.includes('noopener'));
+            }
+            assert.deepEqual(await page.locator('.header-action a,.mobile-command-cta a,.hero-actions a[href="#contact"],.workflow-actions a[href="#contact"]')
+                .evaluateAll(nodes => nodes.map(node => node.getAttribute('href'))), ['#contact', '#contact', '#contact', '#contact']);
+            const service = page.locator('.btn-morph').first();
+            await service.scrollIntoViewIfNeeded(); await page.mouse.move(0, 0);
+            await page.keyboard.press('Tab'); await service.focus();
+            await page.waitForFunction(() => getComputedStyle(document.querySelector('.btn-morph .btn-text')).opacity === '1');
+            assert.equal(await service.evaluate(e => e.matches(':focus-visible')), true);
+            assert.ok(await service.evaluate(e => e.getBoundingClientRect().width >= 179));
+            await context.route('https://wa.me/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Simulated WhatsApp handoff</title>' }));
+            const servicePopup = context.waitForEvent('page');
+            await service.click({ noWaitAfter: true });
+            const firstPopup = await servicePopup;
+            await firstPopup.waitForURL(/^https:\/\/wa\.me\//);
+            await firstPopup.waitForLoadState('domcontentloaded');
+            assert.equal(new URL(firstPopup.url()).searchParams.get('text'), new URL(services[0].href).searchParams.get('text'));
+            await firstPopup.close();
+            await page.locator('[data-project-details="BH-001"]').click();
+            const inquiry = page.locator('[data-project-modal-inquiry]');
+            const projectUrl = await inquiry.getAttribute('href');
+            const projectPopup = context.waitForEvent('page');
+            await inquiry.click({ noWaitAfter: true });
+            const secondPopup = await projectPopup;
+            await secondPopup.waitForURL(/^https:\/\/wa\.me\//);
+            await secondPopup.waitForLoadState('domcontentloaded');
+            assert.equal(new URL(secondPopup.url()).searchParams.get('text'), new URL(projectUrl).searchParams.get('text'));
+            assert.equal(await page.locator('.project-modal.is-open').count(), 0);
+            assert.equal(await page.locator('.sci-fi-form').evaluate(e => !!e.closest('[inert]')), false);
+            await secondPopup.close();
+            assert.deepEqual(errors, []);
+        } finally { await context.close(); }
+    });
+}
