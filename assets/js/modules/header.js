@@ -76,22 +76,69 @@
         const mobileMenu = document.getElementById('mobile-command-menu');
         const navLinks = document.querySelectorAll('.main-nav-list a, .mobile-command-menu a');
 
-        if (!header || !toggle) return;
+        if (!header || !toggle || !mobileMenu) return;
+
+        const inertSiblings = new Set();
+        let focusFrame = 0;
+        mobileMenu.inert = true;
+
+        const getFocusable = () => [...mobileMenu.querySelectorAll('a[href], button, input, select, textarea, [tabindex]'), toggle]
+            .filter((element) => element.tabIndex >= 0 && !element.matches(':disabled') &&
+                !element.closest('[inert], [hidden]') && element.getClientRects().length &&
+                getComputedStyle(element).visibility === 'visible');
+
+        const focusMenu = () => {
+            if (!header.classList.contains('menu-open')) return;
+            if (getComputedStyle(mobileMenu).visibility !== 'visible') {
+                focusFrame = requestAnimationFrame(focusMenu);
+                return;
+            }
+            focusFrame = 0;
+            (getFocusable()[0] || toggle).focus();
+        };
+
+        const isolateBackground = () => {
+            let current = mobileMenu;
+            // The close control is a sibling of the menu, not a dialog descendant.
+            while (current.parentElement) {
+                Array.from(current.parentElement.children).forEach((sibling) => {
+                    if (sibling !== current && sibling !== toggle && !sibling.contains(toggle) && !sibling.inert) {
+                        sibling.inert = true;
+                        inertSiblings.add(sibling);
+                    }
+                });
+                current = current.parentElement;
+            }
+        };
 
         const closeMenu = () => {
+            const wasOpen = header.classList.contains('menu-open');
+            cancelAnimationFrame(focusFrame);
+            focusFrame = 0;
             header.classList.remove('menu-open');
             document.body.classList.remove('nav-open');
             toggle.setAttribute('aria-expanded', 'false');
             toggle.setAttribute('aria-label', 'Open navigation menu');
-            if (mobileMenu) mobileMenu.setAttribute('aria-hidden', 'true');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            mobileMenu.inert = true;
+            inertSiblings.forEach((element) => { element.inert = false; });
+            inertSiblings.clear();
+            if (wasOpen) {
+                const target = window.innerWidth <= 1024 ? toggle : header.querySelector('.main-nav-list a');
+                target?.focus({ preventScroll: true });
+            }
         };
 
         const openMenu = () => {
+            if (window.innerWidth > 1024 || header.classList.contains('menu-open')) return;
             header.classList.add('menu-open');
             document.body.classList.add('nav-open');
             toggle.setAttribute('aria-expanded', 'true');
             toggle.setAttribute('aria-label', 'Close navigation menu');
-            if (mobileMenu) mobileMenu.setAttribute('aria-hidden', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+            mobileMenu.inert = false;
+            isolateBackground();
+            focusFrame = requestAnimationFrame(focusMenu);
         };
 
         toggle.addEventListener('click', () => {
@@ -113,7 +160,21 @@
         }
 
         window.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') closeMenu();
+            if (!header.classList.contains('menu-open')) return;
+            if (event.key === 'Escape') {
+                closeMenu();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+            const focusable = getFocusable();
+            const first = focusable[0] || toggle;
+            const last = focusable[focusable.length - 1] || toggle;
+            if (!focusable.includes(document.activeElement) ||
+                (event.shiftKey && document.activeElement === first) ||
+                (!event.shiftKey && document.activeElement === last)) {
+                event.preventDefault();
+                (event.shiftKey ? last : first).focus();
+            }
         });
 
         window.addEventListener('resize', () => {

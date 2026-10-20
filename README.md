@@ -6,19 +6,19 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.5**
+Website version: **1.0.6**
 
-Deployment tag: `v1.0.5`
+Deployment tag: `v1.0.6`
 
 Release changes:
 
-- Add opt-in reversible landing reveals: short vertical entrances, subtle exits, and re-entry when scrolling back.
-- Stagger service and project cards within their current row instead of accumulating delays through the entire archive.
-- Animate readable text blocks independently, avoiding multiplied parent/child fades and keeping focused forms visible.
-- Use native viewport observation and Web Animations with independent translate/opacity, preserving card tilt, component hovers, filters, and slider behavior.
-- Retain the original one-shot planetary entrance, orbit timing, loader coordination, and QR Studio reveals.
-- Respect reduced motion and keep content readable when viewport observation is unavailable.
-- Extend motion-enabled browser coverage for entry/exit, rapid reversal, focus, resizing, mouse/touch tilt, planets, QR, filters, reviews, and the page footer.
+- Keep hero and Workflow actions side by side with complete labels at narrow mobile widths, without enlarging the page or changing shared button defaults.
+- Fit the assistant panel between viewport edges; use the available height and hide floating shortcuts while it is open on short screens.
+- Keep assistant close/input controls reachable and move focus away from shortcuts hidden by the compact layout.
+- Contain mobile-menu focus, isolate the background, preserve existing inert states, and restore usable focus on all close paths and desktop resizing.
+- Contain QR panel and FAQ lateral entrances within their page gutters without changing reveal presets or the full-bleed hero.
+- Fit footer columns at intermediate widths and keep its final legend clear of floating actions.
+- Add responsive regression coverage while preserving the blackhole camera, planets, reversible reveals, tilt, morph timing, and project modals.
 
 ## Overview
 
@@ -53,6 +53,8 @@ Project modals are compact README-style sheets, capped at 760px wide and 680px h
 
 The header hides only its logo while deployments overlap the header band, regardless of how tall the archive grows or which filter is selected. The observer updates after viewport resizing. Main navigation, the mobile menu control, and the independent footer visibility state retain their existing behavior. On small screens, the existing scroll-based logo hiding remains in effect outside deployments as well.
 
+The mobile menu moves focus to its links, contains Tab/Shift+Tab across the menu and its close control, and isolates background/header siblings with `inert`. Closing through Escape, the backdrop, a navigation link, or the toggle releases only the inert states it owns. It restores focus to the toggle, or to desktop navigation when resized above the mobile breakpoint.
+
 ## Free Tools
 
 ### Blackhole QR Studio
@@ -62,6 +64,8 @@ The header hides only its logo while deployments overlap the header band, regard
 Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
 
 The tool uses the shared page boot layer for the Blackhole loader, custom cursor, star field, and scroll reveal behavior while keeping QR-specific logic isolated in `assets/js/tools/qr-studio.js`.
+
+The workspace and FAQ contain their lateral reveal overflow with clip margins matched to the page gutters. This preserves the existing one-shot entrances and shadow space without letting offscreen panels widen the document or clipping the full-bleed hero.
 
 Current capabilities:
 
@@ -104,6 +108,8 @@ blackhole-web-quote
 Quote requests use an `AbortController` with a 15-second deadline covering the request and response-body read. An optional `data-lead-timeout-ms` attribute on the quote form can override that deadline with a positive number of milliseconds. Concurrent submissions are ignored while a request is pending. Failures retain entered values, release the submit button, and allow a manual retry; successful responses clear the form. Retries are never automatic. A timeout does not prove that the admin failed to receive the request, so this client-side guard is not server-side deduplication.
 
 The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
+
+The assistant uses component-local viewport-edge and panel-offset values. On screens up to 520px high, its open panel uses the available height, compacts header/composer spacing, and hides the floating shortcuts until closed. Its visible close control receives focus when those shortcuts are hidden; closing restores focus without automatically opening the mobile keyboard.
 
 ## Tech Stack
 
@@ -227,7 +233,7 @@ Run both suites with `npm run test:all` before publishing a version. Keep `node_
 
 Motion-enabled browser checks additionally exercise repeated entry/exit at both edges, rapid direction changes, viewport resizing, focused tall forms, row staggering after filters and reflow, mouse/touch tilt, loader-gated hero entries, one-shot planet/QR behavior, reduced motion, and missing-API fallbacks. The reviews carousel receives one viewport reveal around the whole component; its own internal slide animations remain independent.
 
-Known narrow-screen limitation: with the production fonts at 320px, the existing Workflow action buttons extend the document width to 351px. This was reproduced unchanged against the published v1.0.4 sources during motion QA; this release does not redesign that action row.
+Responsive checks also cover narrow touch layout widths, complete side-by-side hero/Workflow actions, mobile-menu focus and inert-state cleanup, assistant portrait/landscape bounds and resize focus, QR overflow before/during reveals, and footer-column/legend clearance. Hero button spacing is narrowed only at 360px and below; Workflow action sizing is local to mobile widths. Footer columns use an intermediate two-column layout before the existing tablet stack, and the final legend stacks earlier to clear the floating controls.
 
 ## Performance Notes
 
@@ -250,7 +256,7 @@ For every new version, review this README against the actual implementation. Upd
 
 Bryan performs commits, tag creation, and pushes manually. Agents provide complete Git Bash commands covering the changed files, the detailed English commit message, an English tag annotation, and the push of the branch and its specific tag together.
 
-For version 1.0.5, the branch and tag are published with `git push origin main v1.0.5`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
+For version 1.0.6, the branch and tag are published with `git push origin main v1.0.6`. Published version tags remain attached to their original commit; subsequent commits receive a new version and tag.
 
 ## Deployment Roadmap
 

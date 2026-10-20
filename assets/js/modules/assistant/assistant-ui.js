@@ -24,6 +24,8 @@
 
         if (widget.dataset.assistantReady === 'true') return;
 
+        let focusFrame = 0;
+
         function scrollMessages() {
             messages.scrollTop = messages.scrollHeight;
         }
@@ -77,18 +79,34 @@
             }, 360);
         }
 
+        function focusCloseWhenActionsHidden() {
+            cancelAnimationFrame(focusFrame);
+            focusFrame = 0;
+            if (!widget.classList.contains('is-open') || widget.closest('[inert]') || getComputedStyle(toggle).visibility !== 'hidden') return;
+            if (getComputedStyle(panel).visibility !== 'visible') {
+                focusFrame = requestAnimationFrame(focusCloseWhenActionsHidden);
+                return;
+            }
+            close?.focus({ preventScroll: true });
+        }
+
         function openAssistant() {
             widget.classList.add('is-open');
             panel.setAttribute('aria-hidden', 'false');
             toggle.setAttribute('aria-expanded', 'true');
             toggle.setAttribute('aria-label', 'Close Blackhole assistant');
+            focusCloseWhenActionsHidden();
         }
 
         function closeAssistant() {
+            const restoreFocus = widget.classList.contains('is-open') && panel.contains(document.activeElement);
+            cancelAnimationFrame(focusFrame);
+            focusFrame = 0;
             widget.classList.remove('is-open');
             panel.setAttribute('aria-hidden', 'true');
             toggle.setAttribute('aria-expanded', 'false');
             toggle.setAttribute('aria-label', 'Open Blackhole assistant');
+            if (restoreFocus) toggle.focus({ preventScroll: true });
         }
 
         function toggleAssistant() {
@@ -128,6 +146,12 @@
 
         window.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') closeAssistant();
+        });
+
+        window.addEventListener('resize', () => {
+            if (widget.classList.contains('is-open') && document.activeElement?.closest('.assistant-floating-actions')) {
+                focusCloseWhenActionsHidden();
+            }
         });
 
         widget.dataset.assistantReady = 'true';

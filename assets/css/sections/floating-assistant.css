@@ -3,9 +3,13 @@
    ========================================================================== */
 
 .floating-assistant {
+    --assistant-edge: 24px;
+    --assistant-panel-offset: 148px;
+    --assistant-panel-max-height: 590px;
+
     position: fixed;
-    right: 24px;
-    bottom: 24px;
+    right: var(--assistant-edge);
+    bottom: var(--assistant-edge);
     z-index: calc(var(--z-header) + 8);
     font-family: var(--font-body);
     color: var(--text-main);
@@ -25,9 +29,9 @@ body.nav-open .floating-assistant {
 .floating-assistant-panel {
     position: absolute;
     right: 0;
-    bottom: 148px;
+    bottom: var(--assistant-panel-offset);
     width: min(390px, calc(100vw - 32px));
-    height: min(590px, calc(100svh - 188px));
+    height: min(var(--assistant-panel-max-height), calc(100svh - var(--assistant-panel-offset) - 2 * var(--assistant-edge)));
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -56,6 +60,7 @@ body.nav-open .floating-assistant {
 }
 
 .assistant-header {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -424,13 +429,9 @@ body.nav-open .floating-assistant {
 
 @media (max-width: 768px) {
     .floating-assistant {
-        right: 16px;
-        bottom: 16px;
-    }
-
-    .floating-assistant-panel {
-        bottom: 136px;
-        height: min(560px, calc(100svh - 164px));
+        --assistant-edge: 16px;
+        --assistant-panel-offset: 136px;
+        --assistant-panel-max-height: 560px;
     }
 
     .assistant-floating-btn {
@@ -444,14 +445,13 @@ body.nav-open .floating-assistant {
 
 @media (max-width: 420px) {
     .floating-assistant {
-        right: 14px;
-        bottom: 14px;
+        --assistant-edge: 14px;
+        --assistant-panel-offset: 146px;
+        --assistant-panel-max-height: 540px;
     }
 
     .floating-assistant-panel {
         width: calc(100vw - 28px);
-        height: min(540px, calc(100svh - 154px));
-        bottom: 146px;
     }
 
     .assistant-header,
@@ -462,6 +462,27 @@ body.nav-open .floating-assistant {
 
     .assistant-quick-actions {
         padding-inline: 16px;
+    }
+}
+
+@media (max-height: 520px) {
+    .floating-assistant.is-open {
+        --assistant-panel-offset: 0px;
+        --assistant-panel-max-height: calc(100svh - 2 * var(--assistant-edge));
+    }
+
+    .floating-assistant.is-open .assistant-floating-actions {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .assistant-header {
+        min-height: 0;
+        padding-block: var(--space-xs);
+    }
+
+    .assistant-form {
+        padding-block: var(--space-xs);
     }
 }
 

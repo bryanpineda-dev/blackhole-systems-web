@@ -18,6 +18,7 @@ async function launchBrowser() {
 async function openPage(browser, options = {}) {
     const context = await browser.newContext({
         viewport: options.viewport || { width: 1440, height: 900 },
+        isMobile: options.isMobile || false, hasTouch: options.hasTouch || false,
         reducedMotion: options.reducedMotion || 'reduce', serviceWorkers: 'block'
     });
     const page = await context.newPage();

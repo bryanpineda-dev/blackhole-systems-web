@@ -770,7 +770,17 @@
     }
 
     .workflow-actions {
-        justify-content: flex-start;
+        --btn-group-gap: var(--space-xs);
+        --btn-glass-min-width: 0;
+        --btn-glass-frame-padding: 0;
+        --btn-glass-content-padding: 0 var(--space-xs);
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .workflow-actions .btn-glass {
+        min-width: 0;
     }
 
     .command-base {
@@ -803,4 +813,14 @@
         flex-wrap: wrap;
     }
 
+}
+
+@media (max-width: 360px) {
+    .hero-actions .container-btn {
+        gap: var(--space-xs);
+    }
+
+    .hero-actions .container-btn .btn-glass {
+        --btn-glass-frame-padding: 0;
+    }
 }

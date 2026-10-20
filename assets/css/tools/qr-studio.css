@@ -4,6 +4,8 @@
    ========================================================================== */
 
 .qr-tool-page {
+    --qr-reveal-clip-margin: clamp(16px, 3.5vw, 48px);
+
     min-height: 100vh;
     overflow-x: hidden;
     background: #010206;
@@ -72,6 +74,13 @@
 .qr-studio {
     position: relative;
     z-index: var(--z-base);
+}
+
+/* Keep lateral entrances within the page gutters without clipping the hero. */
+.qr-workspace,
+.qr-faq {
+    overflow-x: clip;
+    overflow-clip-margin: var(--qr-reveal-clip-margin);
 }
 
 .qr-tool-page .section-tag {
@@ -1139,6 +1148,10 @@
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1080px) {
+    .qr-tool-page {
+        --qr-reveal-clip-margin: 20px;
+    }
+
     .qr-tool-header,
     .qr-studio,
     .qr-tool-footer {
@@ -1161,6 +1174,10 @@
 }
 
 @media (max-width: 720px) {
+    .qr-tool-page {
+        --qr-reveal-clip-margin: 16px;
+    }
+
     .qr-tool-header,
     .qr-studio,
     .qr-tool-footer {
