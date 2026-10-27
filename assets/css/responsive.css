@@ -501,8 +501,8 @@
     .orbit-container { font-size: 0.55em; margin: 0 auto; }
     .glass-coin { width: 60px; height: 60px; }
 
-    .glass-coin i,
-    .glass-coin svg {
+    .glass-coin > i,
+    .glass-coin > svg {
         display: inline-flex;
         align-items: center;
         justify-content: center;

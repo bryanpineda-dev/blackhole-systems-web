@@ -14,6 +14,35 @@ async function withPage(options, run) {
     finally { await session.context.close(); }
 }
 
+test('all local SVG icons render offline from one shared sprite without icon fonts', async () => {
+    const manifest = JSON.parse(await read('assets/icons/manifest.json'));
+    const markup = await Promise.all(manifest.icons.map(async icon => {
+        const viewBox = (await read(`assets/icons/${icon.source}`)).match(/viewBox="([^"]+)"/)[1];
+        const family = icon.family === 'remix' ? '' : `fa-${icon.family === 'brands' ? 'brands' : 'solid'}`;
+        return `<i class="bh-icon ${family} ${icon.id}"><svg class="bh-icon-svg" viewBox="${viewBox}" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#${icon.id}"></use></svg></i>`;
+    }));
+    const fixture = `<!doctype html><link rel="stylesheet" href="assets/css/icons.css"><body style="font-size:32px;color:#0062ff">${markup.join('')}</body>`;
+    await withPage({ overrides: { 'index.html': fixture } }, async (page, errors) => {
+        await page.waitForFunction(() => [...document.querySelectorAll('use')].every(use => use.getBBox().width > 0 && use.getBBox().height > 0));
+        const result = await page.evaluate(() => ({
+            icons: [...document.querySelectorAll('.bh-icon-svg')].map(svg => ({ width: svg.getBoundingClientRect().width, height: svg.getBoundingClientRect().height,
+                fill: getComputedStyle(svg).fill, hidden: svg.getAttribute('aria-hidden'), focusable: svg.getAttribute('focusable') })),
+            spriteRequests: performance.getEntriesByType('resource').filter(entry => entry.name.includes('/assets/icons/icons.svg')).length,
+            iconFonts: [...document.fonts].filter(font => /remixicon|Font Awesome/i.test(font.family)).length
+        }));
+        assert.equal(result.icons.length, manifest.icons.length);
+        assert.equal(result.spriteRequests, 1);
+        assert.equal(result.iconFonts, 0);
+        for (const icon of result.icons) {
+            assert.ok(icon.width > 0 && Math.abs(icon.height - 32) < 0.1);
+            assert.equal(icon.fill, 'rgb(0, 98, 255)');
+            assert.equal(icon.hidden, 'true');
+            assert.equal(icon.focusable, 'false');
+        }
+        assert.deepEqual(errors, []);
+    });
+});
+
 async function freezeClock(page) {
     await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
     await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));

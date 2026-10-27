@@ -6,16 +6,17 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.9**
+Website version: **1.0.10**
 
-Deployment tag: `v1.0.9`
+Deployment tag: `v1.0.10`
 
 Release changes:
 
-- Correct Spanish accents, punctuation and unnatural phrasing throughout assistant guidance and recovery messages.
-- Replace the compound service prompt with one short, service-specific question in English and Spanish.
-- Clarify contact links and WhatsApp brief labels without changing routing, conversation memory, handoff destinations or panel styling.
-- Add editorial regression checks, refresh assistant script revisions and retain the existing public portfolio facts.
+- Replace the remote Remix Icon stylesheet/font and Font Awesome kit with 88 original, selectively vendored SVG icons.
+- Share a versioned local SVG sprite across the landing, QR Studio, project templates and form status messages without a runtime icon library.
+- Preserve existing icon wrappers, drawings, dimensions, colors and component effects, including the independent workflow hover and mobile alignment.
+- Include exact-version upstream sources, checksums, licenses, an offline sprite builder and icon integrity/rendering regression checks.
+- Keep Three.js, decorative grid behavior, loader timing and unrelated performance work unchanged.
 
 ## Overview
 
@@ -134,7 +135,15 @@ The assistant keeps its existing colors, dimensions and motion. It uses componen
 - Vanilla JavaScript modules
 - Namespace-based browser scripts registered on `window.BlackholeSystems`
 - Local Three.js/WebGPU vendor files for the blackhole hero
-- Remix Icons and Font Awesome icons
+- Local SVG assets from Remix Icon 3.5.0 and Font Awesome Free 6.7.2
+
+### Local Icons
+
+Both entry points load `assets/css/icons.css` and reference symbols in `assets/icons/icons.svg`. The shared sprite contains only the 66 Remix Icon and 22 Font Awesome icons currently used. Original SVGs, their source URLs/checksums and exact-version licenses live alongside the sprite. Google Fonts remains unchanged; the site no longer requests either external icon library, its kit script or its icon fonts.
+
+Existing `i` wrappers keep section-specific sizing, hover, glow and animation rules; their children are decorative, non-focusable SVGs using `currentColor`. Dynamic project icons are rendered directly by `projects-render.js`, and form states include local SVG markup. There is no DOM-wide replacement pass, observer, runtime icon dependency or icon startup initializer. Workflow selectors target direct children so nested SVGs do not receive the orb's filter or mobile transform twice.
+
+To maintain the catalog, add the official SVG under `assets/icons/sources/`, record its family, exact-version source URL and SHA-256 in `assets/icons/manifest.json`, and update its consumer. Keep the corresponding license. Run `npm run build:icons` to regenerate the sprite and compatibility CSS without network access. The builder rejects changed checksums or unsupported SVG markup; tests detect missing and unused icons and stale generated outputs. See `assets/icons/README.md` for the maintenance contract. Use the HTTP preview described below; cross-file SVG references are not guaranteed under `file://`.
 
 ## JavaScript Architecture
 
@@ -176,6 +185,7 @@ blackhole-web-v1/
 ├── index.html
 ├── package.json
 ├── package-lock.json
+├── scripts/
 ├── tests/
 ├── assets/
 │   ├── css/
@@ -190,6 +200,7 @@ blackhole-web-v1/
 │   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
+│   ├── icons/
 │   ├── vendor/
 │   └── js/
 │       ├── app.js

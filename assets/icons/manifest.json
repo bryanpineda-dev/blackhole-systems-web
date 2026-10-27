@@ -1,0 +1,622 @@
+{
+  "remixVersion": "3.5.0",
+  "fontAwesomeVersion": "6.7.2",
+  "icons": [
+    {
+      "id": "fa-angle-right",
+      "family": "solid",
+      "source": "sources/fa-angle-right.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/angle-right.svg",
+      "sha256": "58045a793e073044af8362b2320dfa4629748a10eef5a65c3c04b711be00b223"
+    },
+    {
+      "id": "fa-bezier-curve",
+      "family": "solid",
+      "source": "sources/fa-bezier-curve.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/bezier-curve.svg",
+      "sha256": "aaec16b2a6a83025132b0e9ab5071f69d05b97eeff64d8c9eb481a27a1d84a62"
+    },
+    {
+      "id": "fa-bolt",
+      "family": "solid",
+      "source": "sources/fa-bolt.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/bolt.svg",
+      "sha256": "c23816fcca202a690a4b6fdcc4f807965b2697dafdd2d3b67e0696cff250b774"
+    },
+    {
+      "id": "fa-cart-shopping",
+      "family": "solid",
+      "source": "sources/fa-cart-shopping.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/cart-shopping.svg",
+      "sha256": "081462ef633cf257c77ba0ea9b79af6fd402360957ab42aa0875b6dec7d2f133"
+    },
+    {
+      "id": "fa-code",
+      "family": "solid",
+      "source": "sources/fa-code.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/code.svg",
+      "sha256": "17418ab3d65ab588449f520ced8004b3710fe75d96b56f709b9675f9bfaa62e5"
+    },
+    {
+      "id": "fa-css3-alt",
+      "family": "brands",
+      "source": "sources/fa-css3-alt.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/css3-alt.svg",
+      "sha256": "ec01232cf2a6fe74850927a136aca7f1ad8802268845faba46b5f3ab6b1ef2b3"
+    },
+    {
+      "id": "fa-docker",
+      "family": "brands",
+      "source": "sources/fa-docker.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/docker.svg",
+      "sha256": "3edfc627234e2f842e4cc6e1d59549084f617f4526fab16b7dd0ade154ae6a94"
+    },
+    {
+      "id": "fa-figma",
+      "family": "brands",
+      "source": "sources/fa-figma.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/figma.svg",
+      "sha256": "aa59c1b114125f3796a9bed832b17ef392d0bf689575eaa678c10c8fc0f4beb1"
+    },
+    {
+      "id": "fa-git-alt",
+      "family": "brands",
+      "source": "sources/fa-git-alt.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/git-alt.svg",
+      "sha256": "7844b22e39026cc6f9f46f36a454ed12a58a9fa26560104ad70b6f33916d002a"
+    },
+    {
+      "id": "fa-html5",
+      "family": "brands",
+      "source": "sources/fa-html5.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/html5.svg",
+      "sha256": "59541c3650015acae3d8c7c2a2f8f7b5d33b6ee58026b277cc4999840c1d9cd2"
+    },
+    {
+      "id": "fa-js",
+      "family": "brands",
+      "source": "sources/fa-js.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/js.svg",
+      "sha256": "7241e5745a1f2337b4c45053d3346d6e92ff09218428db2e359474982d91508b"
+    },
+    {
+      "id": "fa-microchip",
+      "family": "solid",
+      "source": "sources/fa-microchip.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/microchip.svg",
+      "sha256": "77a55c089932e596715e0cf05cf6aeb19ed1f270f51caaa8a8786b14f2feaaeb"
+    },
+    {
+      "id": "fa-network-wired",
+      "family": "solid",
+      "source": "sources/fa-network-wired.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/network-wired.svg",
+      "sha256": "c6acdffc13b924ae2ee0b2a97bbb70827dcba227e685639b436fc8539e7a5612"
+    },
+    {
+      "id": "fa-node-js",
+      "family": "brands",
+      "source": "sources/fa-node-js.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/node-js.svg",
+      "sha256": "401ae76cfae0cc2e56ef2a70ea7a35f724261f7ccf2e2438a8db47801acfd454"
+    },
+    {
+      "id": "fa-npm",
+      "family": "brands",
+      "source": "sources/fa-npm.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/npm.svg",
+      "sha256": "0700f69b30622b20c1a99e64e7fed9894402e2c7c9dd8c320780798652d84085"
+    },
+    {
+      "id": "fa-php",
+      "family": "brands",
+      "source": "sources/fa-php.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/php.svg",
+      "sha256": "3ffcf081d957ee3e1d9dd9b7a3c1e26bfe0b2a680d7aab126f46695f277d984f"
+    },
+    {
+      "id": "fa-plus",
+      "family": "solid",
+      "source": "sources/fa-plus.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/plus.svg",
+      "sha256": "8c1c05a38a072f42156542c6f3c6f91f0188e7bf27990f81ff42f42e0719c7e5"
+    },
+    {
+      "id": "fa-python",
+      "family": "brands",
+      "source": "sources/fa-python.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/python.svg",
+      "sha256": "04219d3fcd9dc4a3a317cc56cdaa797998b771c12c3ac624c9bdf3631c7645d5"
+    },
+    {
+      "id": "fa-react",
+      "family": "brands",
+      "source": "sources/fa-react.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/react.svg",
+      "sha256": "02ae95f51d407166fa94fd788deec621c7613e7390dc5a01d17d30e1c2b3b29a"
+    },
+    {
+      "id": "fa-robot",
+      "family": "solid",
+      "source": "sources/fa-robot.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/robot.svg",
+      "sha256": "eee72897b10037e9f9954b41ccf6a694e4a1e4fe8373f042775c6af0c1a73dc0"
+    },
+    {
+      "id": "fa-server",
+      "family": "solid",
+      "source": "sources/fa-server.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/server.svg",
+      "sha256": "8192211889f13bb84af6fe687666be091752cea4e986e0fcfaf9c624dd9a8688"
+    },
+    {
+      "id": "fa-wordpress",
+      "family": "brands",
+      "source": "sources/fa-wordpress.svg",
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/brands/wordpress.svg",
+      "sha256": "86a160a1ff732c9fcc77afe27f2040819c3fddeac8ac28782ca5ab5344dd664d"
+    },
+    {
+      "id": "ri-add-line",
+      "family": "remix",
+      "source": "sources/ri-add-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/add-line.svg",
+      "sha256": "d0c5a5325514cd3f83c552c5689c76e06fca417960ae5f78bd8fb331c1c8c75b"
+    },
+    {
+      "id": "ri-apps-2-line",
+      "family": "remix",
+      "source": "sources/ri-apps-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/apps-2-line.svg",
+      "sha256": "a0f6a6dd6d406b41795bd6c4eb43b3a1a4dc61a3579b058aae9d27c10b35be7c"
+    },
+    {
+      "id": "ri-arrow-left-line",
+      "family": "remix",
+      "source": "sources/ri-arrow-left-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Arrows/arrow-left-line.svg",
+      "sha256": "34f344b7845bac1a093db8baf69628ac0f48f623c7b35fbae9e8c74007f0bd65"
+    },
+    {
+      "id": "ri-arrow-right-line",
+      "family": "remix",
+      "source": "sources/ri-arrow-right-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Arrows/arrow-right-line.svg",
+      "sha256": "d34e02ad5badd792c380ba23418091160f0012cc6440c4f62d481910e781d1f3"
+    },
+    {
+      "id": "ri-arrow-right-s-line",
+      "family": "remix",
+      "source": "sources/ri-arrow-right-s-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Arrows/arrow-right-s-line.svg",
+      "sha256": "e8c2ff555f81ed842b0e72fda86b0aa34fe02747a3365bc6cb5bdc88c425e6fd"
+    },
+    {
+      "id": "ri-arrow-up-line",
+      "family": "remix",
+      "source": "sources/ri-arrow-up-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Arrows/arrow-up-line.svg",
+      "sha256": "ae21eee85db3154e708e3d99e1aeea83ffa4d000cc0ecb7bbfd1047ba55445ae"
+    },
+    {
+      "id": "ri-artboard-2-line",
+      "family": "remix",
+      "source": "sources/ri-artboard-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Design/artboard-2-line.svg",
+      "sha256": "2178d4b8a9220b759543ef7f6919eab2900242c1ae3435ff79cba8c83d116d57"
+    },
+    {
+      "id": "ri-bank-line",
+      "family": "remix",
+      "source": "sources/ri-bank-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Buildings/bank-line.svg",
+      "sha256": "24dd27a6efd47d53261b065dfd398b8fe2b250f1b160899c2766031439e94210"
+    },
+    {
+      "id": "ri-building-4-line",
+      "family": "remix",
+      "source": "sources/ri-building-4-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Buildings/building-4-line.svg",
+      "sha256": "9fba3dd1969558b08227ef52ed330d6485ba31a3767927ea6a99c8175e145e84"
+    },
+    {
+      "id": "ri-calendar-check-line",
+      "family": "remix",
+      "source": "sources/ri-calendar-check-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/calendar-check-line.svg",
+      "sha256": "2208f623ea79b44545e87211fc4733b5cd5a84080f1a96ffeb8da60d8f262d63"
+    },
+    {
+      "id": "ri-camera-lens-line",
+      "family": "remix",
+      "source": "sources/ri-camera-lens-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Media/camera-lens-line.svg",
+      "sha256": "c57c98a30508bba582f1635ec36ecd3d6d471a353486669971d35f25da8c6884"
+    },
+    {
+      "id": "ri-check-double-line",
+      "family": "remix",
+      "source": "sources/ri-check-double-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/check-double-line.svg",
+      "sha256": "917035447366a67006cd8906b29563a4feeabd43870415f0c9cb72e4edf66e66"
+    },
+    {
+      "id": "ri-close-line",
+      "family": "remix",
+      "source": "sources/ri-close-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/close-line.svg",
+      "sha256": "3c7e8ef111bdad3e9b46fde4544a8f0ffc64fcfc3147ec0aaac50320911d3918"
+    },
+    {
+      "id": "ri-code-box-line",
+      "family": "remix",
+      "source": "sources/ri-code-box-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Development/code-box-line.svg",
+      "sha256": "014ee0a3c7ba55c01e2367a5394ad1164dde4f2f5945073fd7ce8993cc202a79"
+    },
+    {
+      "id": "ri-code-s-slash-line",
+      "family": "remix",
+      "source": "sources/ri-code-s-slash-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Development/code-s-slash-line.svg",
+      "sha256": "5e29c94a90072013443bf8be89b13af3a846d0df0c667d5431b263072c1b7e07"
+    },
+    {
+      "id": "ri-computer-line",
+      "family": "remix",
+      "source": "sources/ri-computer-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Device/computer-line.svg",
+      "sha256": "fd5795027224ed98619472ec4ff3a865e6b484b89f7a4945645f08f83ba5ff5c"
+    },
+    {
+      "id": "ri-crosshair-2-line",
+      "family": "remix",
+      "source": "sources/ri-crosshair-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Design/crosshair-2-line.svg",
+      "sha256": "b69212901c3cb51730eb9cbc0a83a202c5a2ed8b9cd085000a9dd7a7c1e6830b"
+    },
+    {
+      "id": "ri-cup-line",
+      "family": "remix",
+      "source": "sources/ri-cup-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Map/cup-line.svg",
+      "sha256": "90c3fd35f8ff45c3a9b657c5c8ba9a66592d5b362b65d56923a8ddbaffe9d23c"
+    },
+    {
+      "id": "ri-dashboard-3-line",
+      "family": "remix",
+      "source": "sources/ri-dashboard-3-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Device/dashboard-3-line.svg",
+      "sha256": "7515edfb4b529a3c6578ade396e198b542af080a9fe3d6375d86540cd498bf71"
+    },
+    {
+      "id": "ri-download-cloud-line",
+      "family": "remix",
+      "source": "sources/ri-download-cloud-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/download-cloud-line.svg",
+      "sha256": "dad034ba8e424b423a51505cffd5fb5ffa02790a5ae7a49a610340678327c5bc"
+    },
+    {
+      "id": "ri-drop-line",
+      "family": "remix",
+      "source": "sources/ri-drop-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Design/drop-line.svg",
+      "sha256": "364ff33d37d9353d4f74fbe8dc034ab0c80ecf65493255b91ad71ea67f074899"
+    },
+    {
+      "id": "ri-error-warning-line",
+      "family": "remix",
+      "source": "sources/ri-error-warning-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/error-warning-line.svg",
+      "sha256": "462ae30f17b78d032b4d8c3e62e6f4ea5a6b12743e53ed0576a5c27268260644"
+    },
+    {
+      "id": "ri-external-link-line",
+      "family": "remix",
+      "source": "sources/ri-external-link-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/external-link-line.svg",
+      "sha256": "1330f888293fff4c52c4e7d40ab8cb62a487f91076364a940b540bd6906d2f71"
+    },
+    {
+      "id": "ri-facebook-fill",
+      "family": "remix",
+      "source": "sources/ri-facebook-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/facebook-fill.svg",
+      "sha256": "b76a0222feb03c7d45bb91579f92e7089ebfaab808d87f10fd6f67f99b6e3da4"
+    },
+    {
+      "id": "ri-file-search-line",
+      "family": "remix",
+      "source": "sources/ri-file-search-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Document/file-search-line.svg",
+      "sha256": "31b041eb5f2f213cc1f21233def627448cd6afa5241142f1647b766070238dd9"
+    },
+    {
+      "id": "ri-fire-line",
+      "family": "remix",
+      "source": "sources/ri-fire-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Weather/fire-line.svg",
+      "sha256": "d6f1275f21ab87688b18d6750c37c0ca4857b0e976ed51592d9ade98e39a9c80"
+    },
+    {
+      "id": "ri-github-fill",
+      "family": "remix",
+      "source": "sources/ri-github-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/github-fill.svg",
+      "sha256": "b3cf319bf1458b5660bded6a9c557e04a38f598773a8277fd18cbb619d381ea6"
+    },
+    {
+      "id": "ri-graduation-cap-line",
+      "family": "remix",
+      "source": "sources/ri-graduation-cap-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Others/graduation-cap-line.svg",
+      "sha256": "5991caa5d8bb7642abd99df712d86b8b5b3d7104871247b326fcae9597180677"
+    },
+    {
+      "id": "ri-home-gear-line",
+      "family": "remix",
+      "source": "sources/ri-home-gear-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Buildings/home-gear-line.svg",
+      "sha256": "4dd8573036247f34c59e48822676d7ba4b826be39d2bcd0be46d485e8ba6e76f"
+    },
+    {
+      "id": "ri-image-add-line",
+      "family": "remix",
+      "source": "sources/ri-image-add-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Media/image-add-line.svg",
+      "sha256": "b0598faf56918525b6c57dc1932d41b3b5b5053faa9c8916a55dfd90f1f82e74"
+    },
+    {
+      "id": "ri-instagram-line",
+      "family": "remix",
+      "source": "sources/ri-instagram-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/instagram-line.svg",
+      "sha256": "61370778f1ea82f80096e4e93b41756b479053e7390a8cac2b877d76b703150a"
+    },
+    {
+      "id": "ri-layout-grid-line",
+      "family": "remix",
+      "source": "sources/ri-layout-grid-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Design/layout-grid-line.svg",
+      "sha256": "ac0c1601f276915ad22826ff98ea1f1b851db4c4c2fa48404ca3fcf643b0e789"
+    },
+    {
+      "id": "ri-layout-masonry-line",
+      "family": "remix",
+      "source": "sources/ri-layout-masonry-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Design/layout-masonry-line.svg",
+      "sha256": "149c92966c9b4dfc7d0cd547b6760835fd13ef4dbb500097498066e7d4e6927e"
+    },
+    {
+      "id": "ri-linkedin-fill",
+      "family": "remix",
+      "source": "sources/ri-linkedin-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/linkedin-fill.svg",
+      "sha256": "8640f6244bb0e9461e36f7edcc90cb541c925d5e91ff9203477bef5ba609feb3"
+    },
+    {
+      "id": "ri-links-line",
+      "family": "remix",
+      "source": "sources/ri-links-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/links-line.svg",
+      "sha256": "1ffc65d4656eaa54a55c60c2e8959e40f862d806aa1c4adbbc083e7412410782"
+    },
+    {
+      "id": "ri-loader-4-line",
+      "family": "remix",
+      "source": "sources/ri-loader-4-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/loader-4-line.svg",
+      "sha256": "fc487279fdea6daed52290d3638b70ad35a95a0d666dc79db4e400250e63aa6f"
+    },
+    {
+      "id": "ri-mail-line",
+      "family": "remix",
+      "source": "sources/ri-mail-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/mail-line.svg",
+      "sha256": "0f6bbbea88a66c09a18d5e1a4c5f29705e3297bb6e710b5471e1a0d1af77b406"
+    },
+    {
+      "id": "ri-mail-send-fill",
+      "family": "remix",
+      "source": "sources/ri-mail-send-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/mail-send-fill.svg",
+      "sha256": "5ca7365d47fc1c987d0a63583c8cc905730268d3069fded506b5f01bd8bd88ac"
+    },
+    {
+      "id": "ri-mail-send-line",
+      "family": "remix",
+      "source": "sources/ri-mail-send-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/mail-send-line.svg",
+      "sha256": "0d0435240953dacb924fa952e7be8016f8655aea94905e7fe25908648c72529b"
+    },
+    {
+      "id": "ri-newspaper-line",
+      "family": "remix",
+      "source": "sources/ri-newspaper-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Document/newspaper-line.svg",
+      "sha256": "c4520c92ed8d70627775bbd27e87d286f9fcb85e3de1b0373b95a2ba1a5e282a"
+    },
+    {
+      "id": "ri-node-tree",
+      "family": "remix",
+      "source": "sources/ri-node-tree.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Editor/node-tree.svg",
+      "sha256": "cf5645104b7d979378893e18b46c301eae0b9851ca469c0f8ecb37b380a25f0f"
+    },
+    {
+      "id": "ri-nurse-line",
+      "family": "remix",
+      "source": "sources/ri-nurse-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Health & Medical/nurse-line.svg",
+      "sha256": "b8225166090030bb7253d5d360b4d5cb3c5f58aab63537d789ce0fcd2aa13273"
+    },
+    {
+      "id": "ri-pages-line",
+      "family": "remix",
+      "source": "sources/ri-pages-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Document/pages-line.svg",
+      "sha256": "c602896a9be0312b0946570475b87c0becd7d6343a51e2123368e646a98cd9eb"
+    },
+    {
+      "id": "ri-plane-line",
+      "family": "remix",
+      "source": "sources/ri-plane-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Map/plane-line.svg",
+      "sha256": "396d5065ff048cefa47c45d9578f72dfe25315e09c468980699e85e8681b35e9"
+    },
+    {
+      "id": "ri-robot-2-line",
+      "family": "remix",
+      "source": "sources/ri-robot-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/User & Faces/robot-2-line.svg",
+      "sha256": "b9435599c59145c2d17fea153c84e92ac873c01126004f3bc93a0e69519fd161"
+    },
+    {
+      "id": "ri-rocket-2-line",
+      "family": "remix",
+      "source": "sources/ri-rocket-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Map/rocket-2-line.svg",
+      "sha256": "9ffecc3b77d2ec7c88eedc795c9ad6780a003cad2ac37a4811ec0627fbd96026"
+    },
+    {
+      "id": "ri-route-line",
+      "family": "remix",
+      "source": "sources/ri-route-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Map/route-line.svg",
+      "sha256": "7b335646ca975b371e8a4531e9527f99489c81abfea922c60c7801cb75c05af5"
+    },
+    {
+      "id": "ri-server-line",
+      "family": "remix",
+      "source": "sources/ri-server-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Device/server-line.svg",
+      "sha256": "0636dceb6a264e748acf136cf09fa1713fd53fb8c712a4b81476a0ad270c5544"
+    },
+    {
+      "id": "ri-shield-check-line",
+      "family": "remix",
+      "source": "sources/ri-shield-check-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/shield-check-line.svg",
+      "sha256": "d98276292be57b2d6a6fb8c43cd52eeebc900c79d3339428c0b284b14ba0d28b"
+    },
+    {
+      "id": "ri-shield-star-line",
+      "family": "remix",
+      "source": "sources/ri-shield-star-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/shield-star-line.svg",
+      "sha256": "88b65f08e5f922f5bf2b07c9798f3b32c6ae1510e4480ea33080a1b29397999c"
+    },
+    {
+      "id": "ri-shopping-bag-3-line",
+      "family": "remix",
+      "source": "sources/ri-shopping-bag-3-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Finance/shopping-bag-3-line.svg",
+      "sha256": "0caff3db4e9008be4b03cd008c568f535501fff62884dcb27872e50814fd2ec8"
+    },
+    {
+      "id": "ri-shopping-cart-2-line",
+      "family": "remix",
+      "source": "sources/ri-shopping-cart-2-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Finance/shopping-cart-2-line.svg",
+      "sha256": "e5892958fa9f710680ce866f68e4139ca740a55432deb2a30cee7f1fb58ec4f5"
+    },
+    {
+      "id": "ri-sparkling-line",
+      "family": "remix",
+      "source": "sources/ri-sparkling-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Weather/sparkling-line.svg",
+      "sha256": "5d50d6b9b36ffdd2372ae670db2ed69673b5816c09aaee34422885005e6436e8"
+    },
+    {
+      "id": "ri-stack-line",
+      "family": "remix",
+      "source": "sources/ri-stack-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Business/stack-line.svg",
+      "sha256": "f4c40b694f33b173abd4089ab6d49e62d93c552461da9478dc657b82bca492bf"
+    },
+    {
+      "id": "ri-star-fill",
+      "family": "remix",
+      "source": "sources/ri-star-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/star-fill.svg",
+      "sha256": "9be70a0d28acbca32fbc2e055f643f205c0adde24f5fcd7d4b2fe3ddd93b97fb"
+    },
+    {
+      "id": "ri-star-line",
+      "family": "remix",
+      "source": "sources/ri-star-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/star-line.svg",
+      "sha256": "f6435ad352cee370f99316ea1b85f952c7d5d9344964e9ef4a406feba53e5c6d"
+    },
+    {
+      "id": "ri-team-line",
+      "family": "remix",
+      "source": "sources/ri-team-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/User & Faces/team-line.svg",
+      "sha256": "692c5a453934d6cbd5153f969a66d3c0a8d027d4f7977582bf7a42add567237c"
+    },
+    {
+      "id": "ri-terminal-line",
+      "family": "remix",
+      "source": "sources/ri-terminal-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Development/terminal-line.svg",
+      "sha256": "2a28b4a5f75606f7052965971c0b44709d4a49794413e35bf88d6c0e4e4d2abb"
+    },
+    {
+      "id": "ri-terminal-window-line",
+      "family": "remix",
+      "source": "sources/ri-terminal-window-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Development/terminal-window-line.svg",
+      "sha256": "c5909e7cc26fa5c4d8d55f3607bf8ca9368ecb05dca29cf9594eb4e99e5138ab"
+    },
+    {
+      "id": "ri-text",
+      "family": "remix",
+      "source": "sources/ri-text.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Editor/text.svg",
+      "sha256": "578fee0db63742293204d8f5943a9ad01089b2697144ace1829d74baef7f398f"
+    },
+    {
+      "id": "ri-time-line",
+      "family": "remix",
+      "source": "sources/ri-time-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/System/time-line.svg",
+      "sha256": "204998fed44868c7002243589af8bea4bdef6bbffcb1cad0e10c9ec9affde3f2"
+    },
+    {
+      "id": "ri-user-3-line",
+      "family": "remix",
+      "source": "sources/ri-user-3-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/User & Faces/user-3-line.svg",
+      "sha256": "c9a4aae3cbbf99af11ab30ef60fb0eafe10ae206e6ea200d56390c373341dd42"
+    },
+    {
+      "id": "ri-user-star-line",
+      "family": "remix",
+      "source": "sources/ri-user-star-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/User & Faces/user-star-line.svg",
+      "sha256": "1b449914676b0807793526037391b02ec055b91635d59ac60e99023b24c5d935"
+    },
+    {
+      "id": "ri-whatsapp-fill",
+      "family": "remix",
+      "source": "sources/ri-whatsapp-fill.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/whatsapp-fill.svg",
+      "sha256": "f68c3e6fc451dd3119d839ec11c13f289d0adafb35bbb9d7e98560266807c8ea"
+    },
+    {
+      "id": "ri-whatsapp-line",
+      "family": "remix",
+      "source": "sources/ri-whatsapp-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Logos/whatsapp-line.svg",
+      "sha256": "3ebfba728efa828246947aa0c279d9bc21257ae7ab6f5239d25124d23591a3d5"
+    },
+    {
+      "id": "ri-wifi-line",
+      "family": "remix",
+      "source": "sources/ri-wifi-line.svg",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Device/wifi-line.svg",
+      "sha256": "26d7ebfbbc55852d3ddd785a2f3c338fbcead7381f523e7eda805a6424a21e6d"
+    }
+  ]
+}

@@ -32,7 +32,7 @@
             const body = encodeURIComponent(`Please add this email to the Blackhole Systems Signal Log: ${email}`);
 
             newsletterSubmit.classList.add('is-success');
-            newsletterSubmit.innerHTML = '<i class="ri-mail-send-line"></i> OPENING MAIL';
+            newsletterSubmit.innerHTML = '<i class="ri-mail-send-line bh-icon"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-mail-send-line"></use></svg></i> OPENING MAIL';
             window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
 
             if (newsletterStatus) {

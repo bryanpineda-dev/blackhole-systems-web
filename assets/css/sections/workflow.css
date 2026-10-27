@@ -159,9 +159,9 @@
     contain: layout paint;
 }
 
-.glass-coin i, .glass-coin svg { font-size: 2rem; height: 2rem; color: var(--text-muted); transition: color 0.4s ease, filter 0.4s ease; }
+.glass-coin > i, .glass-coin > svg { font-size: 2rem; height: 2rem; color: var(--text-muted); transition: color 0.4s ease, filter 0.4s ease; }
 .glass-coin:hover { background: var(--white-alpha-05); transform: scale(1.1); }
-.glass-coin:hover i, .glass-coin:hover svg { color: var(--primary-white); filter: drop-shadow(0 0 8px var(--white-alpha-80)); }
+.glass-coin:hover > i, .glass-coin:hover > svg { color: var(--primary-white); filter: drop-shadow(0 0 8px var(--white-alpha-80)); }
 
 @media (prefers-reduced-motion: reduce) {
     .tech-coins-track {

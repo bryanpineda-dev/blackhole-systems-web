@@ -116,11 +116,11 @@
 
             if (!endpoint) {
                 setStatus('Lead endpoint is not configured yet.', 'error');
-                setSubmitState('<i class="ri-error-warning-line"></i> CONFIG REQUIRED', 'error');
+                setSubmitState('<i class="ri-error-warning-line bh-icon"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-error-warning-line"></use></svg></i> CONFIG REQUIRED', 'error');
                 return;
             }
 
-            setSubmitState('<i class="ri-loader-4-line ri-spin"></i> SENDING...', 'loading');
+            setSubmitState('<i class="ri-loader-4-line ri-spin bh-icon"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-loader-4-line"></use></svg></i> SENDING...', 'loading');
             setStatus('Transmitting project signal...', 'loading');
             setSubmitLocked(true);
             isSubmitting = true;
@@ -148,7 +148,7 @@
                     throw new Error(data.message || 'The signal could not be transmitted.');
                 }
 
-                setSubmitState('<i class="ri-check-double-line"></i> TRANSMISSION SENT', 'success');
+                setSubmitState('<i class="ri-check-double-line bh-icon"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-check-double-line"></use></svg></i> TRANSMISSION SENT', 'success');
                 const currentValues = Array.from(new FormData(form).entries());
                 const hasNewEdits = currentValues.length !== submittedValues.length || currentValues.some(([key, value], index) =>
                     key !== submittedValues[index]?.[0] || value !== submittedValues[index]?.[1]);
@@ -163,7 +163,7 @@
                     resetTimer = 0;
                 }, 4200);
             } catch (error) {
-                setSubmitState('<i class="ri-error-warning-line"></i> TRY AGAIN', 'error');
+                setSubmitState('<i class="ri-error-warning-line bh-icon"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-error-warning-line"></use></svg></i> TRY AGAIN', 'error');
                 setStatus(didTimeout
                     ? 'The server did not respond in time. Your details were kept. Please retry or contact me on WhatsApp.'
                     : error.message || 'Something went wrong. Please try again or use WhatsApp.', 'error');

@@ -14,10 +14,15 @@
             .replace(/'/g, '&#039;');
     }
 
+    function renderIcon(icon) {
+        const id = escapeHtml(icon);
+        return `<i class="${id} bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#${id}"></use></svg></i>`;
+    }
+
     function renderList(items) {
         return (items || []).map((item) => `
             <li>
-                <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+                <i class="ri-arrow-right-s-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-arrow-right-s-line"></use></svg></i>
                 <span>${escapeHtml(item)}</span>
             </li>
         `).join('');
@@ -34,7 +39,7 @@
         return metadata.map((item) => `
             <div class="project-modal-meta-item">
                 <dt>
-                    <i class="${escapeHtml(item.icon)}" aria-hidden="true"></i>
+                    ${renderIcon(item.icon)}
                     <span>${escapeHtml(item.label)}</span>
                 </dt>
                 <dd>${escapeHtml(item.value)}</dd>
@@ -43,7 +48,7 @@
     }
 
     function renderProjectPreview(project, loading = 'lazy') {
-        const fallback = `<i class="${escapeHtml(project.icon)}" aria-hidden="true"></i><span>${escapeHtml(project.category)}</span>`;
+        const fallback = `${renderIcon(project.icon)}<span>${escapeHtml(project.category)}</span>`;
         const preview = project.preview;
 
         if (!preview?.src) return fallback;
@@ -85,11 +90,11 @@
                         <div class="d-actions">
                             <button type="button" class="btn-terminal-sm view-live" data-project-details="${escapeHtml(project.id)}">
                                 <span>VIEW_DETAILS</span>
-                                <i class="ri-file-search-line" aria-hidden="true"></i>
+                                <i class="ri-file-search-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-file-search-line"></use></svg></i>
                             </button>
                             <a href="${escapeHtml(project.url)}" class="btn-terminal-sm request-demo" target="_blank" rel="noopener">
                                 <span>LIVE_URL</span>
-                                <i class="ri-external-link-line" aria-hidden="true"></i>
+                                <i class="ri-external-link-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-external-link-line"></use></svg></i>
                             </a>
                         </div>
                     </div>
