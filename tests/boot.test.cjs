@@ -70,3 +70,27 @@ test('cursor failure restores the native cursor without undoing other modules', 
     assert.equal(runtime.cursorClasses.size, 0);
     assert.ok(runtime.calls.includes('initFormHandler'));
 });
+
+test('landing preserves its dependency barrier without waiting for the first GPU frame', async () => {
+    const runtime = createRuntime();
+    let resolveHero;
+    runtime.BH.heroBlackholeReady = new Promise(resolve => { resolveHero = resolve; });
+    runtime.boot();
+    runtime.boot();
+    assert.deepEqual(runtime.calls, []);
+    resolveHero();
+    await runtime.BH.heroBlackholeReady;
+    assert.deepEqual(runtime.calls, names);
+    assert.equal(runtime.errors.length, 0);
+});
+
+test('a rejected hero dependency does not block independent landing initializers', async () => {
+    const runtime = createRuntime();
+    let rejectHero;
+    runtime.BH.heroBlackholeReady = new Promise((resolve, reject) => { rejectHero = reject; });
+    runtime.boot();
+    rejectHero(new Error('Injected hero dependency failure'));
+    await runtime.BH.heroBlackholeReady.catch(() => {});
+    assert.deepEqual(runtime.calls, names);
+    assert.equal(runtime.errors.length, 0);
+});

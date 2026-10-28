@@ -77,9 +77,19 @@
         });
     };
 
+    const startApp = () => {
+        // Dynamic imports do not hold DOMContentLoaded like the former static module.
+        // Keep landing startup behind module evaluation, not behind the first GPU frame.
+        if (BH.heroBlackholeReady) {
+            BH.heroBlackholeReady.then(initApp, initApp);
+        } else {
+            initApp();
+        }
+    };
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp, { once: true });
+        document.addEventListener('DOMContentLoaded', startApp, { once: true });
     } else {
-        initApp();
+        startApp();
     }
 })(window.BlackholeSystems = window.BlackholeSystems || {});

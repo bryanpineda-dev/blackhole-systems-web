@@ -6,18 +6,18 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.11**
+Website version: **1.0.12**
 
-Deployment tag: `v1.0.11`
+Deployment tag: `v1.0.12`
 
 Release changes:
 
-- Replace the deployment background's eager cell matrix with CSS-painted lines and a bounded pool of active/fading pulse elements.
-- Preserve the 40px lattice, effective borders, colors, masks, mobile opacity and existing pulse cadence/transition timings.
-- Synchronize logical coordinates with archive filtering, resizing and device pixel ratio changes without a continuous render loop.
-- Keep reduced-motion users on the static grid, pause pulse scheduling out of view, and retain the native-cell fallback for older engines.
-- Add deterministic lifecycle, resource-bound, geometry and visual regression checks; refresh shared stylesheet and grid-script cache revisions.
-- Leave project filtering, shared visibility gates, hero rendering, loader timing and unrelated animations unchanged.
+- Check for the landing hero stage and WebGPU API before importing the existing scene and its local Three.js dependency graph.
+- Avoid downloading/evaluating the 3D engine in browsers that already use the static hero fallback; QR Studio continues to omit the engine.
+- Preserve the supported landing's dependency barrier before app initialization, without waiting for the first GPU frame or adding scroll/idle delays.
+- Keep the renderer, shaders, responsive cameras, pixel ratio cap, bloom, frame timing, CSS transitions and loader durations unchanged.
+- Recover from failed scene imports without blocking the existing image fallback or independent landing modules.
+- Add dependency-order, failure-path and network regression coverage; refresh only the changed entry-point script revisions.
 
 ## Overview
 
@@ -168,6 +168,16 @@ Primary bootstrap files:
 - `assets/js/modules/page-boot.js` boots standalone tools or future pages through `data-page-boot` tokens with the same failure isolation and successful-initialization guards.
 - `assets/js/modules/loader.js` owns normal loader timing and the idempotent `BH.completePageLoader` completion contract. Both bootstraps also have a minimal recovery path if the loader script itself is unavailable.
 
+### Conditional 3D Entry
+
+The landing loads the small deferred `hero-blackhole-boot.js` entry before `app.js`. It checks for `[data-hero-blackhole]` inside `.hero-section` and for the same `navigator.gpu` API presence used by the original renderer. Only that path dynamically imports `hero-blackhole.js`, using the existing import map and local vendor files. Browsers without the API keep the existing image/star fallback without requesting the scene or Three.js. This is not a new reduced-motion, save-data or viewport policy; supported browsers still start the same scene immediately during page boot.
+
+`BH.heroBlackholeReady` represents module evaluation, not GPU readiness. Since dynamic imports do not delay `DOMContentLoaded`, `app.js` waits for that promise to settle before running its unchanged initializer list. This preserves the former static module's dependency barrier and does not extend the loader until the first rendered frame. An import failure is reported and releases independent initializers; a missing boot script also leaves normal app startup available. The existing renderer still handles adapter/initialization/render failures and switches readiness classes only after its first successful render.
+
+The renderer source and vendor assets are unchanged in this release. Loader durations and completion events, responsive camera profiles, shaders, animation speed, DPR cap, bloom and hero CSS remain unchanged. Module/network timing still depends on the browser and cache; this change does not promise identical wall-clock milliseconds or newly skip engines where the API exists but an adapter later fails. QR Studio already loaded neither entry nor engine and remains independent.
+
+### Feature Modules
+
 Current module groups:
 
 - `assets/js/modules/assistant/` separates curated public knowledge, pure routing, transactional session memory, response/handoff formatting, DOM interaction and bootstrap/fallback behavior. `BH.initFloatingAssistant` remains the landing initializer; the QR tool does not mount this feature.
@@ -223,6 +233,8 @@ blackhole-web-v1/
 │       │   ├── forms/
 │       │   ├── projects-*.js
 │       │   ├── page-boot.js
+│       │   ├── hero-blackhole-boot.js
+│       │   ├── hero-blackhole.js
 │       │   ├── reveal.js
 │       │   ├── reveal-repeat.js
 │       │   ├── reveal-landing.js
@@ -264,6 +276,8 @@ npm run test:browser
 ```
 
 `npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio and preview-asset contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, all 17 card/modal previews and image-failure recovery, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export. Preview composition checks also cover 320, 768, 1024, and 1920px widths and a short mobile landscape viewport, including full-width intrinsic image sizing, compact README hierarchy, responsive detail columns, single scrolling, reachable actions, an unobstructed close control, and scroll reset between projects. Header checks cover project entry/exit, tall archives, filters, viewport resizing, the existing mobile scroll rule, and returning from the footer.
+
+Conditional-hero checks cover missing API/stage/parent, supported import ordering, repeated entry evaluation, missing/evaluation-failed scene modules, missing entry recovery and QR's continued exclusion of the 3D graph. Controlled dependency stubs test ordering without requiring a physical GPU; they do not prove shader output. Validate actual WebGPU frames separately on a capable secure-origin browser when changing this loading path or the renderer.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
 
