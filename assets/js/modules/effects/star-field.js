@@ -5,48 +5,29 @@
 (function (BH) {
     'use strict';
 
-    const setStarFieldPaused = (container, shouldPause) => {
-        container.classList.toggle('is-star-field-paused', shouldPause);
-    };
+    const Effects = BH.Effects = BH.Effects || {};
+    const instances = new WeakMap();
 
-    const observeStarField = (container) => {
-        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let isInView = !('IntersectionObserver' in window);
+    Effects.createStarField = function createStarField(container) {
+        if (!container) return;
+        if (instances.has(container)) return instances.get(container);
+        if (container.dataset.starFieldReady === 'true' || typeof Effects.createVisibilityGate !== 'function') return;
 
-        const syncState = () => {
-            setStarFieldPaused(container, reducedMotionQuery.matches || document.hidden || !isInView);
+        const stars = [];
+        let gate;
+        let destroyed = false;
+        const controller = {
+            destroy() {
+                if (destroyed) return;
+                destroyed = true;
+                gate?.destroy();
+                stars.forEach(star => star.remove());
+                stars.length = 0;
+                container.classList.remove('is-star-field-paused');
+                delete container.dataset.starFieldReady;
+                instances.delete(container);
+            }
         };
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                const entry = entries[0];
-                if (!entry) return;
-
-                isInView = entry.isIntersecting;
-                syncState();
-            }, {
-                threshold: 0.01,
-                rootMargin: '140px 0px'
-            });
-
-            observer.observe(container);
-        }
-
-        document.addEventListener('visibilitychange', syncState);
-
-        if (typeof reducedMotionQuery.addEventListener === 'function') {
-            reducedMotionQuery.addEventListener('change', syncState);
-        } else if (typeof reducedMotionQuery.addListener === 'function') {
-            reducedMotionQuery.addListener(syncState);
-        }
-
-        syncState();
-    };
-
-    const createStarField = (container) => {
-        if (!container || container.dataset.starFieldReady === 'true') return;
-
-        container.dataset.starFieldReady = 'true';
 
         const useViewport = container.dataset.starViewport === 'true';
         const numStars = Number.parseInt(container.dataset.starCount || '70', 10);
@@ -73,18 +54,30 @@
             star.style.top = `${startY}px`;
             star.style.setProperty('--tx', `${moveX}px`);
             star.style.setProperty('--ty', `${moveY}px`);
-            star.style.animation = `absorbStar ${duration}s ${delay}s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+            star.style.setProperty('--star-duration', `${duration}s`);
+            star.style.setProperty('--star-delay', `${delay}s`);
 
             container.appendChild(star);
+            stars.push(star);
         }
 
-        observeStarField(container);
+        try {
+            gate = Effects.createVisibilityGate(container, (isActive) => {
+                container.classList.toggle('is-star-field-paused', !isActive);
+            }, { rootMargin: '140px 0px', respectReducedMotion: true });
+        } catch (error) {
+            controller.destroy();
+            throw error;
+        }
+        instances.set(container, controller);
+        container.dataset.starFieldReady = 'true';
+        return controller;
     };
 
     BH.initStarField = function initStarField() {
         const containers = document.querySelectorAll('[data-star-field]');
         if (!containers.length) return;
 
-        containers.forEach(createStarField);
+        containers.forEach(Effects.createStarField);
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

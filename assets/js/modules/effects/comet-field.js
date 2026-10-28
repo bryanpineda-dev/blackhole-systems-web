@@ -5,24 +5,22 @@
     'use strict';
 
     const Effects = BH.Effects = BH.Effects || {};
+    const instances = new WeakMap();
 
-    BH.initCometField = function initCometField() {
-        const container = document.getElementById('comet-field');
+    Effects.createCometField = function createCometField(container) {
         if (!container) return;
+        if (instances.has(container)) return instances.get(container);
         if (container.dataset.cometFieldReady === 'true') return;
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
         if (typeof Effects.createVisibilityGate !== 'function') return;
-
-        container.dataset.cometFieldReady = 'true';
 
         const randomBetween = (min, max) => Math.random() * (max - min) + min;
         const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
         const maxActiveComets = 12;
-        let activeComets = 0;
+        const comets = new Map();
         let isFieldActive = false;
         let loopTimer = 0;
+        let gate;
+        let destroyed = false;
 
         const getCometPath = () => {
             const width = container.offsetWidth || window.innerWidth;
@@ -64,7 +62,7 @@
 
         const createComet = () => {
             if (!isFieldActive) return;
-            if (activeComets >= maxActiveComets) return;
+            if (comets.size >= maxActiveComets) return;
 
             const comet = document.createElement('div');
             const path = getCometPath();
@@ -82,12 +80,12 @@
             comet.style.setProperty('--comet-glow', `${path.glow}px`);
             comet.style.setProperty('--comet-head', `${path.head}px`);
 
-            activeComets += 1;
             container.appendChild(comet);
-            setTimeout(() => {
+            const timer = window.setTimeout(() => {
                 comet.remove();
-                activeComets = Math.max(0, activeComets - 1);
+                comets.delete(comet);
             }, path.duration * 1000);
+            comets.set(comet, timer);
         };
 
         const clearLoop = () => {
@@ -117,17 +115,42 @@
             scheduleLoop();
         };
 
-        Effects.createVisibilityGate(container, (isActive) => {
-            isFieldActive = isActive;
-
-            if (isFieldActive && !loopTimer) {
-                loop();
-                return;
-            }
-
-            if (!isFieldActive) {
+        const controller = {
+            destroy() {
+                if (destroyed) return;
+                destroyed = true;
+                isFieldActive = false;
                 clearLoop();
+                gate?.destroy();
+                comets.forEach((timer, comet) => {
+                    window.clearTimeout(timer);
+                    comet.remove();
+                });
+                comets.clear();
+                delete container.dataset.cometFieldReady;
+                instances.delete(container);
             }
-        }, '220px 0px');
+        };
+
+        try {
+            gate = Effects.createVisibilityGate(container, (isActive) => {
+                isFieldActive = isActive;
+                if (isFieldActive && !loopTimer) {
+                    loop();
+                    return;
+                }
+                if (!isFieldActive) clearLoop();
+            }, { rootMargin: '220px 0px', respectReducedMotion: true });
+        } catch (error) {
+            controller.destroy();
+            throw error;
+        }
+        instances.set(container, controller);
+        container.dataset.cometFieldReady = 'true';
+        return controller;
+    };
+
+    BH.initCometField = function initCometField() {
+        document.querySelectorAll('[data-comet-field], #comet-field').forEach(Effects.createCometField);
     };
 })(window.BlackholeSystems = window.BlackholeSystems || {});

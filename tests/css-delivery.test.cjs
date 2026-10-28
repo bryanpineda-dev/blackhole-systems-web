@@ -7,7 +7,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const imports = file => [...read(file).matchAll(/@import\s+['"]([^'"]+)['"]/g)].map(match => match[1]);
 
 test('both HTML entries load the same common layer before their page styles', () => {
-    const version = JSON.parse(read('package.json')).version;
+    let sharedRevision;
     for (const file of ['index.html', 'tools/blackhole-qr/index.html']) {
         const links = [...read(file).matchAll(/<link\b[^>]*\bhref="([^"]+\.css(?:\?[^"#]*)?)"/g)]
             .map(match => new URL(match[1], `https://blackhole.test/${file}`));
@@ -16,7 +16,10 @@ test('both HTML entries load the same common layer before their page styles', ()
         assert.deepEqual(names, file === 'index.html'
             ? ['icons.css', 'shared.css', 'style.css']
             : ['icons.css', 'shared.css', 'responsive-shared.css', 'qr-studio.css']);
-        assert.equal(local.find(url => url.pathname.endsWith('/shared.css')).search, `?v=${version}`);
+        const revision = local.find(url => url.pathname.endsWith('/shared.css')).search;
+        assert.match(revision, /^\?v=\d+\.\d+\.\d+$/);
+        if (sharedRevision) assert.equal(revision, sharedRevision);
+        sharedRevision = revision;
         assert.equal(/onload=|media="print"/.test(read(file)), false);
     }
 });
@@ -28,9 +31,8 @@ test('common and landing manifests keep their ownership and import order explici
     assert.deepEqual(imports('assets/css/style.css').map(file => file.split('?')[0]), [
         'sections.css', 'responsive-shared.css', 'responsive.css'
     ]);
-    const version = JSON.parse(read('package.json')).version;
-    for (const file of imports('assets/css/style.css')) assert.ok(file.endsWith(`?v=${version}`));
-    assert.ok(imports('assets/css/sections.css').includes(`sections/hero.css?v=${version}`));
+    for (const file of imports('assets/css/style.css')) assert.match(file, /\?v=\d+\.\d+\.\d+$/);
+    assert.ok(imports('assets/css/sections.css').some(file => /^sections\/hero\.css\?v=\d+\.\d+\.\d+$/.test(file)));
 });
 
 test('shared star pause and mobile reveals remain independent from the landing hero', () => {

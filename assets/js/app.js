@@ -29,6 +29,7 @@
         'initHeaderMobileNav',
         'initStarField',
         'initCometField',
+        'initSignalField',
         'initGridPulse',
         'initHeaderZoneObserver',
         'initFloatingAssistant',

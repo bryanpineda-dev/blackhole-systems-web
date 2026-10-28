@@ -67,7 +67,11 @@ for (const kind of ['landing', 'qr']) for (const width of [1440, 390]) {
             }
             await page.emulateMedia({ reducedMotion: 'reduce' });
             await page.waitForFunction(() => [...document.querySelectorAll('[data-star-field]')].every(field => field.classList.contains('is-star-field-paused')));
-            // Isolate the CSS declaration from the pre-existing inline animation conflict.
+            await page.waitForFunction(() => [...document.querySelectorAll('[data-star-field] .star')].every(star => {
+                const style = getComputedStyle(star);
+                return style.animationName === 'none' || style.animationPlayState === 'paused';
+            }));
+            // Keep the stylesheet contract independent of the generator lifecycle.
             const declaredPause = await page.evaluate(() => {
                 const field = document.createElement('div'), star = document.createElement('div');
                 field.className = 'star-field is-star-field-paused';

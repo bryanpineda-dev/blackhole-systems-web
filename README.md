@@ -6,18 +6,18 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.13**
+Website version: **1.0.14**
 
-Deployment tag: `v1.0.13`
+Deployment tag: `v1.0.14`
 
 Release changes:
 
-- Separate the common brand stylesheet entry from landing-only CSS so QR Studio no longer imports landing sections.
-- Extract shared star-field defaults and common responsive rules without changing their declarations, motion offsets or existing page-specific precedence.
-- Keep the token/component/keyframe libraries, QR-specific styles, renderer, cameras, shaders, icons and loader durations unchanged.
-- Preserve all four star-field consumers and keep the WebGPU-ready integration owned by the landing hero.
-- Add stylesheet entry/ownership and shared-consumer regression coverage; update isolated grid fixtures to load the explicit common entry.
-- Refresh changed stylesheet/manifest cache revisions and document the measured payload/request tradeoff.
+- Extend the existing visibility gate with optional live reduced-motion handling, shared event subscriptions and explicit cleanup, preserving its legacy API and per-effect margins.
+- Fix effective star pausing in all four consumers by moving animation ownership from inline shorthand to CSS with per-star duration/delay properties.
+- Give star, comet and testimonial signal fields idempotent per-container factories with destroy/remount support and owned resource cleanup.
+- Gate the existing eight testimonial particles without changing their CSS visual presets; keep comet trajectories, spawn cadence, capacity and in-flight drain behavior.
+- Load the shared lifecycle dependency on QR and only the relevant effect modules on each page. Keep the grid policy, WebGPU renderer, planets, loader and reveal behavior independent.
+- Add lifecycle, clock-pause, cleanup, dependency-order and regression coverage; refresh changed assets and document how future pages reuse the effects.
 
 ## Overview
 
@@ -37,7 +37,7 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 - Project quote form wired to the Blackhole Systems Admin lead API
 - Footer Signal Log newsletter capture via email handoff
 - Blackhole QR Studio free browser-based utility
-- Image-based Earth horizon background with CSS star motion in the contact area
+- Image-based Earth horizon contact background and CSS signal particles in testimonials
 - Optimized planetary About animation with WebP textures and viewport-aware pause behavior
 - Mobile-first cleanup for overflow-safe responsive behavior
 
@@ -146,11 +146,24 @@ The landing then loads `style.css`, now a landing-only manifest: section default
 
 `responsive-shared.css` owns the existing root spacing, container/split-layout, shared type/header/HUD and mobile reveal adjustments. These values and selectors are moved, not redesigned. In particular, the existing below-480px vertical override for QR's lateral reveal presets remains in the same effective cascade position. Page-specific QR rules still follow the shared layer. The shared star-field sheet serves the landing hero, mobile command menu, newsletter and QR hero; the WebGPU-ready pause/hide integration stays in `sections/hero.css`.
 
-The local CSS graph changes from 19 files / 214,274 raw bytes to 10 / 101,181 on QR, with maximum import depth reduced from two to one. The landing retains its complete style rule set and two-level maximum depth; its modular split adds three small stylesheet boundaries, changing 18 files / 183,613 raw bytes to 21 / 184,082. These are local source measurements, not production transfer or LCP claims. Calculated per-file gzip totals are 46,618 to 21,224 bytes on QR and 40,963 to 41,587 on the landing; hosting compression, headers, cache and network conditions determine actual delivery.
+The 1.0.13 CSS separation changed the local graph from 19 files / 214,274 raw bytes to 10 / 101,181 on QR, with maximum import depth reduced from two to one. The landing retained its complete style rule set and two-level maximum depth; that modular split added three small stylesheet boundaries, changing 18 files / 183,613 raw bytes to 21 / 184,082. These are historical local source measurements for that release, not current production transfer or LCP claims. Calculated per-file gzip totals were 46,618 to 21,224 bytes on QR and 40,963 to 41,587 on the landing; hosting compression, headers, cache and network conditions determine actual delivery.
 
 Keep source-relative image URLs in their original files. Both HTML entries and every changed manifest/leaf reference carry the release revision; unchanged icon/library revisions remain valid. New standalone pages should load icons, the common entry, common responsive rules and their own stylesheet in that order, with their own correct document-relative prefixes.
 
-Known pre-existing limitation: the star generator assigns an inline animation shorthand that includes a running play state. This can override the stylesheet's pause/reduced-motion declarations even when the pause class is present. It was reproduced on both 1.0.12 and the separated CSS. This CSS-only release retains the existing behavior; correcting the generator is a separate behavioral change, not part of stylesheet relocation.
+### Effect Lifecycle
+
+`effects/visibility-gate.js` controls viewport/page visibility and optionally live reduced-motion preferences. Its existing third string argument and 160px default margin remain compatible with the tactical grid. An options object can instead provide `rootMargin` and `respectReducedMotion`; motion policy defaults to false so each existing effect keeps its own policy. Gates share one document visibility listener and one media listener for opted-in consumers, while retaining separate intersection observers for their individual bounds/margins. `destroy()` disconnects the instance and removes the shared listeners when their last consumer leaves. Callback failures are isolated during shared event delivery.
+
+The visual families remain separate:
+
+- `star-field.js` serves the fallback hero (70 stars), mobile menu (34), newsletter (46) and QR hero (72), with the existing 140px margin, coordinate modes, sizes, durations and trajectories. CSS now owns `absorbStar`; JavaScript supplies `--star-duration` and `--star-delay` instead of an inline shorthand. This fixes the former pause override, including the hero's WebGPU-ready pause and QR's existing static reduced-motion style.
+- `comet-field.js` keeps its 220px margin, 12-comet ceiling, random trajectories and spawn cadence. Leaving view, hiding the page or enabling reduced motion stops new spawning; existing comets retain their normal finite lifetimes. Destroying the instance cancels its spawn/removal timers and removes only its owned nodes.
+- `signal-field.js` controls the eight authored testimonial particles with a 160px margin. Their positions, colors, trails, delays and `signalParticleFlow` keyframes stay in the existing CSS. Offscreen/page-hidden motion pauses, and the existing reduced-motion rule still disables their animation.
+- `grid-pulse.js` retains its own reduced-motion handling and hold/fade lifetimes through the backward-compatible gate. Shader stars stay inside `hero-blackhole.js`; loader rays stay inside the loader component. Neither is converted into a DOM particle effect.
+
+`BH.Effects.createStarField(container)`, `createCometField(container)` and `createSignalField(container)` return the same controller for an already mounted container. Its `destroy()` releases owned resources/readiness markers and allows a clean remount. Star cleanup does not remove authored children; signal cleanup never generates or removes the authored particles. The caller explicitly destroys an instance when removing its container; there is no document-wide mutation observer or new animation-frame loop.
+
+The existing `BH.initStarField` and `BH.initCometField` startup APIs remain available; the landing additionally calls `BH.initSignalField`. Opt-in attributes are `data-star-field`, `data-comet-field` and `data-signal-field`; the legacy `#comet-field` selector is supported. New pages load the visibility gate before their chosen effect modules, plus the corresponding CSS, then use a factory or initializer. `page-boot.js` continues to support its existing `stars` token, not new implicit comet/signal tokens. QR loads only the gate and stars, without comet/signal/grid code or landing section styles. If the required gate is unavailable, factories skip mounting without allocating generated nodes or readiness markers.
 
 ### Local Icons
 
@@ -196,7 +209,7 @@ Current module groups:
 
 - `assets/js/modules/assistant/` separates curated public knowledge, pure routing, transactional session memory, response/handoff formatting, DOM interaction and bootstrap/fallback behavior. `BH.initFloatingAssistant` remains the landing initializer; the QR tool does not mount this feature.
 - `assets/js/modules/forms/` separates the project quote form from the newsletter handoff while preserving `BH.initFormHandler`.
-- `assets/js/modules/effects/` owns reusable and landing motion effects such as star fields, comet fields, tactical grid pulse, and shared visibility gates.
+- `assets/js/modules/effects/` owns separate star, comet, testimonial signal and tactical-grid effects, with a shared visibility lifecycle and explicit field teardown.
 - `assets/js/modules/reveal.js` is the shared reveal engine.
 - `assets/js/modules/reveal-repeat.js` provides the opt-in reversible lifecycle, loaded by the landing only.
 - `assets/js/modules/reveal-landing.js` registers landing reveal presets.
@@ -296,6 +309,8 @@ npm run test:browser
 
 CSS delivery checks assert ordered page/common entries, manifest ownership and cache revisions, absence of landing sections in QR, shared star/type/motion declarations and the existing mobile QR reveal offset. Changes to stylesheet distribution also require before/after rule conservation, computed-style/image comparisons and actual WebGPU rendering checks outside hardware-independent fixtures.
 
+Effect lifecycle tests cover legacy gate compatibility, per-consumer margins, shared listener cleanup, live/legacy media-query notifications, missing viewport observation, callback isolation, idempotent mount/destroy/remount, generated-node ownership, comet timer drain/capacity and required dependency order. Browser checks verify actual animation clocks pausing/resuming, simulated document-hidden events, all four real star consumers, the WebGPU-ready CSS pause, QR static reduced motion and unchanged testimonial particle counts. These tests do not replace actual shader-output verification when changing the GPU renderer.
+
 Conditional-hero checks cover missing API/stage/parent, supported import ordering, repeated entry evaluation, missing/evaluation-failed scene modules, missing entry recovery and QR's continued exclusion of the 3D graph. Controlled dependency stubs test ordering without requiring a physical GPU; they do not prove shader output. Validate actual WebGPU frames separately on a capable secure-origin browser when changing this loading path or the renderer.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
@@ -318,7 +333,8 @@ Assistant-specific suites exercise natural-language routing, negation, ambiguous
 - About section planet textures use WebP versions for lighter animation cost.
 - Orbital movement keeps the original front/back timing while using compositor-friendly translation.
 - About orbit animation pauses when the section is outside the viewport or the tab is hidden.
-- Star fields, comet fields, tactical grid pulse, scroll reveal, and card tilt are gated by viewport visibility and/or reduced-motion checks where applicable.
+- DOM stars, comets and testimonial particles share a visibility lifecycle with per-effect policies; star pause rules now control the actual animations.
+- Tactical grid, scroll reveal and card tilt keep their independent motion behavior and reduced-motion checks where applicable.
 - Card tilt supports fine-pointer mouse input and touch gestures, respects reduced-motion preferences, and avoids duplicate event listeners per card.
 
 ## Local Lab

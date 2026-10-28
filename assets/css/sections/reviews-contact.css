@@ -58,6 +58,10 @@
     animation: signalParticleFlow var(--particle-duration, 8s) linear infinite;
 }
 
+.signal-field.is-signal-field-paused .signal-particle {
+    animation-play-state: paused;
+}
+
 .signal-particle::before {
     content: "";
     position: absolute;
