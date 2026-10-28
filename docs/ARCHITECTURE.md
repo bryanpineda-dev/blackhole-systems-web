@@ -1,0 +1,285 @@
+# Architecture
+
+Implementation reference for the public Blackhole Systems website and QR Studio. For the project overview, see the [README](../README.md); for setup and verification, see [Development](DEVELOPMENT.md).
+
+File paths in inline code refer to the repository root. These contracts describe implemented behavior, not a guarantee about production hosting or physical-device performance.
+
+## Project Archive
+
+The portfolio has its own curated dataset in `assets/js/modules/projects-data.js`. Shared rendering, filtering, and modal modules consume that list, including the project counter and detail metadata.
+
+The archive currently contains 17 projects. Each record has a `preview` object with the original local image path and its intrinsic dimensions. All reviewed public-site masters remain in `assets/images/projects/`. The optional generated `projects-media.js` registry supplies card candidates to the shared `renderProjectPreview` renderer; missing metadata safely retains original-only rendering.
+
+Card previews use native lazy loading with `srcset`/`sizes` when a smaller candidate passes the build checks. The original remains the maximum-resolution candidate and fallback. Modals always load the original eagerly, without `srcset`; opening a modal after a smaller card preview can therefore request the master separately. Images remain direct children of their frames, at full width and automatic height, without cropping, stretching, wrappers or side gutters. A failed derivative retries the original before the existing category fallback. Missing-image fallbacks retain a 16:9 frame and the original category icon. Filters, metadata, buttons and modal keyboard behavior are preserved.
+
+Project modals are compact README-style sheets, capped at 760px wide and 680px high within the viewport. A title and summary introduce the complete preview, followed by a semantic technical definition list, implementation and integration sections, technology tags, and the existing actions. Metadata and implementation sections use two columns where space allows and stack on narrow screens. The project code, status, and close button stay in a separate persistent header, outside the screenshot and scroll area. Opening a project resets the scroll position; on short viewports, the complete screenshot remains accessible through scrolling rather than being cropped to the viewport height.
+
+The header hides only its logo while deployments overlap the header band, regardless of how tall the archive grows or which filter is selected. The observer updates after viewport resizing. Main navigation, the mobile menu control, and the independent footer visibility state retain their existing behavior. On small screens, the existing scroll-based logo hiding remains in effect outside deployments as well.
+
+The mobile menu moves focus to its links, contains Tab/Shift+Tab across the menu and its close control, and isolates background/header siblings with `inert`. Closing through Escape, the backdrop, a navigation link, or the toggle releases only the inert states it owns. It restores focus to the toggle, or to desktop navigation when resized above the mobile breakpoint.
+
+## Free Tools
+
+### Blackhole QR Studio
+
+`/tools/blackhole-qr/`
+
+Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
+
+The tool uses the shared page boot layer for the Blackhole loader, custom cursor, star field, and scroll reveal behavior while keeping QR-specific logic isolated in `assets/js/tools/qr-studio.js`.
+
+The three ownership icon glows use that script's focused initializer and the already loaded `Effects.createVisibilityGate`. Each icon pauses outside the gate's existing 160px vertical viewport buffer or while the document is hidden, preserving its current animation clock for resumption. Their color/filter keyframes, 2.8-second cycle, easing and stagger remain unchanged; the buffer keeps the halo active before it becomes visible. The gate does not opt this family into a new reduced-motion policy. Without IntersectionObserver, visible documents keep the original running animation; if the gate script is unavailable, the authored CSS remains running. Lifecycle setup precedes the QR engine guard, so an unavailable generator does not leave the decorative glows running offscreen. No new frame loop, scroll listener, generated visual node or landing dependency is introduced.
+
+The workspace and FAQ contain their lateral reveal overflow with clip margins matched to the page gutters. This preserves the existing one-shot entrances and shadow space without letting offscreen panels widen the document or clipping the full-bleed hero.
+
+Current capabilities:
+
+- URL, text, WhatsApp, and WiFi QR generation
+- Live preview
+- PNG and SVG download
+- Custom QR and background colors
+- Adjustable size and margin
+- Optional center logo
+- High error correction for logo-friendly QR codes
+
+Trust message:
+
+```text
+Static QR codes are generated locally in the browser. They do not expire artificially, require no account, and include no watermark.
+```
+
+## Lead Capture
+
+The main project quote form sends inquiries to the Blackhole Systems Admin lead intake API.
+
+Start Project actions in the header, mobile menu, hero, and Workflow still navigate to the quote form. The nine Request Service buttons instead use native `wa.me` links with the selected service and portfolio-site reference already encoded in the message. Start Similar Build in a project modal uses that project's name and code in its message; opening a different project replaces the context. Both handoffs open in a separate tab and preserve the existing visible labels, icons, hover styling, and modal-close behavior. They do not submit a lead or send a WhatsApp message automatically.
+
+The quote form uses native POST rather than GET and starts with its submit button disabled. Its existing status area provides a direct WhatsApp fallback until the quote handler has attached successfully; initialization clears the fallback and enables submission. A missing quote script therefore cannot turn a normal click or Enter into a URL containing the visitor's details. The quote and project-modal script references carry release revisions so this markup does not reuse an older cached handler.
+
+Required names and the project brief reject whitespace-only values. The browser enforces 80 characters per name field, 160 for the combined name, 190 for email, 60 for WhatsApp, and 3,000 for the project brief. The brief uses a submission-time limit rather than native paste truncation: longer text stays in the field and must be shortened before sending. These bounds follow the public intake contract without adding fields or changing the form layout. The companion admin validation introduced with website 1.0.7 checks the raw trimmed brief before appending source-page metadata and returns HTTP 422 for empty or over-limit briefs rather than silently truncating them; that admin validation must be deployed for matching server-side enforcement. Version 1.0.8 adds no new admin dependency.
+
+Local endpoint:
+
+```text
+http://127.0.0.1:8020/api/leads
+```
+
+Production endpoint:
+
+```text
+https://admin.blackholesys.com/api/leads
+```
+
+The landing and admin must share this channel:
+
+```text
+blackhole-web-quote
+```
+
+Quote requests use an `AbortController` with a 15-second deadline covering the request and response-body read. An optional `data-lead-timeout-ms` attribute on the quote form can override that deadline with a positive number of milliseconds. Concurrent submissions are ignored while a request is pending. Failures retain entered values, release the submit button, and allow a manual retry. Confirmed success clears an unchanged form; if the visitor edited any values while waiting, those values remain and the status explains that the newer edits were not included in the accepted request. Retries are never automatic. A timeout does not prove that the admin failed to receive the request, so this client-side guard is not server-side deduplication.
+
+The footer Signal Log newsletter currently opens an email handoff to `info@blackholesys.com`. The intended next step is to connect this newsletter capture to the admin so collected emails can be managed for future email marketing.
+
+## Guided Project Assistant
+
+Service descriptions and their English/Spanish follow-up questions live together in `assistant-data.js`. Each initial service reply asks one concise question tailored to that service. Response copy uses visitor-facing language rather than internal handoff terminology; editorial checks cover the localized prompts and Spanish question punctuation alongside the behavior tests.
+
+The landing assistant is a deterministic local advisor, not a generative AI model. It uses no external AI provider, API key, backend conversation endpoint or dashboard client records. Its curated service knowledge covers the nine public service headings plus website, reservation, dashboard and WordPress inquiries. The public project archive is its sole source for project names, domains, summaries and statuses; project summaries retain their authored English text.
+
+Routing treats service domains separately from price, timing, support and contact intent. Whole-keyword matching, clause-local negation and clarification replace substring scoring and duplicate-keyword weighting. Ambiguous service choices remain pending until resolved. These rules do not claim unrestricted language understanding; unclear requests are clarified instead of receiving invented facts, prices or delivery promises.
+
+Conversation memory lasts only for the current page lifetime, survives closing/reopening the panel and is cleared by Start over or a reload. No local/session storage is used. Accepted visitor details, selected service, public reference and questions form a WhatsApp draft; later follow-ups and chips do not replace the earlier brief. Both in-message and floating WhatsApp links use that context. WhatsApp opens a visitor-reviewable draft and never sends automatically. The form action navigates to the existing quote section without pre-filling, overwriting or submitting any fields.
+
+Each message is limited to 2,000 characters, accepted context to 6,000 characters and a conversation to 40 turns. Rejected drafts stay in the input and are never silently truncated. At the conversation limit, contact and Start over remain available. The visible message log is bounded independently. One response is pending at a time; a draft typed while waiting is preserved. Response errors allow manual retry. Missing feature modules expose a direct-contact fallback; if the bootstrap itself is missing, its native controls stay disabled while the independent WhatsApp link remains available.
+
+The assistant keeps its existing colors, dimensions and motion. It uses component-local viewport-edge and panel-offset values. On screens up to 520px high, its open panel uses the available height, compacts header/composer spacing, and hides the floating shortcuts until closed. Opening moves focus to the visible close control at all viewport sizes, without opening the mobile keyboard. This is a modeless region with a focusable conversation log, not a focus-trapping dialog; Escape/close restore the opener. Long tokens wrap inside bubbles, and incoming replies do not force a visitor back to the bottom after they scroll up.
+
+## Tech Stack
+
+- HTML5
+- CSS3 with modular imports
+- Vanilla JavaScript modules
+- Namespace-based browser scripts registered on `window.BlackholeSystems`
+- Local Three.js/WebGPU vendor files for the blackhole hero
+- Local SVG assets from Remix Icon 3.5.0 and Font Awesome Free 6.7.2
+
+### CSS Delivery
+
+Both pages load `fonts.css`, then `icons.css` and `shared.css`. The font entry replaces the former Google Fonts link in the same position instead of adding a nested discovery hop through the common manifest. The shared manifest imports the unchanged variables, reset, utilities, components and keyframe libraries, followed by `effects/star-field.css`. All styles remain normal, ordered, render-blocking links; there is no async activation, runtime framework, minifier or automatic purge.
+
+The landing then loads `style.css`, now a landing-only manifest: section defaults in their existing order, `responsive-shared.css`, then the remaining landing-specific `responsive.css`. QR instead loads `responsive-shared.css` followed by its existing `tools/qr-studio.css` and does not load `style.css`, `sections.css` or any landing section sheet. Fixtures or future pages that previously assumed `style.css` included the common library must load `shared.css` explicitly before their page styles.
+
+`responsive-shared.css` owns the existing root spacing, container/split-layout, shared type/header/HUD and mobile reveal adjustments. These values and selectors are moved, not redesigned. In particular, the existing below-480px vertical override for QR's lateral reveal presets remains in the same effective cascade position. Page-specific QR rules still follow the shared layer. The shared star-field sheet serves the landing hero, mobile command menu, newsletter and QR hero; the WebGPU-ready pause/hide integration stays in `sections/hero.css`.
+
+The 1.0.13 CSS separation changed the local graph from 19 files / 214,274 raw bytes to 10 / 101,181 on QR, with maximum import depth reduced from two to one. The landing retained its complete style rule set and two-level maximum depth; that modular split added three small stylesheet boundaries, changing 18 files / 183,613 raw bytes to 21 / 184,082. These are historical local source measurements for that release, not current production transfer or LCP claims. Calculated per-file gzip totals were 46,618 to 21,224 bytes on QR and 40,963 to 41,587 on the landing; hosting compression, headers, cache and network conditions determine actual delivery.
+
+Keep source-relative image URLs in their original files. Both HTML entries and every changed manifest/leaf reference carry the release revision; unchanged icon/library revisions remain valid. New standalone pages should load icons, the common entry, common responsive rules and their own stylesheet in that order, with their own correct document-relative prefixes.
+
+### Effect Lifecycle
+
+`effects/visibility-gate.js` controls viewport/page visibility and optionally live reduced-motion preferences. Its existing third string argument and 160px default margin remain compatible with the tactical grid. An options object can instead provide `rootMargin` and `respectReducedMotion`; motion policy defaults to false so each existing effect keeps its own policy. Gates share one document visibility listener and one media listener for opted-in consumers, while retaining separate intersection observers for their individual bounds/margins. `destroy()` disconnects the instance and removes the shared listeners when their last consumer leaves. Callback failures are isolated during shared event delivery.
+
+The visual families remain separate:
+
+- `star-field.js` serves the fallback hero (70 stars), mobile menu (34), newsletter (46) and QR hero (72), with the existing 140px margin, coordinate modes, sizes, durations and trajectories. CSS now owns `absorbStar`; JavaScript supplies `--star-duration` and `--star-delay` instead of an inline shorthand. This fixes the former pause override, including the hero's WebGPU-ready pause and QR's existing static reduced-motion style.
+- `comet-field.js` keeps its 220px margin, 12-comet ceiling, random trajectories and spawn cadence. Leaving view, hiding the page or enabling reduced motion stops new spawning; existing comets retain their normal finite lifetimes. Destroying the instance cancels its spawn/removal timers and removes only its owned nodes.
+- `signal-field.js` controls the eight authored testimonial particles with a 160px margin. Their positions, colors, trails, delays and `signalParticleFlow` keyframes stay in the existing CSS. Offscreen/page-hidden motion pauses, and the existing reduced-motion rule still disables their animation.
+- `grid-pulse.js` retains its own reduced-motion handling and hold/fade lifetimes through the backward-compatible gate. Shader stars stay inside `hero-blackhole.js`; loader rays stay inside the loader component. Neither is converted into a DOM particle effect.
+
+`BH.Effects.createStarField(container)`, `createCometField(container)` and `createSignalField(container)` return the same controller for an already mounted container. Its `destroy()` releases owned resources/readiness markers and allows a clean remount. Star cleanup does not remove authored children; signal cleanup never generates or removes the authored particles. The caller explicitly destroys an instance when removing its container; there is no document-wide mutation observer or new animation-frame loop.
+
+The existing `BH.initStarField` and `BH.initCometField` startup APIs remain available; the landing additionally calls `BH.initSignalField`. Opt-in attributes are `data-star-field`, `data-comet-field` and `data-signal-field`; the legacy `#comet-field` selector is supported. New pages load the visibility gate before their chosen effect modules, plus the corresponding CSS, then use a factory or initializer. `page-boot.js` continues to support its existing `stars` token, not new implicit comet/signal tokens. QR loads only the gate and stars, without comet/signal/grid code or landing section styles. If the required gate is unavailable, factories skip mounting without allocating generated nodes or readiness markers.
+
+### Local Fonts
+
+`assets/css/fonts.css` is the only Outfit declaration shared by the landing and QR. It references unmodified Google Fonts v15 WOFF2 subsets under `assets/fonts/outfit/`, with the same family, normal style, variable 100-900 weights, Unicode ranges and `font-display: swap` used before localization. Spanish accents remain in Latin; extended characters load the Latin-ext subset when needed. The normal page content requests the same 32,292-byte Latin binary, not nine static weight files. The extended subset is 14,808 bytes and is not preloaded.
+
+The two HTML entries no longer request Google Fonts or preconnect to its providers. This is a dependency/control improvement, not a promised production LCP reduction. No font preload, `local()` substitution, metric adjustment, axis trimming or new package is introduced. Existing monospace/system families, family tokens, sizes, line heights, spacing and section styles remain untouched; unavailable font files retain the existing sans-serif fallback and do not gate page boot.
+
+The font folder includes the original [OFL 1.1 license](../assets/fonts/outfit/OFL.txt), source URLs, pinned upstream commit, provider CSS hash, per-file checksums and a [maintenance contract](../assets/fonts/outfit/README.md). An intentional font change requires newly verified assets and hash-named files, a stylesheet/release revision and typography comparison. Future pages load this same font entry before their brand/page styles. Paths remain relative for domain-root and subdirectory hosting. Verify `font/woff2` delivery and caching on the real static host separately.
+
+### Local Icons
+
+Both entry points load `assets/css/icons.css` and reference symbols in `assets/icons/icons.svg`. The shared sprite contains only the 66 Remix Icon and 22 Font Awesome icons currently used. Original SVGs, their source URLs/checksums and exact-version licenses live alongside the sprite. Outfit delivery is independent through the local font entry above; the site requests neither external icon library, its kit script or its icon fonts.
+
+Existing `i` wrappers keep section-specific sizing, hover, glow and animation rules; their children are decorative, non-focusable SVGs using `currentColor`. Dynamic project icons are rendered directly by `projects-render.js`, and form states include local SVG markup. There is no DOM-wide replacement pass, observer, runtime icon dependency or icon startup initializer. Workflow selectors target direct children so nested SVGs do not receive the orb's filter or mobile transform twice.
+
+To maintain the catalog, add the official SVG under `assets/icons/sources/`, record its family, exact-version source URL and SHA-256 in `assets/icons/manifest.json`, and update its consumer. Keep the corresponding license. Run `npm run build:icons` to regenerate the sprite and compatibility CSS without network access. The builder rejects changed checksums or unsupported SVG markup; tests detect missing and unused icons and stale generated outputs. See `assets/icons/README.md` for the maintenance contract. Use the HTTP preview in [Development](DEVELOPMENT.md#local-preview); cross-file SVG references are not guaranteed under `file://`.
+
+### Media Delivery
+
+`scripts/build-media.cjs` uses pinned, development-only Sharp to derive local files under `assets/images/generated/` and the small `projects-media.js` data registry. Run `npm run build:media` after replacing preview masters or changing the recipe, then `npm run check:media` before release. This is image preparation, not a site bundler or deployment packager; no encoder is shipped to the browser.
+
+The current recipe generates 22 images and keeps every master. The hero PNG drops from 194,812 to 185,373 bytes with identical decoded RGBA pixels. Its preload and visible fallback use the same derivative; social metadata retains the original public URL with corrected intrinsic dimensions. CSS sizing, fit, camera and shader settings are unchanged.
+
+Full-logo PNG candidates are 625 x 116 and 1250 x 232, with the 2500 x 464 master retained. Their exact aspect ratio preserves auto-width geometry. Logo images and preloads share a conservative 280px source slot covering existing header, menu, QR and footer sizes. Favicon and touch icons use 32px and 180px PNGs; the manifest adds a 192px PNG and keeps the original 900px entry. A larger-byte 512px candidate was rejected.
+
+Project JPEG candidates use quality 98, 4:4:4 chroma and exact-aspect resizing. A candidate must save at least 10% against its master and reach PSNR 45 dB with mean channel error at most 1 against the resized reference. These JPEGs are high quality, not lossless. Of the proposed 640px/960px widths, only sixteen 640px variants meet the current gates. ALAI retains its already compact original because the proposed widths do not preserve its exact aspect. Higher-density cards can still select full masters; modal images never use thumbnails.
+
+The card `sizes` contract conservatively follows existing grid breakpoints and must be reviewed if that layout changes. Browser tests check actual chosen file dimensions against CSS width and device density, including breakpoint edges. A `srcset` image's `naturalWidth` can be density-corrected, so validation uses file metadata for physical pixels and browser geometry for framing.
+
+The manifest records the normalized recipe hash, source/output SHA-256 values, dimensions, bytes and encoder versions. The checker rejects stale metadata or altered files. Rebuilding only removes obsolete outputs explicitly owned by its previous manifest, never original assets; projects without previews remain valid icon-only entries. All inputs are local. See the official [Sharp output documentation](https://sharp.pixelplumbing.com/api-output/) for encoder options.
+
+## Tactical Grid
+
+The deployment background is independent from the project-card grid. `BH.initGridPulse` preserves its existing bootstrap position and idempotent readiness marker. In browsers with CSS mask composition and `ResizeObserver`, the fixed lattice is CSS paint, not thousands of DOM cells. Only active/fading pulses need elements, allocated on demand and reused after their native transitions finish. A 128-element ceiling prevents pathological visibility churn from growing the pool or interrupting an existing fade; normal steady cadence needs fewer elements. Browsers missing either rendering capability retain the original native-cell grid.
+
+The original 40px scale, border color, radial/vertical masks, mobile opacity, one-to-three pulse selections, random 100-600ms interval, 500-2500ms holds, 100ms activation and 1500ms fade-out remain. Line crossings are composed once to avoid adding opacity; fractional device-pixel scaling is coverage-matched to the native border raster. Pulse coordinates sample the entire logical grid rather than concentrating flashes in the viewport. Existing independent hold-removal behavior is preserved when a cell is selected more than once.
+
+A component-local `ResizeObserver` and coalesced resize callback update dimensions and coordinates after filters, reflow or zoom. They do not change project filtering or add a permanent animation frame loop. The shared visibility gate and its 160px margin remain unchanged; hidden/offscreen scheduling stops while existing lifetimes drain. Reduced motion paints the same static lattice without creating pulse nodes. Changing that preference stops work or resumes it safely. QR Studio imports neither the tactical-grid stylesheet nor its runtime module.
+
+The original virtual sampling budget is retained as a floor when filters shorten the archive, so the same flashes are not concentrated into a smaller visible area. Reflow may expand that budget to cover added rows. This is integer metadata only, not additional DOM allocation; clipped pulses keep their normal lifetimes for rapid filter restoration.
+
+Motion preference is reconciled at pulse/visibility entry points as well as through media change notifications, so a delayed notification cannot leave the previous pulse state running.
+
+## JavaScript Architecture
+
+The site does not use a bundler. JavaScript is organized as browser-loaded scripts that register public initializers on `window.BlackholeSystems`.
+
+Primary bootstrap files:
+
+- `assets/js/app.js` boots the main landing page, records successful initializers, and reports failures while continuing independent initializers.
+- `assets/js/modules/page-boot.js` boots standalone tools or future pages through `data-page-boot` tokens with the same failure isolation and successful-initialization guards.
+- `assets/js/modules/loader.js` owns normal loader timing and the idempotent `BH.completePageLoader` completion contract. Both bootstraps also have a minimal recovery path if the loader script itself is unavailable.
+
+### Conditional 3D Entry
+
+The landing loads the small deferred `hero-blackhole-boot.js` entry before `app.js`. It checks for `[data-hero-blackhole]` inside `.hero-section` and for the same `navigator.gpu` API presence used by the original renderer. Only that path dynamically imports `hero-blackhole.js`, using the existing import map and local vendor files. Browsers without the API keep the existing image/star fallback without requesting the scene or Three.js. This is not a new reduced-motion, save-data or viewport policy; supported browsers still start the same scene immediately during page boot.
+
+`BH.heroBlackholeReady` represents module evaluation, not GPU readiness. Since dynamic imports do not delay `DOMContentLoaded`, `app.js` waits for that promise to settle before running its unchanged initializer list. This preserves the former static module's dependency barrier and does not extend the loader until the first rendered frame. An import failure is reported and releases independent initializers; a missing boot script also leaves normal app startup available. The existing renderer still handles adapter/initialization/render failures and switches readiness classes only after its first successful render.
+
+The conditional 3D entry does not modify the renderer source or vendor assets. Loader durations and completion events, responsive camera profiles, shaders, animation speed, DPR cap, bloom and the hero's scene-specific CSS values remain unchanged; shared star defaults now live in the common effect sheet described above. Module/network timing still depends on the browser and cache; the conditional entry does not promise identical wall-clock milliseconds or skip engines where the API exists but an adapter later fails. QR Studio already loaded neither entry nor engine and remains independent.
+
+### Feature Modules
+
+Current module groups:
+
+- `assets/js/modules/assistant/` separates curated public knowledge, pure routing, transactional session memory, response/handoff formatting, DOM interaction and bootstrap/fallback behavior. `BH.initFloatingAssistant` remains the landing initializer; the QR tool does not mount this feature.
+- `assets/js/modules/forms/` separates the project quote form from the newsletter handoff while preserving `BH.initFormHandler`.
+- `assets/js/modules/effects/` owns separate star, comet, testimonial signal and tactical-grid effects, with a shared visibility lifecycle and explicit field teardown.
+- `assets/js/modules/reveal.js` is the shared reveal engine.
+- `assets/js/modules/reveal-repeat.js` provides the opt-in reversible lifecycle, loaded by the landing only.
+- `assets/js/modules/reveal-landing.js` registers landing reveal presets.
+- `assets/js/modules/reveal-qr.js` registers QR Studio reveal presets.
+- `assets/js/modules/landing-motion.js` owns landing-only motion observers and telemetry counters.
+- `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated. The optional generated `projects-media.js` owns only responsive candidate data and is not loaded by QR.
+- `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
+
+The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its close button, backdrop, Escape key, and contextual WhatsApp inquiry action remain available.
+
+### Scroll Reveal Behavior
+
+Landing presets opt into repeatable viewport reveals, except the About planets, which retain their original one-shot preset and independent planetary animations. Titles, kickers, text blocks, code cards, services, projects, reviews, contact blocks, and footer content enter as they become visible, exit near the viewport edge, and re-enter when returning. The sticky project console uses opacity only. Cards stagger within their current layout row, including after filtering and responsive reflow.
+
+Reversible entries use the brand easing with a 600ms duration and a 16px vertical distance, reduced to 12px at mobile widths; exits use the existing 300ms motion token without a stagger delay. They do not add blur, scale, rotation, scroll smoothing, or scroll-linked scrubbing. The lifecycle uses `IntersectionObserver` and native Web Animations, with individual `translate` isolated from existing hover/tilt `transform` values. Component transitions remain independent. Focused content remains visible until focus leaves, and hero entries wait for loader completion. Reduced-motion users see content without these transitions; changing that preference cancels running reversible animations.
+
+The shared engine still defaults to one-shot reveals. QR Studio loads its existing presets without the repeat module. If viewport observation is unavailable, content is revealed immediately; if Web Animations is unavailable, repeat groups use the existing one-shot engine. Missing duration or easing tokens skip the native animation rather than interrupting content visibility.
+
+## Project Structure
+
+```text
+blackhole-systems-web/
+├── README.md
+├── index.html
+├── package.json
+├── package-lock.json
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── DEVELOPMENT.md
+│   └── images/
+├── scripts/
+│   ├── build-icons.cjs
+│   └── build-media.cjs
+├── tests/
+├── assets/
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── shared.css
+│   │   ├── fonts.css
+│   │   ├── responsive-shared.css
+│   │   ├── variables.css
+│   │   ├── base.css
+│   │   ├── components.css
+│   │   ├── animations.css
+│   │   ├── responsive.css
+│   │   ├── sections.css
+│   │   ├── utilities.css
+│   │   ├── effects/
+│   │   ├── tools/
+│   │   └── sections/
+│   ├── images/
+│   │   ├── generated/
+│   │   └── projects/
+│   ├── fonts/
+│   │   └── outfit/
+│   ├── icons/
+│   ├── vendor/
+│   └── js/
+│       ├── app.js
+│       ├── modules/
+│       │   ├── assistant/
+│       │   ├── effects/
+│       │   ├── forms/
+│       │   ├── projects-*.js
+│       │   ├── page-boot.js
+│       │   ├── hero-blackhole-boot.js
+│       │   ├── hero-blackhole.js
+│       │   ├── reveal.js
+│       │   ├── reveal-repeat.js
+│       │   ├── reveal-landing.js
+│       │   ├── reveal-qr.js
+│       │   └── landing-motion.js
+│       └── tools/
+└── tools/
+    └── blackhole-qr/
+```
+
+## Performance Notes
+
+- The hero uses a local Three.js/WebGPU renderer with a static fallback image for unsupported browsers.
+- About section planet textures use WebP versions for lighter animation cost.
+- Orbital movement keeps the original front/back timing while using compositor-friendly translation.
+- About orbit animation pauses when the section is outside the viewport or the tab is hidden.
+- DOM stars, comets and testimonial particles share a visibility lifecycle with per-effect policies; star pause rules now control the actual animations.
+- Tactical grid, scroll reveal and card tilt keep their independent motion behavior and reduced-motion checks where applicable.
+- Card tilt supports fine-pointer mouse input and touch gestures, respects reduced-motion preferences, and avoids duplicate event listeners per card.
