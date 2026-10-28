@@ -14,8 +14,8 @@ test('both HTML entries load the same common layer before their page styles', ()
         const local = links.filter(url => url.origin === 'https://blackhole.test');
         const names = local.map(url => path.posix.basename(url.pathname));
         assert.deepEqual(names, file === 'index.html'
-            ? ['icons.css', 'shared.css', 'style.css']
-            : ['icons.css', 'shared.css', 'responsive-shared.css', 'qr-studio.css']);
+            ? ['fonts.css', 'icons.css', 'shared.css', 'style.css']
+            : ['fonts.css', 'icons.css', 'shared.css', 'responsive-shared.css', 'qr-studio.css']);
         const revision = local.find(url => url.pathname.endsWith('/shared.css')).search;
         assert.match(revision, /^\?v=\d+\.\d+\.\d+$/);
         if (sharedRevision) assert.equal(revision, sharedRevision);

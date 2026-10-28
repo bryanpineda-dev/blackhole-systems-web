@@ -28,10 +28,11 @@ for (const kind of ['landing', 'qr']) for (const width of [1440, 390]) {
         try {
             const files = await loadedCss(page);
             assert.equal(new Set(files).size, files.length, 'no shared stylesheet is applied twice');
-            for (const name of ['shared.css', 'variables.css', 'base.css', 'components.css', 'animations.css', 'responsive-shared.css', 'effects/star-field.css']) {
+            for (const name of ['fonts.css', 'shared.css', 'variables.css', 'base.css', 'components.css', 'animations.css', 'responsive-shared.css', 'effects/star-field.css']) {
                 assert.ok(files.includes(`assets/css/${name}`), name);
             }
             assert.ok(files.indexOf('assets/css/components.css') < files.indexOf('assets/css/responsive-shared.css'));
+            assert.ok(files.indexOf('assets/css/fonts.css') < files.indexOf('assets/css/icons.css'));
             const sections = files.filter(file => file.startsWith('assets/css/sections/'));
             if (kind === 'qr') {
                 assert.deepEqual(sections, []);

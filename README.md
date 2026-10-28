@@ -6,18 +6,17 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.15**
+Website version: **1.0.16**
 
-Deployment tag: `v1.0.15`
+Deployment tag: `v1.0.16`
 
 Release changes:
 
-- Recompress the hero fallback PNG without changing decoded pixels and correct its HTML/OpenGraph dimensions to 1324 x 611.
-- Generate exact-aspect logo, favicon, touch-icon and manifest derivatives while retaining every original image.
-- Deliver smaller, high-quality JPEG candidates to project cards where useful; keep full originals for detail modals and higher-density displays.
-- Match logo preloads to responsive image selection without changing CSS, image framing, fonts, the WebGPU renderer, loader or animation policies.
-- Add a pinned development-only media generator with source/output checksums, dimension checks and encoding quality gates; no image encoder runs in the browser.
-- Cover media selection, fallback recovery, geometry and pixel density in regression tests; refresh affected asset revisions and document media maintenance.
+- Serve Outfit locally through one shared font stylesheet in the former provider link's position on both pages; remove Google Fonts stylesheet/preconnect requests.
+- Retain the exact variable WOFF2 bytes, 100-900 weight range, Latin/Latin-ext coverage and swap policy, including QR's intermediate 520/620 weights.
+- Include the original OFL 1.1 license, pinned upstream provenance, content-hash filenames and per-file checksums without adding a font build tool or package.
+- Preserve all existing section styles, family tokens, system fonts, image assets, runtime modules, loader and animation behavior; add no font preloads or metric overrides.
+- Add checksum, descriptor, local-path, actual-glyph, subset-selection and unavailable-font fallback checks; update page stylesheet contracts and font MIME handling in browser fixtures.
 
 ## Overview
 
@@ -140,7 +139,7 @@ The assistant keeps its existing colors, dimensions and motion. It uses componen
 
 ### CSS Delivery
 
-Both pages load `icons.css` first, then `shared.css`. The shared manifest imports the unchanged variables, reset, utilities, components and keyframe libraries, followed by `effects/star-field.css`. It is an explicit HTML stylesheet, not another nested import inside the landing manifest. All styles remain normal, ordered, render-blocking links; there is no async activation, runtime framework, minifier or automatic purge.
+Both pages load `fonts.css`, then `icons.css` and `shared.css`. The font entry replaces the former Google Fonts link in the same position instead of adding a nested discovery hop through the common manifest. The shared manifest imports the unchanged variables, reset, utilities, components and keyframe libraries, followed by `effects/star-field.css`. All styles remain normal, ordered, render-blocking links; there is no async activation, runtime framework, minifier or automatic purge.
 
 The landing then loads `style.css`, now a landing-only manifest: section defaults in their existing order, `responsive-shared.css`, then the remaining landing-specific `responsive.css`. QR instead loads `responsive-shared.css` followed by its existing `tools/qr-studio.css` and does not load `style.css`, `sections.css` or any landing section sheet. Fixtures or future pages that previously assumed `style.css` included the common library must load `shared.css` explicitly before their page styles.
 
@@ -165,9 +164,17 @@ The visual families remain separate:
 
 The existing `BH.initStarField` and `BH.initCometField` startup APIs remain available; the landing additionally calls `BH.initSignalField`. Opt-in attributes are `data-star-field`, `data-comet-field` and `data-signal-field`; the legacy `#comet-field` selector is supported. New pages load the visibility gate before their chosen effect modules, plus the corresponding CSS, then use a factory or initializer. `page-boot.js` continues to support its existing `stars` token, not new implicit comet/signal tokens. QR loads only the gate and stars, without comet/signal/grid code or landing section styles. If the required gate is unavailable, factories skip mounting without allocating generated nodes or readiness markers.
 
+### Local Fonts
+
+`assets/css/fonts.css` is the only Outfit declaration shared by the landing and QR. It references unmodified Google Fonts v15 WOFF2 subsets under `assets/fonts/outfit/`, with the same family, normal style, variable 100-900 weights, Unicode ranges and `font-display: swap` used before localization. Spanish accents remain in Latin; extended characters load the Latin-ext subset when needed. The normal page content requests the same 32,292-byte Latin binary, not nine static weight files. The extended subset is 14,808 bytes and is not preloaded.
+
+The two HTML entries no longer request Google Fonts or preconnect to its providers. This is a dependency/control improvement, not a promised production LCP reduction. No font preload, `local()` substitution, metric adjustment, axis trimming or new package is introduced. Existing monospace/system families, family tokens, sizes, line heights, spacing and section styles remain untouched; unavailable font files retain the existing sans-serif fallback and do not gate page boot.
+
+The font folder includes the original [OFL 1.1 license](assets/fonts/outfit/OFL.txt), source URLs, pinned upstream commit, provider CSS hash, per-file checksums and a [maintenance contract](assets/fonts/outfit/README.md). An intentional font change requires newly verified assets and hash-named files, a stylesheet/release revision and typography comparison. Future pages load this same font entry before their brand/page styles. Paths remain relative for domain-root and subdirectory hosting. Verify `font/woff2` delivery and caching on the real static host separately.
+
 ### Local Icons
 
-Both entry points load `assets/css/icons.css` and reference symbols in `assets/icons/icons.svg`. The shared sprite contains only the 66 Remix Icon and 22 Font Awesome icons currently used. Original SVGs, their source URLs/checksums and exact-version licenses live alongside the sprite. Google Fonts remains unchanged; the site no longer requests either external icon library, its kit script or its icon fonts.
+Both entry points load `assets/css/icons.css` and reference symbols in `assets/icons/icons.svg`. The shared sprite contains only the 66 Remix Icon and 22 Font Awesome icons currently used. Original SVGs, their source URLs/checksums and exact-version licenses live alongside the sprite. Outfit delivery is independent through the local font entry above; the site requests neither external icon library, its kit script or its icon fonts.
 
 Existing `i` wrappers keep section-specific sizing, hover, glow and animation rules; their children are decorative, non-focusable SVGs using `currentColor`. Dynamic project icons are rendered directly by `projects-render.js`, and form states include local SVG markup. There is no DOM-wide replacement pass, observer, runtime icon dependency or icon startup initializer. Workflow selectors target direct children so nested SVGs do not receive the orb's filter or mobile transform twice.
 
@@ -257,6 +264,7 @@ blackhole-web-v1/
 │   ├── css/
 │   │   ├── style.css
 │   │   ├── shared.css
+│   │   ├── fonts.css
 │   │   ├── responsive-shared.css
 │   │   ├── variables.css
 │   │   ├── base.css
@@ -271,6 +279,8 @@ blackhole-web-v1/
 │   ├── images/
 │   │   ├── generated/
 │   │   └── projects/
+│   ├── fonts/
+│   │   └── outfit/
 │   ├── icons/
 │   ├── vendor/
 │   └── js/
@@ -332,6 +342,8 @@ Effect lifecycle tests cover legacy gate compatibility, per-consumer margins, sh
 Conditional-hero checks cover missing API/stage/parent, supported import ordering, repeated entry evaluation, missing/evaluation-failed scene modules, missing entry recovery and QR's continued exclusion of the 3D graph. Controlled dependency stubs test ordering without requiring a physical GPU; they do not prove shader output. Validate actual WebGPU frames separately on a capable secure-origin browser when changing this loading path or the renderer.
 
 Media tests check source checksums, reproducible outputs, exact hero/resized-brand pixels, unchanged aspect ratios, JPEG quality/byte gates, preload selection, high-density card sources, original modal images, failed-candidate recovery and missing-registry fallback. Sharp is pinned as a development-only dependency; it is not a browser dependency.
+
+Font tests verify exact source hashes, WOFF2 headers, license integrity, original descriptors/coverage and in-place local stylesheet ordering. Browser checks confirm real custom Outfit glyphs with external networking blocked, normal Latin-only loading, extended-subset loading on demand, intermediate weights and readable content/normal loader recovery when files fail. These do not certify hosting MIME/cache headers or physical-device font rasterization.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
 

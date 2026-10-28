@@ -7,7 +7,7 @@ const origin = 'http://blackhole.test';
 const contentTypes = {
     '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
     '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp',
-    '.svg': 'image/svg+xml', '.json': 'application/json'
+    '.svg': 'image/svg+xml', '.json': 'application/json', '.woff2': 'font/woff2'
 };
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
