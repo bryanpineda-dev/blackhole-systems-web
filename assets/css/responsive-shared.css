@@ -1,0 +1,57 @@
+/* Shared primitive overrides. Keep after page defaults and before page overrides. */
+@media (max-width: 1024px) {
+    :root {
+        --section-pad: 110px;
+    }
+
+    .container { width: 95%; }
+    .split-layout { grid-template-columns: 1fr; gap: 60px; }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-pad: 92px;
+    }
+
+    .container {
+        width: 100%;
+        padding-inline: 18px;
+    }
+
+    .section-heading { font-size: 2.15rem; }
+    .section-sub,
+    .body-text { font-size: 1rem; }
+    .section-header.centered { margin-bottom: 54px; }
+
+    .hud-text-block,
+    .hud-text-block-color {
+        padding-left: var(--space-sm);
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --section-pad: 78px;
+    }
+
+    .container {
+        padding-inline: 16px;
+    }
+
+    .section-heading {
+        font-size: clamp(2rem, 10vw, 2.45rem);
+        line-height: 1.14;
+    }
+
+    .reveal-item[data-reveal="fade-left"],
+    .reveal-hidden[data-reveal="fade-left"],
+    .reveal-item[data-reveal="fade-right"],
+    .reveal-hidden[data-reveal="fade-right"] {
+        transform: translate3d(0, var(--motion-distance-sm), 0);
+    }
+
+    .split-layout > * {
+        min-width: 0;
+    }
+}

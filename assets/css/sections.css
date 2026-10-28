@@ -6,7 +6,7 @@
    ========================================================================== */
 
 @import 'sections/header.css';
-@import 'sections/hero.css';
+@import 'sections/hero.css?v=1.0.13';
 @import 'sections/about.css';
 @import 'sections/workflow.css?v=1.0.10';
 @import 'sections/services.css';

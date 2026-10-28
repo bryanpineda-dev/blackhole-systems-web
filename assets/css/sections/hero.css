@@ -70,23 +70,6 @@
     pointer-events: none;
 }
 
-.star-field { 
-    position: absolute; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%; 
-    z-index: var(--z-floating); 
-    pointer-events: none; 
-    overflow: hidden; 
-}
-
-.star { 
-    position: absolute; 
-    background: var(--primary-white); 
-    border-radius: var(--border-radius-circle); 
-    box-shadow: 0 0 4px var(--primary-white); 
-}
-
-.star-field.is-star-field-paused .star,
 .hero-section.is-webgpu-ready .star-field .star {
     animation-play-state: paused;
 }

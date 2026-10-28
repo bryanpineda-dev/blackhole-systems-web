@@ -21,7 +21,7 @@ function difference(a, b) {
 
 for (const profile of [{ id: 'desktop', width: 1112, viewport: 1440, ratio: 1 }, { id: 'retina', width: 1112, viewport: 1440, ratio: 2 }, { id: 'mobile', width: 390, viewport: 390, ratio: 3 }, { id: 'fractional scaling', width: 387.5, viewport: 390, ratio: 1.25 }]) {
     test(`grid lines and adjacent pulses retain native-border appearance at ${profile.id}`, async () => {
-        const fixture = `<!doctype html><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/style.css"><style>body{margin:0}.frame{position:absolute;inset:0 auto auto 0;width:${profile.width}px;height:400px;overflow:hidden;background:var(--bg-void)}#optimized{visibility:hidden}.frame .grid-cell{transition:none}</style><div id="original" class="frame"><div id="native-grid" class="tactical-grid-bg"></div></div><div id="optimized" class="frame"><div id="grid-pulse" class="tactical-grid-bg"></div></div>`;
+        const fixture = `<!doctype html><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/shared.css"><link rel="stylesheet" href="assets/css/style.css"><style>body{margin:0}.frame{position:absolute;inset:0 auto auto 0;width:${profile.width}px;height:400px;overflow:hidden;background:var(--bg-void)}#optimized{visibility:hidden}.frame .grid-cell{transition:none}</style><div id="original" class="frame"><div id="native-grid" class="tactical-grid-bg"></div></div><div id="optimized" class="frame"><div id="grid-pulse" class="tactical-grid-bg"></div></div>`;
         const wrapper = { newContext: options => browser.newContext({ ...options, deviceScaleFactor: profile.ratio }) };
         const { page, context, errors } = await openPage(wrapper, { viewport: { width: profile.viewport, height: 500 }, overrides: { 'index.html': fixture } });
         try {
@@ -57,7 +57,7 @@ for (const profile of [{ id: 'desktop', width: 1112, viewport: 1440, ratio: 1 },
 }
 
 test('native pulse transitions retain their timing and reduced motion drains the pool', async () => {
-    const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/style.css"><style>.frame{position:relative;width:400px;height:400px;overflow:hidden}</style><div class="frame"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
+    const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/shared.css"><link rel="stylesheet" href="assets/css/style.css"><style>.frame{position:relative;width:400px;height:400px;overflow:hidden}</style><div class="frame"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
     const { page, context, errors } = await openPage(browser, { reducedMotion: 'no-preference', overrides: { 'index.html': fixture } });
     try {
         await page.evaluate(() => { Math.random = () => 0; window.BlackholeSystems = { Effects: { createVisibilityGate: (_, callback) => { window.gate = callback; callback(false); } } }; });
@@ -109,7 +109,7 @@ test('real archive filtering and responsive reflow keep the grid bounded without
 
 test('missing mask composition or ResizeObserver preserves native static borders', async () => {
     for (const missing of ['mask', 'resize']) {
-        const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/style.css"><div style="position:relative;width:1112px;height:400px"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
+        const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/shared.css"><link rel="stylesheet" href="assets/css/style.css"><div style="position:relative;width:1112px;height:400px"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
         const { page, context } = await openPage(browser, { overrides: { 'index.html': fixture } });
         try {
             await page.evaluate(missing => { if (missing === 'mask') CSS.supports = () => false; else window.ResizeObserver = undefined; }, missing);
@@ -123,7 +123,7 @@ test('missing mask composition or ResizeObserver preserves native static borders
 });
 
 test('live device-ratio changes refresh the native border metric without adding static cells', async () => {
-    const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/style.css"><div style="position:relative;width:400px;height:400px"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
+    const fixture = '<!doctype html><link rel="stylesheet" href="assets/css/shared.css"><link rel="stylesheet" href="assets/css/style.css"><div style="position:relative;width:400px;height:400px"><div id="grid-pulse" class="tactical-grid-bg"></div></div>';
     const { page, context, errors } = await openPage(browser, { overrides: { 'index.html': fixture } });
     try {
         await addScripts(page, ['assets/js/modules/effects/grid-pulse.js']);

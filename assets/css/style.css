@@ -1,11 +1,7 @@
 /* ==========================================================================
-   BLACKHOLE SYSTEMS | MAIN STYLESHEET V5.0
+   BLACKHOLE SYSTEMS | LANDING STYLESHEET
    ========================================================================== */
 
-@import 'variables.css';
-@import 'base.css';
-@import 'utilities.css';
-@import 'components.css';
-@import 'animations.css';
-@import 'sections.css?v=1.0.11';
-@import 'responsive.css?v=1.0.10';
+@import 'sections.css?v=1.0.13';
+@import 'responsive-shared.css?v=1.0.13';
+@import 'responsive.css?v=1.0.13';

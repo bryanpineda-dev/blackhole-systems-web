@@ -6,18 +6,18 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.12**
+Website version: **1.0.13**
 
-Deployment tag: `v1.0.12`
+Deployment tag: `v1.0.13`
 
 Release changes:
 
-- Check for the landing hero stage and WebGPU API before importing the existing scene and its local Three.js dependency graph.
-- Avoid downloading/evaluating the 3D engine in browsers that already use the static hero fallback; QR Studio continues to omit the engine.
-- Preserve the supported landing's dependency barrier before app initialization, without waiting for the first GPU frame or adding scroll/idle delays.
-- Keep the renderer, shaders, responsive cameras, pixel ratio cap, bloom, frame timing, CSS transitions and loader durations unchanged.
-- Recover from failed scene imports without blocking the existing image fallback or independent landing modules.
-- Add dependency-order, failure-path and network regression coverage; refresh only the changed entry-point script revisions.
+- Separate the common brand stylesheet entry from landing-only CSS so QR Studio no longer imports landing sections.
+- Extract shared star-field defaults and common responsive rules without changing their declarations, motion offsets or existing page-specific precedence.
+- Keep the token/component/keyframe libraries, QR-specific styles, renderer, cameras, shaders, icons and loader durations unchanged.
+- Preserve all four star-field consumers and keep the WebGPU-ready integration owned by the landing hero.
+- Add stylesheet entry/ownership and shared-consumer regression coverage; update isolated grid fixtures to load the explicit common entry.
+- Refresh changed stylesheet/manifest cache revisions and document the measured payload/request tradeoff.
 
 ## Overview
 
@@ -138,6 +138,20 @@ The assistant keeps its existing colors, dimensions and motion. It uses componen
 - Local Three.js/WebGPU vendor files for the blackhole hero
 - Local SVG assets from Remix Icon 3.5.0 and Font Awesome Free 6.7.2
 
+### CSS Delivery
+
+Both pages load `icons.css` first, then `shared.css`. The shared manifest imports the unchanged variables, reset, utilities, components and keyframe libraries, followed by `effects/star-field.css`. It is an explicit HTML stylesheet, not another nested import inside the landing manifest. All styles remain normal, ordered, render-blocking links; there is no async activation, runtime framework, minifier or automatic purge.
+
+The landing then loads `style.css`, now a landing-only manifest: section defaults in their existing order, `responsive-shared.css`, then the remaining landing-specific `responsive.css`. QR instead loads `responsive-shared.css` followed by its existing `tools/qr-studio.css` and does not load `style.css`, `sections.css` or any landing section sheet. Fixtures or future pages that previously assumed `style.css` included the common library must load `shared.css` explicitly before their page styles.
+
+`responsive-shared.css` owns the existing root spacing, container/split-layout, shared type/header/HUD and mobile reveal adjustments. These values and selectors are moved, not redesigned. In particular, the existing below-480px vertical override for QR's lateral reveal presets remains in the same effective cascade position. Page-specific QR rules still follow the shared layer. The shared star-field sheet serves the landing hero, mobile command menu, newsletter and QR hero; the WebGPU-ready pause/hide integration stays in `sections/hero.css`.
+
+The local CSS graph changes from 19 files / 214,274 raw bytes to 10 / 101,181 on QR, with maximum import depth reduced from two to one. The landing retains its complete style rule set and two-level maximum depth; its modular split adds three small stylesheet boundaries, changing 18 files / 183,613 raw bytes to 21 / 184,082. These are local source measurements, not production transfer or LCP claims. Calculated per-file gzip totals are 46,618 to 21,224 bytes on QR and 40,963 to 41,587 on the landing; hosting compression, headers, cache and network conditions determine actual delivery.
+
+Keep source-relative image URLs in their original files. Both HTML entries and every changed manifest/leaf reference carry the release revision; unchanged icon/library revisions remain valid. New standalone pages should load icons, the common entry, common responsive rules and their own stylesheet in that order, with their own correct document-relative prefixes.
+
+Known pre-existing limitation: the star generator assigns an inline animation shorthand that includes a running play state. This can override the stylesheet's pause/reduced-motion declarations even when the pause class is present. It was reproduced on both 1.0.12 and the separated CSS. This CSS-only release retains the existing behavior; correcting the generator is a separate behavioral change, not part of stylesheet relocation.
+
 ### Local Icons
 
 Both entry points load `assets/css/icons.css` and reference symbols in `assets/icons/icons.svg`. The shared sprite contains only the 66 Remix Icon and 22 Font Awesome icons currently used. Original SVGs, their source URLs/checksums and exact-version licenses live alongside the sprite. Google Fonts remains unchanged; the site no longer requests either external icon library, its kit script or its icon fonts.
@@ -152,7 +166,7 @@ The deployment background is independent from the project-card grid. `BH.initGri
 
 The original 40px scale, border color, radial/vertical masks, mobile opacity, one-to-three pulse selections, random 100-600ms interval, 500-2500ms holds, 100ms activation and 1500ms fade-out remain. Line crossings are composed once to avoid adding opacity; fractional device-pixel scaling is coverage-matched to the native border raster. Pulse coordinates sample the entire logical grid rather than concentrating flashes in the viewport. Existing independent hold-removal behavior is preserved when a cell is selected more than once.
 
-A component-local `ResizeObserver` and coalesced resize callback update dimensions and coordinates after filters, reflow or zoom. They do not change project filtering or add a permanent animation frame loop. The shared visibility gate and its 160px margin remain unchanged; hidden/offscreen scheduling stops while existing lifetimes drain. Reduced motion paints the same static lattice without creating pulse nodes. Changing that preference stops work or resumes it safely. QR Studio imports the shared CSS but mounts no tactical grid.
+A component-local `ResizeObserver` and coalesced resize callback update dimensions and coordinates after filters, reflow or zoom. They do not change project filtering or add a permanent animation frame loop. The shared visibility gate and its 160px margin remain unchanged; hidden/offscreen scheduling stops while existing lifetimes drain. Reduced motion paints the same static lattice without creating pulse nodes. Changing that preference stops work or resumes it safely. QR Studio imports neither the tactical-grid stylesheet nor its runtime module.
 
 The original virtual sampling budget is retained as a floor when filters shorten the archive, so the same flashes are not concentrated into a smaller visible area. Reflow may expand that budget to cover added rows. This is integer metadata only, not additional DOM allocation; clipped pulses keep their normal lifetimes for rapid filter restoration.
 
@@ -174,7 +188,7 @@ The landing loads the small deferred `hero-blackhole-boot.js` entry before `app.
 
 `BH.heroBlackholeReady` represents module evaluation, not GPU readiness. Since dynamic imports do not delay `DOMContentLoaded`, `app.js` waits for that promise to settle before running its unchanged initializer list. This preserves the former static module's dependency barrier and does not extend the loader until the first rendered frame. An import failure is reported and releases independent initializers; a missing boot script also leaves normal app startup available. The existing renderer still handles adapter/initialization/render failures and switches readiness classes only after its first successful render.
 
-The renderer source and vendor assets are unchanged in this release. Loader durations and completion events, responsive camera profiles, shaders, animation speed, DPR cap, bloom and hero CSS remain unchanged. Module/network timing still depends on the browser and cache; this change does not promise identical wall-clock milliseconds or newly skip engines where the API exists but an adapter later fails. QR Studio already loaded neither entry nor engine and remains independent.
+The renderer source and vendor assets are unchanged in this release. Loader durations and completion events, responsive camera profiles, shaders, animation speed, DPR cap, bloom and the hero's scene-specific CSS values remain unchanged; shared star defaults now live in the common effect sheet described above. Module/network timing still depends on the browser and cache; the conditional entry does not promise identical wall-clock milliseconds or skip engines where the API exists but an adapter later fails. QR Studio already loaded neither entry nor engine and remains independent.
 
 ### Feature Modules
 
@@ -213,6 +227,8 @@ blackhole-web-v1/
 ├── assets/
 │   ├── css/
 │   │   ├── style.css
+│   │   ├── shared.css
+│   │   ├── responsive-shared.css
 │   │   ├── variables.css
 │   │   ├── base.css
 │   │   ├── components.css
@@ -220,6 +236,7 @@ blackhole-web-v1/
 │   │   ├── responsive.css
 │   │   ├── sections.css
 │   │   ├── utilities.css
+│   │   ├── effects/
 │   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
@@ -276,6 +293,8 @@ npm run test:browser
 ```
 
 `npm test` checks authored JavaScript syntax, local references, markup IDs and JSON, portfolio and preview-asset contracts, assistant routing, release-document consistency, and landing boot isolation. `npm run test:browser` covers loader timing/recovery, standalone boot isolation, modal keyboard behavior, all 17 card/modal previews and image-failure recovery, quote success/failure/timeout/retry paths, and landing/QR behavior at desktop and mobile widths, including PNG/SVG export. Preview composition checks also cover 320, 768, 1024, and 1920px widths and a short mobile landscape viewport, including full-width intrinsic image sizing, compact README hierarchy, responsive detail columns, single scrolling, reachable actions, an unobstructed close control, and scroll reset between projects. Header checks cover project entry/exit, tall archives, filters, viewport resizing, the existing mobile scroll rule, and returning from the footer.
+
+CSS delivery checks assert ordered page/common entries, manifest ownership and cache revisions, absence of landing sections in QR, shared star/type/motion declarations and the existing mobile QR reveal offset. Changes to stylesheet distribution also require before/after rule conservation, computed-style/image comparisons and actual WebGPU rendering checks outside hardware-independent fixtures.
 
 Conditional-hero checks cover missing API/stage/parent, supported import ordering, repeated entry evaluation, missing/evaluation-failed scene modules, missing entry recovery and QR's continued exclusion of the 3D graph. Controlled dependency stubs test ordering without requiring a physical GPU; they do not prove shader output. Validate actual WebGPU frames separately on a capable secure-origin browser when changing this loading path or the renderer.
 
