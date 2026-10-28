@@ -191,10 +191,11 @@
 }
 
 .tactical-grid-bg {
+    --grid-cell-size: 40px;
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0; /* Stretches the grid across the full container. */
     display: grid;
-    grid-template-columns: repeat(auto-fill, 40px);
+    grid-template-columns: repeat(auto-fill, var(--grid-cell-size));
     align-content: start; /* Keeps generated grid cells flowing downward. */
     pointer-events: none;
     z-index: 0;
@@ -203,7 +204,7 @@
 }
 
 .grid-cell {
-    height: 40px; /* Height is fixed; width comes from grid-template-columns. */
+    height: var(--grid-cell-size); /* Height is fixed; width comes from grid-template-columns. */
     border: 0.5px solid var(--white-alpha-05);
     transition: background 1.5s ease, box-shadow 1.5s ease;
 }
@@ -212,6 +213,37 @@
     background: var(--blue-alpha-10);
     box-shadow: inset 0 0 12px var(--blue-alpha-15);
     transition: background 0.1s ease;
+}
+
+/* Paint each line once, including crossings; pulses remain beneath the border layer. */
+.tactical-grid-bg.is-sparse-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--grid-lines-width, 0px);
+    background: var(--white-alpha-05);
+    mask-image:
+        linear-gradient(to right,
+            #000 calc(var(--grid-line-width) - var(--grid-edge-aa)),
+            transparent calc(var(--grid-line-width) + var(--grid-edge-aa)),
+            transparent calc(var(--grid-cell-size) - var(--grid-line-width) - var(--grid-edge-aa)),
+            #000 calc(var(--grid-cell-size) - var(--grid-line-width) + var(--grid-edge-aa))),
+        linear-gradient(to bottom,
+            #000 calc(var(--grid-line-width) - var(--grid-edge-aa)),
+            transparent calc(var(--grid-line-width) + var(--grid-edge-aa)),
+            transparent calc(var(--grid-cell-size) - var(--grid-line-width) - var(--grid-edge-aa)),
+            #000 calc(var(--grid-cell-size) - var(--grid-line-width) + var(--grid-edge-aa)));
+    mask-size: var(--grid-cell-size) var(--grid-cell-size);
+    mask-repeat: repeat;
+    mask-composite: add;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.tactical-grid-bg.is-sparse-grid > .grid-cell {
+    position: absolute;
+    width: var(--grid-cell-size);
+    border-color: transparent;
 }
 
 .deploy-header {

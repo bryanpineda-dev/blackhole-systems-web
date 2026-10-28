@@ -6,17 +6,18 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.10**
+Website version: **1.0.11**
 
-Deployment tag: `v1.0.10`
+Deployment tag: `v1.0.11`
 
 Release changes:
 
-- Replace the remote Remix Icon stylesheet/font and Font Awesome kit with 88 original, selectively vendored SVG icons.
-- Share a versioned local SVG sprite across the landing, QR Studio, project templates and form status messages without a runtime icon library.
-- Preserve existing icon wrappers, drawings, dimensions, colors and component effects, including the independent workflow hover and mobile alignment.
-- Include exact-version upstream sources, checksums, licenses, an offline sprite builder and icon integrity/rendering regression checks.
-- Keep Three.js, decorative grid behavior, loader timing and unrelated performance work unchanged.
+- Replace the deployment background's eager cell matrix with CSS-painted lines and a bounded pool of active/fading pulse elements.
+- Preserve the 40px lattice, effective borders, colors, masks, mobile opacity and existing pulse cadence/transition timings.
+- Synchronize logical coordinates with archive filtering, resizing and device pixel ratio changes without a continuous render loop.
+- Keep reduced-motion users on the static grid, pause pulse scheduling out of view, and retain the native-cell fallback for older engines.
+- Add deterministic lifecycle, resource-bound, geometry and visual regression checks; refresh shared stylesheet and grid-script cache revisions.
+- Leave project filtering, shared visibility gates, hero rendering, loader timing and unrelated animations unchanged.
 
 ## Overview
 
@@ -144,6 +145,18 @@ Both entry points load `assets/css/icons.css` and reference symbols in `assets/i
 Existing `i` wrappers keep section-specific sizing, hover, glow and animation rules; their children are decorative, non-focusable SVGs using `currentColor`. Dynamic project icons are rendered directly by `projects-render.js`, and form states include local SVG markup. There is no DOM-wide replacement pass, observer, runtime icon dependency or icon startup initializer. Workflow selectors target direct children so nested SVGs do not receive the orb's filter or mobile transform twice.
 
 To maintain the catalog, add the official SVG under `assets/icons/sources/`, record its family, exact-version source URL and SHA-256 in `assets/icons/manifest.json`, and update its consumer. Keep the corresponding license. Run `npm run build:icons` to regenerate the sprite and compatibility CSS without network access. The builder rejects changed checksums or unsupported SVG markup; tests detect missing and unused icons and stale generated outputs. See `assets/icons/README.md` for the maintenance contract. Use the HTTP preview described below; cross-file SVG references are not guaranteed under `file://`.
+
+## Tactical Grid
+
+The deployment background is independent from the project-card grid. `BH.initGridPulse` preserves its existing bootstrap position and idempotent readiness marker. In browsers with CSS mask composition and `ResizeObserver`, the fixed lattice is CSS paint, not thousands of DOM cells. Only active/fading pulses need elements, allocated on demand and reused after their native transitions finish. A 128-element ceiling prevents pathological visibility churn from growing the pool or interrupting an existing fade; normal steady cadence needs fewer elements. Browsers missing either rendering capability retain the original native-cell grid.
+
+The original 40px scale, border color, radial/vertical masks, mobile opacity, one-to-three pulse selections, random 100-600ms interval, 500-2500ms holds, 100ms activation and 1500ms fade-out remain. Line crossings are composed once to avoid adding opacity; fractional device-pixel scaling is coverage-matched to the native border raster. Pulse coordinates sample the entire logical grid rather than concentrating flashes in the viewport. Existing independent hold-removal behavior is preserved when a cell is selected more than once.
+
+A component-local `ResizeObserver` and coalesced resize callback update dimensions and coordinates after filters, reflow or zoom. They do not change project filtering or add a permanent animation frame loop. The shared visibility gate and its 160px margin remain unchanged; hidden/offscreen scheduling stops while existing lifetimes drain. Reduced motion paints the same static lattice without creating pulse nodes. Changing that preference stops work or resumes it safely. QR Studio imports the shared CSS but mounts no tactical grid.
+
+The original virtual sampling budget is retained as a floor when filters shorten the archive, so the same flashes are not concentrated into a smaller visible area. Reflow may expand that budget to cover added rows. This is integer metadata only, not additional DOM allocation; clipped pulses keep their normal lifetimes for rapid filter restoration.
+
+Motion preference is reconciled at pulse/visibility entry points as well as through media change notifications, so a delayed notification cannot leave the previous pulse state running.
 
 ## JavaScript Architecture
 
