@@ -17,7 +17,14 @@
         [grid, modal].filter(Boolean).forEach((container) => {
             if (container.dataset.previewFallbackReady === 'true') return;
             container.addEventListener('error', (event) => {
-                if (event.target.matches?.('[data-project-preview]')) event.target.remove();
+                const image = event.target;
+                if (!image.matches?.('[data-project-preview]')) return;
+                if (image.hasAttribute('srcset') && image.currentSrc !== image.src) {
+                    image.removeAttribute('srcset');
+                    image.removeAttribute('sizes');
+                    return;
+                }
+                image.remove();
             }, true);
             container.dataset.previewFallbackReady = 'true';
         });

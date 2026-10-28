@@ -6,18 +6,18 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.14**
+Website version: **1.0.15**
 
-Deployment tag: `v1.0.14`
+Deployment tag: `v1.0.15`
 
 Release changes:
 
-- Extend the existing visibility gate with optional live reduced-motion handling, shared event subscriptions and explicit cleanup, preserving its legacy API and per-effect margins.
-- Fix effective star pausing in all four consumers by moving animation ownership from inline shorthand to CSS with per-star duration/delay properties.
-- Give star, comet and testimonial signal fields idempotent per-container factories with destroy/remount support and owned resource cleanup.
-- Gate the existing eight testimonial particles without changing their CSS visual presets; keep comet trajectories, spawn cadence, capacity and in-flight drain behavior.
-- Load the shared lifecycle dependency on QR and only the relevant effect modules on each page. Keep the grid policy, WebGPU renderer, planets, loader and reveal behavior independent.
-- Add lifecycle, clock-pause, cleanup, dependency-order and regression coverage; refresh changed assets and document how future pages reuse the effects.
+- Recompress the hero fallback PNG without changing decoded pixels and correct its HTML/OpenGraph dimensions to 1324 x 611.
+- Generate exact-aspect logo, favicon, touch-icon and manifest derivatives while retaining every original image.
+- Deliver smaller, high-quality JPEG candidates to project cards where useful; keep full originals for detail modals and higher-density displays.
+- Match logo preloads to responsive image selection without changing CSS, image framing, fonts, the WebGPU renderer, loader or animation policies.
+- Add a pinned development-only media generator with source/output checksums, dimension checks and encoding quality gates; no image encoder runs in the browser.
+- Cover media selection, fallback recovery, geometry and pixel density in regression tests; refresh affected asset revisions and document media maintenance.
 
 ## Overview
 
@@ -45,9 +45,9 @@ Blackhole Systems presents a developer-led service offering that does not lock i
 
 The portfolio has its own curated dataset in `assets/js/modules/projects-data.js`. Shared rendering, filtering, and modal modules consume that list, including the project counter and detail metadata.
 
-The archive currently contains 17 projects. Each record has a `preview` object with a local image path and its intrinsic dimensions. The reviewed public-site screenshots live in `assets/images/projects/` and are shared by cards and detail modals through `renderProjectPreview`.
+The archive currently contains 17 projects. Each record has a `preview` object with the original local image path and its intrinsic dimensions. All reviewed public-site masters remain in `assets/images/projects/`. The optional generated `projects-media.js` registry supplies card candidates to the shared `renderProjectPreview` renderer; missing metadata safely retains original-only rendering.
 
-Card previews use native lazy loading; modal previews load when opened and reuse the same local asset. Images render at full width and automatic height, so their frames follow the original screenshot proportions without cropping, stretching, or side gutters. Missing-image fallbacks retain a 16:9 frame and the original category icon. Filters, project metadata, buttons, and modal keyboard behavior are preserved.
+Card previews use native lazy loading with `srcset`/`sizes` when a smaller candidate passes the build checks. The original remains the maximum-resolution candidate and fallback. Modals always load the original eagerly, without `srcset`; opening a modal after a smaller card preview can therefore request the master separately. Images remain direct children of their frames, at full width and automatic height, without cropping, stretching, wrappers or side gutters. A failed derivative retries the original before the existing category fallback. Missing-image fallbacks retain a 16:9 frame and the original category icon. Filters, metadata, buttons and modal keyboard behavior are preserved.
 
 Project modals are compact README-style sheets, capped at 760px wide and 680px high within the viewport. A title and summary introduce the complete preview, followed by a semantic technical definition list, implementation and integration sections, technology tags, and the existing actions. Metadata and implementation sections use two columns where space allows and stack on narrow screens. The project code, status, and close button stay in a separate persistent header, outside the screenshot and scroll area. Opening a project resets the scroll position; on short viewports, the complete screenshot remains accessible through scrolling rather than being cropped to the viewport height.
 
@@ -173,6 +173,20 @@ Existing `i` wrappers keep section-specific sizing, hover, glow and animation ru
 
 To maintain the catalog, add the official SVG under `assets/icons/sources/`, record its family, exact-version source URL and SHA-256 in `assets/icons/manifest.json`, and update its consumer. Keep the corresponding license. Run `npm run build:icons` to regenerate the sprite and compatibility CSS without network access. The builder rejects changed checksums or unsupported SVG markup; tests detect missing and unused icons and stale generated outputs. See `assets/icons/README.md` for the maintenance contract. Use the HTTP preview described below; cross-file SVG references are not guaranteed under `file://`.
 
+### Media Delivery
+
+`scripts/build-media.cjs` uses pinned, development-only Sharp to derive local files under `assets/images/generated/` and the small `projects-media.js` data registry. Run `npm run build:media` after replacing preview masters or changing the recipe, then `npm run check:media` before release. This is image preparation, not a site bundler or deployment packager; no encoder is shipped to the browser.
+
+The current recipe generates 22 images and keeps every master. The hero PNG drops from 194,812 to 185,373 bytes with identical decoded RGBA pixels. Its preload and visible fallback use the same derivative; social metadata retains the original public URL with corrected intrinsic dimensions. CSS sizing, fit, camera and shader settings are unchanged.
+
+Full-logo PNG candidates are 625 x 116 and 1250 x 232, with the 2500 x 464 master retained. Their exact aspect ratio preserves auto-width geometry. Logo images and preloads share a conservative 280px source slot covering existing header, menu, QR and footer sizes. Favicon and touch icons use 32px and 180px PNGs; the manifest adds a 192px PNG and keeps the original 900px entry. A larger-byte 512px candidate was rejected.
+
+Project JPEG candidates use quality 98, 4:4:4 chroma and exact-aspect resizing. A candidate must save at least 10% against its master and reach PSNR 45 dB with mean channel error at most 1 against the resized reference. These JPEGs are high quality, not lossless. Of the proposed 640px/960px widths, only sixteen 640px variants meet the current gates. ALAI retains its already compact original because the proposed widths do not preserve its exact aspect. Higher-density cards can still select full masters; modal images never use thumbnails.
+
+The card `sizes` contract conservatively follows existing grid breakpoints and must be reviewed if that layout changes. Browser tests check actual chosen file dimensions against CSS width and device density, including breakpoint edges. A `srcset` image's `naturalWidth` can be density-corrected, so validation uses file metadata for physical pixels and browser geometry for framing.
+
+The manifest records the normalized recipe hash, source/output SHA-256 values, dimensions, bytes and encoder versions. The checker rejects stale metadata or altered files. Rebuilding only removes obsolete outputs explicitly owned by its previous manifest, never original assets; projects without previews remain valid icon-only entries. All inputs are local. See the official [Sharp output documentation](https://sharp.pixelplumbing.com/api-output/) for encoder options.
+
 ## Tactical Grid
 
 The deployment background is independent from the project-card grid. `BH.initGridPulse` preserves its existing bootstrap position and idempotent readiness marker. In browsers with CSS mask composition and `ResizeObserver`, the fixed lattice is CSS paint, not thousands of DOM cells. Only active/fading pulses need elements, allocated on demand and reused after their native transitions finish. A 128-element ceiling prevents pathological visibility churn from growing the pool or interrupting an existing fade; normal steady cadence needs fewer elements. Browsers missing either rendering capability retain the original native-cell grid.
@@ -215,7 +229,7 @@ Current module groups:
 - `assets/js/modules/reveal-landing.js` registers landing reveal presets.
 - `assets/js/modules/reveal-qr.js` registers QR Studio reveal presets.
 - `assets/js/modules/landing-motion.js` owns landing-only motion observers and telemetry counters.
-- `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated.
+- `assets/js/modules/projects-*.js` keeps project data, rendering, filtering, modal behavior, and bootstrap separated. The optional generated `projects-media.js` owns only responsive candidate data and is not loaded by QR.
 - `assets/js/tools/qr-studio.js` owns QR Studio behavior and stays independent from the landing app bootstrap.
 
 The project modal moves focus inside when opened, contains Tab/Shift+Tab, isolates background siblings using `inert`, and restores the opener on close. Pre-existing inert states are preserved. Its close button, backdrop, Escape key, and contextual WhatsApp inquiry action remain available.
@@ -236,6 +250,8 @@ blackhole-web-v1/
 ├── package.json
 ├── package-lock.json
 ├── scripts/
+│   ├── build-icons.cjs
+│   └── build-media.cjs
 ├── tests/
 ├── assets/
 │   ├── css/
@@ -253,6 +269,8 @@ blackhole-web-v1/
 │   │   ├── tools/
 │   │   └── sections/
 │   ├── images/
+│   │   ├── generated/
+│   │   └── projects/
 │   ├── icons/
 │   ├── vendor/
 │   └── js/
@@ -312,6 +330,8 @@ CSS delivery checks assert ordered page/common entries, manifest ownership and c
 Effect lifecycle tests cover legacy gate compatibility, per-consumer margins, shared listener cleanup, live/legacy media-query notifications, missing viewport observation, callback isolation, idempotent mount/destroy/remount, generated-node ownership, comet timer drain/capacity and required dependency order. Browser checks verify actual animation clocks pausing/resuming, simulated document-hidden events, all four real star consumers, the WebGPU-ready CSS pause, QR static reduced motion and unchanged testimonial particle counts. These tests do not replace actual shader-output verification when changing the GPU renderer.
 
 Conditional-hero checks cover missing API/stage/parent, supported import ordering, repeated entry evaluation, missing/evaluation-failed scene modules, missing entry recovery and QR's continued exclusion of the 3D graph. Controlled dependency stubs test ordering without requiring a physical GPU; they do not prove shader output. Validate actual WebGPU frames separately on a capable secure-origin browser when changing this loading path or the renderer.
+
+Media tests check source checksums, reproducible outputs, exact hero/resized-brand pixels, unchanged aspect ratios, JPEG quality/byte gates, preload selection, high-density card sources, original modal images, failed-candidate recovery and missing-registry fallback. Sharp is pinned as a development-only dependency; it is not a browser dependency.
 
 Browser checks use installed Google Chrome by default. To use Playwright Chromium instead, run `npx playwright install chromium`, then `PLAYWRIGHT_CHANNEL=chromium npm run test:browser` in Git Bash. Playwright is pinned as a development-only dependency in the lockfile.
 

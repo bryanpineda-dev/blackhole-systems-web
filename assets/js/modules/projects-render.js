@@ -53,8 +53,14 @@
 
         if (!preview?.src) return fallback;
 
+        const media = namespace.previewMedia;
+        const candidates = loading !== 'eager' && media?.sources?.[preview.src];
+        const responsive = candidates?.length
+            ? `srcset="${escapeHtml([...candidates, { src: preview.src, width: preview.width }].map(candidate => `${candidate.src} ${candidate.width}w`).join(', '))}" sizes="${escapeHtml(media.cardSizes)}"`
+            : '';
+
         return `${fallback}<img class="project-preview-image" data-project-preview
-            src="${escapeHtml(preview.src)}" alt="${escapeHtml(`Homepage preview of ${project.name}`)}"
+            src="${escapeHtml(preview.src)}" ${responsive} alt="${escapeHtml(`Homepage preview of ${project.name}`)}"
             width="${escapeHtml(preview.width)}" height="${escapeHtml(preview.height)}"
             loading="${loading === 'eager' ? 'eager' : 'lazy'}" decoding="async">`;
     }

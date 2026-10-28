@@ -1,0 +1,717 @@
+{
+  "schema": 1,
+  "generator": "scripts/build-media.cjs",
+  "recipeHash": "3ea35ec41d8679e4703f48f8e7165f261a4d2e4337d9da3c961459cb5b1f9fea",
+  "encoder": {
+    "sharp": "0.35.5",
+    "vips": "8.18.7"
+  },
+  "recipe": {
+    "version": 1,
+    "jpegQuality": 98,
+    "projectWidths": [
+      640,
+      960
+    ],
+    "logoWidths": [
+      625,
+      1250
+    ],
+    "iconWidths": [
+      32,
+      180,
+      192
+    ],
+    "minimumSaving": 0.1,
+    "minimumPsnr": 45,
+    "maximumMeanError": 1,
+    "png": {
+      "compressionLevel": 9,
+      "adaptiveFiltering": true
+    }
+  },
+  "projectRecords": [
+    {
+      "id": "BH-001",
+      "src": "assets/images/projects/bh-001-sebana.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-002",
+      "src": "assets/images/projects/bh-002-alai-boutique.jpg",
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "id": "BH-003",
+      "src": "assets/images/projects/bh-003-mariam-enfermera.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-004",
+      "src": "assets/images/projects/bh-004-niuvort-solutions.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-005",
+      "src": "assets/images/projects/bh-005-coxbrand-academy.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-006",
+      "src": "assets/images/projects/bh-006-meraki-travel-cr.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-007",
+      "src": "assets/images/projects/bh-007-entre-cantones.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-008",
+      "src": "assets/images/projects/bh-008-polyacril.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-009",
+      "src": "assets/images/projects/bh-009-thermo-en-linea.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-010",
+      "src": "assets/images/projects/bh-010-rinnai-cr.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-011",
+      "src": "assets/images/projects/bh-011-all-fire-products.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-013",
+      "src": "assets/images/projects/bh-013-dulce-hogar.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-014",
+      "src": "assets/images/projects/bh-014-niuvort-entertainment.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-015",
+      "src": "assets/images/projects/bh-015-nvt-online.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-016",
+      "src": "assets/images/projects/bh-016-tu-web-ahora.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-017",
+      "src": "assets/images/projects/bh-017-troleando-por-mexico.jpg",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "BH-018",
+      "src": "assets/images/projects/bh-018-vision-territorial.jpg",
+      "width": 1440,
+      "height": 810
+    }
+  ],
+  "sources": [
+    {
+      "src": "assets/images/blackhole-fallback.png",
+      "sha256": "84c4ef7a614f0e936909cac51c214249b2434833bbaecf0c5647f13b8dc213cd",
+      "bytes": 194812,
+      "width": 1324,
+      "height": 611
+    },
+    {
+      "src": "assets/images/logo_bhws_w.png",
+      "sha256": "e2e16ceb7be6df650cdede85db4eb124b8d1fa7431b8af9de6b29d7f044ad753",
+      "bytes": 43660,
+      "width": 2500,
+      "height": 464
+    },
+    {
+      "src": "assets/images/favicon.png",
+      "sha256": "13a411713c212238695b4ed397d8056b998c2d5c7b6cf433ce8d5475f693be96",
+      "bytes": 36552,
+      "width": 900,
+      "height": 900
+    },
+    {
+      "src": "assets/images/projects/bh-001-sebana.jpg",
+      "sha256": "4e56c00dbea6d0e45957d9e95f5fe4d87790b2a5b9639eb9699bce526854ba08",
+      "bytes": 128267,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-002-alai-boutique.jpg",
+      "sha256": "eb199338a347c25f3f64657e89af4375f85d81da7329cceb30bb604c533fadd0",
+      "bytes": 73725,
+      "width": 1265,
+      "height": 712
+    },
+    {
+      "src": "assets/images/projects/bh-003-mariam-enfermera.jpg",
+      "sha256": "d759f58c73d81f17530ad89f2c6a72a19b558e390064a439ccf93ffeca3e7e14",
+      "bytes": 130126,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-004-niuvort-solutions.jpg",
+      "sha256": "4c745eb62914204052b2b21806c7f2833d9d144d687523b2639cfeb456a75ad9",
+      "bytes": 141911,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-005-coxbrand-academy.jpg",
+      "sha256": "64ec9734e0c3909755b4418de51e26a4101207f3100e614b7c570f70a55d6a79",
+      "bytes": 146786,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-006-meraki-travel-cr.jpg",
+      "sha256": "45368af214d5f0bd21c628dd68652ef87dd6cadd14a70f80f1bef3914f3ff17f",
+      "bytes": 226328,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-007-entre-cantones.jpg",
+      "sha256": "5c5d85ccea39e23d51e6e368a9cebec4340e348a8106063b827637d8a5330e71",
+      "bytes": 227368,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-008-polyacril.jpg",
+      "sha256": "23d5dfb096d7cc583b739abc61d97a98b8e2eda8db83c2120b95ac6ff0e62730",
+      "bytes": 171346,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-009-thermo-en-linea.jpg",
+      "sha256": "1a4d5846ba2c2311aa5b604fefcf920658126734b61d3302e8ab45063899e876",
+      "bytes": 136760,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-010-rinnai-cr.jpg",
+      "sha256": "aa559f7dfedbb1572d28cba9141167ae0ff550039ee11cd241e6b16463507ace",
+      "bytes": 98696,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-011-all-fire-products.jpg",
+      "sha256": "0c666d74ff17de0330cb3668c340bc960f43aa837983d4a105fe13ac20e5fce2",
+      "bytes": 200443,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-013-dulce-hogar.jpg",
+      "sha256": "b2223c9d98b17500183dfd5c0c14a53d61f07a34c1e61bdbafbc70bce5a7d701",
+      "bytes": 211309,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-014-niuvort-entertainment.jpg",
+      "sha256": "9fcf9120650e7f1dc695c56dffd1b0778b84e85472e67b35937bc10b35345c98",
+      "bytes": 173235,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-015-nvt-online.jpg",
+      "sha256": "b59120b37a49ab3290fccaa0774990f31f1ce04c8614e16f3b4d180790e75715",
+      "bytes": 152061,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-016-tu-web-ahora.jpg",
+      "sha256": "e72cc1559baa22e1464f558d21e8bd77bcbe06529ded63025923e7271234c193",
+      "bytes": 109127,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-017-troleando-por-mexico.jpg",
+      "sha256": "49fbaa82ef91f5efdabf20d88adb941ef4785f16370ee4ab1a416713236ca8c7",
+      "bytes": 229380,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-018-vision-territorial.jpg",
+      "sha256": "76f2064586475199d1080dbed13430797b4fa4d6e011f1b77e831c914612ddc4",
+      "bytes": 333518,
+      "width": 1440,
+      "height": 810
+    }
+  ],
+  "assets": [
+    {
+      "src": "assets/images/generated/blackhole-fallback.png",
+      "width": 1324,
+      "height": 611,
+      "bytes": 185373,
+      "sha256": "5bbb9b8a78eaff681c49e121d4a5d9b9d8464f52c44b9445a3e6b3001c564962",
+      "source": "assets/images/blackhole-fallback.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/logo-625.png",
+      "width": 625,
+      "height": 116,
+      "bytes": 20262,
+      "sha256": "5e267ac0f9f6d7099bf7fcf4ce1ed5721b54c05a360386bd0dcfe11a1e201bf1",
+      "source": "assets/images/logo_bhws_w.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/logo-1250.png",
+      "width": 1250,
+      "height": 232,
+      "bytes": 43589,
+      "sha256": "cc6f9f357300099cf5804c69eecc2c6da75babeae8778d77eeda156891fbda07",
+      "source": "assets/images/logo_bhws_w.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/favicon-32.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 1902,
+      "sha256": "3d7ac36a3678d2f95f9de177a915f8ac9f6aa247858530de52f4269d56e6b984",
+      "source": "assets/images/favicon.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/favicon-180.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 14079,
+      "sha256": "961ded18adb9547f85c6ebb6b75299f1360d3ccd44c0cd9606ab7ade145db848",
+      "source": "assets/images/favicon.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/favicon-192.png",
+      "width": 192,
+      "height": 192,
+      "bytes": 15139,
+      "sha256": "f15b6840cc67a8d4c49455f42a3d95592a224f0ca43bac48238a87729d7f4bac",
+      "source": "assets/images/favicon.png",
+      "lossless": true
+    },
+    {
+      "src": "assets/images/generated/projects/bh-001-sebana-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 101726,
+      "sha256": "680c02176c1e6f230b3220a659c952b1e61564d656471cdf1859222432ea174b",
+      "source": "assets/images/projects/bh-001-sebana.jpg",
+      "psnr": 49.231775092973805,
+      "meanError": 0.4180815972222222
+    },
+    {
+      "src": "assets/images/generated/projects/bh-003-mariam-enfermera-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 98204,
+      "sha256": "32b7cd59374c5091b705c54d92b7ee27982566ee843aae3132207c2d9e37cfef",
+      "source": "assets/images/projects/bh-003-mariam-enfermera.jpg",
+      "psnr": 49.1157269120327,
+      "meanError": 0.4101634837962963
+    },
+    {
+      "src": "assets/images/generated/projects/bh-004-niuvort-solutions-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 102099,
+      "sha256": "352494e11f916746258973e3209d8565fd2880e09e4d439d66367b9ea8374c18",
+      "source": "assets/images/projects/bh-004-niuvort-solutions.jpg",
+      "psnr": 47.81318428092617,
+      "meanError": 0.46003038194444446
+    },
+    {
+      "src": "assets/images/generated/projects/bh-005-coxbrand-academy-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 105587,
+      "sha256": "dee70e4ba2377bf5008bada2907419c027541ab4f6f84bb3b8584d02fd057edf",
+      "source": "assets/images/projects/bh-005-coxbrand-academy.jpg",
+      "psnr": 48.759749177293266,
+      "meanError": 0.47563512731481483
+    },
+    {
+      "src": "assets/images/generated/projects/bh-006-meraki-travel-cr-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 148428,
+      "sha256": "9c8c9c882eafb865d4c48ef74c3eb640514fbeaa06716c367831524b5c8cda40",
+      "source": "assets/images/projects/bh-006-meraki-travel-cr.jpg",
+      "psnr": 46.56587209827179,
+      "meanError": 0.6876461226851852
+    },
+    {
+      "src": "assets/images/generated/projects/bh-007-entre-cantones-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 138037,
+      "sha256": "5749b5b2bd80fac821c3b560d5feaf38c22ed45e4d7ca87dd6c129602be04e12",
+      "source": "assets/images/projects/bh-007-entre-cantones.jpg",
+      "psnr": 47.29092464321077,
+      "meanError": 0.5751258680555555
+    },
+    {
+      "src": "assets/images/generated/projects/bh-008-polyacril-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 97333,
+      "sha256": "79e017a9b76ec837ff1f847894d1fc0b781cb765e611895c5cfc4263754f5104",
+      "source": "assets/images/projects/bh-008-polyacril.jpg",
+      "psnr": 48.9141420277955,
+      "meanError": 0.47735966435185184
+    },
+    {
+      "src": "assets/images/generated/projects/bh-009-thermo-en-linea-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 98056,
+      "sha256": "fb0b43e1086b2e376be1e6e456083e3f2c579d8b9f18b5da81503d64f764a150",
+      "source": "assets/images/projects/bh-009-thermo-en-linea.jpg",
+      "psnr": 48.94744774145889,
+      "meanError": 0.40811921296296294
+    },
+    {
+      "src": "assets/images/generated/projects/bh-010-rinnai-cr-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 65839,
+      "sha256": "ddb6ed54cdbedeb78caf357f14ea59d2e8b248d2f064179d337600f6a2721c38",
+      "source": "assets/images/projects/bh-010-rinnai-cr.jpg",
+      "psnr": 51.354103167742736,
+      "meanError": 0.27554253472222223
+    },
+    {
+      "src": "assets/images/generated/projects/bh-011-all-fire-products-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 132570,
+      "sha256": "541fec15f56c90d93c47df7ddbd9d014b4a70750e8ef3333a58eb5006d4c8dca",
+      "source": "assets/images/projects/bh-011-all-fire-products.jpg",
+      "psnr": 46.84176859331348,
+      "meanError": 0.6336574074074074
+    },
+    {
+      "src": "assets/images/generated/projects/bh-013-dulce-hogar-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 129125,
+      "sha256": "4f9fe3cf074ddad169724222ce44ea399d0e8b4abb7df6cd7dd2f0b00218bcd7",
+      "source": "assets/images/projects/bh-013-dulce-hogar.jpg",
+      "psnr": 47.222128931328285,
+      "meanError": 0.709134837962963
+    },
+    {
+      "src": "assets/images/generated/projects/bh-014-niuvort-entertainment-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 119393,
+      "sha256": "03f9d29dd8b42b953517162e6fce04dfde0094ce0fe6b1adab4a61ff418e1be1",
+      "source": "assets/images/projects/bh-014-niuvort-entertainment.jpg",
+      "psnr": 47.31974444864825,
+      "meanError": 0.6280208333333334
+    },
+    {
+      "src": "assets/images/generated/projects/bh-015-nvt-online-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 87708,
+      "sha256": "6005231b9f9f1a277a4e5ff14d3aaf9a6f90efd2f3e82b8e353fd4f0c26e4243",
+      "source": "assets/images/projects/bh-015-nvt-online.jpg",
+      "psnr": 49.167994805522895,
+      "meanError": 0.4356105324074074
+    },
+    {
+      "src": "assets/images/generated/projects/bh-016-tu-web-ahora-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 77108,
+      "sha256": "498b679baa70e0918d014616a886ab4a265d66cb898500629d418831b96f1bf6",
+      "source": "assets/images/projects/bh-016-tu-web-ahora.jpg",
+      "psnr": 49.91397797173118,
+      "meanError": 0.37494212962962964
+    },
+    {
+      "src": "assets/images/generated/projects/bh-017-troleando-por-mexico-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 139957,
+      "sha256": "825be25233f757e119dbe73c8b571565627b8dcd1474316d3c4f324ab2262fb4",
+      "source": "assets/images/projects/bh-017-troleando-por-mexico.jpg",
+      "psnr": 46.711835085766744,
+      "meanError": 0.7408333333333333
+    },
+    {
+      "src": "assets/images/generated/projects/bh-018-vision-territorial-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 171307,
+      "sha256": "06add4c560c6fc27e6d331d0aa5e21df3c3dcf10fa7db4e56a55663dafdee077",
+      "source": "assets/images/projects/bh-018-vision-territorial.jpg",
+      "psnr": 45.77573467317399,
+      "meanError": 0.8431380208333333
+    }
+  ],
+  "projects": {
+    "assets/images/projects/bh-001-sebana.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-001-sebana-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-003-mariam-enfermera.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-003-mariam-enfermera-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-004-niuvort-solutions.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-004-niuvort-solutions-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-005-coxbrand-academy.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-005-coxbrand-academy-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-006-meraki-travel-cr.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-006-meraki-travel-cr-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-007-entre-cantones.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-007-entre-cantones-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-008-polyacril.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-008-polyacril-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-009-thermo-en-linea.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-009-thermo-en-linea-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-010-rinnai-cr.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-010-rinnai-cr-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-011-all-fire-products.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-011-all-fire-products-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-013-dulce-hogar.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-013-dulce-hogar-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-014-niuvort-entertainment.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-014-niuvort-entertainment-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-015-nvt-online.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-015-nvt-online-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-016-tu-web-ahora.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-016-tu-web-ahora-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-017-troleando-por-mexico.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-017-troleando-por-mexico-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ],
+    "assets/images/projects/bh-018-vision-territorial.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-018-vision-territorial-640.jpg",
+        "width": 640,
+        "height": 360
+      }
+    ]
+  },
+  "rejected": [
+    {
+      "source": "assets/images/projects/bh-001-sebana.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 180032
+    },
+    {
+      "source": "assets/images/projects/bh-002-alai-boutique.jpg",
+      "width": 640,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-002-alai-boutique.jpg",
+      "width": 960,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-003-mariam-enfermera.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 174851
+    },
+    {
+      "source": "assets/images/projects/bh-004-niuvort-solutions.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 177311
+    },
+    {
+      "source": "assets/images/projects/bh-005-coxbrand-academy.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 189170
+    },
+    {
+      "source": "assets/images/projects/bh-006-meraki-travel-cr.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 278504
+    },
+    {
+      "source": "assets/images/projects/bh-007-entre-cantones.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 265128
+    },
+    {
+      "source": "assets/images/projects/bh-008-polyacril.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 175369
+    },
+    {
+      "source": "assets/images/projects/bh-009-thermo-en-linea.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 173414
+    },
+    {
+      "source": "assets/images/projects/bh-010-rinnai-cr.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 118116
+    },
+    {
+      "source": "assets/images/projects/bh-011-all-fire-products.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 247455
+    },
+    {
+      "source": "assets/images/projects/bh-013-dulce-hogar.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 251347
+    },
+    {
+      "source": "assets/images/projects/bh-014-niuvort-entertainment.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 222983
+    },
+    {
+      "source": "assets/images/projects/bh-015-nvt-online.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 163036
+    },
+    {
+      "source": "assets/images/projects/bh-016-tu-web-ahora.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 140625
+    },
+    {
+      "source": "assets/images/projects/bh-017-troleando-por-mexico.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 268634
+    },
+    {
+      "source": "assets/images/projects/bh-018-vision-territorial.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 326807
+    }
+  ]
+}

@@ -51,7 +51,7 @@ async function freezeClock(page) {
 async function assertFullPreview(image) {
     const geometry = await image.evaluate((element) => ({
         width: element.clientWidth, height: element.clientHeight,
-        expectedHeight: element.clientWidth * element.naturalHeight / element.naturalWidth,
+        expectedHeight: element.clientWidth * Number(element.getAttribute('height')) / Number(element.getAttribute('width')),
         frameWidth: element.parentElement.clientWidth,
         frameHeight: element.parentElement.clientHeight
     }));
@@ -263,7 +263,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
             assert.equal(projects.length, 17);
             const inspectImage = async (image) => {
                 await image.decode();
-                return { src: image.getAttribute('src'), width: image.naturalWidth, height: image.naturalHeight,
+                return { src: image.getAttribute('src'), currentSrc: new URL(image.currentSrc).pathname.slice(1), width: image.naturalWidth, height: image.naturalHeight,
                     fit: getComputedStyle(image).objectFit, loading: image.loading };
             };
             for (const { id, preview } of projects) {
@@ -271,12 +271,16 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 await card.scrollIntoViewIfNeeded();
                 const image = card.locator('[data-project-preview]');
                 const info = await image.evaluate(inspectImage);
-                assert.deepEqual(info, { src: preview.src, width: preview.width, height: preview.height, fit: 'contain', loading: 'lazy' });
+                const candidates = await page.evaluate(src => window.BlackholeSystemsProjects.previewMedia?.sources[src] || [], preview.src);
+                assert.equal(info.src, preview.src);
+                assert.ok([preview.src, ...candidates.map(candidate => candidate.src)].includes(info.currentSrc));
+                assert.ok(Math.abs(info.width / info.height - preview.width / preview.height) < 0.01, 'density-corrected intrinsic proportions stay valid');
+                assert.equal(info.fit, 'contain'); assert.equal(info.loading, 'lazy');
                 await assertFullPreview(image);
                 await card.locator('[data-project-details]').click();
                 const modalImage = page.locator('[data-project-modal] [data-project-preview]');
                 const modalInfo = await modalImage.evaluate(inspectImage);
-                assert.deepEqual(modalInfo, { ...info, loading: 'eager' });
+                assert.deepEqual(modalInfo, { src: preview.src, currentSrc: preview.src, width: preview.width, height: preview.height, fit: 'contain', loading: 'eager' });
                 await assertFullPreview(modalImage);
                 const inquiry = new URL(await page.locator('[data-project-modal-inquiry]').getAttribute('href'));
                 assert.equal(inquiry.origin + inquiry.pathname, 'https://wa.me/50670827504');
@@ -394,7 +398,10 @@ for (const viewport of [
 }
 
 test('failed project images fall back to their original category in cards and modals', async () => {
-    await withPage({ overrides: { 'assets/images/projects/bh-001-sebana.jpg': '' } }, async (page, errors) => {
+    const master = 'assets/images/projects/bh-001-sebana.jpg';
+    const manifest = JSON.parse(await read('assets/images/generated/manifest.json'));
+    const overrides = Object.fromEntries([master, ...(manifest.projects[master] || []).map(candidate => candidate.src)].map(src => [src, '']));
+    await withPage({ overrides }, async (page, errors) => {
         await page.locator('#page-loader').waitFor({ state: 'detached' });
         const card = page.locator('[data-project-id="BH-001"]');
         await card.scrollIntoViewIfNeeded();
