@@ -50,7 +50,19 @@
         syncState();
     }
 
+    function initQrOwnershipGlowPause() {
+        const createVisibilityGate = window.BlackholeSystems?.Effects?.createVisibilityGate;
+        if (!createVisibilityGate) return;
+
+        document.querySelectorAll('.qr-promise i').forEach((icon) => {
+            createVisibilityGate(icon, (isActive) => {
+                icon.classList.toggle('is-qr-glow-paused', !isActive);
+            });
+        });
+    }
+
     initQrHeroMotionPause();
+    initQrOwnershipGlowPause();
 
     if (!form || !preview || typeof window.QRCodeStyling !== 'function') {
         if (statusMessage) {

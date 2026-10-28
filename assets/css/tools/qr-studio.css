@@ -909,6 +909,10 @@
     animation: qrOwnershipIconGlow 2.8s ease-in-out infinite;
 }
 
+.qr-promise i.is-qr-glow-paused {
+    animation-play-state: paused;
+}
+
 .qr-promise li:nth-child(2) i {
     animation-delay: 0.35s;
 }

@@ -6,17 +6,17 @@ This repository contains the Blackhole Systems website. It is a static front-end
 
 ## Current Version
 
-Website version: **1.0.16**
+Website version: **1.0.17**
 
-Deployment tag: `v1.0.16`
+Deployment tag: `v1.0.17`
 
 Release changes:
 
-- Serve Outfit locally through one shared font stylesheet in the former provider link's position on both pages; remove Google Fonts stylesheet/preconnect requests.
-- Retain the exact variable WOFF2 bytes, 100-900 weight range, Latin/Latin-ext coverage and swap policy, including QR's intermediate 520/620 weights.
-- Include the original OFL 1.1 license, pinned upstream provenance, content-hash filenames and per-file checksums without adding a font build tool or package.
-- Preserve all existing section styles, family tokens, system fonts, image assets, runtime modules, loader and animation behavior; add no font preloads or metric overrides.
-- Add checksum, descriptor, local-path, actual-glyph, subset-selection and unavailable-font fallback checks; update page stylesheet contracts and font MIME handling in browser fixtures.
+- Pause each QR ownership icon glow outside its viewport buffer or while the document is hidden, using the existing shared visibility gate without another frame loop or scroll listener.
+- Preserve the authored blue color/filter keyframes, 2.8-second easing cycle, 0.35/0.7-second stagger and icon/layout rules; resume the same animation clock rather than restarting it.
+- Retain the gate's 160px vertical buffer so the glow is active before it enters view, and preserve the existing visible reduced-motion policy and missing-observer/dependency fallback.
+- Keep QR generation, download behavior, hero motion, shared effects and the landing unchanged; revise only QR CSS/JS cache references.
+- Add focused browser coverage for independent icon visibility, hidden-page pause/resume, clock continuity, unchanged animation parameters and dependency/QR-engine fallbacks.
 
 ## Overview
 
@@ -63,6 +63,8 @@ The mobile menu moves focus to its links, contains Tab/Shift+Tab across the menu
 Blackhole QR Studio is a free static QR generator built directly into the site. It runs in the browser and does not store user data.
 
 The tool uses the shared page boot layer for the Blackhole loader, custom cursor, star field, and scroll reveal behavior while keeping QR-specific logic isolated in `assets/js/tools/qr-studio.js`.
+
+The three ownership icon glows use that script's focused initializer and the already loaded `Effects.createVisibilityGate`. Each icon pauses outside the gate's existing 160px vertical viewport buffer or while the document is hidden, preserving its current animation clock for resumption. Their color/filter keyframes, 2.8-second cycle, easing and stagger remain unchanged; the buffer keeps the halo active before it becomes visible. The gate does not opt this family into a new reduced-motion policy. Without IntersectionObserver, visible documents keep the original running animation; if the gate script is unavailable, the authored CSS remains running. Lifecycle setup precedes the QR engine guard, so an unavailable generator does not leave the decorative glows running offscreen. No new frame loop, scroll listener, generated visual node or landing dependency is introduced.
 
 The workspace and FAQ contain their lateral reveal overflow with clip margins matched to the page gutters. This preserves the existing one-shot entrances and shadow space without letting offscreen panels widen the document or clipping the full-bleed hero.
 

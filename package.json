@@ -1,6 +1,6 @@
 {
   "name": "blackhole-systems-website",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "private": true,
   "description": "Development checks for the static Blackhole Systems website.",
   "engines": {
@@ -11,7 +11,7 @@
     "build:media": "node scripts/build-media.cjs",
     "check:media": "node scripts/build-media.cjs --check",
     "test": "node --test tests/contracts.test.cjs tests/boot.test.cjs tests/assistant.test.cjs tests/icons.test.cjs tests/grid-pulse.test.cjs tests/css-delivery.test.cjs tests/effects.test.cjs tests/media.test.cjs tests/fonts.test.cjs",
-    "test:browser": "node --test --test-concurrency=1 tests/browser.test.cjs tests/reveal.test.cjs tests/responsive.test.cjs tests/assistant-browser.test.cjs tests/grid-pulse-browser.test.cjs tests/hero-boot-browser.test.cjs tests/css-delivery-browser.test.cjs tests/effects-browser.test.cjs tests/media-browser.test.cjs tests/fonts-browser.test.cjs",
+    "test:browser": "node --test --test-concurrency=1 tests/browser.test.cjs tests/reveal.test.cjs tests/responsive.test.cjs tests/assistant-browser.test.cjs tests/grid-pulse-browser.test.cjs tests/hero-boot-browser.test.cjs tests/css-delivery-browser.test.cjs tests/effects-browser.test.cjs tests/media-browser.test.cjs tests/fonts-browser.test.cjs tests/qr-glow-browser.test.cjs",
     "test:all": "npm test && npm run test:browser"
   },
   "devDependencies": {
