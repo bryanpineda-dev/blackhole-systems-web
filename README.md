@@ -88,15 +88,15 @@ Browser tests use installed Google Chrome by default and intercepted local resou
 
 ## Current Version
 
-Website version: **1.0.18**
+Website version: **1.0.19**
 
-Deployment tag: `v1.0.18`
+Deployment tag: `v1.0.19`
 
 Release changes:
 
-- Refresh the public README with real desktop/mobile, portfolio and QR Studio screenshots.
-- Preserve the detailed implementation and verification reference in dedicated documentation.
-- Keep website behavior, styling, animation and runtime assets unchanged; this is a documentation-only release.
+- Add a domain-scoped HTTP-to-HTTPS redirect while preserving hosting-managed `.well-known` paths.
+- Document a flat, tagged static publication package that excludes repository metadata and development tooling while retaining frontend and third-party license assets.
+- Add redirect configuration contracts; preserve all frontend HTML, styling, JavaScript, media and animation behavior.
 
 The configured production domain is `blackholesys.com`. Hosting compression, cache behavior and physical-device performance still require validation on the actual deployment; local tests do not certify those conditions.
 

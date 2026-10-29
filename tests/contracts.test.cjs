@@ -120,3 +120,26 @@ test('README and development package declare the same release version', () => {
     assert.ok(readme.includes(`Website version: **${pkg.version}**`));
     assert.ok(readme.includes(`Deployment tag: \`v${pkg.version}\``));
 });
+
+test('hosting redirect contains only the reviewed host-scoped HTTPS rules', () => {
+    const rules = read('.htaccess').split(/\r?\n/).map(line => line.trim()).filter(line => line && !line.startsWith('#'));
+    assert.deepEqual(rules, [
+        '<IfModule mod_rewrite.c>',
+        'RewriteEngine On',
+        'RewriteRule ^\\.well-known(?:/|$) - [L]',
+        'RewriteCond %{HTTP_HOST} ^blackholesys\\.com(?::80)?$ [NC]',
+        'RewriteCond %{HTTPS} !=on',
+        'RewriteRule ^ https://blackholesys.com%{REQUEST_URI} [R=301,L]',
+        '</IfModule>'
+    ]);
+});
+
+test('hosting host/path patterns exclude other domains and retain validation paths', () => {
+    const source = read('.htaccess');
+    const host = new RegExp(source.match(/RewriteCond %\{HTTP_HOST\} (\S+) \[NC\]/)[1], 'i');
+    const validation = new RegExp(source.match(/RewriteRule (\S+) - \[L\]/)[1]);
+    for (const value of ['blackholesys.com', 'BLACKHOLESYS.COM', 'blackholesys.com:80']) assert.ok(host.test(value));
+    for (const value of ['example.com', 'localhost', 'www.blackholesys.com', 'admin.blackholesys.com', 'blackholesys.com.evil']) assert.equal(host.test(value), false);
+    for (const value of ['.well-known', '.well-known/acme-challenge/token', '.well-known/pki-validation/file.txt']) assert.ok(validation.test(value));
+    for (const value of ['', 'index.html', 'tools/blackhole-qr/', '.well-known-other/file']) assert.equal(validation.test(value), false);
+});

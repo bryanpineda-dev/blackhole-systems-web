@@ -219,6 +219,7 @@ The shared engine still defaults to one-shot reveals. QR Studio loads its existi
 
 ```text
 blackhole-systems-web/
+├── .htaccess
 ├── README.md
 ├── index.html
 ├── package.json
@@ -273,6 +274,14 @@ blackhole-systems-web/
 └── tools/
     └── blackhole-qr/
 ```
+
+## Hosting Boundary
+
+The root `.htaccess` is a deployment configuration, not an application router. On an Apache-compatible host with `mod_rewrite` available, it redirects plain HTTP requests for the confirmed apex host `blackholesys.com` (including an explicit port 80) to the same path over HTTPS, with the existing query string retained. Its target hostname is fixed rather than reflected from arbitrary request headers.
+
+The entire `.well-known` path is exempt so hosting-managed certificate validation remains available. Other hostnames, including localhost, the admin subdomain and unverified aliases, are not redirected by this file. Existing HTTPS requests pass through. No SPA rewrite, certificate installation, permission change, HSTS, cache policy or MIME override is added. A host terminating TLS upstream needs its trusted-proxy configuration checked before using this direct-TLS condition.
+
+Only the public file allowlist described in [Development](DEVELOPMENT.md#publication-package) belongs in the hosted document root. Source-control and development files stay outside it. Configuration contracts and package browser fixtures do not execute LiteSpeed or certify the live redirect; deployment checks remain required.
 
 ## Performance Notes
 

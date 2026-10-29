@@ -70,13 +70,34 @@ Review and publish releases manually. Stage only the intended files, use a detai
 
 Published version tags remain attached to their original commit; subsequent commits receive a new version and tag. Documentation-only releases follow the same version consistency contract.
 
+## Publication Package
+
+After manually committing and creating the matching annotated release tag, create a flat ZIP from that immutable tag, not an unreviewed working tree. From the repository root in Git Bash:
+
+```bash
+VERSION="$(node -p "require('./package.json').version")" &&
+git -c core.autocrlf=false -c core.eol=lf archive --format=zip \
+  --output="../blackhole-systems-web-v${VERSION}.zip" \
+  "v${VERSION}" -- \
+  .htaccess index.html assets tools robots.txt sitemap.xml site.webmanifest
+```
+
+This uses [Git's archive command](https://git-scm.com/docs/git-archive) without a site build step or additional packaging dependency. Per-command line-ending settings keep exported text in LF independently of local Windows checkout preferences; they do not change repository configuration or working files. `index.html` and `.htaccess` are at the ZIP root, not inside a repository-named folder. The public asset tree retains its font/icon/vendor licenses and provenance. Root README, project documentation/screenshots, tests, scripts, package files, Git metadata, dependencies and ignored lab artifacts are outside the allowlist.
+
+Do not package, replace or remove the host's existing `.well-known` directory. Upload the ZIP outside the public document root where possible, then extract its contents into the domain's independently verified root. Recheck existing files and back up any existing `.htaccess` before extraction; stop if the destination or contents differ from the reviewed plan. Do not extract into another site's `public_html`, add a nested repository folder, clone `.git` into the public root or change permissions recursively.
+
+The included `.htaccess` follows the [Apache HTTPS redirect pattern](https://httpd.apache.org/docs/2.4/rewrite/remapping.html#https), with a fixed confirmed host and a `.well-known` exception. It does not obtain a certificate or configure other domains. If rewrite support is absent, the guarded block is skipped; verify the actual HTTP redirect after upload rather than assuming it is active. Do not blindly trust forwarded-protocol headers if a reverse proxy is introduced.
+
+An archive prepared before its release commit/tag is a candidate only. Record its base commit and configuration checksum outside the public ZIP, then regenerate the final release archive from the matching tag. The deployment manifest, temporary extraction and review evidence are not website files.
+
 ## Deployment Checklist
 
 The site can be hosted as static files. The HTML metadata targets `blackholesys.com`; that does not establish that the domain or a preview is currently deployed.
 
-- Publish the root HTML, `assets/`, `tools/`, `robots.txt`, `sitemap.xml` and `site.webmanifest`. Preserve their relative paths.
+- Publish `.htaccess`, the root HTML, `assets/`, `tools/`, `robots.txt`, `sitemap.xml` and `site.webmanifest`. Preserve their relative paths.
 - Keep `.git/`, `node_modules/`, tests, scripts, development documentation and local review artifacts outside the hosted public document root. README screenshots are documentation assets, not runtime dependencies.
 - Configure HTTPS and verify the required browser capabilities and static fallback on the real host.
+- Confirm HTTP requests for the apex host redirect to HTTPS without a loop and preserve paths/query strings; confirm existing validation paths under `.well-known` remain untouched. These checks require the actual server, not the intercepted browser fixtures.
 - Verify MIME types for JavaScript modules, SVG, WebP and WOFF2; check gzip/Brotli and cache/revalidation behavior for versioned assets.
 - Verify the production lead API configuration and its matching intake contract before accepting live inquiries. Test fixtures do not certify that integration.
 - Check navigation, project previews/modals, QR exports and form delivery on the real deployment, including a physical mobile device.
