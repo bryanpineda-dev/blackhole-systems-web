@@ -37,7 +37,11 @@
         function analyze(message, explicitService, context = {}) {
             const text = normalize(message);
             const explicit = Object.hasOwn(catalog, explicitService) ? catalog[explicitService] : null;
-            const projectMatches = projects.filter(project => score(text, [project.name, project.id, new URL(project.url).hostname.replace(/^www\./, '')]));
+            const projectMatches = projects.filter((project) => {
+                const aliases = [project.name, project.id];
+                if (project.url) aliases.push(new URL(project.url).hostname.replace(/^www\./, ''));
+                return score(text, aliases);
+            });
             const domains = rank(text, 'service');
             const specific = domains.filter(item => item.id !== 'website' && item.id !== 'wordpress');
             const candidates = specific.length ? specific : domains;

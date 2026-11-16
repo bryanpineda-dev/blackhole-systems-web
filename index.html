@@ -35,7 +35,7 @@
     <link href="assets/css/icons.css?v=1.0.10" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/shared.css?v=1.0.14">
-    <link rel="stylesheet" href="assets/css/style.css?v=1.0.14">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.20">
     <noscript>
         <style>
             .page-loader { display: none; }
@@ -744,10 +744,10 @@
 
                     <nav class="command-filters">
                         <span class="bh-mono-label filter-label"><span class="bh-terminal-prefix" aria-hidden="true">::</span> EXECUTE_QUERY</span>
-                        <span class="filter-count"><strong data-project-count>16</strong> Deploys</span>
+                        <span class="filter-count"><strong data-project-count>24</strong> Projects</span>
                         <button class="cmd-btn active" data-filter="all">
                             <span class="cmd-icon"><i class="ri-apps-2-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-apps-2-line"></use></svg></i></span>
-                            <span class="cmd-text">ALL_DEPLOYS</span>
+                            <span class="cmd-text">ALL_PROJECTS</span>
                         </button>
                         <button class="cmd-btn" data-filter="featured">
                             <span class="cmd-icon"><i class="ri-star-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-star-line"></use></svg></i></span>
@@ -776,6 +776,10 @@
                         <button class="cmd-btn" data-filter="agency">
                             <span class="cmd-icon"><i class="ri-team-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-team-line"></use></svg></i></span>
                             <span class="cmd-text">AGENCY_WORK</span>
+                        </button>
+                        <button class="cmd-btn" data-filter="lab">
+                            <span class="cmd-icon"><i class="ri-code-box-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-code-box-line"></use></svg></i></span>
+                            <span class="cmd-text">LAB</span>
                         </button>
                     </nav>
                 </aside>
@@ -832,7 +836,7 @@
                                 <div class="project-modal-tags" data-project-modal-tags></div>
                             </div>
                             <div class="project-modal-actions bh-actions">
-                                <a class="btn-terminal-sm view-live" data-project-modal-live target="_blank" rel="noopener">
+                                <a class="btn-terminal-sm view-live" data-project-modal-live target="_blank" rel="noopener" hidden>
                                     <span>LIVE_URL</span>
                                     <i class="ri-external-link-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-external-link-line"></use></svg></i>
                                 </a>
@@ -1496,11 +1500,11 @@
     <script src="assets/js/modules/reveal-repeat.js" defer></script>
     <script src="assets/js/modules/reveal-landing.js" defer></script>
     <script src="assets/js/modules/landing-motion.js" defer></script>
-    <script src="assets/js/modules/projects-data.js" defer></script>
-    <script src="assets/js/modules/projects-media.js?v=1.0.15" defer></script>
-    <script src="assets/js/modules/projects-render.js?v=1.0.15" defer></script>
+    <script src="assets/js/modules/projects-data.js?v=1.0.20" defer></script>
+    <script src="assets/js/modules/projects-media.js?v=1.0.20" defer></script>
+    <script src="assets/js/modules/projects-render.js?v=1.0.20" defer></script>
     <script src="assets/js/modules/projects-filter.js" defer></script>
-    <script src="assets/js/modules/projects-modal.js?v=1.0.7" defer></script>
+    <script src="assets/js/modules/projects-modal.js?v=1.0.20" defer></script>
     <script src="assets/js/modules/projects.js?v=1.0.15" defer></script>
     <script src="assets/js/modules/cards.js" defer></script>
     <script src="assets/js/modules/forms/quote-form.js?v=1.0.10" defer></script>
@@ -1514,7 +1518,7 @@
     <script src="assets/js/modules/effects/grid-pulse.js?v=1.0.11" defer></script>
     <script src="assets/js/modules/reviews-slider.js" defer></script>
     <script src="assets/js/modules/assistant/assistant-data.js?v=1.0.9" defer></script>
-    <script src="assets/js/modules/assistant/assistant-router.js?v=1.0.9" defer></script>
+    <script src="assets/js/modules/assistant/assistant-router.js?v=1.0.20" defer></script>
     <script src="assets/js/modules/assistant/assistant-session.js?v=1.0.9" defer></script>
     <script src="assets/js/modules/assistant/assistant-handoff.js?v=1.0.9" defer></script>
     <script src="assets/js/modules/assistant/assistant-ui.js?v=1.0.9" defer></script>

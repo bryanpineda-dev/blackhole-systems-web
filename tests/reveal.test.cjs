@@ -105,7 +105,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
             await visible(page, '.dossier-card:not([hidden])');
             await page.locator('.cmd-btn[data-filter="all"]').click();
             await page.waitForFunction(() => !document.querySelector('.dossier-grid').classList.contains('is-transitioning'));
-            assert.equal(await page.locator('.dossier-card:not([hidden])').count(), 17);
+            assert.equal(await page.locator('.dossier-card:not([hidden])').count(), 24);
             await center(page, '.reviews-slider');
             await settled(page, '.reviews-slider');
             await center(page, '.review-card.is-active [data-review-next]');

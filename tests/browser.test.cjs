@@ -187,7 +187,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     test(`landing modal traps and restores focus at ${viewport.width}px without changing page layout`, async () => {
         await withPage({ viewport }, async (page, errors) => {
             await page.locator('#page-loader').waitFor({ state: 'detached' });
-            assert.equal(await page.locator('.dossier-card').count(), 17);
+            assert.equal(await page.locator('.dossier-card').count(), 24);
             const trigger = page.locator('[data-project-details]').first();
             await trigger.scrollIntoViewIfNeeded();
             const layout = (element) => ({ top: element.offsetTop, left: element.offsetLeft,
@@ -256,17 +256,17 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
         });
     });
 
-    test(`all 17 project screenshots load and match their modals at ${viewport.width}px`, async () => {
+    test(`all 24 project previews load and match their modals at ${viewport.width}px`, async () => {
         await withPage({ viewport }, async (page, errors) => {
             await page.locator('#page-loader').waitFor({ state: 'detached' });
-            const projects = await page.evaluate(() => window.BlackholeSystemsProjects.projects.map(({ id, preview }) => ({ id, preview })));
-            assert.equal(projects.length, 17);
+            const projects = await page.evaluate(() => window.BlackholeSystemsProjects.projects.map(({ id, preview, stack, url, sourceUrl }) => ({ id, preview, stack, url, sourceUrl })));
+            assert.equal(projects.length, 24);
             const inspectImage = async (image) => {
                 await image.decode();
                 return { src: image.getAttribute('src'), currentSrc: new URL(image.currentSrc).pathname.slice(1), width: image.naturalWidth, height: image.naturalHeight,
                     fit: getComputedStyle(image).objectFit, loading: image.loading };
             };
-            for (const { id, preview } of projects) {
+            for (const { id, preview, stack, url, sourceUrl } of projects) {
                 const card = page.locator(`[data-project-id="${id}"]`);
                 await card.scrollIntoViewIfNeeded();
                 const image = card.locator('[data-project-preview]');
@@ -277,6 +277,11 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 assert.ok(Math.abs(info.width / info.height - preview.width / preview.height) < 0.01, 'density-corrected intrinsic proportions stay valid');
                 assert.equal(info.fit, 'contain'); assert.equal(info.loading, 'lazy');
                 await assertFullPreview(image);
+                const capture = process.env.BLACKHOLE_QA_DIR && ['BH-023', 'BH-024', 'BH-025'].includes(id);
+                if (capture) {
+                    await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                    await card.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-card-${id}-${viewport.width}.png`), animations: 'disabled' });
+                }
                 await card.locator('[data-project-details]').click();
                 const modalImage = page.locator('[data-project-modal] [data-project-preview]');
                 const modalInfo = await modalImage.evaluate(inspectImage);
@@ -288,18 +293,48 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 assert.ok(inquiry.searchParams.get('text').includes(await page.locator('[data-project-modal-title]').textContent()));
                 assert.equal(await page.locator('[data-project-modal-scroll]').evaluate((element) => element.scrollTop), 0);
                 assert.equal(await page.locator('html').evaluate((element) => element.scrollWidth <= window.innerWidth), true);
-                if (process.env.BLACKHOLE_QA_DIR && ['BH-001', 'BH-002', 'BH-017', 'BH-018'].includes(id)) {
-                    await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                const stackTags = page.locator('[data-project-modal-tags] .tech-tag');
+                assert.deepEqual(await stackTags.allTextContents(), stack);
+                const stackIcons = await stackTags.locator('use').evaluateAll((icons) => icons.map((icon) => ({
+                    id: new URL(icon.getAttribute('href'), location.href).hash.slice(1), width: icon.getBBox().width
+                })));
+                assert.ok(stackIcons.length > 0 && stackIcons.every((icon) => icon.width > 0));
+                if (id === 'BH-002') assert.deepEqual(stackIcons.map((icon) => icon.id), ['fa-php', 'fa-wordpress', 'fa-cart-shopping']);
+                if (id === 'BH-019' || id === 'BH-020') assert.ok(stackIcons.some((icon) => icon.id === 'fa-python'));
+                const modalLink = page.locator('[data-project-modal-live]');
+                const cardLink = card.locator('.d-actions a');
+                if (url || sourceUrl) {
+                    const label = url ? 'LIVE_URL' : 'SOURCE_CODE';
+                    assert.equal(await modalLink.getAttribute('href'), url || sourceUrl);
+                    assert.equal(await modalLink.isVisible(), true);
+                    assert.equal((await modalLink.textContent()).trim(), label);
+                    assert.equal(await cardLink.getAttribute('href'), url || sourceUrl);
+                    assert.equal((await cardLink.textContent()).trim(), label);
+                } else {
+                    assert.equal(await cardLink.count(), 0);
+                    assert.equal(await modalLink.getAttribute('href'), null);
+                    assert.equal(await modalLink.isVisible(), false);
+                }
+                if (capture) {
                     await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-modal-${id}-${viewport.width}.png`), animations: 'disabled' });
+                    const panel = page.locator('[data-project-modal-scroll]');
+                    await panel.evaluate(element => { element.scrollTop = element.scrollHeight; });
+                    await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-details-${id}-${viewport.width}.png`), animations: 'disabled' });
                 }
                 await page.keyboard.press('Escape');
             }
-            for (const filter of ['featured', 'agency', 'all']) {
+            for (const filter of ['featured', 'agency', 'systems', 'lab', 'all']) {
                 await page.locator(`.cmd-btn[data-filter="${filter}"]`).click();
                 await page.locator('.dossier-grid.is-transitioning').waitFor({ state: 'detached' });
                 const visible = await page.locator('.dossier-card:not([hidden])').evaluateAll((cards) => cards.map((card) => card.dataset.filters));
                 assert.ok(visible.length > 0);
                 if (filter !== 'all') assert.ok(visible.every((value) => value.split(' ').includes(filter)));
+                if (filter === 'systems') {
+                    for (const id of ['BH-019', 'BH-020', 'BH-021', 'BH-022', 'BH-023']) {
+                        assert.ok(await page.locator(`[data-project-id="${id}"]`).isVisible());
+                    }
+                }
+                if (filter === 'lab') assert.deepEqual(await page.locator('.dossier-card:not([hidden])').evaluateAll(cards => cards.map(card => card.dataset.projectId)), ['BH-024', 'BH-025']);
             }
             assert.deepEqual(errors, []);
             if (process.env.BLACKHOLE_QA_DIR) {
@@ -361,6 +396,18 @@ for (const viewport of [
             await scroll.evaluate((element) => { element.scrollTop = element.scrollHeight; });
             assert.ok(await scroll.evaluate((element) => element.scrollTop > 0));
             assert.deepEqual(await close.boundingBox(), closeBefore);
+            const stack = modal.locator('[data-project-modal-tags]');
+            assert.equal(await stack.evaluate((element) => {
+                const bounds = element.getBoundingClientRect();
+                return [...element.children].every((tag) => {
+                    const box = tag.getBoundingClientRect();
+                    return box.left >= bounds.left - 1 && box.right <= bounds.right + 1 && tag.scrollWidth <= tag.clientWidth;
+                });
+            }), true, 'stack chips wrap without clipping at compact widths');
+            if (process.env.BLACKHOLE_QA_DIR && [320, 1920].includes(viewport.width)) {
+                await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                await page.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-stack-${viewport.width}.png`), animations: 'disabled' });
+            }
             const actions = modal.locator('.project-modal-actions');
             assert.equal(await actions.evaluate((element) => {
                 const box = element.getBoundingClientRect();

@@ -86,7 +86,7 @@ test('real archive filtering and responsive reflow keep the grid bounded without
         await page.waitForFunction(() => !document.body.classList.contains('is-loading'));
         for (const width of [1440, 390, 768, 320]) {
             await page.setViewportSize({ width, height: 900 });
-            for (const filter of ['booking', 'all']) {
+            for (const filter of ['booking', 'lab', 'all']) {
                 await page.locator(`.cmd-btn[data-filter="${filter}"]`).click();
                 await page.waitForFunction(() => !document.querySelector('[data-project-grid]').classList.contains('is-transitioning'));
                 await page.waitForFunction(() => {
@@ -100,7 +100,8 @@ test('real archive filtering and responsive reflow keep the grid bounded without
                         projects: [...document.querySelectorAll('.dossier-card')].filter(card => !card.hidden).length };
                 });
                 assert.equal(state.nodes, 0); assert.ok(Math.abs(state.paintHeight - state.height) < 1);
-                assert.ok(state.width <= state.viewport); assert.equal(state.projects, filter === 'all' ? 17 : 3);
+                assert.ok(state.width <= state.viewport);
+                assert.equal(state.projects, { all: 24, booking: 3, lab: 2 }[filter]);
             }
         }
         assert.deepEqual(errors, []);

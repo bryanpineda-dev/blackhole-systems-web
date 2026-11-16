@@ -104,7 +104,7 @@ test('assistant remembers ambiguous needs and can resolve the pending choice', (
 test('assistant reads every project name, code and domain from the public archive', () => {
     const { handoff, router, projects } = setup();
     for (const project of projects) {
-        for (const query of [project.name, project.id, new URL(project.url).hostname]) {
+        for (const query of [project.name, project.id, ...(project.url ? [new URL(project.url).hostname] : [])]) {
             assert.equal(router.analyze(query).project?.id, project.id, query);
         }
         const response = handoff.buildResponse(project.name);
@@ -114,7 +114,8 @@ test('assistant reads every project name, code and domain from the public archiv
         assert.ok(draft(contact).includes(project.name));
     }
     const fresh = setup();
-    assert.match(fresh.handoff.buildResponse('Projects', 'projects').html, /17 projects/);
+    assert.match(fresh.handoff.buildResponse('Projects', 'projects').html, /24 projects/);
+    assert.equal(fresh.router.analyze('github.com').project, null);
     assert.equal(fresh.router.analyze('My Choice').project, null);
 });
 

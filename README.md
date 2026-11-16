@@ -10,7 +10,7 @@ The public website and portfolio of Blackhole Systems: a developer-led studio bu
 
 The site brings the studio's work, services and contact experience together in a responsive interface, with a cinematic 3D hero and a static fallback for unsupported browsers.
 
-- **Project archive:** 17 public projects with real previews, filters, technical details and links to their websites.
+- **Project archive:** 24 projects with technical details, filters and reviewed previews. External actions distinguish project websites from public source code.
 - **Services and workflow:** custom interfaces, business software, integrations and automation, presented through the studio's visual identity.
 - **Guided project assistant:** a local, rule-based advisor with English/Spanish follow-ups and conversation context. It does not use an external generative AI API.
 - **Contact flow:** project inquiries through a quote form, plus contextual WhatsApp drafts for services and similar projects. Messages are reviewed and sent by the visitor.
@@ -57,7 +57,7 @@ The website is a static front end with no application bundler or production Node
 | Typography and icons | Local Outfit fonts and a focused SVG sprite |
 | Development checks | Node.js, Playwright and Sharp; development-only dependencies |
 
-Landing and tools have separate bootstraps over shared components. Fonts, icons and media are local; effect lifecycles avoid unnecessary offscreen work without flattening each section's animation behavior. Project cards use responsive previews while detail modals retain the original images.
+Landing and tools have separate bootstraps over shared components. Fonts, icons and media are local; effect lifecycles avoid unnecessary offscreen work without flattening each section's animation behavior. Project cards use responsive previews while detail modals retain the original images and pair supported technology labels with local SVG icons.
 
 ## Run Locally
 
@@ -88,15 +88,20 @@ Browser tests use installed Google Chrome by default and intercepted local resou
 
 ## Current Version
 
-Website version: **1.0.19**
+Website version: **1.0.20**
 
-Deployment tag: `v1.0.19`
+Deployment tag: `v1.0.20`
 
 Release changes:
 
-- Add a domain-scoped HTTP-to-HTTPS redirect while preserving hosting-managed `.well-known` paths.
-- Document a flat, tagged static publication package that excludes repository metadata and development tooling while retaining frontend and third-party license assets.
-- Add redirect configuration contracts; preserve all frontend HTML, styling, JavaScript, media and animation behavior.
+- Add Field Report Studio and PresenceCue to the archive as Python applications, with a real dashboard capture and a labeled workflow diagram respectively.
+- Link Field Report Studio to its public source code and keep PresenceCue's repository private. Keep both projects discoverable through the existing Systems filter and project assistant.
+- Add in-progress case studies for Grupo Enduro CR and Tu Assist with demo previews and project links. Use the new `sauex.com` domain for Tu Assist.
+- Refresh the SEBANA Matriz, ALAI Boutique, Coxbrand Academy, Entre Cantones and Troleando por Mexico case studies to reflect their documented implementation.
+- Add Besos Inocentes with a data-free registration preview and introduce the Lab filter for Save Outpost and Trash World.
+- Pair recognized technologies in project detail modals with icons from the existing local SVG sprite. Keep readable labels and leave feature-only tags as text.
+- Document WooCommerce in ALAI Boutique and WordPress in Coxbrand Academy without changing their card tags.
+- Verify icon rendering and wrapping on desktop and mobile while preserving project previews, modal interactions and QR Studio.
 
 The configured production domain is `blackholesys.com`. Hosting compression, cache behavior and physical-device performance still require validation on the actual deployment; local tests do not certify those conditions.
 

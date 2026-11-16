@@ -14,9 +14,28 @@
             .replace(/'/g, '&#039;');
     }
 
-    function renderIcon(icon) {
+    const stackIcons = new Map([
+        ['PHP', ['fa-php', '0 0 640 512']],
+        ['Python', ['fa-python', '0 0 448 512']],
+        ['React', ['fa-react', '0 0 512 512']],
+        ['Node.js', ['fa-node-js', '0 0 448 512']],
+        ['JavaScript', ['fa-js', '0 0 448 512']],
+        ['WordPress', ['fa-wordpress', '0 0 512 512']],
+        ['WordPress Plugin', ['fa-wordpress', '0 0 512 512']],
+        ['WooCommerce', ['fa-cart-shopping', '0 0 576 512']],
+        ['WhatsApp', ['ri-whatsapp-fill']]
+    ]);
+
+    function renderIcon(icon, viewBox = '0 0 24 24') {
         const id = escapeHtml(icon);
-        return `<i class="${id} bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#${id}"></use></svg></i>`;
+        return `<i class="${id} bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="${viewBox}" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#${id}"></use></svg></i>`;
+    }
+
+    function renderProjectStack(stack) {
+        return stack.map((tag) => {
+            const icon = stackIcons.get(tag);
+            return `<span class="tech-tag">${icon ? renderIcon(...icon) : ''}<span>${escapeHtml(tag)}</span></span>`;
+        }).join('');
     }
 
     function renderList(items) {
@@ -60,15 +79,22 @@
             : '';
 
         return `${fallback}<img class="project-preview-image" data-project-preview
-            src="${escapeHtml(preview.src)}" ${responsive} alt="${escapeHtml(`Homepage preview of ${project.name}`)}"
+            src="${escapeHtml(preview.src)}" ${responsive} alt="${escapeHtml(preview.alt || `Homepage preview of ${project.name}`)}"
             width="${escapeHtml(preview.width)}" height="${escapeHtml(preview.height)}"
             loading="${loading === 'eager' ? 'eager' : 'lazy'}" decoding="async">`;
+    }
+
+    function getProjectLink(project) {
+        if (project.url) return { href: project.url, label: 'LIVE_URL' };
+        if (project.sourceUrl) return { href: project.sourceUrl, label: 'SOURCE_CODE' };
+        return null;
     }
 
     function renderProjectCard(project) {
         const tags = project.stack.slice(0, 4)
             .map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`)
             .join('');
+        const link = getProjectLink(project);
 
         return `
             <article class="dossier-card" data-project-id="${escapeHtml(project.id)}" data-filters="${escapeHtml(project.filters.join(' '))}">
@@ -98,10 +124,10 @@
                                 <span>VIEW_DETAILS</span>
                                 <i class="ri-file-search-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-file-search-line"></use></svg></i>
                             </button>
-                            <a href="${escapeHtml(project.url)}" class="btn-terminal-sm request-demo" target="_blank" rel="noopener">
-                                <span>LIVE_URL</span>
-                                <i class="ri-external-link-line bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#ri-external-link-line"></use></svg></i>
-                            </a>
+                            ${link ? `<a href="${escapeHtml(link.href)}" class="btn-terminal-sm request-demo" target="_blank" rel="noopener">
+                                <span>${escapeHtml(link.label)}</span>
+                                ${renderIcon('ri-external-link-line')}
+                            </a>` : ''}
                         </div>
                     </div>
                 </div>
@@ -110,6 +136,8 @@
     }
 
     namespace.escapeHtml = escapeHtml;
+    namespace.getProjectLink = getProjectLink;
+    namespace.renderProjectStack = renderProjectStack;
     namespace.renderList = renderList;
     namespace.renderProjectMeta = renderProjectMeta;
     namespace.renderProjectPreview = renderProjectPreview;

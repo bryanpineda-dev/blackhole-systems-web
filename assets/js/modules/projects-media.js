@@ -115,6 +115,49 @@
                 "width": 640,
                 "height": 360
             }
+        ],
+        "assets/images/projects/bh-019-field-report-studio.jpg": [
+            {
+                "src": "assets/images/generated/projects/bh-019-field-report-studio-640.jpg",
+                "width": 640,
+                "height": 360
+            },
+            {
+                "src": "assets/images/generated/projects/bh-019-field-report-studio-960.jpg",
+                "width": 960,
+                "height": 540
+            }
+        ],
+        "assets/images/projects/bh-022-tu-assist.jpg": [
+            {
+                "src": "assets/images/generated/projects/bh-022-tu-assist-640.jpg",
+                "width": 640,
+                "height": 400
+            },
+            {
+                "src": "assets/images/generated/projects/bh-022-tu-assist-960.jpg",
+                "width": 960,
+                "height": 600
+            }
+        ],
+        "assets/images/projects/bh-023-besos-inocentes.jpg": [
+            {
+                "src": "assets/images/generated/projects/bh-023-besos-inocentes-960.jpg",
+                "width": 960,
+                "height": 580
+            }
+        ],
+        "assets/images/projects/bh-024-save-outpost.jpg": [
+            {
+                "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
+                "width": 640,
+                "height": 360
+            },
+            {
+                "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
+                "width": 960,
+                "height": 540
+            }
         ]
     }
 };

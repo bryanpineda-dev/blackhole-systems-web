@@ -16,21 +16,21 @@
             icon: 'ri-bank-line',
             category: 'Booking System',
             industry: 'Institutional / Union Services',
-            type: 'Informational Portal + Complex Booking Systems',
+            type: 'Institutional Portal + Modular WordPress System',
             role: 'Solo Developer',
             filters: ['featured', 'booking', 'systems', 'corporate'],
-            summary: 'Full redesign for an institutional website plus complex reservation systems with payment flows, per diem calculations, and an independent psychology booking subpage in progress.',
+            summary: 'A modular WordPress platform for SEBANA that connects the institutional site with recreation center bookings, membership applications, and appointment workflows.',
             built: [
-                'Complete informational website redesign',
-                'Complex reservation flows with payment gateway support',
-                'Per diem calculation system built in PHP',
-                'Independent psychology subpage with its own booking logic'
+                'Institutional site and content management',
+                'Recreation center booking flows with availability and billing',
+                'Membership application forms and staff review tools',
+                'Psychology appointment and per diem workflows'
             ],
             systems: [
-                'Custom PHP reservation workflows',
-                'Payment gateway integration',
-                'Advanced calculation logic',
-                'WordPress-based content management'
+                'SEBANA Matriz: modular WordPress architecture',
+                'Custom PHP workflows for forms and administration',
+                'Booking checkout and payment gateway integration',
+                'Dedicated panels for institutional operations'
             ],
             stack: ['PHP', 'WordPress', 'Payments', 'Reservations', 'Custom Logic']
         },
@@ -44,23 +44,23 @@
             icon: 'ri-shopping-bag-3-line',
             category: 'E-Commerce System',
             industry: 'Fashion / Retail',
-            type: 'Online Store + Custom Operations Dashboard',
+            type: 'Online Store + In-Store Point of Sale',
             role: 'Solo Developer',
             filters: ['featured', 'commerce', 'systems'],
-            summary: 'Elegant online clothing store focused on sales, with a custom PHP plugin for purchases, layaway orders, credit tracking, dashboards, and transactional email flows.',
+            summary: 'Fashion storefront and in-store point of sale built around shared WooCommerce inventory, with discounts, digital receipts, credit, and layaway workflows.',
             built: [
-                'Custom storefront aligned with the client brand',
-                'Personalized purchase, layaway, and credit tracking flows',
-                'Private dashboard for operational monitoring',
-                'Custom email flows for customer communication'
+                'Custom storefront, catalog, and checkout',
+                'In-store sales with size and color variants and discounts',
+                'Credit and layaway tracking in a dedicated admin dashboard',
+                'Digital receipts with a WhatsApp sharing workflow'
             ],
             systems: [
-                'Direct WordPress plugin development',
-                'PHP business logic',
-                'Dashboard views for order and credit follow-up',
-                'Custom transactional emails'
+                'Custom PHP plugin for WordPress and WooCommerce',
+                'Shared inventory and temporary stock reservations',
+                'Cash and transfer records with AFINIA card payment links',
+                'In-store sales history and digital receipt retrieval'
             ],
-            stack: ['PHP', 'WordPress Plugin', 'E-Commerce', 'Dashboard', 'Email']
+            stack: ['PHP', 'WordPress Plugin', 'E-Commerce', 'Dashboard', 'Email', 'WooCommerce']
         },
         {
             id: 'BH-003',
@@ -129,23 +129,23 @@
             icon: 'ri-graduation-cap-line',
             category: 'Education Platform',
             industry: 'Academy / Education',
-            type: 'Interactive PHP Website + Enrollment Dashboard',
+            type: 'Academy Website + Academic Operations Platform',
             role: 'Solo Developer',
             filters: ['featured', 'content', 'systems'],
-            summary: 'Modern and interactive academy website with extensive content, an advanced enrollment form, and a custom dashboard. Functional and moving through versioned development.',
+            summary: 'Public academy website and enrollment flow connected to custom academic operations. The student experience remains in development.',
             built: [
-                'Interactive informational academy experience',
-                'Advanced enrollment form',
-                'Custom dashboard connection',
-                'Versioned development for an active project'
+                'Public academy pages and enrollment form',
+                'Staff workspace for enrollments, groups, and student records',
+                'Academic planning, assignment, and materials workflows',
+                'Role-based foundations for the student portal'
             ],
             systems: [
-                'PHP-driven form logic',
-                'Dashboard integration',
-                'Custom content structure',
-                'Lead capture workflow'
+                'Custom WordPress and PHP academic modules',
+                'Separate staff and student access rules',
+                'Calendar, notices, and academic resources',
+                'Administrative tracking across enrollment and courses'
             ],
-            stack: ['PHP', 'Forms', 'Dashboard', 'Education', 'In Progress']
+            stack: ['PHP', 'Forms', 'Dashboard', 'Education', 'In Progress', 'WordPress']
         },
         {
             id: 'BH-006',
@@ -185,21 +185,21 @@
             icon: 'ri-newspaper-line',
             category: 'Content Platform',
             industry: 'Local News / Media',
-            type: 'Editorial Website',
+            type: 'Editorial Website + Publishing System',
             role: 'Solo Developer',
             filters: ['content'],
-            summary: 'Local news platform focused on fast publishing for main and secondary authors, supporting frequent daily posts with a sober design built for quick reading.',
+            summary: 'Local news publication with a custom WordPress front page, paginated sections, and article layouts designed for regular publishing and easy reading.',
             built: [
-                'Editorial structure for local notes and news',
-                'Author-focused publishing flow',
-                'Design optimized for fast content consumption',
-                'Daily posting support for high content rhythm'
+                'Editorial homepage with masthead and latest-news ticker',
+                'Category pages with pagination and editorial sidebars',
+                'Article pages with metadata and related stories',
+                'Publishing workflow for multiple authors'
             ],
             systems: [
-                'WordPress editorial workflow',
-                'Post/category architecture',
-                'Responsive reading experience',
-                'Content scalability'
+                'Custom WordPress editorial template matrix',
+                'Dynamic sections driven by post categories',
+                'Responsive article layouts and sharing controls',
+                'Configurable routing for editorial templates'
             ],
             stack: ['WordPress', 'Editorial', 'Content', 'Authors', 'News']
         },
@@ -443,18 +443,18 @@
             type: 'Custom Website + Destination Catalog',
             role: 'Solo Developer',
             filters: ['corporate'],
-            summary: 'Custom travel website with a destination catalog, extensive photo galleries, and destination-specific WhatsApp inquiry links for tours in Mexico.',
+            summary: 'Travel website for tours in Mexico, with a filterable destination catalog, extensive photo galleries, and WhatsApp inquiries tied to each tour.',
             built: [
-                'Complete website redesign built from scratch',
-                'Destination catalog and informational pages',
-                'Extensive photo galleries for each destination',
-                'Destination-specific WhatsApp inquiry paths'
+                'Redesign with home, about, and destination pages',
+                'Filterable catalog and individual tour pages',
+                'Destination galleries with full-image viewing',
+                'WhatsApp inquiries that identify the selected tour'
             ],
             systems: [
-                'Custom PHP matrix through WordPress shortcodes',
-                'Destination and gallery content structure',
-                'Prefilled WhatsApp inquiry links',
-                'Tour information and contact flows'
+                'Reusable PHP templates through WordPress shortcodes',
+                'Responsive masonry galleries with progressive loading',
+                'Destination content managed without a page builder',
+                'Tour inquiries without an online booking checkout'
             ],
             stack: ['PHP', 'WordPress', 'Shortcodes', 'WhatsApp', 'Travel']
         },
@@ -486,6 +486,203 @@
                 'Data management without third-party dependencies'
             ],
             stack: ['WordPress', 'Custom Plugin', 'PDF Search', 'Local Data']
+        },
+        {
+            id: 'BH-019',
+            preview: { src: 'assets/images/projects/bh-019-field-report-studio.jpg', width: 1280, height: 720, alt: 'Field Report Studio dashboard with sample service reports' },
+            name: 'Field Report Studio',
+            sourceUrl: 'https://github.com/bryanpineda-dev/field-report-studio',
+            status: 'LOCAL_APP',
+            statusType: 'success',
+            icon: 'ri-file-search-line',
+            category: 'Field Reporting Software',
+            industry: 'Field Services',
+            type: 'Local Reporting App + PDF Export',
+            role: 'Solo Developer',
+            association: 'Blackhole Systems product',
+            filters: ['systems'],
+            summary: 'Local software for service teams to create numbered field reports, keep a searchable history, and export branded PDFs without a cloud subscription.',
+            built: [
+                'Reporting workspace with searchable local history',
+                'Reusable templates for common service visits',
+                'Company branding and bilingual interface',
+                'Numbered PDF exports for sharing with customers'
+            ],
+            systems: [
+                'Python application with SQLite storage',
+                'Local report creation and export',
+                'Configurable templates and brand settings',
+                'Public Community edition with sample reports'
+            ],
+            stack: ['Python', 'SQLite', 'PDF Export', 'Local Storage']
+        },
+        {
+            id: 'BH-020',
+            preview: { src: 'assets/images/projects/bh-020-presencecue.jpg', width: 1400, height: 620, alt: 'PresenceCue workflow diagram: camera detects a visitor, plays a welcome video, then resumes the gallery' },
+            name: 'PresenceCue',
+            status: 'WINDOWS_APP',
+            statusType: 'private',
+            icon: 'ri-camera-lens-line',
+            category: 'Interactive Display Software',
+            industry: 'Events / Interactive Displays',
+            type: 'Windows App + Camera Input',
+            role: 'Solo Developer',
+            filters: ['systems'],
+            summary: 'Windows app that uses a camera to detect when someone approaches, plays a welcome video on the selected display, and then returns to the event gallery.',
+            built: [
+                'Camera and display selection for event operators',
+                'Presence-triggered full-screen video playback',
+                'Gallery playback with automatic resumption',
+                'Timing and orientation controls for each setup'
+            ],
+            systems: [
+                'Camera-based presence detection',
+                'Playback on an operator-selected display',
+                'Optional gallery sync from a public FotoShare event link',
+                'Local gallery playback when connectivity is unavailable'
+            ],
+            stack: ['Python', 'Windows', 'FotoShare', 'Computer Vision']
+        },
+        {
+            id: 'BH-021',
+            preview: { src: 'assets/images/projects/bh-021-grupo-enduro-cr.jpg', width: 1440, height: 760, alt: 'Grupo Enduro CR compatibility finder with vehicle and parts filters in a demo environment' },
+            name: 'Grupo Enduro CR',
+            url: 'https://endurocr.com/',
+            status: 'IN_PROGRESS',
+            statusType: 'pending',
+            icon: 'ri-shopping-bag-3-line',
+            category: 'Commerce and Operations Platform',
+            industry: 'Vehicle Parts / Retail',
+            type: 'Parts Catalog + Commercial Operations Portal',
+            role: 'Solo Developer',
+            association: 'Agency collaboration',
+            filters: ['commerce', 'systems', 'agency'],
+            summary: 'A parts catalog that helps buyers find compatible products by vehicle, with a commercial portal for shops and workshops and tools for the Enduro team.',
+            built: [
+                'Public catalog for parts and accessories',
+                'Compatibility finder by vehicle type, year, make, and model',
+                'Customer portal and commercial account applications',
+                'Administration for catalog, users, and commercial operations'
+            ],
+            systems: [
+                'Custom WordPress matrix connected to WooCommerce',
+                'Vehicle and product compatibility lookup',
+                'Commercial account approval for shops and workshops',
+                'Special-order inquiries and printable commercial documents'
+            ],
+            stack: ['PHP', 'WordPress', 'WooCommerce', 'Vehicle Compatibility']
+        },
+        {
+            id: 'BH-022',
+            preview: { src: 'assets/images/projects/bh-022-tu-assist.jpg', width: 1440, height: 900, alt: 'Tu Assist travel assistance quote form using a fictional agency in its demo environment' },
+            name: 'Tu Assist',
+            url: 'https://sauex.com/',
+            status: 'IN_PROGRESS',
+            statusType: 'pending',
+            icon: 'ri-plane-line',
+            category: 'Travel Assistance Quoting Platform',
+            industry: 'Travel Assistance',
+            type: 'Quote Comparison + Agency Portal',
+            role: 'Solo Developer',
+            filters: ['systems'],
+            summary: 'Travel assistance quoting platform for direct customers and agencies, with plan comparison, quote history, and commercial document workflows.',
+            built: [
+                'Quote flow that uses region, travel dates, and ages',
+                'Side-by-side comparison of assistance plans',
+                'Commercial workspace for agencies and quotes',
+                'Quote PDFs and history for provider documents'
+            ],
+            systems: [
+                'Configurable plans, rates, and coverage rules',
+                'Agency-specific access and quote follow-up',
+                'Stored quotes with their original prices and coverage',
+                'Demo environment with sample rates and no live payments'
+            ],
+            stack: ['React', 'TypeScript', 'Node.js', 'PDF Export']
+        },
+        {
+            id: 'BH-023',
+            preview: { src: 'assets/images/projects/bh-023-besos-inocentes.jpg', width: 1440, height: 870, alt: 'Besos Inocentes onboarding demo showing the empty registration form' },
+            name: 'Besos Inocentes',
+            status: 'WORDPRESS_APP',
+            statusType: 'private',
+            icon: 'ri-team-line',
+            category: 'Community Platform',
+            industry: 'Social / Dating',
+            type: 'Member Platform + Moderation Tools',
+            role: 'Solo Developer',
+            filters: ['systems'],
+            summary: 'An independent dating platform built from scratch, with member accounts, profiles, mutual matches, private chat, and tools for community moderation.',
+            built: [
+                'Public landing and registration with email verification',
+                'Member profiles and discovery based on preferences',
+                'Mutual matching and private conversations',
+                'Management dashboard for reviews, members, and reports'
+            ],
+            systems: [
+                'Custom WordPress plugin with separate member and staff access',
+                'Profile visibility, blocking, and reporting controls',
+                'Moderation queues for profile review and reports',
+                'Account settings and access recovery'
+            ],
+            stack: ['PHP', 'WordPress', 'JavaScript', 'Moderation']
+        },
+        {
+            id: 'BH-024',
+            preview: { src: 'assets/images/projects/bh-024-save-outpost.jpg', width: 1440, height: 810, alt: 'Save Outpost diagram covering runs, progress, and friend comparisons without game artwork' },
+            name: 'Save Outpost',
+            status: 'EXPERIMENT',
+            statusType: 'private',
+            icon: 'ri-code-box-line',
+            category: 'Playthrough Tracker',
+            industry: 'Games / Interactive Tools',
+            type: 'Game Library + Progress Journal',
+            role: 'Solo Developer',
+            association: 'Blackhole Lab',
+            filters: ['lab'],
+            summary: 'A playthrough tracker and game journal for organizing runs, keeping checklists, and comparing progress with accepted friends.',
+            built: [
+                'Game library with a progress view for each playthrough',
+                'Searchable game checklists with completion filters',
+                'Personal run notes and progress journal',
+                'Side-by-side progress comparisons between friends'
+            ],
+            systems: [
+                'Independent progress for each run',
+                'Account-based continuity across devices',
+                'Controls for sharing progress with accepted friends',
+                'Progress backup and import workflow'
+            ],
+            stack: ['PHP', 'JavaScript', 'Progress Tracking', 'Game Checklists']
+        },
+        {
+            id: 'BH-025',
+            preview: { src: 'assets/images/projects/bh-025-trash-world.jpg', width: 1424, height: 802, alt: 'Daytime render of the western garden in Trash World' },
+            name: 'Trash World',
+            sourceUrl: 'https://github.com/bryanpineda-dev/trash-world',
+            status: 'EXPERIMENT',
+            statusType: 'private',
+            icon: 'ri-code-box-line',
+            category: 'Pixel Art Experiment',
+            industry: 'Games / Interactive Art',
+            type: 'Canvas 2D World + Autonomous Character',
+            role: 'Solo Developer',
+            association: 'Blackhole Lab',
+            filters: ['lab'],
+            summary: 'A mobile-first pixel-art world where a small autonomous character explores a forest cemetery as the light and surroundings change.',
+            built: [
+                'Canvas 2D world built around pixel-art environments',
+                'Autonomous character behavior and ambient activity',
+                'Day and night cycle with changing light',
+                'Responsive viewport and local progress saving'
+            ],
+            systems: [
+                'JavaScript simulation and Canvas 2D rendering',
+                'Layered pixel art and environment updates',
+                'Local persistence without a hosted account',
+                'Original day and night preview renders'
+            ],
+            stack: ['JavaScript', 'Canvas 2D', 'Pixel Art', 'Local Storage']
         }
     ];
 })(window.BlackholeSystemsProjects = window.BlackholeSystemsProjects || {});

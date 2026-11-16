@@ -132,6 +132,55 @@
       "src": "assets/images/projects/bh-018-vision-territorial.jpg",
       "width": 1440,
       "height": 810
+    },
+    {
+      "id": "BH-019",
+      "src": "assets/images/projects/bh-019-field-report-studio.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "Field Report Studio dashboard with sample service reports"
+    },
+    {
+      "id": "BH-020",
+      "src": "assets/images/projects/bh-020-presencecue.jpg",
+      "width": 1400,
+      "height": 620,
+      "alt": "PresenceCue workflow diagram: camera detects a visitor, plays a welcome video, then resumes the gallery"
+    },
+    {
+      "id": "BH-021",
+      "src": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
+      "width": 1440,
+      "height": 760,
+      "alt": "Grupo Enduro CR compatibility finder with vehicle and parts filters in a demo environment"
+    },
+    {
+      "id": "BH-022",
+      "src": "assets/images/projects/bh-022-tu-assist.jpg",
+      "width": 1440,
+      "height": 900,
+      "alt": "Tu Assist travel assistance quote form using a fictional agency in its demo environment"
+    },
+    {
+      "id": "BH-023",
+      "src": "assets/images/projects/bh-023-besos-inocentes.jpg",
+      "width": 1440,
+      "height": 870,
+      "alt": "Besos Inocentes onboarding demo showing the empty registration form"
+    },
+    {
+      "id": "BH-024",
+      "src": "assets/images/projects/bh-024-save-outpost.jpg",
+      "width": 1440,
+      "height": 810,
+      "alt": "Save Outpost diagram covering runs, progress, and friend comparisons without game artwork"
+    },
+    {
+      "id": "BH-025",
+      "src": "assets/images/projects/bh-025-trash-world.jpg",
+      "width": 1424,
+      "height": 802,
+      "alt": "Daytime render of the western garden in Trash World"
     }
   ],
   "sources": [
@@ -274,6 +323,55 @@
       "bytes": 333518,
       "width": 1440,
       "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-019-field-report-studio.jpg",
+      "sha256": "779e5a2073b808e98cae1177ed924cd551058541c1c5615bc17edee7a7c3a081",
+      "bytes": 162410,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "assets/images/projects/bh-020-presencecue.jpg",
+      "sha256": "ab974ea387b8a89822d672f2fc7abefcba0ae2c7b9501c1cd37e60dd6527d7fa",
+      "bytes": 194210,
+      "width": 1400,
+      "height": 620
+    },
+    {
+      "src": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
+      "sha256": "a95f34b0cdf3f6878f443cad477d1ed5908018aab98ce6174081145c4aeaecd1",
+      "bytes": 162114,
+      "width": 1440,
+      "height": 760
+    },
+    {
+      "src": "assets/images/projects/bh-022-tu-assist.jpg",
+      "sha256": "f02486517f329e0c4f9624d651786a776a669e45e1d4b066e63317b0929a5748",
+      "bytes": 102041,
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "src": "assets/images/projects/bh-023-besos-inocentes.jpg",
+      "sha256": "d39144da0cc468c1bbc644c00c21c9e5436b9931d7fc25a81a89238a517756d2",
+      "bytes": 77027,
+      "width": 1440,
+      "height": 870
+    },
+    {
+      "src": "assets/images/projects/bh-024-save-outpost.jpg",
+      "sha256": "c8c12f655f88f99b134237a831fe0ce2c6e3c37530f648f1bfb4fa8734aa08da",
+      "bytes": 119669,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "src": "assets/images/projects/bh-025-trash-world.jpg",
+      "sha256": "0c8fe29e9bc44aa72ca96332f34f424e6ed0a7b3b2a6afbdca63abe9fcdc77d8",
+      "bytes": 757172,
+      "width": 1424,
+      "height": 802
     }
   ],
   "assets": [
@@ -490,6 +588,76 @@
       "source": "assets/images/projects/bh-018-vision-territorial.jpg",
       "psnr": 45.77573467317399,
       "meanError": 0.8431380208333333
+    },
+    {
+      "src": "assets/images/generated/projects/bh-019-field-report-studio-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 64222,
+      "sha256": "100a5988ad047400267effee51590a78c8834a3443e51d6e54cbb3f8ba62cf48",
+      "source": "assets/images/projects/bh-019-field-report-studio.jpg",
+      "psnr": 50.848969044602434,
+      "meanError": 0.24768952546296297
+    },
+    {
+      "src": "assets/images/generated/projects/bh-019-field-report-studio-960.jpg",
+      "width": 960,
+      "height": 540,
+      "bytes": 130639,
+      "sha256": "1cb9f5f6e993962c099b8f400804ba97d95531265e2f06771509aceccbc787aa",
+      "source": "assets/images/projects/bh-019-field-report-studio.jpg",
+      "psnr": 51.00729606261208,
+      "meanError": 0.2264525462962963
+    },
+    {
+      "src": "assets/images/generated/projects/bh-022-tu-assist-640.jpg",
+      "width": 640,
+      "height": 400,
+      "bytes": 44150,
+      "sha256": "fec9d98504f4d1da5fef7e1ad4d38bcdece6ebec7eef2e23f2d1bcdb1540284e",
+      "source": "assets/images/projects/bh-022-tu-assist.jpg",
+      "psnr": 52.612635862514104,
+      "meanError": 0.16861067708333333
+    },
+    {
+      "src": "assets/images/generated/projects/bh-022-tu-assist-960.jpg",
+      "width": 960,
+      "height": 600,
+      "bytes": 73603,
+      "sha256": "c21fa49ad0c844811171a417545380fc3f6670ea1ad5b00055c3a3ce308524c2",
+      "source": "assets/images/projects/bh-022-tu-assist.jpg",
+      "psnr": 53.60778254699012,
+      "meanError": 0.12852372685185184
+    },
+    {
+      "src": "assets/images/generated/projects/bh-023-besos-inocentes-960.jpg",
+      "width": 960,
+      "height": 580,
+      "bytes": 57873,
+      "sha256": "ef844bdf9164396ee89cb56038865ab925f10aa093a45f136f77cccd2ed5d97e",
+      "source": "assets/images/projects/bh-023-besos-inocentes.jpg",
+      "psnr": 55.59264820614163,
+      "meanError": 0.09318306992337165
+    },
+    {
+      "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
+      "width": 640,
+      "height": 360,
+      "bytes": 53113,
+      "sha256": "12a123a6f3ab2bcecd4e1c62e53fa664c7c6a6d87ca92b2d0f28f9a2f9382be7",
+      "source": "assets/images/projects/bh-024-save-outpost.jpg",
+      "psnr": 49.576667266312526,
+      "meanError": 0.275390625
+    },
+    {
+      "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
+      "width": 960,
+      "height": 540,
+      "bytes": 90042,
+      "sha256": "54ac4b6490b1b9027c49a6916bd933d9f6f9f96d0b93ac614a86653d555ed316",
+      "source": "assets/images/projects/bh-024-save-outpost.jpg",
+      "psnr": 50.7192480890438,
+      "meanError": 0.208525591563786
     }
   ],
   "projects": {
@@ -604,6 +772,49 @@
         "width": 640,
         "height": 360
       }
+    ],
+    "assets/images/projects/bh-019-field-report-studio.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-019-field-report-studio-640.jpg",
+        "width": 640,
+        "height": 360
+      },
+      {
+        "src": "assets/images/generated/projects/bh-019-field-report-studio-960.jpg",
+        "width": 960,
+        "height": 540
+      }
+    ],
+    "assets/images/projects/bh-022-tu-assist.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-022-tu-assist-640.jpg",
+        "width": 640,
+        "height": 400
+      },
+      {
+        "src": "assets/images/generated/projects/bh-022-tu-assist-960.jpg",
+        "width": 960,
+        "height": 600
+      }
+    ],
+    "assets/images/projects/bh-023-besos-inocentes.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-023-besos-inocentes-960.jpg",
+        "width": 960,
+        "height": 580
+      }
+    ],
+    "assets/images/projects/bh-024-save-outpost.jpg": [
+      {
+        "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
+        "width": 640,
+        "height": 360
+      },
+      {
+        "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
+        "width": 960,
+        "height": 540
+      }
     ]
   },
   "rejected": [
@@ -712,6 +923,41 @@
       "width": 960,
       "reason": "insufficient-byte-saving",
       "bytes": 326807
+    },
+    {
+      "source": "assets/images/projects/bh-020-presencecue.jpg",
+      "width": 640,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-020-presencecue.jpg",
+      "width": 960,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
+      "width": 640,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
+      "width": 960,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-023-besos-inocentes.jpg",
+      "width": 640,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-025-trash-world.jpg",
+      "width": 640,
+      "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-025-trash-world.jpg",
+      "width": 960,
+      "reason": "exact-aspect-or-size"
     }
   ]
 }

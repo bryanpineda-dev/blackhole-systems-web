@@ -465,6 +465,10 @@
     width: 100%;
 }
 
+.d-actions > :only-child {
+    grid-column: 1 / -1;
+}
+
 /* Command buttons. */
 .btn-terminal-sm {
     display: inline-flex;
@@ -784,6 +788,16 @@ body.project-modal-open {
     margin: 0;
 }
 
+.project-modal-tags .tech-tag {
+    gap: var(--space-xs);
+    min-height: 1.75rem;
+}
+
+.project-modal-tags .tech-tag .bh-icon {
+    flex: none;
+    font-size: 1rem;
+}
+
 .project-modal-actions {
     --layout-actions-align: stretch;
 
@@ -797,6 +811,14 @@ body.project-modal-open {
 .project-modal-actions .btn-terminal-sm {
     width: auto;
     min-width: 0;
+}
+
+.project-modal-actions > [hidden] {
+    display: none;
+}
+
+.project-modal-actions > [hidden] + .btn-terminal-sm {
+    grid-column: 1 / -1;
 }
 
 .project-modal-actions .btn-terminal-sm > span {

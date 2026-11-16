@@ -47,13 +47,15 @@ test('local HTML resources, links and CSS imports resolve', () => {
 test('portfolio records, filters and rendering share a valid unique dataset', () => {
     const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
     const filters = new Set([...read('index.html').matchAll(/data-filter="([^"]+)"/g)].map((match) => match[1]));
-    assert.equal(namespace.projects.length, 17);
+    assert.equal(namespace.projects.length, 24);
     assert.equal(new Set(namespace.projects.map((project) => project.id)).size, namespace.projects.length);
     for (const project of namespace.projects) {
-        for (const field of ['id', 'name', 'url', 'icon', 'category', 'industry', 'type', 'role', 'summary', 'status', 'statusType']) {
+        for (const field of ['id', 'name', 'icon', 'category', 'industry', 'type', 'role', 'summary', 'status', 'statusType']) {
             assert.ok(project[field], `${project.id}: missing ${field}`);
         }
-        assert.equal(new URL(project.url).protocol, 'https:');
+        assert.ok(!(project.url && project.sourceUrl));
+        const link = namespace.getProjectLink(project);
+        if (link) assert.equal(new URL(link.href).protocol, 'https:');
         for (const field of ['built', 'systems', 'stack', 'filters']) assert.ok(project[field].length, `${project.id}: ${field}`);
         for (const filter of project.filters) assert.ok(filters.has(filter), `${project.id}: unknown filter ${filter}`);
         assert.ok(namespace.renderProjectCard(project).includes(`data-project-id="${project.id}"`));
@@ -65,6 +67,21 @@ test('portfolio records, filters and rendering share a valid unique dataset', ()
         }
     }
     assert.equal(namespace.projects.some((project) => project.id === 'BH-012'), false);
+    const reportStudio = namespace.projects.find(project => project.id === 'BH-019');
+    assert.equal(namespace.getProjectLink(reportStudio).label, 'SOURCE_CODE');
+    assert.equal(namespace.getProjectLink(reportStudio).href, 'https://github.com/bryanpineda-dev/field-report-studio');
+    for (const [id, filter] of [['BH-020', 'systems'], ['BH-023', 'systems'], ['BH-024', 'lab']]) {
+        const project = namespace.projects.find(project => project.id === id);
+        assert.equal(namespace.getProjectLink(project), null);
+        assert.doesNotMatch(namespace.renderProjectCard(project), /<a\b|LIVE_URL|SOURCE_CODE/);
+        assert.ok(project.filters.includes(filter));
+    }
+    const getLink = id => namespace.getProjectLink(namespace.projects.find(project => project.id === id));
+    assert.equal(getLink('BH-021').href, 'https://endurocr.com/');
+    assert.equal(getLink('BH-022').href, 'https://sauex.com/');
+    assert.equal(getLink('BH-022').label, 'LIVE_URL');
+    assert.equal(getLink('BH-025').label, 'SOURCE_CODE');
+    assert.deepEqual(Array.from(namespace.projects.filter(project => project.filters.includes('lab')), project => project.id), ['BH-024', 'BH-025']);
     assert.ok(read('index.html').includes('Andrea'));
     assert.equal(namespace.escapeHtml('<script>"&\'').includes('<script>'), false);
 });
@@ -86,6 +103,30 @@ test('assistant explicit routes, fallback and handoff encode user input safely',
     for (const id of [...data.defaultQuickActions, ...data.fallbackQuickActions]) assert.ok(data.serviceCatalog[id]);
 });
 
+test('project modal stacks render accessible local icons and keep unknown tags as escaped text', () => {
+    const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
+    const known = [
+        ['PHP', 'fa-php'], ['Python', 'fa-python'], ['React', 'fa-react'], ['Node.js', 'fa-node-js'],
+        ['JavaScript', 'fa-js'],
+        ['WordPress', 'fa-wordpress'], ['WordPress Plugin', 'fa-wordpress'],
+        ['WooCommerce', 'fa-cart-shopping'], ['WhatsApp', 'ri-whatsapp-fill']
+    ];
+    for (const [tag, icon] of known) {
+        const html = namespace.renderProjectStack([tag]);
+        assert.ok(html.includes(`assets/icons/icons.svg?v=1.0.10#${icon}`));
+        assert.ok(html.includes(`<span>${tag}</span>`));
+        assert.match(html, /<svg[^>]*aria-hidden="true" focusable="false">/);
+    }
+    assert.equal(namespace.renderProjectStack(['<Custom>', 'constructor']),
+        '<span class="tech-tag"><span>&lt;Custom&gt;</span></span><span class="tech-tag"><span>constructor</span></span>');
+    for (const project of namespace.projects) {
+        assert.match(namespace.renderProjectStack(project.stack), /<svg/);
+        const cardTags = namespace.renderProjectCard(project).match(/<div class="d-tags">(.*?)<\/div>/)[1];
+        assert.doesNotMatch(cardTags, /<svg/);
+        assert.equal((cardTags.match(/class="tech-tag"/g) || []).length, 4);
+    }
+});
+
 test('all project previews resolve to local reviewed JPEGs with stable dimensions and shared rendering', () => {
     const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
     const sources = new Set();
@@ -104,7 +145,8 @@ test('all project previews resolve to local reviewed JPEGs with stable dimension
         assert.ok(modal.includes(`src="${preview.src}"`));
         assert.ok(modal.includes('loading="eager"'));
         assert.ok(modal.includes(`width="${preview.width}" height="${preview.height}"`));
-        assert.ok(modal.includes(`alt="Homepage preview of ${namespace.escapeHtml(project.name)}"`));
+        const alt = preview.alt || `Homepage preview of ${project.name}`;
+        assert.ok(modal.includes(`alt="${namespace.escapeHtml(alt)}"`));
     }
     assert.equal(sources.size, namespace.projects.length);
     assert.equal(fs.readdirSync(path.join(root, 'assets/images/projects')).length, sources.size);

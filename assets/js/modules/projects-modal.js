@@ -5,10 +5,11 @@
 (function (namespace) {
     'use strict';
 
-    const escapeHtml = namespace.escapeHtml;
     const renderList = namespace.renderList;
     const renderProjectMeta = namespace.renderProjectMeta;
     const renderProjectPreview = namespace.renderProjectPreview;
+    const renderProjectStack = namespace.renderProjectStack;
+    const getProjectLink = namespace.getProjectLink;
 
     function setText(element, value) {
         if (element) element.textContent = value;
@@ -31,7 +32,7 @@
     namespace.mountProjectModal = function mountProjectModal(options) {
         const { modal, grid, projects } = options;
 
-        if (!modal || !grid || !projects.length || typeof escapeHtml !== 'function') return;
+        if (!modal || !grid || !projects.length || typeof renderProjectStack !== 'function') return;
         if (modal.dataset.projectModalReady === 'true') return;
 
         let previousFocus = null;
@@ -113,10 +114,14 @@
             setHtml(modalFields.meta, renderProjectMeta(project));
             setHtml(modalFields.built, renderList(project.built));
             setHtml(modalFields.systems, renderList(project.systems));
-            setHtml(modalFields.tags, project.stack.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join(''));
+            setHtml(modalFields.tags, renderProjectStack(project.stack));
 
             if (modalFields.live) {
-                modalFields.live.href = project.url;
+                const link = getProjectLink(project);
+                modalFields.live.hidden = !link;
+                if (link) modalFields.live.href = link.href;
+                else modalFields.live.removeAttribute('href');
+                setText(modalFields.live.querySelector('span'), link?.label || '');
             }
 
             if (modalFields.inquiry) {
