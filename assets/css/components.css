@@ -246,10 +246,10 @@ body.is-loading {
 }
 
 .loader-radial-ring:nth-child(2n) .loader-radial-ray::before {
-    background: var(--accent-purple);
+    background: var(--primary-blue);
     box-shadow:
-        0 0 10px var(--purple-alpha-25),
-        0 0 24px var(--purple-alpha-15);
+        0 0 10px var(--blue-alpha-25),
+        0 0 24px var(--blue-alpha-15);
 }
 
 .loader-radial-ring:nth-child(4n) .loader-radial-ray::before {
@@ -882,11 +882,6 @@ body.is-loading {
     --chip-color: var(--primary-white);
 }
 
-.bh-chip--purple {
-    --chip-border: 1px solid var(--purple-alpha-25);
-    --chip-bg: var(--purple-alpha-10);
-    --chip-color: var(--primary-white);
-}
 
 .bh-chip--green {
     --chip-border: 1px solid var(--green-alpha-35);
@@ -1085,7 +1080,7 @@ body.is-loading {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
 .orb-1 { width: 390px; height: 390px; background: var(--primary-blue); top: -2%; right: 0; animation: morphBlob1 25s ease-in-out infinite; }
-.orb-2 { width: 285px; height: 285px; background: var(--accent-purple); bottom: -8%; right: 18%; animation: morphBlob2 30s ease-in-out infinite; }
+.orb-2 { width: 285px; height: 285px; background: var(--primary-blue); bottom: -8%; right: 18%; animation: morphBlob2 30s ease-in-out infinite; }
 .orb-3 { width: 400px; height: 400px; background: var(--primary-blue); top: 5%; right: 5%; animation: morphBlob1 25s ease-in-out infinite; }
 .orb-4 { width: 300px; height: 300px; background: var(--primary-white); bottom: 0; right: 25%; animation: morphBlob2 30s ease-in-out infinite; }
 

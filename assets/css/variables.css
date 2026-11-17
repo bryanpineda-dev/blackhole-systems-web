@@ -21,8 +21,6 @@
     --primary-white: #FFFFFF;
     --primary-black: #000000;  
     
-    --accent-purple-rgb: 123, 44, 191;
-    --accent-purple: rgb(var(--accent-purple-rgb));
     --accent-green: #10b981;  
     --accent-green-rgb: 16, 185, 129;
     --accent-amber: #fbbf24;
@@ -36,7 +34,7 @@
     --text-dim: var(--text-muted);
 
     /* --- CODE SYNTAX COLORS --- */
-    --syntax-keyword: #c678dd;
+    --syntax-keyword: #8bc5ff;
     --syntax-function: #61afef;
     --syntax-string: #98c379;
 
@@ -45,13 +43,9 @@
     --blue-alpha-10: rgba(var(--primary-blue-rgb), 0.1);
     --blue-alpha-15: rgba(var(--primary-blue-rgb), 0.15);
     --blue-alpha-20: rgba(var(--primary-blue-rgb), 0.2);
+    --blue-alpha-25: rgba(var(--primary-blue-rgb), 0.25);
     --blue-alpha-50: rgba(var(--primary-blue-rgb), 0.5);
     --blue-alpha-85: rgba(var(--primary-blue-rgb), 0.85);
-
-    --purple-alpha-05: rgba(var(--accent-purple-rgb), 0.05);
-    --purple-alpha-10: rgba(var(--accent-purple-rgb), 0.1);
-    --purple-alpha-15: rgba(var(--accent-purple-rgb), 0.15);
-    --purple-alpha-25: rgba(var(--accent-purple-rgb), 0.25);
 
     --green-alpha-10: rgba(var(--accent-green-rgb), 0.1);
     --green-alpha-35: rgba(var(--accent-green-rgb), 0.35);
@@ -134,12 +128,12 @@
         linear-gradient(180deg, rgba(9, 12, 20, 0.76), rgba(3, 5, 8, 0.74));
     --surface-panel-rim:
         linear-gradient(90deg, transparent, var(--white-alpha-05), transparent),
-        radial-gradient(circle at 92% 0%, var(--purple-alpha-15), transparent 36%);
+        radial-gradient(circle at 92% 0%, var(--blue-alpha-15), transparent 36%);
     --surface-band-bg:
         linear-gradient(90deg, var(--white-alpha-05), transparent),
         linear-gradient(180deg, rgba(8, 12, 20, 0.72), rgba(3, 5, 8, 0.66));
-    --surface-note-border: 1px solid var(--purple-alpha-25);
-    --surface-note-bg: var(--purple-alpha-10);
+    --surface-note-border: 1px solid var(--blue-alpha-25);
+    --surface-note-bg: var(--blue-alpha-10);
     --surface-shadow: var(--glass-shadow-soft);
     --surface-shadow-deep: var(--glass-shadow-deep);
     --surface-blur: var(--glass-blur-sm);
@@ -147,13 +141,13 @@
     --surface-modal-backdrop-bg: var(--black-alpha-80);
     --surface-modal-backdrop-blur: blur(10px);
     --surface-modal-bg:
-        radial-gradient(circle at 100% 0%, var(--purple-alpha-15), transparent 34%),
+        radial-gradient(circle at 100% 0%, var(--blue-alpha-15), transparent 34%),
         radial-gradient(circle at 0% 0%, var(--blue-alpha-15), transparent 38%),
         var(--bg-panel);
     --surface-modal-shadow:
         0 30px 90px var(--black-alpha-80),
         0 0 40px var(--blue-alpha-15),
-        0 0 52px var(--purple-alpha-10);
+        0 0 52px var(--blue-alpha-10);
     --surface-padding: var(--space-md);
     --surface-padding-lg: var(--space-lg);
     --info-tile-min-height: 70px;
@@ -283,8 +277,8 @@
     --tech-tag-radius: var(--border-radius-micro);
     --tech-tag-font-size: 0.72rem;
     --tech-tag-letter-spacing: 0;
-    --tech-tag-border: 1px solid var(--purple-alpha-25);
-    --tech-tag-bg: var(--purple-alpha-10);
+    --tech-tag-border: 1px solid var(--blue-alpha-25);
+    --tech-tag-bg: var(--blue-alpha-10);
     --tech-tag-color: var(--primary-white);
 
     --form-label-color: var(--text-muted);

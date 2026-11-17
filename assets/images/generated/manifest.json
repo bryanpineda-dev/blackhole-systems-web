@@ -150,9 +150,9 @@
     {
       "id": "BH-021",
       "src": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
-      "width": 1440,
-      "height": 760,
-      "alt": "Grupo Enduro CR compatibility finder with vehicle and parts filters in a demo environment"
+      "width": 1425,
+      "height": 772,
+      "alt": "Live Grupo Enduro CR storefront with its brand header and vehicle compatibility filters"
     },
     {
       "id": "BH-022",
@@ -171,9 +171,9 @@
     {
       "id": "BH-024",
       "src": "assets/images/projects/bh-024-save-outpost.jpg",
-      "width": 1440,
-      "height": 810,
-      "alt": "Save Outpost diagram covering runs, progress, and friend comparisons without game artwork"
+      "width": 1280,
+      "height": 720,
+      "alt": "Public Save Outpost sign-in screen with its illustrated background and empty form"
     },
     {
       "id": "BH-025",
@@ -340,10 +340,10 @@
     },
     {
       "src": "assets/images/projects/bh-021-grupo-enduro-cr.jpg",
-      "sha256": "a95f34b0cdf3f6878f443cad477d1ed5908018aab98ce6174081145c4aeaecd1",
-      "bytes": 162114,
-      "width": 1440,
-      "height": 760
+      "sha256": "c41891311ed2c903404866e71150cc8f77fd16104b1311f9dc8ba222f839594a",
+      "bytes": 87849,
+      "width": 1425,
+      "height": 772
     },
     {
       "src": "assets/images/projects/bh-022-tu-assist.jpg",
@@ -361,10 +361,10 @@
     },
     {
       "src": "assets/images/projects/bh-024-save-outpost.jpg",
-      "sha256": "c8c12f655f88f99b134237a831fe0ce2c6e3c37530f648f1bfb4fa8734aa08da",
-      "bytes": 119669,
-      "width": 1440,
-      "height": 810
+      "sha256": "f8d645f71e7db10d754daf5962fd366ac002d287d3925ae318f8b8066582fa0d",
+      "bytes": 56770,
+      "width": 1280,
+      "height": 720
     },
     {
       "src": "assets/images/projects/bh-025-trash-world.jpg",
@@ -638,26 +638,6 @@
       "source": "assets/images/projects/bh-023-besos-inocentes.jpg",
       "psnr": 55.59264820614163,
       "meanError": 0.09318306992337165
-    },
-    {
-      "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
-      "width": 640,
-      "height": 360,
-      "bytes": 53113,
-      "sha256": "12a123a6f3ab2bcecd4e1c62e53fa664c7c6a6d87ca92b2d0f28f9a2f9382be7",
-      "source": "assets/images/projects/bh-024-save-outpost.jpg",
-      "psnr": 49.576667266312526,
-      "meanError": 0.275390625
-    },
-    {
-      "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
-      "width": 960,
-      "height": 540,
-      "bytes": 90042,
-      "sha256": "54ac4b6490b1b9027c49a6916bd933d9f6f9f96d0b93ac614a86653d555ed316",
-      "source": "assets/images/projects/bh-024-save-outpost.jpg",
-      "psnr": 50.7192480890438,
-      "meanError": 0.208525591563786
     }
   ],
   "projects": {
@@ -803,18 +783,6 @@
         "width": 960,
         "height": 580
       }
-    ],
-    "assets/images/projects/bh-024-save-outpost.jpg": [
-      {
-        "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
-        "width": 640,
-        "height": 360
-      },
-      {
-        "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
-        "width": 960,
-        "height": 540
-      }
     ]
   },
   "rejected": [
@@ -948,6 +916,18 @@
       "source": "assets/images/projects/bh-023-besos-inocentes.jpg",
       "width": 640,
       "reason": "exact-aspect-or-size"
+    },
+    {
+      "source": "assets/images/projects/bh-024-save-outpost.jpg",
+      "width": 640,
+      "reason": "insufficient-byte-saving",
+      "bytes": 53179
+    },
+    {
+      "source": "assets/images/projects/bh-024-save-outpost.jpg",
+      "width": 960,
+      "reason": "insufficient-byte-saving",
+      "bytes": 106946
     },
     {
       "source": "assets/images/projects/bh-025-trash-world.jpg",

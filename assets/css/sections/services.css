@@ -275,8 +275,8 @@
 }
 .capability-card .card-bullets li::before,
 .capability-card .card-bullets li > i {
-    color: var(--accent-purple, #9b5cff);
-    filter: drop-shadow(0 0 4px rgba(var(--accent-purple-rgb), 0.28));
+    color: var(--primary-blue, #0062ff);
+    filter: drop-shadow(0 0 4px rgba(var(--primary-blue-rgb), 0.28));
     transition:
         color var(--motion-transition-fast),
         filter var(--motion-transition-fast);
@@ -285,6 +285,6 @@
 .capability-card:hover .card-bullets li::before,
 .capability-card:hover .card-bullets li > i {
     filter:
-        drop-shadow(0 0 5px rgba(var(--accent-purple-rgb), 0.42))
-        drop-shadow(0 0 10px rgba(var(--accent-purple-rgb), 0.22));
+        drop-shadow(0 0 5px rgba(var(--primary-blue-rgb), 0.42))
+        drop-shadow(0 0 10px rgba(var(--primary-blue-rgb), 0.22));
 }

@@ -1,7 +1,7 @@
 /* Shared brand primitives. Load before the page-specific stylesheet. */
-@import 'variables.css';
+@import 'variables.css?v=1.0.21';
 @import 'base.css';
 @import 'utilities.css';
-@import 'components.css';
+@import 'components.css?v=1.0.21';
 @import 'animations.css';
 @import 'effects/star-field.css?v=1.0.14';

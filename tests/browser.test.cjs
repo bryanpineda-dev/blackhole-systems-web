@@ -49,16 +49,44 @@ async function freezeClock(page) {
 }
 
 async function assertFullPreview(image) {
-    const geometry = await image.evaluate((element) => ({
-        width: element.clientWidth, height: element.clientHeight,
-        expectedHeight: element.clientWidth * Number(element.getAttribute('height')) / Number(element.getAttribute('width')),
-        frameWidth: element.parentElement.clientWidth,
-        frameHeight: element.parentElement.clientHeight
-    }));
+    const geometry = await image.evaluate((element) => {
+        const card = element.closest('.dossier-screen');
+        const ratio = card ? 9 / 16 : Number(element.getAttribute('height')) / Number(element.getAttribute('width'));
+        return {
+            width: element.clientWidth, height: element.clientHeight,
+            expectedHeight: element.clientWidth * ratio,
+            frameWidth: element.parentElement.clientWidth,
+            frameHeight: element.parentElement.clientHeight,
+            fit: getComputedStyle(element).objectFit
+        };
+    });
     assert.ok(geometry.width > 0 && geometry.height > 0);
     assert.ok(Math.abs(geometry.width - geometry.frameWidth) <= 1, 'preview fills the frame width');
     assert.ok(Math.abs(geometry.height - geometry.frameHeight) <= 1, 'frame follows the image height');
-    assert.ok(Math.abs(geometry.height - geometry.expectedHeight) <= 1, 'preview retains its intrinsic proportions');
+    assert.ok(Math.abs(geometry.height - geometry.expectedHeight) <= 1, 'the card frame or intrinsic modal aspect ratio is preserved');
+    assert.equal(geometry.fit, 'contain');
+}
+
+async function assertCardTags(card) {
+    const layout = await card.evaluate(element => {
+        const tags = element.querySelector('.d-tags');
+        const footer = element.querySelector('.dossier-footer');
+        const chips = [...tags.children];
+        const rows = new Set(chips.map(chip => chip.offsetTop)).size;
+        const tagsBox = tags.getBoundingClientRect();
+        return {
+            count: chips.length,
+            rows,
+            contained: chips.every(chip => chip.scrollWidth <= chip.clientWidth + 1 &&
+                chip.getBoundingClientRect().right <= tagsBox.right + 1),
+            gap: footer.getBoundingClientRect().top - tagsBox.bottom,
+            margin: parseFloat(getComputedStyle(tags).marginBottom)
+        };
+    });
+    assert.equal(layout.count, 4, 'all cards show the same number of labels');
+    assert.equal(layout.rows, 2, 'labels keep two aligned rows');
+    assert.equal(layout.contained, true, 'labels wrap within their chips');
+    assert.ok(Math.abs(layout.gap - layout.margin) <= 1, 'no artificial gap between labels and actions');
 }
 
 test('standalone boot isolates failures and does not rerun successful modules', async () => {
@@ -277,7 +305,8 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 assert.ok(Math.abs(info.width / info.height - preview.width / preview.height) < 0.01, 'density-corrected intrinsic proportions stay valid');
                 assert.equal(info.fit, 'contain'); assert.equal(info.loading, 'lazy');
                 await assertFullPreview(image);
-                const capture = process.env.BLACKHOLE_QA_DIR && ['BH-023', 'BH-024', 'BH-025'].includes(id);
+                await assertCardTags(card);
+                const capture = process.env.BLACKHOLE_QA_DIR && ['BH-020', 'BH-021', 'BH-024'].includes(id);
                 if (capture) {
                     await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
                     await card.screenshot({ path: path.join(process.env.BLACKHOLE_QA_DIR, `project-card-${id}-${viewport.width}.png`), animations: 'disabled' });
@@ -357,6 +386,7 @@ for (const viewport of [
             await card.scrollIntoViewIfNeeded();
             await card.locator('[data-project-preview]').evaluate((image) => image.decode());
             await assertFullPreview(card.locator('[data-project-preview]'));
+            await assertCardTags(card);
             const documentWidthBefore = await page.locator('html').evaluate((element) => element.scrollWidth);
             await card.locator('[data-project-details]').click();
             const modal = page.locator('[data-project-modal]');

@@ -545,7 +545,7 @@
         },
         {
             id: 'BH-021',
-            preview: { src: 'assets/images/projects/bh-021-grupo-enduro-cr.jpg', width: 1440, height: 760, alt: 'Grupo Enduro CR compatibility finder with vehicle and parts filters in a demo environment' },
+            preview: { src: 'assets/images/projects/bh-021-grupo-enduro-cr.jpg', width: 1425, height: 772, alt: 'Live Grupo Enduro CR storefront with its brand header and vehicle compatibility filters' },
             name: 'Grupo Enduro CR',
             url: 'https://endurocr.com/',
             status: 'IN_PROGRESS',
@@ -629,8 +629,9 @@
         },
         {
             id: 'BH-024',
-            preview: { src: 'assets/images/projects/bh-024-save-outpost.jpg', width: 1440, height: 810, alt: 'Save Outpost diagram covering runs, progress, and friend comparisons without game artwork' },
+            preview: { src: 'assets/images/projects/bh-024-save-outpost.jpg', width: 1280, height: 720, alt: 'Public Save Outpost sign-in screen with its illustrated background and empty form' },
             name: 'Save Outpost',
+            url: 'https://saveoutpost.blackholesys.com/',
             status: 'EXPERIMENT',
             statusType: 'private',
             icon: 'ri-code-box-line',

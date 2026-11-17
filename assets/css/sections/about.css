@@ -10,7 +10,7 @@
 .about-content-left { padding-right: var(--space-xl); }
 
 #about .hud-text-block {
-    --hud-line-color: var(--accent-purple);
+    --hud-line-color: var(--primary-blue);
 }
 
 /* Sci-Fi Bullets */

@@ -22,7 +22,7 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 88% 12%, var(--purple-alpha-10), transparent 28%),
+        radial-gradient(circle at 88% 12%, var(--blue-alpha-10), transparent 28%),
         radial-gradient(circle at 58% 92%, var(--blue-alpha-10), transparent 32%);
     opacity: 0.8;
     pointer-events: none;
@@ -99,7 +99,7 @@
     width: fit-content;
     margin-bottom: var(--space-md);
     padding: 0 0 0 13px;
-    border-left: 1px solid var(--purple-alpha-25);
+    border-left: 1px solid var(--blue-alpha-25);
     color: var(--white-alpha-50);
     font-family: var(--font-code);
     font-size: var(--kicker-font-size);
@@ -340,12 +340,12 @@
     gap: 10px;
     color: var(--white-alpha-15);
     background:
-        radial-gradient(circle at 72% 22%, var(--purple-alpha-15), transparent 30%),
+        radial-gradient(circle at 72% 22%, var(--blue-alpha-15), transparent 30%),
         radial-gradient(circle at 50% 40%, var(--blue-alpha-15), transparent 42%),
         linear-gradient(135deg, transparent, var(--white-alpha-03));
 }
 
-.screen-placeholder:has(> .project-preview-image) {
+.project-modal-screen .screen-placeholder:has(> .project-preview-image) {
     aspect-ratio: auto;
 }
 
@@ -360,6 +360,12 @@
     height: auto;
     object-fit: contain;
     background: var(--bg-screen);
+}
+
+.dossier-screen .project-preview-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
 }
 
 .screen-placeholder i {
@@ -441,15 +447,24 @@
 }
 
 .d-tags {
-    margin: var(--space-sm) 0 var(--space-md);
-    display: flex;
-    flex-wrap: wrap;
+    margin: auto 0 var(--space-md);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    grid-auto-rows: 1fr;
+    justify-content: start;
+    justify-items: start;
     gap: var(--chip-gap, 8px);
+}
+
+.d-tags .tech-tag {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 /* Project card footer. */
 .dossier-footer{
-    margin-top: auto; /* Pushes the actions to the bottom of the info column. */
     padding-top: var(--space-sm);
     border-top: 1px solid var(--white-alpha-05);
     display: flex;
@@ -640,7 +655,7 @@ body.project-modal-open {
 }
 
 .project-modal-scroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary-blue), var(--accent-purple));
+    background: linear-gradient(180deg, var(--primary-blue), var(--primary-blue));
     border-radius: var(--border-radius-pill);
 }
 

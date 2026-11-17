@@ -150,12 +150,12 @@ const createBlackholeRenderer = async (stage, onReady) => {
         const deepBlue = vec3(0.0, 0.02, 0.13);
         const brandBlue = vec3(0.0, 0.384, 1.0);
         const vividBlue = vec3(0.0, 0.12, 0.9);
-        const brandPurple = vec3(0.18, 0.035, 0.48);
+        const shadowBlue = vec3(0.0, 0.16, 0.48);
         const coldHighlight = vec3(0.0, 0.384, 1.0);
         const blueBand = mix(deepBlue, vividBlue, smoothstep(float(0.0), float(0.42), t));
         const brandBand = mix(blueBand, brandBlue, smoothstep(float(0.18), float(0.68), t));
-        const purpleTrace = mix(brandBand, brandPurple, smoothstep(float(0.44), float(0.84), t).mul(0.08));
-        return mix(purpleTrace, coldHighlight, smoothstep(float(0.9), float(1.0), t).mul(0.18));
+        const blueTrace = mix(brandBand, shadowBlue, smoothstep(float(0.44), float(0.84), t).mul(0.08));
+        return mix(blueTrace, coldHighlight, smoothstep(float(0.9), float(1.0), t).mul(0.18));
     });
 
     const uniforms = {

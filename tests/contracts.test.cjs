@@ -70,7 +70,7 @@ test('portfolio records, filters and rendering share a valid unique dataset', ()
     const reportStudio = namespace.projects.find(project => project.id === 'BH-019');
     assert.equal(namespace.getProjectLink(reportStudio).label, 'SOURCE_CODE');
     assert.equal(namespace.getProjectLink(reportStudio).href, 'https://github.com/bryanpineda-dev/field-report-studio');
-    for (const [id, filter] of [['BH-020', 'systems'], ['BH-023', 'systems'], ['BH-024', 'lab']]) {
+    for (const [id, filter] of [['BH-020', 'systems'], ['BH-023', 'systems']]) {
         const project = namespace.projects.find(project => project.id === id);
         assert.equal(namespace.getProjectLink(project), null);
         assert.doesNotMatch(namespace.renderProjectCard(project), /<a\b|LIVE_URL|SOURCE_CODE/);
@@ -80,6 +80,8 @@ test('portfolio records, filters and rendering share a valid unique dataset', ()
     assert.equal(getLink('BH-021').href, 'https://endurocr.com/');
     assert.equal(getLink('BH-022').href, 'https://sauex.com/');
     assert.equal(getLink('BH-022').label, 'LIVE_URL');
+    assert.equal(getLink('BH-024').href, 'https://saveoutpost.blackholesys.com/');
+    assert.equal(getLink('BH-024').label, 'LIVE_URL');
     assert.equal(getLink('BH-025').label, 'SOURCE_CODE');
     assert.deepEqual(Array.from(namespace.projects.filter(project => project.filters.includes('lab')), project => project.id), ['BH-024', 'BH-025']);
     assert.ok(read('index.html').includes('Andrea'));

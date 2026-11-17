@@ -36,9 +36,9 @@
             from 180deg at 50% 70%,
             rgba(255, 255, 255, 0.88) 0deg,
             rgba(var(--primary-blue-rgb), 0.98) 72deg,
-            rgba(var(--accent-purple-rgb), 0.78) 144deg,
+            rgba(var(--primary-blue-rgb), 0.78) 144deg,
             rgba(var(--primary-blue-rgb), 0.72) 216deg,
-            rgba(var(--accent-purple-rgb), 0.72) 288deg,
+            rgba(var(--primary-blue-rgb), 0.72) 288deg,
             rgba(255, 255, 255, 0.88) 1turn
         );
     -webkit-mask:
@@ -99,7 +99,7 @@
             rgba(var(--primary-blue-rgb), 0.72) 82deg,
             transparent 104deg,
             transparent 210deg,
-            rgba(var(--accent-purple-rgb), 0.38) 230deg,
+            rgba(var(--primary-blue-rgb), 0.38) 230deg,
             rgba(var(--primary-blue-rgb), 0.44) 246deg,
             transparent 272deg,
             transparent 1turn

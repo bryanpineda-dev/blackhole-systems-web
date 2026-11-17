@@ -232,10 +232,10 @@
 }
 
 .qr-hero-proof i {
-    color: var(--accent-purple);
+    color: var(--primary-blue);
     font-size: 1rem;
     line-height: 1;
-    filter: drop-shadow(0 0 5px rgba(var(--accent-purple-rgb), 0.42));
+    filter: drop-shadow(0 0 5px rgba(var(--primary-blue-rgb), 0.42));
     animation: qrProofIconGlow 3s ease-in-out infinite;
 }
 
@@ -277,7 +277,7 @@
     border-radius: var(--border-radius-circle);
     background:
         radial-gradient(circle at 28% 36%, rgba(var(--primary-blue-rgb), 0.2), transparent 36%),
-        radial-gradient(circle at 74% 58%, rgba(var(--accent-purple-rgb), 0.16), transparent 38%),
+        radial-gradient(circle at 74% 58%, rgba(var(--primary-blue-rgb), 0.16), transparent 38%),
         radial-gradient(circle at 52% 82%, rgba(var(--primary-blue-rgb), 0.12), transparent 44%);
     filter: blur(42px);
     opacity: 0.86;
@@ -409,9 +409,9 @@
     gap: 8px;
     min-height: 34px;
     padding: 8px 14px;
-    border: 1px solid var(--purple-alpha-25);
+    border: 1px solid var(--blue-alpha-25);
     border-radius: var(--border-radius-pill);
-    background: var(--purple-alpha-10);
+    background: var(--blue-alpha-10);
     color: var(--primary-white);
     font-family: var(--font-code);
     font-size: 0.72rem;
@@ -425,8 +425,8 @@
     width: 8px;
     height: 8px;
     border-radius: var(--border-radius-circle);
-    background: var(--accent-purple);
-    box-shadow: 0 0 12px rgba(var(--accent-purple-rgb), 0.5);
+    background: var(--primary-blue);
+    box-shadow: 0 0 12px rgba(var(--primary-blue-rgb), 0.5);
 }
 
 /* --------------------------------------------------------------------------
@@ -1122,12 +1122,12 @@
 @keyframes qrProofIconGlow {
     0%,
     100% {
-        filter: drop-shadow(0 0 2px rgba(var(--accent-purple-rgb), 0.28));
+        filter: drop-shadow(0 0 2px rgba(var(--primary-blue-rgb), 0.28));
         opacity: 0.82;
     }
 
     50% {
-        filter: drop-shadow(0 0 10px rgba(var(--accent-purple-rgb), 0.75));
+        filter: drop-shadow(0 0 10px rgba(var(--primary-blue-rgb), 0.75));
         opacity: 1;
     }
 }

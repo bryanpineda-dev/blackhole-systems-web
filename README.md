@@ -88,20 +88,15 @@ Browser tests use installed Google Chrome by default and intercepted local resou
 
 ## Current Version
 
-Website version: **1.0.20**
+Website version: **1.0.21**
 
-Deployment tag: `v1.0.20`
+Deployment tag: `v1.0.21`
 
 Release changes:
 
-- Add Field Report Studio and PresenceCue to the archive as Python applications, with a real dashboard capture and a labeled workflow diagram respectively.
-- Link Field Report Studio to its public source code and keep PresenceCue's repository private. Keep both projects discoverable through the existing Systems filter and project assistant.
-- Add in-progress case studies for Grupo Enduro CR and Tu Assist with demo previews and project links. Use the new `sauex.com` domain for Tu Assist.
-- Refresh the SEBANA Matriz, ALAI Boutique, Coxbrand Academy, Entre Cantones and Troleando por Mexico case studies to reflect their documented implementation.
-- Add Besos Inocentes with a data-free registration preview and introduce the Lab filter for Save Outpost and Trash World.
-- Pair recognized technologies in project detail modals with icons from the existing local SVG sprite. Keep readable labels and leave feature-only tags as text.
-- Document WooCommerce in ALAI Boutique and WordPress in Coxbrand Academy without changing their card tags.
-- Verify icon rendering and wrapping on desktop and mobile while preserving project previews, modal interactions and QR Studio.
+- Replace the Enduro and Save Outpost previews with captures from their public storefront and sign-in page, and link Save Outpost to its live site.
+- Align portfolio cards with 16:9 preview frames and two rows of tags next to their actions. Keep full image proportions in the modals and leave every project label available.
+- Use the Blackhole blue accent in the landing and QR Studio, including the hero shader palette, without changing animation timings or recoloring project screenshots.
 
 The configured production domain is `blackholesys.com`. Hosting compression, cache behavior and physical-device performance still require validation on the actual deployment; local tests do not certify those conditions.
 

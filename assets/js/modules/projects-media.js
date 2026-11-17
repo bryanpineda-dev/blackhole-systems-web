@@ -146,18 +146,6 @@
                 "width": 960,
                 "height": 580
             }
-        ],
-        "assets/images/projects/bh-024-save-outpost.jpg": [
-            {
-                "src": "assets/images/generated/projects/bh-024-save-outpost-640.jpg",
-                "width": 640,
-                "height": 360
-            },
-            {
-                "src": "assets/images/generated/projects/bh-024-save-outpost-960.jpg",
-                "width": 960,
-                "height": 540
-            }
         ]
     }
 };

@@ -8,7 +8,7 @@
     const stage = document.querySelector('[data-hero-blackhole]');
     if (!stage?.closest('.hero-section') || !('gpu' in navigator)) return;
 
-    BH.heroBlackholeReady = import('./hero-blackhole.js').catch(error => {
+    BH.heroBlackholeReady = import('./hero-blackhole.js?v=1.0.21').catch(error => {
         console.warn('[Blackhole Systems] WebGPU hero module fallback active:', error);
     });
 })(window.BlackholeSystems = window.BlackholeSystems || {});
