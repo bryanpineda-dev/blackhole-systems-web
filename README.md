@@ -88,15 +88,14 @@ Browser tests use installed Google Chrome by default and intercepted local resou
 
 ## Current Version
 
-Website version: **1.0.21**
+Website version: **1.0.22**
 
-Deployment tag: `v1.0.21`
+Deployment tag: `v1.0.22`
 
 Release changes:
 
-- Replace the Enduro and Save Outpost previews with captures from their public storefront and sign-in page, and link Save Outpost to its live site.
-- Align portfolio cards with 16:9 preview frames and two rows of tags next to their actions. Keep full image proportions in the modals and leave every project label available.
-- Use the Blackhole blue accent in the landing and QR Studio, including the hero shader palette, without changing animation timings or recoloring project screenshots.
+- Replace rectangular portfolio tags with four evenly spaced circular icons using the existing local SVG sprite.
+- Keep the technology names available through hover labels, assistive technology, and the unchanged full stack in project details.
 
 The configured production domain is `blackholesys.com`. Hosting compression, cache behavior and physical-device performance still require validation on the actual deployment; local tests do not certify those conditions.
 

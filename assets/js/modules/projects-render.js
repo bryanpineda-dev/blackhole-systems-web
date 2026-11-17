@@ -26,6 +26,50 @@
         ['WhatsApp', ['ri-whatsapp-fill']]
     ]);
 
+    const cardStackIcons = new Map([
+        ['Authors', 'ri-user-star-line'],
+        ['Brand', 'ri-artboard-2-line'],
+        ['Brand System', 'ri-artboard-2-line'],
+        ['Cafe', 'ri-cup-line'],
+        ['Canvas 2D', 'ri-artboard-2-line'],
+        ['Catalog', 'ri-layout-grid-line'],
+        ['Commerce', 'ri-shopping-cart-2-line'],
+        ['Computer Vision', 'ri-crosshair-2-line'],
+        ['Content', 'ri-pages-line'],
+        ['Corporate', 'ri-building-4-line'],
+        ['CRM', 'ri-team-line'],
+        ['Custom Plugin', 'ri-apps-2-line'],
+        ['Dashboard', 'ri-dashboard-3-line'],
+        ['E-Commerce', 'ri-shopping-cart-2-line'],
+        ['Editorial', 'ri-newspaper-line'],
+        ['Education', 'ri-graduation-cap-line'],
+        ['Events', 'ri-calendar-check-line'],
+        ['Forms', 'ri-pages-line'],
+        ['FotoShare', 'ri-image-add-line'],
+        ['Game Checklists', 'ri-check-double-line'],
+        ['Internal Systems', 'ri-server-line'],
+        ['Landing', 'ri-pages-line'],
+        ['Local Data', 'ri-server-line'],
+        ['Local Storage', 'ri-server-line'],
+        ['Menu', 'ri-pages-line'],
+        ['Moderation', 'ri-shield-check-line'],
+        ['Multipage', 'ri-pages-line'],
+        ['Payments', 'ri-bank-line'],
+        ['PDF Export', 'ri-download-cloud-line'],
+        ['PDF Search', 'ri-file-search-line'],
+        ['Pixel Art', 'ri-layout-grid-line'],
+        ['Progress Tracking', 'ri-route-line'],
+        ['Redesign', 'ri-sparkling-line'],
+        ['Reservations', 'ri-calendar-check-line'],
+        ['Sales', 'ri-shopping-bag-3-line'],
+        ['Shortcodes', 'ri-code-s-slash-line'],
+        ['SQLite', 'ri-node-tree'],
+        ['Travel', 'ri-plane-line'],
+        ['TypeScript', 'ri-code-box-line'],
+        ['Vehicle Compatibility', 'ri-route-line'],
+        ['Windows', 'ri-computer-line']
+    ]);
+
     function renderIcon(icon, viewBox = '0 0 24 24') {
         const id = escapeHtml(icon);
         return `<i class="${id} bh-icon" aria-hidden="true"><svg class="bh-icon-svg" viewBox="${viewBox}" aria-hidden="true" focusable="false"><use href="assets/icons/icons.svg?v=1.0.10#${id}"></use></svg></i>`;
@@ -91,9 +135,11 @@
     }
 
     function renderProjectCard(project) {
-        const tags = project.stack.slice(0, 4)
-            .map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`)
-            .join('');
+        const tech = project.stack.slice(0, 4).map((tag) => {
+            const label = escapeHtml(tag);
+            const icon = stackIcons.get(tag) || [cardStackIcons.get(tag) || 'ri-stack-line'];
+            return `<span class="d-tech-icon" role="img" aria-label="${label}" title="${label}">${renderIcon(...icon)}</span>`;
+        }).join('');
         const link = getProjectLink(project);
 
         return `
@@ -116,7 +162,7 @@
                         <span class="d-type">${escapeHtml(project.industry)}</span>
                     </div>
                     <p class="d-desc">${escapeHtml(project.summary)}</p>
-                    <div class="d-tags">${tags}</div>
+                    <div class="d-tech" role="group" aria-label="Project technologies">${tech}</div>
 
                     <div class="dossier-footer">
                         <div class="d-actions">

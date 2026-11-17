@@ -67,26 +67,58 @@ async function assertFullPreview(image) {
     assert.equal(geometry.fit, 'contain');
 }
 
-async function assertCardTags(card) {
-    const layout = await card.evaluate(element => {
-        const tags = element.querySelector('.d-tags');
-        const footer = element.querySelector('.dossier-footer');
-        const chips = [...tags.children];
-        const rows = new Set(chips.map(chip => chip.offsetTop)).size;
-        const tagsBox = tags.getBoundingClientRect();
-        return {
-            count: chips.length,
-            rows,
-            contained: chips.every(chip => chip.scrollWidth <= chip.clientWidth + 1 &&
-                chip.getBoundingClientRect().right <= tagsBox.right + 1),
-            gap: footer.getBoundingClientRect().top - tagsBox.bottom,
-            margin: parseFloat(getComputedStyle(tags).marginBottom)
-        };
+for (const width of [320, 390, 1440, 1920]) {
+    test(`project card technology icons align without overflow at ${width}px`, async () => {
+        await withPage({ viewport: { width, height: 960 } }, async (page, errors) => {
+            await page.locator('#page-loader').waitFor({ state: 'detached' });
+            const cards = page.locator('.dossier-card');
+            assert.equal(await cards.count(), 24);
+            await page.waitForFunction(() => [...document.querySelectorAll('.d-tech-icon svg')]
+                .every(icon => icon.getBBox().width > 0));
+            const rows = await cards.evaluateAll(elements => elements.map(card => {
+                const row = card.querySelector('.d-tech');
+                const footer = card.querySelector('.dossier-footer');
+                const rowBox = row.getBoundingClientRect();
+                const icons = [...row.children];
+                const boxes = icons.map(icon => icon.getBoundingClientRect());
+                const step = parseFloat(getComputedStyle(row).columnGap);
+                return {
+                    id: card.dataset.projectId,
+                    count: boxes.length,
+                    circular: icons.every((icon, i) => {
+                        const radius = getComputedStyle(icon).borderTopLeftRadius;
+                        return boxes[i].width > 0 && boxes[i].width === boxes[i].height &&
+                            (radius === '50%' || (radius.endsWith('px') && parseFloat(radius) >= boxes[i].width / 2));
+                    }),
+                    aligned: boxes.every((box, i) => box.top === boxes[0].top &&
+                        box.width === boxes[0].width && box.right <= rowBox.right + 1 &&
+                        Math.abs(box.left - (i ? boxes[i - 1].right + step : rowBox.left)) <= 1),
+                    labelled: icons.every(icon => icon.title && icon.title === icon.getAttribute('aria-label')),
+                    gap: footer.getBoundingClientRect().top - rowBox.bottom,
+                    margin: parseFloat(getComputedStyle(row).marginBottom)
+                };
+            }));
+            for (const row of rows) {
+                assert.ok(row.count === 4 && row.circular && row.aligned && row.labelled, JSON.stringify(row));
+                assert.ok(Math.abs(row.gap - row.margin) <= 1, `${row.id}: icon-to-footer spacing`);
+            }
+            assert.deepEqual(errors, []);
+            if (process.env.BLACKHOLE_QA_DIR && [390, 1440].includes(width)) {
+                await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
+                for (const id of width === 1440 ? ['BH-003', 'BH-004'] : ['BH-003']) {
+                    const card = page.locator(`[data-project-id="${id}"]`);
+                    await card.evaluate(element => window.scrollTo({
+                        top: window.scrollY + element.getBoundingClientRect().top - 120, behavior: 'instant'
+                    }));
+                    await card.locator('[data-project-preview]').evaluate(image => image.decode());
+                    await card.screenshot({
+                        path: path.join(process.env.BLACKHOLE_QA_DIR, `project-icons-${id}-${width}.png`),
+                        animations: 'disabled'
+                    });
+                }
+            }
+        });
     });
-    assert.equal(layout.count, 4, 'all cards show the same number of labels');
-    assert.equal(layout.rows, 2, 'labels keep two aligned rows');
-    assert.equal(layout.contained, true, 'labels wrap within their chips');
-    assert.ok(Math.abs(layout.gap - layout.margin) <= 1, 'no artificial gap between labels and actions');
 }
 
 test('standalone boot isolates failures and does not rerun successful modules', async () => {
@@ -305,7 +337,6 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
                 assert.ok(Math.abs(info.width / info.height - preview.width / preview.height) < 0.01, 'density-corrected intrinsic proportions stay valid');
                 assert.equal(info.fit, 'contain'); assert.equal(info.loading, 'lazy');
                 await assertFullPreview(image);
-                await assertCardTags(card);
                 const capture = process.env.BLACKHOLE_QA_DIR && ['BH-020', 'BH-021', 'BH-024'].includes(id);
                 if (capture) {
                     await fs.mkdir(process.env.BLACKHOLE_QA_DIR, { recursive: true });
@@ -386,7 +417,6 @@ for (const viewport of [
             await card.scrollIntoViewIfNeeded();
             await card.locator('[data-project-preview]').evaluate((image) => image.decode());
             await assertFullPreview(card.locator('[data-project-preview]'));
-            await assertCardTags(card);
             const documentWidthBefore = await page.locator('html').evaluate((element) => element.scrollWidth);
             await card.locator('[data-project-details]').click();
             const modal = page.locator('[data-project-modal]');

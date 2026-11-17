@@ -123,10 +123,25 @@ test('project modal stacks render accessible local icons and keep unknown tags a
         '<span class="tech-tag"><span>&lt;Custom&gt;</span></span><span class="tech-tag"><span>constructor</span></span>');
     for (const project of namespace.projects) {
         assert.match(namespace.renderProjectStack(project.stack), /<svg/);
-        const cardTags = namespace.renderProjectCard(project).match(/<div class="d-tags">(.*?)<\/div>/)[1];
-        assert.doesNotMatch(cardTags, /<svg/);
-        assert.equal((cardTags.match(/class="tech-tag"/g) || []).length, 4);
     }
+});
+
+test('project cards render four distinct, labelled local technology icons', () => {
+    const namespace = load(['assets/js/modules/projects-data.js', 'assets/js/modules/projects-render.js']).BlackholeSystemsProjects;
+    const technologyRow = project => namespace.renderProjectCard(project).match(/<div class="d-tech" role="group" aria-label="Project technologies">(.*?)<\/div>/)[1];
+    for (const project of namespace.projects) {
+        const row = technologyRow(project);
+        const labels = [...row.matchAll(/role="img" aria-label="([^"]+)" title="\1"/g)].map(([, label]) => label);
+        const icons = [...row.matchAll(/<use href="assets\/icons\/icons\.svg\?v=1\.0\.10#([^"]+)"/g)].map(([, icon]) => icon);
+        assert.deepEqual(labels, Array.from(project.stack.slice(0, 4)), project.id);
+        assert.equal(icons.length, 4, project.id);
+        assert.equal(new Set(icons).size, 4, project.id);
+        assert.ok(!icons.includes('ri-stack-line'), `${project.id}: missing a specific icon`);
+        assert.doesNotMatch(row, /tech-tag|tabindex|<button/);
+    }
+    const fallback = technologyRow({ ...namespace.projects[0], stack: ['<New "tech">'] });
+    assert.match(fallback, /aria-label="&lt;New &quot;tech&quot;&gt;" title="&lt;New &quot;tech&quot;&gt;"/);
+    assert.match(fallback, /#ri-stack-line"/);
 });
 
 test('all project previews resolve to local reviewed JPEGs with stable dimensions and shared rendering', () => {

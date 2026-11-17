@@ -446,21 +446,25 @@
     line-height: 1.4;
 }
 
-.d-tags {
+.d-tech {
     margin: auto 0 var(--space-md);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    grid-auto-rows: 1fr;
-    justify-content: start;
-    justify-items: start;
-    gap: var(--chip-gap, 8px);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
 }
 
-.d-tags .tech-tag {
-    min-width: 0;
-    max-width: 100%;
-    white-space: normal;
-    overflow-wrap: anywhere;
+.d-tech-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    inline-size: var(--icon-orb-size-xs);
+    block-size: var(--icon-orb-size-xs);
+    border: var(--icon-orb-border);
+    border-radius: var(--icon-orb-radius);
+    background: var(--blue-alpha-05);
+    color: var(--primary-white);
+    font-size: var(--icon-orb-font-size-xs);
+    line-height: 1;
 }
 
 /* Project card footer. */
